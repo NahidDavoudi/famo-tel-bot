@@ -29,20 +29,13 @@ final class Bootstrap
         $runtimeFile = $config->get('BOT_RUNTIME_FILE') ?? $root . '/admin/data/bot-runtime.json';
         $logFile = $config->get('BOT_LOG_FILE') ?? $root . '/admin/data/logs.json';
 
-        $store = new LocalStore($storageDir);
-        $drainer = new OutboxDrainer(rtrim($storageDir, "/\\") . DIRECTORY_SEPARATOR . 'drain.lock', $stats);
+        $drainer = new OutboxDrainer(rtrim($storageDir, "/\\") . DIRECTORY_SEPARATOR . 'drain.lock');
 
-        return new self($config, $store, $stats, $logger, $drainer);
+        return new self($config, $drainer);
     }
 
     public function config(): Config { return $this->config; }
-    public function store(): LocalStore { return $this->store; }
     public function drainer(): OutboxDrainer { return $this->drainer; }
-
-    public function telegram(): TelegramClient
-    {
-        return $this->telegram ??= new TelegramClient($this->config->require('TELEGRAM_BOT_TOKEN'), $this->config->telegramBaseUrl());
-    }
 
     public function api(): FamoApiClient
     {
@@ -51,6 +44,6 @@ final class Bootstrap
 
     public function webhookHandler(): WebhookHandler
     {
-        return new WebhookHandler($this->config, $this->store, $this->stats, $this->logger, $this->drainer);
+        return new WebhookHandler($this->config,$this->logger, $this->drainer);
     }
 }

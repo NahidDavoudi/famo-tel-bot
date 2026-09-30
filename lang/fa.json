@@ -1,0 +1,16 @@
+{
+    "common.header": "فامو",
+    "common.intro": "به ربات فامو خوش آمدید.",
+
+    "start.description": "شروع کار با ربات",
+    "start.linked": "<b>{common.header}</b>\n{common.intro}",
+    "start.not_linked": "<b>{common.header}</b>\n{common.intro}\nبرای استفاده ابتدا حساب خود را متصل کنید: شماره تماس خود را ارسال کنید یا به سایت مراجعه کنید.",
+    "start.button.report": "گزارش دانش‌آموز",
+    "start.button.link": "اشتراک شماره تماس",
+
+    "help.description": "راهنمای دستورها",
+    "help.text": "دستورهای موجود:\n/start - شروع کار با ربات\n/help - راهنما\n/report - گزارش",
+
+    "report.description": "دریافت گزارش",
+    "report.text": "گزارش به‌زودی در دسترس قرار می‌گیرد."
+}

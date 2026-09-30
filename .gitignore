@@ -3,3 +3,4 @@
 .opencode/
 storage/*
 !storage/.htaccess
+public/error_log

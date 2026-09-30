@@ -3,17 +3,21 @@
 namespace App\Commands;
 
 use Telegram\Bot\Commands\Command;
+use App\Services\MessageService;
 
 class HelpCommand extends Command
 {
     protected string $name = 'help';
 
-    protected string $description = 'راهنمای دستورها';
+    public function __construct()
+    {
+        $this->description = MessageService::get('help.description');
+    }
 
     public function handle()
     {
         $this->replyWithMessage([
-            'text' => "دستورهای موجود:\n/start - شروع کار با ربات\n/help - راهنما\n/report - گزارش",
+            'text' => MessageService::get('help.text'),
         ]);
     }
 }

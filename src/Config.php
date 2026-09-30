@@ -13,6 +13,7 @@ final class Config
         'TELEGRAM_BOT_TOKEN', 'TELEGRAM_API_URL', 'BOT_WEBHOOK_URL',
         'BOT_WEBHOOK_SECRET', 'BOT_ROLLBACK_WEBHOOK_URL',
         'API_BASE_URL', 'BOT_SERVICE_KEY', 'BOT_INTERNAL_SECRET',
+        'FAMO_API_URL', 'FAMO_API_BASE_URL', 'FAMO_API_TOKEN', 'FAMO_SERVICE_KEY',
         'BOT_STORAGE_DIR', 'BOT_RUNTIME_FILE', 'BOT_LOG_FILE',
         'BOT_DRAIN_BUDGET_SECONDS', 'BOT_DRAIN_BATCH_LIMIT', 'BOT_MAX_CHAIN',
     ];
@@ -38,6 +39,13 @@ final class Config
                 $values[$key] = (string) $v;
             }
         }
+
+        // Accept the legacy Famo env names as aliases.
+        $values['API_BASE_URL'] ??= $values['FAMO_API_URL'] ?? $values['FAMO_API_BASE_URL'] ?? null;
+        $values['BOT_SERVICE_KEY'] ??= $values['FAMO_API_TOKEN'] ?? $values['FAMO_SERVICE_KEY'] ?? null;
+
+        $values = array_filter($values, static fn ($v) => $v !== null && $v !== '');
+
         return new self($values);
     }
 
