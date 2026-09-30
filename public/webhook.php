@@ -25,7 +25,7 @@ try {
     $bot = new Bot($config->require('TELEGRAM_BOT_TOKEN'));
     $bot->handle();
 } catch (\Throwable $e) {
-    error_log('bot webhook error: ' . $e->getMessage());
+    error_log('bot webhook error: ' . $e->getMessage() . ' ' . $e->getTraceAsString() ?? '' . ' ' . $e->getCode() ?? '');
 }
 
 http_response_code(200);

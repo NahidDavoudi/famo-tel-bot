@@ -21,6 +21,10 @@ class StartCommand extends Command
         $chatId = (int) $this->getUpdate()->getChat()->id;
         $isLinked = IdentityService::isLinked($chatId);
 
+        $this->replyWithMessage([
+            'text' => MessageService::get('identity.loading'),
+        ]);
+
         $replyMarkup = $isLinked
             ? Keyboard::make()
                 ->inline()
@@ -38,7 +42,9 @@ class StartCommand extends Command
                     ]),
                 ]);
 
-        $this->replyWithMessage([
+        $this->telegram->editMessageText([
+            'chat_id' => $chatId,
+            'message_id' => $this->getUpdate()->getMessage()->messageId,
             'text' => MessageService::get($isLinked ? 'start.linked' : 'start.not_linked'),
             'reply_markup' => $replyMarkup,
         ]);
