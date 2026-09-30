@@ -17,7 +17,7 @@ if (!$update) {
 require_once dirname(__DIR__) . '/src/Bot.php';
 
 $bot = new Bot($_ENV['TELEGRAM_BOT_TOKEN']);
-
+$bot->addCommand(StartCommand::class);
 $bot->handle($update);
-
+$bot->commandsHandler(true);
 http_response_code(200);
