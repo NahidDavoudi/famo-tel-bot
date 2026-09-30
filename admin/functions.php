@@ -142,6 +142,22 @@ function getLogs(int $limit = 50): array
     return array_slice($logs, -$limit);
 }
 
+function getRuntimeFile(): string
+{
+    $path = $_ENV['BOT_RUNTIME_FILE'] ?? getenv('BOT_RUNTIME_FILE');
+    return ($path !== false && $path !== '' && $path !== null) ? (string) $path : getDataDir() . '/bot-runtime.json';
+}
+
+function getRuntimeSummary(): array
+{
+    $file = getRuntimeFile();
+    if (!is_file($file)) {
+        return [];
+    }
+    $data = json_decode((string) file_get_contents($file), true);
+    return is_array($data) ? $data : [];
+}
+
 function addLog(string $type, string $message, ?array $data = null): void
 {
     $logs = readJson(getDataDir() . '/logs.json');

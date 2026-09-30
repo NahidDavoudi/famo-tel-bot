@@ -20,6 +20,7 @@ if ($action === 'ajax') {
             case 'webhook-info': jsonResponse(getWebhookInfo($bot)); break;
             case 'bot-status': jsonResponse(getBotStatus()); break;
             case 'logs': jsonResponse(getLogs((int)($_GET['limit'] ?? 50))); break;
+            case 'runtime': jsonResponse(getRuntimeSummary()); break;
             case 'toggle-bot': jsonResponse(toggleBot($bot)); break;
             case 'set-webhook': jsonResponse(setWebhookAction($bot)); break;
             case 'delete-webhook': jsonResponse(deleteWebhookAction($bot)); break;
@@ -503,8 +504,7 @@ function renderVerifyPage(): void
 function renderDashboard(): void
 {
     $loginTime = $_SESSION['logged_in_at'] ?? '';
-    $botToken = $_ENV['TELEGRAM_BOT_TOKEN'] ?? '';
-    $botUsername = explode(':', $botToken)[0] ?? '';
+    $tokenConfigured = !empty($_ENV['TELEGRAM_BOT_TOKEN']);
     ?>
     <!DOCTYPE html>
     <html dir="rtl" lang="fa">
@@ -773,6 +773,10 @@ function renderDashboard(): void
                         <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                         لاگ‌ها
                     </a>
+                    <a onclick="switchTab('runtime')" data-tab="runtime">
+                        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        اجرای ربات
+                    </a>
                 </nav>
                 <div class="sidebar-footer">
                     <a href="/?action=logout">
@@ -800,10 +804,14 @@ function renderDashboard(): void
                 <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                 لاگ‌ها
             </a>
+            <a onclick="switchTab('runtime')" data-tab="runtime">
+                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                اجرای ربات
+            </a>
         </nav>
 
         <script>
-            var botToken = <?= json_encode($botToken) ?>;
+            var tokenConfigured = <?= $tokenConfigured ? 'true' : 'false' ?>;
             var loginTime = <?= json_encode($loginTime) ?>;
 
             let currentTab = 'overview';
@@ -828,6 +836,7 @@ function renderDashboard(): void
                     case 'overview': loadOverview(container); break;
                     case 'bot-info': loadBotInfo(container); break;
                     case 'logs': loadLogs(container); break;
+                    case 'runtime': loadRuntime(container); break;
                 }
             }
 
@@ -929,7 +938,6 @@ function renderDashboard(): void
                     var whDate = webhook.last_error_date
                         ? new Date(webhook.last_error_date * 1000).toLocaleString('fa-IR')
                         : '—';
-                    var maskedToken = info.id ? '••••' + botToken.slice(-6) : '—';
 
                     container.innerHTML =
                         '<div class="page-header">' +
@@ -945,7 +953,7 @@ function renderDashboard(): void
                                     '<tr><td>نام</td><td>' + (info.first_name || '—') + '</td></tr>' +
                                     '<tr><td>نام کاربری</td><td>@' + (info.username || '—') + '</td></tr>' +
                                     '<tr><td>آیدی</td><td style="font-family:Inter,monospace;direction:ltr;">' + (info.id || '—') + '</td></tr>' +
-                                    '<tr><td>توکن</td><td style="font-family:Inter,monospace;direction:ltr;font-size:12px;color:#737373;">' + maskedToken + '</td></tr>' +
+                                    '<tr><td>توکن</td><td>' + (tokenConfigured ? '<span class="badge badge-success">تنظیم شده</span>' : '<span class="badge badge-danger">تنظیم نشده</span>') + '</td></tr>' +
                                 '</table>' +
                             '</div>' +
                             '<div class="card">' +
@@ -984,7 +992,7 @@ function renderDashboard(): void
 
             function deleteWebhookAction() {
                 if (!confirm('آیا از حذف وب‌هوک اطمینان دارید؟')) return;
-                api('delete-webhook', { drop_pending: '1' }).then(function(res) {
+                api('delete-webhook', { drop_pending: '0' }).then(function(res) {
                     if (res.ok) { loadTab(currentTab); }
                 });
             }
@@ -1001,6 +1009,39 @@ function renderDashboard(): void
                         '<div style="text-align:center;padding:20px;color:#525252;">در حال بارگذاری...</div>' +
                     '</div>';
                 loadLogsInto(document.getElementById('logs-container'), 50);
+            }
+
+            function loadRuntime(container) {
+                api('runtime').then(function(res) {
+                    var s = res.data || {};
+                    var c = s.counters || {};
+                    container.innerHTML =
+                        '<div class="page-header">' +
+                            '<div><h1>اجرای ربات</h1>' +
+                            '<div class="subtitle">وضعیت هستهٔ جدید (Module 1)</div></div>' +
+                        '</div>' +
+                        '<div class="grid-4" style="margin-bottom:16px;">' +
+                            '<div class="card"><div class="card-title">آخرین وب‌هوک</div><div class="card-value" style="font-size:16px;">' + (s.last_webhook_at || '—') + '</div></div>' +
+                            '<div class="card"><div class="card-title">آخرین API موفق</div><div class="card-value" style="font-size:16px;">' + (s.last_api_ok_at || '—') + '</div></div>' +
+                            '<div class="card"><div class="card-title">آخرین API ناموفق</div><div class="card-value" style="font-size:16px;">' + (s.last_api_error_at || '—') + '</div></div>' +
+                            '<div class="card"><div class="card-title">آخرین drain</div><div class="card-value" style="font-size:16px;">' + (s.last_drain_at || '—') + '</div></div>' +
+                        '</div>' +
+                        '<div class="grid-4" style="margin-bottom:16px;">' +
+                            '<div class="card"><div class="card-title">ارسال‌شده</div><div class="card-value">' + (c.outbox_sent || 0) + '</div></div>' +
+                            '<div class="card"><div class="card-title">ناموفق</div><div class="card-value">' + (c.outbox_failed || 0) + '</div></div>' +
+                            '<div class="card"><div class="card-title">مسدود</div><div class="card-value">' + (c.outbox_blocked || 0) + '</div></div>' +
+                            '<div class="card"><div class="card-title">خطاها</div><div class="card-value">' + (c.errors || 0) + '</div></div>' +
+                        '</div>' +
+                        '<div class="card"><div class="card-title" style="margin-bottom:12px;">خطاهای اخیر</div>' +
+                            ((s.recent_errors && s.recent_errors.length)
+                                ? '<div class="table-wrap"><table><tr><th>زمان</th><th>پیام</th></tr>' +
+                                  s.recent_errors.map(function(e) { return '<tr><td class="log-time">' + e.time + '</td><td>' + e.message + '</td></tr>'; }).join('') +
+                                  '</table></div>'
+                                : '<div class="empty-state">خطایی ثبت نشده است</div>') +
+                        '</div>';
+                }).catch(function(err) {
+                    container.innerHTML = '<div class="empty-state">خطا: ' + err.message + '</div>';
+                });
             }
 
             function loadLogsInto(el, limit) {
