@@ -1,5 +1,7 @@
 <?php
 
+use Telegram\Bot\Api;
+
 require_once __DIR__ . '/admin/functions.php';
 
 startSession();
