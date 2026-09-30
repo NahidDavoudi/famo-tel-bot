@@ -1,6 +1,9 @@
 <?php
 
 use Telegram\Bot\Api;
+use App\Commands\StartCommand;
+use App\Commands\HelpCommand;
+use App\Commands\ReportCommand;
 
 class Bot
 {
@@ -9,23 +12,21 @@ class Bot
     public function __construct(string $token)
     {
         $this->telegram = new Api($token);
+
+        $this->registerCommands();
     }
 
-    public function handle(array $update): void
+    private function registerCommands(): void
     {
-        if (!isset($update['message'])) {
-            return;
-        }
+        $this->telegram->addCommands([
+            StartCommand::class,
+            HelpCommand::class,
+            ReportCommand::class,
+        ]);
+    }
 
-        $message = $update['message'];
-        $chatId = $message['chat']['id'];
-        $text = $message['text'] ?? '';
-
-        if ($text === '/start') {
-            $this->telegram->sendMessage([
-                'chat_id' => $chatId,
-                'text' => 'سلام 👋',
-            ]);
-        }
+    public function handle(): void
+    {
+        $this->telegram->commandsHandler(true);
     }
 }
