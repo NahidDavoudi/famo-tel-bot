@@ -19,12 +19,15 @@ class StartCommand extends Command
     public function handle()
     {
         $chatId = (int) $this->getUpdate()->getChat()->id;
-        $isLinked = IdentityService::isLinked($chatId);
 
         $this->replyWithMessage([
             'text' => MessageService::get('identity.loading'),
         ]);
 
+        
+        $isLinked = IdentityService::isLinked($chatId);
+
+        
         $replyMarkup = $isLinked
             ? Keyboard::make()
                 ->inline()
