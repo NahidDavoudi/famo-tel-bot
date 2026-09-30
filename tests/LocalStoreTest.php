@@ -28,4 +28,11 @@ checkSame(null, $store->getState('55'), 'clearState removes');
 $store->setMeta('last_drain', '2026-09-30T00:00:00Z');
 checkSame('2026-09-30T00:00:00Z', $store->getMeta('last_drain'), 'meta round-trips');
 
+check($store->acceptUpdate(201, ['update_id' => 201, 'message' => ['text' => 'a']]), 'acceptUpdate accepts a new id');
+check(!$store->acceptUpdate(201, ['update_id' => 201]), 'acceptUpdate rejects a repeated id');
+checkSame(1, count($store->dequeueUpdates(10)), 'accepted update is enqueued exactly once');
+checkSame([], $store->dequeueUpdates(10), 'queue is empty after drain');
+check(!$store->acceptUpdate(201, ['update_id' => 201]), 'processed id stays rejected after dequeue');
+checkSame([], $store->dequeueUpdates(10), 'drained/processed id is never re-enqueued');
+
 echo "OK\n";

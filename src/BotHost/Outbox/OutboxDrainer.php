@@ -16,9 +16,10 @@ final class OutboxDrainer
      * Module 1: acquire the single shared lock and record the drain time.
      * The claim/send/report loop is added in the Outbox module.
      *
+     * @param callable():void|null $work optional work executed while the drain lock is held
      * @return array{ran:bool, reason?:string, elapsed?:float}
      */
-    public function run(int $budgetSeconds): array
+    public function run(int $budgetSeconds, ?callable $work = null): array
     {
         $dir = dirname($this->lockFile);
         if (!is_dir($dir) && !mkdir($dir, 0770, true) && !is_dir($dir)) {
@@ -36,6 +37,9 @@ final class OutboxDrainer
         try {
             $start = microtime(true);
             $this->stats->recordDrain();
+            if ($work !== null) {
+                $work();
+            }
             return ['ran' => true, 'elapsed' => microtime(true) - $start];
         } finally {
             flock($lock, LOCK_UN);

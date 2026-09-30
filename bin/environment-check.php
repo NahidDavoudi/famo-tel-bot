@@ -36,25 +36,33 @@ $root = dirname(__DIR__);
 $storageDir = $config?->get('BOT_STORAGE_DIR') ?? $root . '/storage';
 $runtimeFile = $config?->get('BOT_RUNTIME_FILE') ?? $root . '/admin/data/bot-runtime.json';
 $logFile = $config?->get('BOT_LOG_FILE') ?? $root . '/admin/data/logs.json';
-$webRoot = realpath($root . '/public') ?: '';
-if ($webRoot !== '') {
-    $webRoot = rtrim($webRoot, "/\\") . DIRECTORY_SEPARATOR;
-}
+$documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? '';
+$webRoot = rtrim((string) (($documentRoot !== '' ? realpath($documentRoot) : false) ?: $root), "/\\") . DIRECTORY_SEPARATOR;
 foreach (['storage' => $storageDir, 'runtime' => dirname($runtimeFile), 'log' => dirname($logFile)] as $label => $path) {
     $exists = is_dir($path);
     line("{$label} dir", $path . ' exists=' . ($exists ? 'yes' : 'no') . ' writable=' . (is_writable($path) ? 'yes' : 'NO'));
-    if ($webRoot !== '' && str_starts_with((string) realpath($path), $webRoot)) {
+    if (str_starts_with((string) realpath($path), $webRoot)) {
         line("  warning", "{$label} path is inside the web root; set it outside for production");
     }
 }
 
+$missingKey = null;
 if ($configError !== null) {
-    $missing = '';
     if (preg_match('/^Missing required config: ([A-Z0-9_]+)$/', $configError->getMessage(), $m) === 1) {
-        $missing = " (missing {$m[1]})";
+        $missingKey = $m[1];
     }
+} elseif ($config !== null) {
+    foreach (['TELEGRAM_BOT_TOKEN', 'BOT_SERVICE_KEY'] as $required) {
+        if ($config->get($required) === null) {
+            $missingKey = $required;
+            break;
+        }
+    }
+}
+
+if ($configError !== null || $missingKey !== null) {
     echo "\n-- Config --\n";
-    line('config', 'INCOMPLETE' . $missing . '; check .env and set required variables');
+    line('config', 'INCOMPLETE' . ($missingKey !== null ? " (missing {$missingKey})" : '') . '; check .env and set required variables');
     echo "\nNo secrets were printed.\n";
     exit(0);
 }

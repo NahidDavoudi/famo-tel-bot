@@ -29,6 +29,9 @@ class TelegramClient
     protected function transport(string $url, array $params): array
     {
         $ch = curl_init($url);
+        if ($ch === false) {
+            throw new \RuntimeException('Telegram transport error: curl_init failed');
+        }
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POST => true,

@@ -35,9 +35,7 @@ final class WebhookHandler
 
             $updateId = (int) $update['update_id'];
 
-            $this->store->enqueueUpdate($updateId, $update);
-
-            if (!$this->store->markProcessed($updateId)) {
+            if (!$this->store->acceptUpdate($updateId, $update)) {
                 return 200;
             }
 
@@ -52,17 +50,16 @@ final class WebhookHandler
     public function finish(): void
     {
         try {
-            foreach ($this->store->dequeueUpdates($this->config->int('BOT_DRAIN_BATCH_LIMIT', 10)) as $item) {
-                // Dispatch to feature handlers is added in later modules.
-            }
+            $this->drainer->run(
+                $this->config->int('BOT_DRAIN_BUDGET_SECONDS', 20),
+                function (): void {
+                    foreach ($this->store->dequeueUpdates($this->config->int('BOT_DRAIN_BATCH_LIMIT', 10)) as $item) {
+                        // Dispatch to feature handlers is added in later modules.
+                    }
+                }
+            );
         } catch (\Throwable $e) {
             $this->recordInternalError($e);
-        } finally {
-            try {
-                $this->drainer->run($this->config->int('BOT_DRAIN_BUDGET_SECONDS', 20));
-            } catch (\Throwable $e) {
-                $this->recordInternalError($e);
-            }
         }
     }
 

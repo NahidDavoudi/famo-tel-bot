@@ -57,6 +57,9 @@ class FamoApiClient
     protected function http(string $method, string $url, array $headers, ?string $body): array
     {
         $ch = curl_init($url);
+        if ($ch === false) {
+            return ['status' => 0, 'body' => null, 'transport' => 'curl_init failed'];
+        }
         $opts = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => strtoupper($method),

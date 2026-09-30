@@ -814,6 +814,12 @@ function renderDashboard(): void
             var tokenConfigured = <?= $tokenConfigured ? 'true' : 'false' ?>;
             var loginTime = <?= json_encode($loginTime) ?>;
 
+            function esc(value) {
+                return String(value == null ? '' : value).replace(/[&<>"']/g, function(c) {
+                    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+                });
+            }
+
             let currentTab = 'overview';
 
             function switchTab(tab) {
@@ -1035,7 +1041,7 @@ function renderDashboard(): void
                         '<div class="card"><div class="card-title" style="margin-bottom:12px;">خطاهای اخیر</div>' +
                             ((s.recent_errors && s.recent_errors.length)
                                 ? '<div class="table-wrap"><table><tr><th>زمان</th><th>پیام</th></tr>' +
-                                  s.recent_errors.map(function(e) { return '<tr><td class="log-time">' + e.time + '</td><td>' + e.message + '</td></tr>'; }).join('') +
+                                  s.recent_errors.map(function(e) { return '<tr><td class="log-time">' + esc(e.time) + '</td><td>' + esc(e.message) + '</td></tr>'; }).join('') +
                                   '</table></div>'
                                 : '<div class="empty-state">خطایی ثبت نشده است</div>') +
                         '</div>';

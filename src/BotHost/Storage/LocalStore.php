@@ -24,6 +24,33 @@ final class LocalStore
         $this->pdo->exec('CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
     }
 
+    /**
+     * Atomically gate on processed_updates and enqueue a new update.
+     * Returns true only when the update was newly accepted (and therefore queued).
+     *
+     * @param array<string,mixed> $update
+     */
+    public function acceptUpdate(int $updateId, array $update): bool
+    {
+        $this->pdo->beginTransaction();
+        try {
+            $inserted = $this->pdo->prepare('INSERT OR IGNORE INTO processed_updates (update_id, processed_at) VALUES (?, ?)');
+            $inserted->execute([$updateId, date('c')]);
+            $isNew = $inserted->rowCount() > 0;
+            if ($isNew) {
+                $this->pdo->prepare('INSERT OR IGNORE INTO update_queue (update_id, payload, created_at) VALUES (?, ?, ?)')
+                    ->execute([$updateId, json_encode($update, JSON_UNESCAPED_UNICODE), date('c')]);
+            }
+            $this->pdo->commit();
+            return $isNew;
+        } catch (\Throwable $e) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollBack();
+            }
+            throw $e;
+        }
+    }
+
     public function markProcessed(int $updateId): bool
     {
         try {
