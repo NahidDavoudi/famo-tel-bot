@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App;
+use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
