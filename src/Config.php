@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App;
 
+$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
+
 final class Config
 {
     private const KEYS = [
