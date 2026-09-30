@@ -1,4 +1,5 @@
 .env
 vendor/
 .opencode/
-storage/
+storage/*
+!storage/.htaccess
