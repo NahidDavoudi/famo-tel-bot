@@ -11,7 +11,6 @@ final class Bootstrap
 {
     private function __construct(
         private Config $config,
-        private LocalStore $store,
         private OutboxDrainer $drainer,
         private ?FamoApiClient $api = null,
     ) {}
@@ -31,8 +30,6 @@ final class Bootstrap
         $logFile = $config->get('BOT_LOG_FILE') ?? $root . '/admin/data/logs.json';
 
         $store = new LocalStore($storageDir);
-        $stats = new RuntimeStats($runtimeFile);
-        $logger = new RuntimeLogger($logFile);
         $drainer = new OutboxDrainer(rtrim($storageDir, "/\\") . DIRECTORY_SEPARATOR . 'drain.lock', $stats);
 
         return new self($config, $store, $stats, $logger, $drainer);
@@ -40,8 +37,6 @@ final class Bootstrap
 
     public function config(): Config { return $this->config; }
     public function store(): LocalStore { return $this->store; }
-    public function stats(): RuntimeStats { return $this->stats; }
-    public function logger(): RuntimeLogger { return $this->logger; }
     public function drainer(): OutboxDrainer { return $this->drainer; }
 
     public function telegram(): TelegramClient

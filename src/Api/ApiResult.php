@@ -24,4 +24,12 @@ final class ApiResult
     {
         return $this->body['data'] ?? null;
     }
+    public function status(): int
+    {
+        return $this->status;
+    }
+    public function body(): ?array
+    {
+        return $this->body;
+    }
 }
