@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Logging;
+namespace App\Logging;
 
 final class RuntimeLogger
 {

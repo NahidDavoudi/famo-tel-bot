@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
-use Bootstrap;
+use App\Bootstrap;
 
 try {
     $app = Bootstrap::create();

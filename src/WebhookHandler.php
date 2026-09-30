@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace BotHost;
+namespace App;
 
-use Logging\RuntimeLogger;
-use Outbox\OutboxDrainer;
-use Storage\LocalStore;
-use Storage\RuntimeStats;
+use App\Logging\RuntimeLogger;
+use App\Outbox\OutboxDrainer;
+use App\Storage\LocalStore;
+use App\Storage\RuntimeStats;
 
 final class WebhookHandler
 {

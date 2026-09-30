@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/harness.php';
 
-use Outbox\OutboxDrainer;
-use Storage\RuntimeStats;
+use App\Outbox\OutboxDrainer;
+use App\Storage\RuntimeStats;
 
 $dir = sys_get_temp_dir() . '/bothost_' . bin2hex(random_bytes(4));
 mkdir($dir, 0770, true);

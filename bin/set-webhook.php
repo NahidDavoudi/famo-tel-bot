@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use Bootstrap;
+use App\Bootstrap;
 
 $app = Bootstrap::create();
 $url = $app->config()->require('BOT_WEBHOOK_URL');

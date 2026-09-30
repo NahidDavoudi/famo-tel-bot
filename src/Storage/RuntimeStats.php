@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Storage;
+namespace App\Storage;
 
 final class RuntimeStats
 {

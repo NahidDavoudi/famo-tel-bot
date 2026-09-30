@@ -2,15 +2,15 @@
 declare(strict_types=1);
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
-use BotHost\Bootstrap;
+use App\Bootstrap;
 use Telegram\Bot\Api;
-use BotHost\StartCommand;
+use App\StartCommand;
 
+try {
 $app = Bootstrap::create();
 
 $api = new Api($app->config()->require('TELEGRAM_BOT_TOKEN'));
 $api->addCommand(StartCommand::class);
-// بعداً بقیه کامندها رو همینجا اضافه کن
 
 $secret = $_SERVER['HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN'] ?? null;
 $expected = $app->config()->get('BOT_WEBHOOK_SECRET');
@@ -27,5 +27,8 @@ if (function_exists('fastcgi_finish_request')) {
     flush();
 }
 
-// commandsHandler خودش php://input رو میخونه و به کامند مناسب می‌ده
 $api->commandsHandler(true);
+} catch (\Throwable $e) {
+    if (!headers_sent()) http_response_code(200);
+    error_log('bot webhook fatal: ' . $e->getMessage());
+}

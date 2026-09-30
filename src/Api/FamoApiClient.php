@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Api;
+namespace App\Api;
 
 class FamoApiClient
 {

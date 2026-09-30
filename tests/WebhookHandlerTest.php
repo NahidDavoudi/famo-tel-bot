@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/harness.php';
 
-use BotHost\Config;
-use Storage\LocalStore;
-use Storage\RuntimeStats;
-use Logging\RuntimeLogger;
-use Outbox\OutboxDrainer;
-use BotHost\WebhookHandler;
+use App\Config;
+use App\Storage\LocalStore;
+use App\Storage\RuntimeStats;
+use App\Logging\RuntimeLogger;
+use App\Outbox\OutboxDrainer;
+use App\WebhookHandler;
 
 $dir = sys_get_temp_dir() . '/bothost_' . bin2hex(random_bytes(4));
 mkdir($dir, 0770, true);

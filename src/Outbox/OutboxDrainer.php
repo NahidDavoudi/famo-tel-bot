@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Outbox;
+namespace App\Outbox;
 
-use Storage\RuntimeStats;
+use App\Storage\RuntimeStats;
 
 final class OutboxDrainer
 {

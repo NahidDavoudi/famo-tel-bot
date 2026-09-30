@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace BotHost;
+namespace App;
 
-use Api\FamoApiClient;
-use Logging\RuntimeLogger;
-use Outbox\OutboxDrainer;
-use Storage\LocalStore;
-use Storage\RuntimeStats;
-use Telegram\TelegramClient;
+use App\Api\FamoApiClient;
+use App\Logging\RuntimeLogger;
+use App\Outbox\OutboxDrainer;
+use App\Storage\LocalStore;
+use App\Storage\RuntimeStats;
+use App\Telegram\TelegramClient;
 
 final class Bootstrap
 {

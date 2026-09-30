@@ -5,13 +5,7 @@
     },
     "autoload": {
         "psr-4": {
-            "BotHost\\": "src/",
-            "Api\\": "src/Api/",
-            "Errors\\": "src/Errors/",
-            "Logging\\": "src/Logging/",
-            "Outbox\\": "src/Outbox/",
-            "Storage\\": "src/Storage/",
-            "Telegram\\": "src/Telegram/"
+            "App\\": "src/"
         }
     }
 }
