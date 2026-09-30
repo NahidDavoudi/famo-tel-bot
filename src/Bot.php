@@ -6,9 +6,9 @@ class Bot
 {
     private Api $telegram;
 
-    public function __construct(string $token)
+    public function __construct(Api $telegram)
     {
-        $this->telegram = new Api($token);
+        $this->telegram = $telegram;
     }
 
     public function handle(array $update): void
