@@ -17,6 +17,10 @@ class Bot
             return;
         }
 
+        if (!$this->isBotActive()) {
+            return;
+        }
+
         $message = $update['message'];
         $chatId = $message['chat']['id'];
         $text = $message['text'] ?? '';
@@ -27,5 +31,15 @@ class Bot
                 'text' => 'سلام 👋',
             ]);
         }
+    }
+
+    private function isBotActive(): bool
+    {
+        $path = __DIR__ . '/../admin/data/bot-status.json';
+        if (!file_exists($path)) {
+            return true;
+        }
+        $data = json_decode(file_get_contents($path), true);
+        return $data['active'] ?? true;
     }
 }
