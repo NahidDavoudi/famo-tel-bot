@@ -32,7 +32,7 @@ function initBot(): Api
     return new Api($token, false, $httpClient, $baseBotUrl);
 }
 
-function sendTelegram(Api $bot, int $chatId, string $text): ?array
+function sendTelegram(Api $bot, int $chatId, string $text)
 {
     try {
         return $bot->sendMessage([
@@ -46,7 +46,7 @@ function sendTelegram(Api $bot, int $chatId, string $text): ?array
     }
 }
 
-function getBotInfo(Api $bot): ?array
+function getBotInfo(Api $bot)
 {
     try {
         return $bot->getMe();
@@ -56,7 +56,7 @@ function getBotInfo(Api $bot): ?array
     }
 }
 
-function getWebhookInfo(Api $bot): ?array
+function getWebhookInfo(Api $bot)
 {
     try {
         return $bot->getWebhookInfo();
@@ -66,7 +66,7 @@ function getWebhookInfo(Api $bot): ?array
     }
 }
 
-function getUpdatesCount(Api $bot): ?int
+function getUpdatesCount(Api $bot)
 {
     try {
         $info = $bot->getWebhookInfo();
