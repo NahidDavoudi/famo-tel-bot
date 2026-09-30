@@ -8,8 +8,11 @@ Dotenv::createImmutable(dirname(__DIR__))->load();
 
 require_once dirname(__DIR__) . '/src/Bot.php';
 
-$bot = new Bot($_ENV['TELEGRAM_BOT_TOKEN']);
-
-$bot->handle();
+try {
+    $bot = new Bot($_ENV['TELEGRAM_BOT_TOKEN']);
+    $bot->handle();
+} catch (\Throwable $e) {
+    error_log('bot webhook error: ' . $e->getMessage());
+}
 
 http_response_code(200);
