@@ -5,16 +5,11 @@ namespace App;
 
 use App\Logging\RuntimeLogger;
 use App\Outbox\OutboxDrainer;
-use App\Storage\LocalStore;
-use App\Storage\RuntimeStats;
 
 final class WebhookHandler
 {
     public function __construct(
         private Config $config,
-        private LocalStore $store,
-        private RuntimeStats $stats,
-        private RuntimeLogger $logger,
         private OutboxDrainer $drainer,
     ) {}
 

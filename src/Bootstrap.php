@@ -6,19 +6,13 @@ namespace App;
 use App\Api\FamoApiClient;
 use App\Logging\RuntimeLogger;
 use App\Outbox\OutboxDrainer;
-use App\Storage\LocalStore;
-use App\Storage\RuntimeStats;
-use App\Telegram\TelegramClient;
 
 final class Bootstrap
 {
     private function __construct(
         private Config $config,
         private LocalStore $store,
-        private RuntimeStats $stats,
-        private RuntimeLogger $logger,
         private OutboxDrainer $drainer,
-        private ?TelegramClient $telegram = null,
         private ?FamoApiClient $api = null,
     ) {}
 
