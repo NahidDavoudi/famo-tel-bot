@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-responsive.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <script src="assets/js/jquery-1.8.3.min.js" type="text/javascript"></script>
+  <script src="assets/js/main.js" type="text/javascript"></script>
+
+  <title>REST API Resources</title>
+</head>
+<body>
+  <div class="header">
+    <div class="top-bar">
+      <h1 id="logo"><a class="logo" href="/"><span>Swagger</span><span class="light">API Docs</span></a></h1>
+    </div>
+  </div>
+  <div class="model-container"></div>
+  <div class="content">
+    <div class="box clearfix">
+      <div class="sidebar">
+        <div class="section-box">
+          <div class="section-header">
+            Overview
+          </div>
+          <ul>
+            <li>Getting Started</li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/AdminStatsApi">AdminStatsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/AdminStatsApi#adminStatsByMajor">adminStatsByMajor</a></li>
+            <li><a href="#!/AdminStatsApi#adminStatsBySupporter">adminStatsBySupporter</a></li>
+            <li><a href="#!/AdminStatsApi#adminStatsNoReport">adminStatsNoReport</a></li>
+            <li><a href="#!/AdminStatsApi#adminStatsOverview">adminStatsOverview</a></li>
+            <li><a href="#!/AdminStatsApi#adminStatsStudentHistory">adminStatsStudentHistory</a></li>
+            <li><a href="#!/AdminStatsApi#adminStatsStudentThread">adminStatsStudentThread</a></li>
+            <li><a href="#!/AdminStatsApi#adminStatsSupporterPerformance">adminStatsSupporterPerformance</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/AnalyticsApi">AnalyticsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/AnalyticsApi#studentAnalyticsExamTrend">studentAnalyticsExamTrend</a></li>
+            <li><a href="#!/AnalyticsApi#studentAnalyticsSubjectStats">studentAnalyticsSubjectStats</a></li>
+            <li><a href="#!/AnalyticsApi#studentAnalyticsSummary">studentAnalyticsSummary</a></li>
+            <li><a href="#!/AnalyticsApi#studentAnalyticsWeekDetail">studentAnalyticsWeekDetail</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/AppointmentsApi">AppointmentsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/AppointmentsApi#appointmentCreate">appointmentCreate</a></li>
+            <li><a href="#!/AppointmentsApi#appointmentDelete">appointmentDelete</a></li>
+            <li><a href="#!/AppointmentsApi#appointmentList">appointmentList</a></li>
+            <li><a href="#!/AppointmentsApi#appointmentUpdateStatus">appointmentUpdateStatus</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/AssignmentsApi">AssignmentsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/AssignmentsApi#assignStudent">assignStudent</a></li>
+            <li><a href="#!/AssignmentsApi#assignmentHistory">assignmentHistory</a></li>
+            <li><a href="#!/AssignmentsApi#assignmentInitialFill">assignmentInitialFill</a></li>
+            <li><a href="#!/AssignmentsApi#listAssignmentStudents">listAssignmentStudents</a></li>
+            <li><a href="#!/AssignmentsApi#listSupporterStudents">listSupporterStudents</a></li>
+            <li><a href="#!/AssignmentsApi#unassignStudent">unassignStudent</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/AuthApi">AuthApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/AuthApi#authLogin">authLogin</a></li>
+            <li><a href="#!/AuthApi#authLogout">authLogout</a></li>
+            <li><a href="#!/AuthApi#authMe">authMe</a></li>
+            <li><a href="#!/AuthApi#authRegister">authRegister</a></li>
+            <li><a href="#!/AuthApi#authVerify2fa">authVerify2fa</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/BlogApi">BlogApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/BlogApi#blogCreatePost">blogCreatePost</a></li>
+            <li><a href="#!/BlogApi#blogDeletePost">blogDeletePost</a></li>
+            <li><a href="#!/BlogApi#blogGetAllPosts">blogGetAllPosts</a></li>
+            <li><a href="#!/BlogApi#blogGetPostById">blogGetPostById</a></li>
+            <li><a href="#!/BlogApi#blogUpdatePost">blogUpdatePost</a></li>
+            <li><a href="#!/BlogApi#publicGetBlogCategories">publicGetBlogCategories</a></li>
+            <li><a href="#!/BlogApi#publicGetBlogPostBySlug">publicGetBlogPostBySlug</a></li>
+            <li><a href="#!/BlogApi#publicGetBlogPosts">publicGetBlogPosts</a></li>
+            <li><a href="#!/BlogApi#publicGetBlogPostsByCategory">publicGetBlogPostsByCategory</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/BotApi">BotApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/BotApi#botMe">botMe</a></li>
+            <li><a href="#!/BotApi#botPing">botPing</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/BotIdentityApi">BotIdentityApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/BotIdentityApi#botIdentityBlock">botIdentityBlock</a></li>
+            <li><a href="#!/BotIdentityApi#botIdentityLink">botIdentityLink</a></li>
+            <li><a href="#!/BotIdentityApi#botIdentityLookup">botIdentityLookup</a></li>
+            <li><a href="#!/BotIdentityApi#botIdentityResolve">botIdentityResolve</a></li>
+            <li><a href="#!/BotIdentityApi#botIdentityUnblock">botIdentityUnblock</a></li>
+            <li><a href="#!/BotIdentityApi#botIdentityUnlink">botIdentityUnlink</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/BroadcastsApi">BroadcastsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/BroadcastsApi#botBroadcastConfirm">botBroadcastConfirm</a></li>
+            <li><a href="#!/BroadcastsApi#botBroadcastGet">botBroadcastGet</a></li>
+            <li><a href="#!/BroadcastsApi#botBroadcastList">botBroadcastList</a></li>
+            <li><a href="#!/BroadcastsApi#botBroadcastPreview">botBroadcastPreview</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/CoursesApi">CoursesApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/CoursesApi#courseCreate">courseCreate</a></li>
+            <li><a href="#!/CoursesApi#courseDelete">courseDelete</a></li>
+            <li><a href="#!/CoursesApi#courseGet">courseGet</a></li>
+            <li><a href="#!/CoursesApi#courseList">courseList</a></li>
+            <li><a href="#!/CoursesApi#courseUpdate">courseUpdate</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/DailyAttendanceApi">DailyAttendanceApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/DailyAttendanceApi#attendanceAddGuest">attendanceAddGuest</a></li>
+            <li><a href="#!/DailyAttendanceApi#attendanceList">attendanceList</a></li>
+            <li><a href="#!/DailyAttendanceApi#attendancePrint">attendancePrint</a></li>
+            <li><a href="#!/DailyAttendanceApi#attendanceSetTime">attendanceSetTime</a></li>
+            <li><a href="#!/DailyAttendanceApi#attendanceUpsertEntry">attendanceUpsertEntry</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/DashboardApi">DashboardApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/DashboardApi#dashboardStats">dashboardStats</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/ExamsApi">ExamsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/ExamsApi#examGetAll">examGetAll</a></li>
+            <li><a href="#!/ExamsApi#examGetDates">examGetDates</a></li>
+            <li><a href="#!/ExamsApi#examGetDetails">examGetDetails</a></li>
+            <li><a href="#!/ExamsApi#examGetStudents">examGetStudents</a></li>
+            <li><a href="#!/ExamsApi#examSave">examSave</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/FilesApi">FilesApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/FilesApi#fileDelete">fileDelete</a></li>
+            <li><a href="#!/FilesApi#fileList">fileList</a></li>
+            <li><a href="#!/FilesApi#fileUpload">fileUpload</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/HealthApi">HealthApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/HealthApi#healthCheck">healthCheck</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/InstructorsApi">InstructorsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/InstructorsApi#instructorCreate">instructorCreate</a></li>
+            <li><a href="#!/InstructorsApi#instructorDelete">instructorDelete</a></li>
+            <li><a href="#!/InstructorsApi#instructorGet">instructorGet</a></li>
+            <li><a href="#!/InstructorsApi#instructorList">instructorList</a></li>
+            <li><a href="#!/InstructorsApi#instructorUpdate">instructorUpdate</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/OutboxApi">OutboxApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/OutboxApi#botOutboxClaim">botOutboxClaim</a></li>
+            <li><a href="#!/OutboxApi#botOutboxReport">botOutboxReport</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/ParentContactsApi">ParentContactsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/ParentContactsApi#parentContactCreate">parentContactCreate</a></li>
+            <li><a href="#!/ParentContactsApi#parentContactDelete">parentContactDelete</a></li>
+            <li><a href="#!/ParentContactsApi#parentContactList">parentContactList</a></li>
+            <li><a href="#!/ParentContactsApi#parentContactUpdate">parentContactUpdate</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/PublicApi">PublicApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/PublicApi#publicGetBlogCategories">publicGetBlogCategories</a></li>
+            <li><a href="#!/PublicApi#publicGetBlogPostBySlug">publicGetBlogPostBySlug</a></li>
+            <li><a href="#!/PublicApi#publicGetBlogPosts">publicGetBlogPosts</a></li>
+            <li><a href="#!/PublicApi#publicGetBlogPostsByCategory">publicGetBlogPostsByCategory</a></li>
+            <li><a href="#!/PublicApi#publicGetCourses">publicGetCourses</a></li>
+            <li><a href="#!/PublicApi#publicGetInstructors">publicGetInstructors</a></li>
+            <li><a href="#!/PublicApi#publicGetSupporters">publicGetSupporters</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/RemedialApi">RemedialApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/RemedialApi#remedialAddStudent">remedialAddStudent</a></li>
+            <li><a href="#!/RemedialApi#remedialCreateClass">remedialCreateClass</a></li>
+            <li><a href="#!/RemedialApi#remedialCreateSession">remedialCreateSession</a></li>
+            <li><a href="#!/RemedialApi#remedialDeleteClass">remedialDeleteClass</a></li>
+            <li><a href="#!/RemedialApi#remedialGetSessionData">remedialGetSessionData</a></li>
+            <li><a href="#!/RemedialApi#remedialGetSessions">remedialGetSessions</a></li>
+            <li><a href="#!/RemedialApi#remedialRemoveStudent">remedialRemoveStudent</a></li>
+            <li><a href="#!/RemedialApi#remedialToggleAttendance">remedialToggleAttendance</a></li>
+            <li><a href="#!/RemedialApi#remedialUpdateStudentTime">remedialUpdateStudentTime</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/ReportsApi">ReportsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/ReportsApi#reportList">reportList</a></li>
+            <li><a href="#!/ReportsApi#reportStats">reportStats</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/StudentsApi">StudentsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/StudentsApi#parentContactCreate">parentContactCreate</a></li>
+            <li><a href="#!/StudentsApi#parentContactDelete">parentContactDelete</a></li>
+            <li><a href="#!/StudentsApi#parentContactList">parentContactList</a></li>
+            <li><a href="#!/StudentsApi#parentContactUpdate">parentContactUpdate</a></li>
+            <li><a href="#!/StudentsApi#studentAnalyticsExamTrend">studentAnalyticsExamTrend</a></li>
+            <li><a href="#!/StudentsApi#studentAnalyticsSubjectStats">studentAnalyticsSubjectStats</a></li>
+            <li><a href="#!/StudentsApi#studentAnalyticsSummary">studentAnalyticsSummary</a></li>
+            <li><a href="#!/StudentsApi#studentAnalyticsWeekDetail">studentAnalyticsWeekDetail</a></li>
+            <li><a href="#!/StudentsApi#studentCreate">studentCreate</a></li>
+            <li><a href="#!/StudentsApi#studentCreateAccount">studentCreateAccount</a></li>
+            <li><a href="#!/StudentsApi#studentDelete">studentDelete</a></li>
+            <li><a href="#!/StudentsApi#studentGet">studentGet</a></li>
+            <li><a href="#!/StudentsApi#studentGetList">studentGetList</a></li>
+            <li><a href="#!/StudentsApi#studentList">studentList</a></li>
+            <li><a href="#!/StudentsApi#studentOverview">studentOverview</a></li>
+            <li><a href="#!/StudentsApi#studentResetPassword">studentResetPassword</a></li>
+            <li><a href="#!/StudentsApi#studentToggleStatus">studentToggleStatus</a></li>
+            <li><a href="#!/StudentsApi#studentUpdate">studentUpdate</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/SupporterInboxApi">SupporterInboxApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/SupporterInboxApi#botSupporterInbox">botSupporterInbox</a></li>
+            <li><a href="#!/SupporterInboxApi#botSupporterReply">botSupporterReply</a></li>
+            <li><a href="#!/SupporterInboxApi#botSupporterStudentUnread">botSupporterStudentUnread</a></li>
+            <li><a href="#!/SupporterInboxApi#botSupporterStudents">botSupporterStudents</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/SupportersApi">SupportersApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/SupportersApi#listSupportersMissingPhone">listSupportersMissingPhone</a></li>
+            <li><a href="#!/SupportersApi#supporterCreate">supporterCreate</a></li>
+            <li><a href="#!/SupportersApi#supporterDelete">supporterDelete</a></li>
+            <li><a href="#!/SupportersApi#supporterGet">supporterGet</a></li>
+            <li><a href="#!/SupportersApi#supporterList">supporterList</a></li>
+            <li><a href="#!/SupportersApi#supporterUpdate">supporterUpdate</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/ThreadsApi">ThreadsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/ThreadsApi#botThreadDay">botThreadDay</a></li>
+            <li><a href="#!/ThreadsApi#botThreadRead">botThreadRead</a></li>
+            <li><a href="#!/ThreadsApi#botThreadSendMessage">botThreadSendMessage</a></li>
+            <li><a href="#!/ThreadsApi#botThreadWeekly">botThreadWeekly</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/TopicsApi">TopicsApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/TopicsApi#topicGetChildren">topicGetChildren</a></li>
+            <li><a href="#!/TopicsApi#topicGetPath">topicGetPath</a></li>
+            <li><a href="#!/TopicsApi#topicGetRoot">topicGetRoot</a></li>
+            <li><a href="#!/TopicsApi#topicGetSubjectsForGrade">topicGetSubjectsForGrade</a></li>
+            <li><a href="#!/TopicsApi#topicSearch">topicSearch</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/TutoringApi">TutoringApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/TutoringApi#tutoringBoard">tutoringBoard</a></li>
+            <li><a href="#!/TutoringApi#tutoringEndSession">tutoringEndSession</a></li>
+            <li><a href="#!/TutoringApi#tutoringMe">tutoringMe</a></li>
+            <li><a href="#!/TutoringApi#tutoringSetStatus">tutoringSetStatus</a></li>
+            <li><a href="#!/TutoringApi#tutoringStartSession">tutoringStartSession</a></li>
+            <li><a href="#!/TutoringApi#tutoringStudents">tutoringStudents</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/WeeklyPlansApi">WeeklyPlansApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/WeeklyPlansApi#planApplyTemplate">planApplyTemplate</a></li>
+            <li><a href="#!/WeeklyPlansApi#planClear">planClear</a></li>
+            <li><a href="#!/WeeklyPlansApi#planDelete">planDelete</a></li>
+            <li><a href="#!/WeeklyPlansApi#planDeleteTemplate">planDeleteTemplate</a></li>
+            <li><a href="#!/WeeklyPlansApi#planGet">planGet</a></li>
+            <li><a href="#!/WeeklyPlansApi#planGetTemplate">planGetTemplate</a></li>
+            <li><a href="#!/WeeklyPlansApi#planGetTemplates">planGetTemplates</a></li>
+            <li><a href="#!/WeeklyPlansApi#planList">planList</a></li>
+            <li><a href="#!/WeeklyPlansApi#planSave">planSave</a></li>
+            <li><a href="#!/WeeklyPlansApi#planSaveTemplate">planSaveTemplate</a></li>
+            <li><a href="#!/WeeklyPlansApi#planUpdate">planUpdate</a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="non-sidebar">
+      <div class="main-content">
+        <h2>Getting Started</h2>
+        <p>To begin using your fancy HTTP API, follow the steps below.</p>
+        <p>You can add some helpful tips, here</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
-use BotHost\Bootstrap;
+use Bootstrap;
 
 ignore_user_abort(true);
 set_time_limit(60);

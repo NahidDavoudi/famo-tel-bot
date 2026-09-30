@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/harness.php';
 
-use BotHost\Api\FamoApiClient;
-use BotHost\Api\ApiResult;
+use Api\FamoApiClient;
+use Api\ApiResult;
 
 final class FakeApi extends FamoApiClient
 {

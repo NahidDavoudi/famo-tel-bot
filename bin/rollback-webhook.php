@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use BotHost\Bootstrap;
+use Bootstrap;
 
 $app = Bootstrap::create();
 $previous = $app->config()->get('BOT_ROLLBACK_WEBHOOK_URL');

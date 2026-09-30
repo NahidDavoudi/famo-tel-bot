@@ -5,12 +5,12 @@ require_once __DIR__ . '/harness.php';
 
 use BotHost\Bootstrap;
 use BotHost\Config;
-use BotHost\Api\FamoApiClient;
-use BotHost\Logging\RuntimeLogger;
-use BotHost\Outbox\OutboxDrainer;
-use BotHost\Storage\LocalStore;
-use BotHost\Storage\RuntimeStats;
-use BotHost\Telegram\TelegramClient;
+use Api\FamoApiClient;
+use Logging\RuntimeLogger;
+use Outbox\OutboxDrainer;
+use Storage\LocalStore;
+use Storage\RuntimeStats;
+use Telegram\TelegramClient;
 use BotHost\WebhookHandler;
 
 $root = sys_get_temp_dir() . '/bothost_' . bin2hex(random_bytes(4));

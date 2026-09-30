@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/harness.php';
 
-use BotHost\Telegram\TelegramClient;
+use Telegram\TelegramClient;
 
 final class FakeTelegram extends TelegramClient
 {

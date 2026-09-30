@@ -4,10 +4,10 @@ declare(strict_types=1);
 require_once __DIR__ . '/harness.php';
 
 use BotHost\Config;
-use BotHost\Storage\LocalStore;
-use BotHost\Storage\RuntimeStats;
-use BotHost\Logging\RuntimeLogger;
-use BotHost\Outbox\OutboxDrainer;
+use Storage\LocalStore;
+use Storage\RuntimeStats;
+use Logging\RuntimeLogger;
+use Outbox\OutboxDrainer;
 use BotHost\WebhookHandler;
 
 $dir = sys_get_temp_dir() . '/bothost_' . bin2hex(random_bytes(4));

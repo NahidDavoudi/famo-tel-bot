@@ -1,4 +1,0 @@
----
-deployment:
-  tasks:
-    - cd /home/nadcotea/public_html && composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
