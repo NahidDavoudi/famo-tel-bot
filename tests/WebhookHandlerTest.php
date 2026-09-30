@@ -26,7 +26,13 @@ checkSame(403, $handler->handle($update, 'WRONG'), 'bad secret rejected');
 checkSame(403, $handler->handle($update, null), 'missing secret rejected');
 
 checkSame(200, $handler->handle($update, 'SECRET123'), 'valid secret accepted');
+check($stats->snapshot()['last_webhook_at'] !== null, 'valid update recorded in stats');
+
+@unlink($dir . '/runtime.json');
+@unlink($dir . '/runtime.json.lock');
+
 checkSame(200, $handler->handle($update, 'SECRET123'), 'duplicate update still 200');
+check($stats->snapshot()['last_webhook_at'] === null, 'duplicate short-circuits before recording stats');
 checkSame(1, count($store->dequeueUpdates(10)), 'duplicate not enqueued twice');
 
 checkSame(200, $handler->handle('not json', 'SECRET123'), 'malformed body tolerated with 200');
