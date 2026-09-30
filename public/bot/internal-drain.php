@@ -35,7 +35,7 @@ try {
     $app->drainer()->run($app->config()->int('BOT_DRAIN_BUDGET_SECONDS', 20));
 } catch (\Throwable $e) {
     if (!headers_sent()) {
-        http_response_code(200);
+        http_response_code(($_SERVER['REQUEST_METHOD'] ?? '') === 'HEAD' ? 403 : 200);
     }
     error_log('bot internal drain fatal: ' . $e->getMessage());
 }
