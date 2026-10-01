@@ -27,8 +27,8 @@ class ReportCommand extends Command
         Logger::info('command.report', ['chat_id' => $chatId, 'link_status' => $linkStatus]);
         if (!$linkStatus) {
             $replyMarkup = Keyboard::make()->inline()->row([
-                Keyboard::button(['text' => 'Link Now', 'url' => 'https://auth.famoacademy.ir']),
-                Keyboard::button(['text' => 'Return Home' , 'callback_param' => 'quest.backHome'])
+                Keyboard::inlineButton(['text' => 'Link Now', 'url' => 'https://auth.famoacademy.ir']),
+                Keyboard::inlineButton(['text' => 'Return Home' , 'callback_param' => 'quest.backHome'])
             ]);
             $this->replyWithMessage([
                 'text' => 'You are not linked to any account. Please link your account first.',
