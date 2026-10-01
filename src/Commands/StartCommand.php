@@ -4,9 +4,7 @@ namespace App\Commands;
 
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Keyboard\Keyboard;
-use App\Services\IdentityService;
 use App\Services\MessageService;
-use App\Errors\ErrorHandler;
 
 class StartCommand extends Command
 {
@@ -14,50 +12,30 @@ class StartCommand extends Command
 
     public function __construct()
     {
-        $this->description = MessageService::get('start.description');
+        $this->description = MessageService::get('start.desc');
     }
 
     public function handle()
     {
-        $chatId = (int) $this->getUpdate()->getChat()->id;
-
-        $loadingMessage = $this->replyWithMessage([
-            'text' => MessageService::get('identity.loading'),
-        ]);
-
-        try{
-            $isLinked = IdentityService::isLinked($chatId);
-            $replyMarkup = $isLinked
-            ? Keyboard::make()
-                ->inline()
-                ->row([
-                    Keyboard::button([
-                        'text' => MessageService::get('start.button.report'),
-                        'url' => 'https://famoacademy.ir/report-student',
-                    ]),
-                ])
-            : Keyboard::make()
-                ->row([
-                    Keyboard::button([
-                        'text' => MessageService::get('start.button.link'),
-                        'request_contact' => true,
-                    ]),
-                ]);
-
-        $this->telegram->editMessageText([
-            'chat_id' => $chatId,
-            'message_id' => $this->getUpdate()->getMessage()->messageId,
-            'text' => MessageService::get($isLinked ? 'start.linked' : 'start.not_linked'),
-            'reply_markup' => $replyMarkup,
-        ]);
-        } catch (\Throwable $e) {
-            $messageId = $loadingMessage->getMessageId();
-            $this->telegram->editMessageText([
-                'chat_id' => $chatId,
-                'message_id' => $messageId,
-                'text' => ErrorHandler::message($e)
+        $keyboard = Keyboard::make()
+            ->inline()
+            ->row([
+                Keyboard::inlineButton([
+                    'text' => MessageService::get('ico.web') . ' ' . MessageService::get('btn.web'),
+                    'url' => 'https://famoacademy.ir',
+                ]),
+                Keyboard::inlineButton([
+                    'text' => MessageService::get('ico.user') . ' ' . MessageService::get('btn.identify'),
+                    'callback_data' => 'guest.identify',
+                ]),
             ]);
-            return;
-        }
+
+        $this->replyWithMessage([
+            'text' => MessageService::get('common.title')
+                . MessageService::get('common.intro')
+                . MessageService::get('start.link_hint'),
+            'parse_mode' => 'HTML',
+            'reply_markup' => $keyboard,
+        ]);
     }
 }
