@@ -6,6 +6,7 @@ use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Keyboard\Keyboard;
 use App\Services\IdentityService;
 use App\Services\MessageService;
+use App\Errors\ErrorHandler;
 
 class StartCommand extends Command
 {
@@ -24,11 +25,9 @@ class StartCommand extends Command
             'text' => MessageService::get('identity.loading'),
         ]);
 
-        
-        $isLinked = IdentityService::isLinked($chatId);
-
-        
-        $replyMarkup = $isLinked
+        try{
+            $isLinked = IdentityService::isLinked($chatId);
+            $replyMarkup = $isLinked
             ? Keyboard::make()
                 ->inline()
                 ->row([
@@ -51,5 +50,13 @@ class StartCommand extends Command
             'text' => MessageService::get($isLinked ? 'start.linked' : 'start.not_linked'),
             'reply_markup' => $replyMarkup,
         ]);
+        } catch (\Throwable $e) {
+            $this->telegram->editMessageText([
+                'chat_id' => $chatId,
+                'message_id' => $this->getUpdate()->getMessage()->messageId,
+                'text' => ErrorHandler::message($e)
+            ]);
+            return;
+        }
     }
 }
