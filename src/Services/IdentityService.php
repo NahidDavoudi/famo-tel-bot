@@ -16,7 +16,7 @@ final class IdentityService
 
     public static function isLinked(int $chatId): bool
     {
-        $res = self::api()->request('GET', '/api/v1/bot/identity/resolve', [], null, [
+        $res = self::api()->request('GET', '/bot/identity/resolve', [], null, [
             'chat_id' => (string) $chatId,
         ]);
 
