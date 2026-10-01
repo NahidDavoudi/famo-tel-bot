@@ -38,7 +38,7 @@ class StartCommand extends Command
                 Keyboard::inlineButton(['text' => 'Login in Web', 'url' => 'https://auth.famoacademy.ir']),
                 Keyboard::inlineButton(['text' => 'Write Your Number', 'callback_data' => 'get.phone'])
             ]);
-            $this->replyWithMessage(['text' => '𝗙𝗮𝗺𝗼 𝗔𝗰𝗮𝗱𝗲𝗺𝘆 To start using the bot, please write down your number or login in web 👇 ', 'parse_mode' => 'HTML', 'reply_markup' => $replyMarkup]);
+            $this->replyWithMessage(['text' => '<b>𝗙𝗮𝗺𝗼 𝗔𝗰𝗮𝗱𝗲𝗺𝘆 💠</b>\n\nTo start using the bot, please write down your number or login in web 👇', 'parse_mode' => 'HTML', 'reply_markup' => $replyMarkup]);
         }
     }
 }
