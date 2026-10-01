@@ -3,10 +3,12 @@
 namespace App\Handlers;
 
 use Telegram\Bot\Api;
-use Telegram\Bot\Keyboard\Keyboard;
+// use Telegram\Bot\Keyboard\Keyboard;
 use Telegram\Bot\Objects\Update;
-use App\Services\MessageService;
+// use App\Services\MessageService;
 use App\Logging\Logger;
+// use GuzzleHttp\Psr7\Message;
+use Telegram\Bot\Objects\Message as ObjectsMessage;
 
 class CallBackHandler
 {
@@ -41,19 +43,22 @@ class CallBackHandler
         }
 
         match ((string) $callback->getData()) {
-            'guest.identify' => $this->guestIdentify((int) $chatId),
+            'get.phone' => $this->getPhone((int) $chatId),
             default => null,
         };
     }
 
-    private function guestIdentify(int $chatId): void
+    private function getPhone(int $chatId): ObjectsMessage
     {
-        Logger::info('callback.guest_identify', ['chat_id' => $chatId]);
-
-        $getPhoneNumber = $this->telegram->sendMessage([
+        $tmp = $this->telegram->sendMessage([
             'chat_id' => $chatId,
-            'text' => MessageService::get('enter your phone number'),
-        ]);        
-        $messageId = $getPhoneNumber->getMessageId();
+            'text' => 'Send Your Registred Phone number',
+        ]);
+        $messageId = $tmp->messageId();
+        $copyedMessage = $this->telegram->copyMessage([
+            'chat_id' => $chatId,
+            'message_id' => $messageId
+        ]);
+        return $copyedMessage;
     }
 }
