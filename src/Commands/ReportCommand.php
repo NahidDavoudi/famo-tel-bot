@@ -5,25 +5,38 @@ namespace App\Commands;
 use Telegram\Bot\Commands\Command;
 use App\Services\MessageService;
 use App\Logging\Logger;
+use App\Services\IdentityService;
+use Telegram\Bot\Keyboard\Keyboard;
 
 class ReportCommand extends Command
 {
     protected string $name = 'report';
+    protected string $description;
+    protected IdentityService $identity;
 
     public function __construct()
     {
         $this->description = MessageService::get('report.desc');
+        $this->identity = new IdentityService();
     }
 
     public function handle()
     {
         $chatId = (int) $this->getUpdate()->getChat()->get('id');
-        Logger::info('command.report', ['chat_id' => $chatId]);
-
-        $this->replyWithMessage([
-            'text' => MessageService::get('report.title') . "\n\n"
-                . MessageService::get('report.body'),
-            'parse_mode' => 'HTML',
-        ]);
+        $linkStatus = $this->identity->isLinked($chatId);
+        Logger::info('command.report', ['chat_id' => $chatId, 'link_status' => $linkStatus]);
+        if (!$linkStatus) {
+            $replyMarkup = Keyboard::make()->inline()->row([
+                Keyboard::button(['text' => 'Link Now', 'url' => 'https://auth.famoacademy.ir']),
+                Keyboard::button(['text' => 'Return Home' , 'callback_param' => 'quest.backHome'])
+            ]);
+            $this->replyWithMessage([
+                'text' => 'You are not linked to any account. Please link your account first.',
+                'parse_mode' => 'HTML',
+                'reply_markup' => $replyMarkup
+            ]);
+            $this->replyWithMessage(['text' => 'Send Your Report 📤']);
+            return;
+        }
     }
 }
