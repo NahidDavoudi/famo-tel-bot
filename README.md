@@ -63,9 +63,13 @@ src/
   Services/
     IdentityService.php    # (استاتیک) شناسایی/اتصال حساب
     MessageService.php     # (استاتیک) خواندن متن‌ها از lang/fa.json
+    JwtService.php         # (استاتیک) encode/decode با firebase/php-jwt
   Errors/
     ErrorHandler.php       # Throwable → پیام فارسی
     ApiErrorMessages.php   # کد خطای API → پیام فارسی
+  Logging/
+    Logger.php             # Monolog: همه‌چیز اینجا لاگ می‌شود
+    RuntimeLogger.php      # (legacy، بدون استفاده در مسیر فعال)
 lang/
   fa.json                  # همهٔ متن‌ها
   README.md                # قرارداد نام‌گذاری متن‌ها
@@ -101,7 +105,7 @@ cp .env.example .env
 | `BOT_WEBHOOK_URL` | برای ثبت وب‌هوک | مثل `https://nadcorp.ir/public/webhook.php` |
 | `TELEGRAM_API_URL` | خیر | فقط اگر از relay استفاده می‌کنی |
 | `BOT_WEBHOOK_SECRET` | خیر | فعلاً در `webhook.php` اعتبارسنجی نمی‌شود (بخش امنیت) |
-| `ADMIN_NAME` / `ADMIN_PASS` / `ADMIN_CHAT_ID` | برای پنل ادمین | ورود و 2FA |
+| `JWT_SECRET` | برای JWT | کلید HMAC (حداقل ۳۲ بایت برای HS256) — `App\Services\JwtService` |
 
 نام‌های جایگزین پشتیبانی‌شده: `API_BASE_URL`, `FAMO_API_BASE_URL` برای URL و `BOT_SERVICE_KEY`, `FAMO_SERVICE_KEY` برای کلید.
 
@@ -128,6 +132,40 @@ MessageService::get('profile.name', ['name' => 'علی']);   // {name} جایگ�
 خلاصهٔ قاعده: `گروه.نام`؛ برای هر feature مثل `/report` کلیدهای `report.*`، دکمه‌ها `btn.*`، ایموجی‌ها `ico.*`، خطاها `error.*`.
 
 ---
+
+## ۵.۱) لاگ کردن همه‌چیز + JWT
+
+### لاگر (Monolog)
+کلاس استاتیک `App\Logging\Logger` روی Monolog کار می‌کند و همه‌چیز را در فایل چرخشی روزانه می‌ریزد:
+```
+storage/logs/bot-YYYY-MM-DD.log     # ۱۴ روز نگه داشته می‌شود، در gitignore است
+```
+در `public/webhook.php` یک‌بار `Logger::boot()` صدا زده می‌شود. در کد:
+```php
+use App\Logging\Logger;
+Logger::info('chat.message', ['chat_id' => 123, 'text' => '...']);
+```
+
+چه چیزهایی لاگ می‌شوند (در مسیر فعال):
+- `webhook.request` — بدنهٔ خام هر درخواست ورودی + IP + متد
+- `telegram.update` — type، chat_id و کل آبجکت update
+- `telegram.request` / `telegram.response` — هر تماس با Telegram API و پاسخش (بدنهٔ کامل)
+- `famo.request` / `famo.response` / `famo.transport_error` — هر تماس با API فامو و پاسخش
+- `callback.received` — دادهٔ دکمه، chat_id و user id
+- `command.start` / `command.help` / `command.report` — اجرای هر دستور
+- `telegram.handle_error` / `webhook.error` — خطاها
+
+**امنیت:** توکن ربات تلگرام که داخل URL است به‌صورت خودکار با `Logger::redact()` به `bot[REDACTED]` تبدیل می‌شود؛ هدر `X-Bot-Key` هرگز لاگ نمی‌شود. سرویس‌ها/خطاها را با همین `Logger` لاگ کن، نه `error_log` خام.
+
+### JWT (`firebase/php-jwt`)
+```php
+use App\Services\JwtService;
+
+JwtService::boot($config->get('JWT_SECRET'));   // در webhook انجام شده
+$token = JwtService::encode(['sub' => 42], 3600);
+$payload = JwtService::decode($token);
+```
+نکته: نسخهٔ v7 حداقل طول کلید HMAC را ۲۵۶ بیت (۳۲ بایت برای HS256) الزامی می‌کند؛ پس `JWT_SECRET` باید به‌اندازهٔ کافی بلند و تصادفی باشد.
 
 ## ۶) افزودن یک قابلیت جدید
 
@@ -282,8 +320,8 @@ else { $msg = \App\Errors\ApiErrorMessages::toPersian($res->errorCode); }
 
 ## ۱۱) وضعیت فعلی و کارهای باقی‌مانده (Known gaps)
 
-- **پنل ادمین (`index.php`)**: به `admin/functions.php` نیاز دارد که در این branch حذف شده → باز کردن `/` خطا می‌دهد.
-- **باقی‌مانده‌های قدیمی**: `src/Bootstrap.php`, `src/WebhookHandler.php`, `src/Outbox/`, `src/Logging/`, `public/bot/internal-drain.php` به کلاس‌های حذف‌شده (`App\Storage\LocalStore`, `App\Storage\RuntimeStats`, `App\Telegram\TelegramClient`) ارجاع می‌دهند و اگر صدا زده شوند خطا می‌دهند.
+- **پنل ادمین حذف شد** (`index.php`). ابزار CLI وب‌هوک یعنی `bot-admin` حفظ شده چون مدیریت وب‌هوک به آن وابسته است.
+- **اسکلت‌های آینده**: `src/Bootstrap.php`, `src/WebhookHandler.php`, `src/Outbox/OutboxDrainer.php`, `public/bot/internal-drain.php` نگه داشته شده‌اند و حالا بدون ارجاع به کلاس‌های حذف‌شده کار می‌کنند (آماده برای فاز بعد).
 - **جریان شناسایی حساب نیمه‌کاره است**: `IdentityService::isLinked` نوشته شده ولی توسط هیچ command صدا زده نمی‌شود؛ و پیامِ `contact` ارسالی کاربر پردازش نمی‌شود.
 - **امنیت**: `public/error_log` داخل web root است؛ و `public/webhook.php` هدر `X-Telegram-Bot-Api-Secret-Token` را اعتبارسنجی نمی‌کند در حالی که `bot-admin set-webhook` می‌تواند secret ثبت کند.
 - **`ErrorHandler`** بر اساس جست‌وجوی زیررشته (`'401'`, `'500'`, ...) تشخیص می‌دهد؛ بهتر است بر اساس `ApiResult->status` کار کند.

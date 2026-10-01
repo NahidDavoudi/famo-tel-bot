@@ -4,6 +4,9 @@ declare(strict_types=1);
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
 use App\Bootstrap;
+use App\Logging\Logger;
+
+Logger::boot();
 
 try {
     $app = Bootstrap::create();
@@ -16,9 +19,12 @@ try {
     }
 
     if ($expected === null || !is_string($provided) || !hash_equals($expected, $provided)) {
+        Logger::warning('internal_drain.rejected', ['ip' => $_SERVER['REMOTE_ADDR'] ?? null]);
         http_response_code(403);
         exit;
     }
+
+    Logger::info('internal_drain.accepted', ['ip' => $_SERVER['REMOTE_ADDR'] ?? null]);
 
     ignore_user_abort(true);
     set_time_limit(0);
@@ -37,5 +43,6 @@ try {
     if (!headers_sent()) {
         http_response_code(($_SERVER['REQUEST_METHOD'] ?? '') === 'HEAD' ? 403 : 200);
     }
+    Logger::error('internal_drain.error', ['message' => $e->getMessage()]);
     error_log('bot internal drain fatal: ' . $e->getMessage());
 }

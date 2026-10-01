@@ -6,6 +6,7 @@ use Telegram\Bot\Api;
 use Telegram\Bot\Keyboard\Keyboard;
 use Telegram\Bot\Objects\Update;
 use App\Services\MessageService;
+use App\Logging\Logger;
 
 class CallBackHandler
 {
@@ -18,15 +19,23 @@ class CallBackHandler
             return;
         }
 
+        $chatId = $update->getChat()->get('id');
+
+        Logger::info('callback.received', [
+            'data' => $callback->getData(),
+            'chat_id' => $chatId,
+            'from_id' => $callback->getFrom()->getId(),
+            'callback_query_id' => $callback->getId(),
+        ]);
+
         try {
             $this->telegram->answerCallbackQuery([
                 'callback_query_id' => $callback->getId(),
             ]);
         } catch (\Throwable $e) {
-            error_log('answerCallbackQuery failed: ' . $e->getMessage());
+            Logger::error('callback.answer_failed', ['message' => $e->getMessage()]);
         }
 
-        $chatId = $update->getChat()->get('id');
         if ($chatId === null || $chatId === '') {
             return;
         }
@@ -39,15 +48,19 @@ class CallBackHandler
 
     private function guestIdentify(int $chatId): void
     {
-        $this->telegram->sendMessage([
+        Logger::info('callback.guest_identify', ['chat_id' => $chatId]);
+
+        $getPhoneNumberInline = $this->telegram->sendMessage([
             'chat_id' => $chatId,
             'text' => MessageService::get('identity.ask_phone'),
             'reply_markup' => Keyboard::make()->row([
                 Keyboard::button([
                     'text' => MessageService::get('ico.phone') . ' ' . MessageService::get('btn.contact'),
                     'request_contact' => true,
+                    'resize_keyboard'   => true,
+                    'one_time_keyboard' => true,
                 ]),
             ]),
-        ]);
+        ]);        
     }
 }

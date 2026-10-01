@@ -3,76 +3,41 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Logging\RuntimeLogger;
-use App\Outbox\OutboxDrainer;
+use App\Logging\Logger;
 
 final class WebhookHandler
 {
-    public function __construct(
-        private Config $config,
-        private OutboxDrainer $drainer,
-    ) {}
+    public function __construct(private Config $config) {}
 
+    /**
+     * Validate an inbound webhook request and log it.
+     *
+     * @return int HTTP status to answer Telegram with.
+     */
     public function handle(string $rawBody, ?string $secretHeader): int
     {
         try {
             $expected = $this->config->get('BOT_WEBHOOK_SECRET');
             if ($expected === null || $secretHeader === null || !hash_equals($expected, $secretHeader)) {
-                $this->safeLog('error', 'webhook rejected: bad secret');
+                Logger::warning('webhook.rejected', ['reason' => 'bad_secret']);
+
                 return 403;
             }
 
             $update = json_decode($rawBody, true);
             if (!is_array($update) || !isset($update['update_id'])) {
-                $this->safeLog('webhook', 'ignored malformed update');
+                Logger::info('webhook.malformed', ['body' => $rawBody]);
+
                 return 200;
             }
 
-            $updateId = (int) $update['update_id'];
+            Logger::info('webhook.accepted', ['update_id' => (int) $update['update_id']]);
 
-            if (!$this->store->acceptUpdate($updateId, $update)) {
-                return 200;
-            }
-
-            $this->stats->recordWebhook();
             return 200;
         } catch (\Throwable $e) {
-            $this->recordInternalError($e);
+            Logger::error('webhook.handler_error', ['message' => $e->getMessage()]);
+
             return 200;
-        }
-    }
-
-    public function finish(): void
-    {
-        try {
-            $this->drainer->run(
-                $this->config->int('BOT_DRAIN_BUDGET_SECONDS', 20),
-                function (): void {
-                    foreach ($this->store->dequeueUpdates($this->config->int('BOT_DRAIN_BATCH_LIMIT', 10)) as $item) {
-                        // Dispatch to feature handlers is added in later modules.
-                    }
-                }
-            );
-        } catch (\Throwable $e) {
-            $this->recordInternalError($e);
-        }
-    }
-
-    private function safeLog(string $type, string $message): void
-    {
-        try {
-            $this->logger->log($type, $message);
-        } catch (\Throwable) {
-        }
-    }
-
-    private function recordInternalError(\Throwable $e): void
-    {
-        $message = $e->getMessage();
-        $this->safeLog('error', 'webhook handler error: ' . $message);
-        try {
-            $this->stats->addError($message);
-        } catch (\Throwable) {
         }
     }
 }

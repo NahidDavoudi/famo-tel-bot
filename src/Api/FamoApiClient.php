@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Api;
 
+use App\Logging\Logger;
+
 class FamoApiClient
 {
     public function __construct(
@@ -33,15 +35,37 @@ class FamoApiClient
             $allHeaders[] = 'Content-Type: application/json';
         }
 
+        Logger::debug('famo.request', [
+            'method' => $method,
+            'url' => $url,
+            'query' => $query,
+            'json' => $json,
+        ]);
+
         $response = $this->http($method, $url, $allHeaders, $body);
 
         if (($response['transport'] ?? null) !== null) {
+            Logger::error('famo.transport_error', [
+                'method' => $method,
+                'url' => $url,
+                'error' => (string) $response['transport'],
+            ]);
+
             return new ApiResult(0, null, null, (string) $response['transport']);
         }
         $status = (int) $response['status'];
         $decoded = $response['body'];
         $decoded = is_array($decoded) ? $decoded : null;
         $code = $decoded['error']['code'] ?? null;
+
+        Logger::debug('famo.response', [
+            'method' => $method,
+            'url' => $url,
+            'status' => $status,
+            'error_code' => is_string($code) ? $code : null,
+            'body' => $decoded,
+        ]);
+
         return new ApiResult($status, $decoded, is_string($code) ? $code : null);
     }
 

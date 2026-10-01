@@ -49,12 +49,17 @@ class ComposerStaticInit66ab7240cf3baf647ca8daf9c02dc31b
         'P' =>
         array (
             'Psr\\SimpleCache\\' => 16,
+            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
             'Psr\\Clock\\' => 10,
             'PhpOption\\' => 10,
+        ),
+        'M' =>
+        array (
+            'Monolog\\' => 8,
         ),
         'L' =>
         array (
@@ -71,6 +76,10 @@ class ComposerStaticInit66ab7240cf3baf647ca8daf9c02dc31b
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
             'GrahamCampbell\\ResultType\\' => 26,
+        ),
+        'F' =>
+        array (
+            'Firebase\\JWT\\' => 13,
         ),
         'D' =>
         array (
@@ -137,6 +146,10 @@ class ComposerStaticInit66ab7240cf3baf647ca8daf9c02dc31b
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
+        'Psr\\Log\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
         'Psr\\Http\\Message\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
@@ -161,6 +174,10 @@ class ComposerStaticInit66ab7240cf3baf647ca8daf9c02dc31b
         'PhpOption\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
+        'Monolog\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'League\\Event\\' =>
         array (
@@ -193,6 +210,10 @@ class ComposerStaticInit66ab7240cf3baf647ca8daf9c02dc31b
         'GrahamCampbell\\ResultType\\' =>
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
+        ),
+        'Firebase\\JWT\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'Dotenv\\' =>
         array (

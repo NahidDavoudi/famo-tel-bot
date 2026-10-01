@@ -5,6 +5,7 @@ namespace App\Commands;
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Keyboard\Keyboard;
 use App\Services\MessageService;
+use App\Logging\Logger;
 
 class StartCommand extends Command
 {
@@ -17,6 +18,9 @@ class StartCommand extends Command
 
     public function handle()
     {
+        $chatId = (int) $this->getUpdate()->getChat()->get('id');
+        Logger::info('command.start', ['chat_id' => $chatId]);
+
         $keyboard = Keyboard::make()
             ->inline()
             ->row([

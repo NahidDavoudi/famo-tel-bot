@@ -4,6 +4,7 @@ namespace App\Commands;
 
 use Telegram\Bot\Commands\Command;
 use App\Services\MessageService;
+use App\Logging\Logger;
 
 class HelpCommand extends Command
 {
@@ -16,6 +17,9 @@ class HelpCommand extends Command
 
     public function handle()
     {
+        $chatId = (int) $this->getUpdate()->getChat()->get('id');
+        Logger::info('command.help', ['chat_id' => $chatId]);
+
         $this->replyWithMessage([
             'text' => MessageService::get('help.title') . "\n\n"
                 . MessageService::get('help.body') . "\n\n"

@@ -3,4 +3,7 @@
 .opencode/
 storage/*
 !storage/.htaccess
+storage/logs/
+*.log
+*.zip
 public/error_log
