@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Errors;
-
+use App\Services\MesssageService;
 final class ErrorHandler
 {
     public static function message(\Throwable $e): string
@@ -9,21 +9,21 @@ final class ErrorHandler
         $message = $e->getMessage();
 
         if (str_contains($message, 'timed out')) {
-            return '⚠️ در حال حاضر ارتباط با سرور برقرار نشد. لطفاً کمی بعد دوباره تلاش کنید.';
+            return MessageService::get('error.timeout');
         }
 
         if (str_contains($message, '401')) {
-            return '🔐 احراز هویت سرویس با مشکل مواجه شده است.';
+            return MessageService::get('error.unauthorized');
         }
 
         if (str_contains($message, '404')) {
-            return '🔎 سرویس موردنظر پیدا نشد.';
+            return MessageService::get('error.not_found');
         }
 
         if (str_contains($message, '500')) {
-            return '⚠️ سرور فامو با مشکل مواجه شده است. لطفاً کمی بعد دوباره تلاش کنید.';
+            return MessageService::get('error.server');
         }
 
-        return '⚠️ خطای غیرمنتظره‌ای رخ داد. لطفاً دوباره تلاش کنید.';
+        return MessageService::get('error.unknown');
     }
 }

@@ -21,7 +21,7 @@ class StartCommand extends Command
     {
         $chatId = (int) $this->getUpdate()->getChat()->id;
 
-        $this->replyWithMessage([
+        $loadingMessage = $this->replyWithMessage([
             'text' => MessageService::get('identity.loading'),
         ]);
 
@@ -51,9 +51,10 @@ class StartCommand extends Command
             'reply_markup' => $replyMarkup,
         ]);
         } catch (\Throwable $e) {
+            $messageId = $loadingMessage->getMessageId();
             $this->telegram->editMessageText([
                 'chat_id' => $chatId,
-                'message_id' => $this->getUpdate()->getMessage()->messageId,
+                'message_id' => $messageId,
                 'text' => ErrorHandler::message($e)
             ]);
             return;
