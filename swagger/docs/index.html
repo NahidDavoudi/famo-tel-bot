@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +7,35 @@
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-responsive.css" media="screen">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   <script src="assets/js/jquery-1.8.3.min.js" type="text/javascript"></script>
-  <script src="assets/js/main.js" type="text/javascript"></script>
+  <script src="assets/js/main.js" type="text/javascript"></script> -->
+<!DOCTYPE html>
+<html lang="en">
 
-  <title>REST API Resources</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SwaggerUI" />
+  <title>SwaggerUI</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
 </head>
+
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js" crossorigin></script>
+  <script>
+    window.onload = () => {
+      window.ui = SwaggerUIBundle({
+        url: 'https://petstore3.swagger.io/api/v3/openapi.json',
+        dom_id: '#swagger-ui',
+      });
+    };
+  </script>
+</body>
+
+</html>
+<title>REST API Resources</title>
+</head>
+
 <body>
   <div class="header">
     <div class="top-bar">
@@ -376,13 +401,14 @@
           </ul>
         </div>
       </div>
-    <div class="non-sidebar">
-      <div class="main-content">
-        <h2>Getting Started</h2>
-        <p>To begin using your fancy HTTP API, follow the steps below.</p>
-        <p>You can add some helpful tips, here</p>
+      <div class="non-sidebar">
+        <div class="main-content">
+          <h2>Getting Started</h2>
+          <p>To begin using your fancy HTTP API, follow the steps below.</p>
+          <p>You can add some helpful tips, here</p>
+        </div>
       </div>
     </div>
-  </div>
 </body>
+
 </html>

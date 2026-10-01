@@ -2,15 +2,22 @@ const fs = require("node:fs");
 const http = require("node:http");
 const path = require("node:path");
 
-const assets = "C:\\Users\\S\\AppData\\Local\\Temp\\opencode\\swagger-ui-local\\node_modules\\swagger-ui-dist";
-const spec = "C:\\xampp1\\htdocs\\tel-bot\\openapi.yaml";
+const root = __dirname;
+const assets = path.join(root, "node_modules", "swagger-ui-dist");
+const spec = path.join(root, "openapi.yaml");
+const port = Number(process.env.SWAGGER_UI_PORT || 8081);
+
+if (!fs.existsSync(assets)) {
+    console.error(`[swagger-ui] Missing "${assets}". Run "npm install" (or "npm.cmd install") in the project root first.`);
+    process.exit(1);
+}
 
 http.createServer((request, response) => {
     const pathname = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
 
     if (pathname === "/") {
         response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-        response.end('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Famo API — Swagger UI</title><link rel="stylesheet" href="/swagger-ui.css"><link rel="stylesheet" href="/index.css"><link rel="icon" href="/favicon-32x32.png"></head><body><div id="swagger-ui"></div><script src="/swagger-ui-bundle.js"></script><script src="/swagger-ui-standalone-preset.js"></script><script>window.onload=function(){window.ui=SwaggerUIBundle({url:"/openapi.yaml",dom_id:"#swagger-ui",deepLinking:true,presets:[SwaggerUIBundle.presets.apis,SwaggerUIStandalonePreset],plugins:[SwaggerUIBundle.plugins.DownloadUrl],layout:"StandaloneLayout"})}</script></body></html>');
+        response.end('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Famo API \u2014 Swagger UI</title><link rel="stylesheet" href="/swagger-ui.css"><link rel="stylesheet" href="/index.css"><link rel="icon" href="/favicon-32x32.png"></head><body><div id="swagger-ui"></div><script src="/swagger-ui-bundle.js"></script><script src="/swagger-ui-standalone-preset.js"></script><script>window.onload=function(){window.ui=SwaggerUIBundle({url:"/openapi.yaml",dom_id:"#swagger-ui",deepLinking:true,presets:[SwaggerUIBundle.presets.apis,SwaggerUIStandalonePreset],plugins:[SwaggerUIBundle.plugins.DownloadUrl],layout:"StandaloneLayout"})}</script></body></html>');
         return;
     }
 
@@ -30,4 +37,4 @@ http.createServer((request, response) => {
         response.writeHead(200, { "Content-Type": mime });
         fs.createReadStream(filename).pipe(response);
     });
-}).listen(8081, "127.0.0.1", () => console.log("Swagger UI: http://127.0.0.1:8081/"));
+}).listen(port, "127.0.0.1", () => console.log(`Swagger UI: http://127.0.0.1:${port}/`));

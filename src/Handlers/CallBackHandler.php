@@ -50,17 +50,10 @@ class CallBackHandler
     {
         Logger::info('callback.guest_identify', ['chat_id' => $chatId]);
 
-        $getPhoneNumberInline = $this->telegram->sendMessage([
+        $getPhoneNumber = $this->telegram->sendMessage([
             'chat_id' => $chatId,
-            'text' => MessageService::get('identity.ask_phone'),
-            'reply_markup' => Keyboard::make()->row([
-                Keyboard::button([
-                    'text' => MessageService::get('ico.phone') . ' ' . MessageService::get('btn.contact'),
-                    'request_contact' => true,
-                    'resize_keyboard'   => true,
-                    'one_time_keyboard' => true,
-                ]),
-            ]),
+            'text' => MessageService::get('enter your phone number'),
         ]);        
+        $messageId = $getPhoneNumber->getMessageId();
     }
 }

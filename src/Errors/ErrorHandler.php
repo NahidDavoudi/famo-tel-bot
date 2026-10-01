@@ -11,14 +11,15 @@ final class ErrorHandler
         $message = $e->getMessage();
 
         return match (true) {
-            str_contains($message, 'timed out'), str_contains($message, 'timeout') => MessageService::get('error.timeout'),
-            str_contains($message, '401') => MessageService::get('error.unauthorized'),
-            str_contains($message, '403') => MessageService::get('error.forbidden'),
-            str_contains($message, '404') => MessageService::get('error.not_found'),
-            str_contains($message, '422') => MessageService::get('error.invalid'),
-            str_contains($message, '429') => MessageService::get('error.rate_limit'),
-            str_contains($message, '500') => MessageService::get('error.server'),
-            str_contains($message, 'transport') => MessageService::get('error.network'),
+            $e->getCode() === 404 => MessageService::get('error.not_found'),
+            $e->getCode() === 403 => MessageService::get('error.forbidden'),
+            $e->getCode() === 401 => MessageService::get('error.unauthorized'),
+            $e->getCode() === 422 => MessageService::get('error.invalid'),
+            $e->getCode() === 429 => MessageService::get('error.rate_limit'),
+            $e->getCode() === 500 => MessageService::get('error.server'),
+            $e->getCode() === 502 => MessageService::get('error.bad_gateway'),
+            $e->getCode() === 503 => MessageService::get('error.service_unavailable'),
+            $e->getCode() === 504 => MessageService::get('error.gateway_timeout'),
             default => MessageService::get('error.unknown'),
         };
     }

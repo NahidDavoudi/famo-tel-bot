@@ -329,6 +329,67 @@ else { $msg = \App\Errors\ApiErrorMessages::toPersian($res->errorCode); }
 
 ---
 
+## ۱۲) اجرای محلی Swagger Editor / Swagger UI
+
+مشخصاتِ API در `openapi.yaml` (ریشهٔ پروژه) نگه داشته می‌شود. برای دیدن/ویرایش آن به‌صورت لوکال از نسخه‌های آمادهٔ (prebuilt) استفاده می‌کنیم؛ **نیازی به clone یا build مخزن swagger-editor نیست**.
+
+### پیش‌نیاز
+- Node.js (نسخهٔ LTS؛ تست‌شده با Node 22).
+- اینترنت فقط برای مرحلهٔ نصب.
+
+### نصب (یک‌بار)
+از ریشهٔ پروژه:
+```bash
+npm install
+```
+اگر PowerShell اجازهٔ اجرای `npm` را نداد (`npm.ps1 cannot be loaded`):
+```bash
+npm.cmd install
+```
+این دستور فقط `swagger-editor-dist` و `swagger-ui-dist` را داخل `node_modules/` ریشهٔ پروژه نصب می‌کند (در `.gitignore` هست).
+
+### اجرا
+دو ترمینال جدا باز کن و هر دو را در **ریشهٔ پروژه** اجرا کن:
+
+**Swagger Editor (ویرایشگر):**
+```bash
+npm run swagger:editor
+# یا معادل آن:
+node .swagger-editor-local.cjs
+```
+→ http://127.0.0.1:8080/
+
+**Swagger UI (نمایشگر مستندات):**
+```bash
+npm run swagger:ui
+# یا معادل آن:
+node .swagger-ui-local.cjs
+```
+→ http://127.0.0.1:8081/
+
+هر دو سرور فایل `openapi.yaml` را روی مسیر `/openapi.yaml` سرو می‌کنند؛ با تغییر فایل و رفرش مرورگر، تغییرات دیده می‌شود.
+
+### تغییر پورت
+اگر پورت اشغال بود (مثلاً Apache روی 8080):
+```powershell
+$env:SWAGGER_EDITOR_PORT=8090; npm run swagger:editor
+$env:SWAGGER_UI_PORT=8091; npm run swagger:ui
+```
+در `cmd`: `set SWAGGER_EDITOR_PORT=8090 && npm run swagger:editor`
+
+### عیب‌یابی
+| نشانه | راه‌حل |
+| --- | --- |
+| `Missing ...node_modules...` | در ریشهٔ پروژه `npm install` را بزن |
+| `npm.ps1 cannot be loaded` | از `npm.cmd` یا مستقیماً `node <script>.cjs` استفاده کن |
+| صفحهٔ خالی یا ۴۰۴ در مرورگر | مطمئن شو سرور در ترمینال بالاست و پورت درست را باز کردی |
+| پورت در حال استفاده | با متغیرهای `SWAGGER_EDITOR_PORT` / `SWAGGER_UI_PORT` پورت را عوض کن |
+
+### نکته: Swagger Editor نسخهٔ ۵
+بستهٔ `swagger-editor-dist` نسخهٔ آمادهٔ ۴ است و بدون build کار می‌کند. اگر واقعاً به `swagger-editor@5` (alpha) نیاز داری، باید مخزن آن را clone و `npm i && npm start` کنی؛ برای بازبینی/ویرایش سادهٔ `openapi.yaml` همین نسخهٔ آمادهٔ بالا کافی است.
+
+---
+
 ## پیوست: چه چیزی را کجا بنویسم؟
 
 | نیاز | فایل |
@@ -339,3 +400,4 @@ else { $msg = \App\Errors\ApiErrorMessages::toPersian($res->errorCode); }
 | دکمهٔ inline جدید | `callback_data` در Command + `case` در `src/Handlers/CallBackHandler.php` |
 | درخواست به فامو | `src/Api/FamoApiClient.php` از داخل سرویس |
 | خطای فارسی | `src/Errors/ErrorHandler.php` / `src/Errors/ApiErrorMessages.php` |
+| دیدن/ویرایش `openapi.yaml` | `npm run swagger:editor` / `npm run swagger:ui` (بخش ۱۲) |
