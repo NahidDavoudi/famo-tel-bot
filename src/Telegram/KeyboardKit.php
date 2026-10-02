@@ -30,8 +30,8 @@ final class KeyboardKit
     public const ROUTE_WEEK = 'week';
     public const ROUTE_HOME = 'home';
 
-    /** @return list<list<array<string,string>>> */
-    public static function studentMenu(): array
+    /** @return list<list<array<string,string>>> ReplyKeyboardMarkup only (text buttons, no callback_data) */
+    public static function replyKeyboardStudentMenu(): array
     {
         return [
             [self::key(self::LBL_TODAY), self::key(self::LBL_WEEK)],

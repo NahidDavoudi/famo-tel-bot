@@ -146,7 +146,7 @@ final class LinkHandler
 
         $this->tg->setReplyKeyboard(
             $s->chatId,
-            KeyboardKit::studentMenu(),
+            KeyboardKit::replyKeyboardStudentMenu(),
             Lang::t('link.success', ['name' => $s->payload['name']])
         );
 
