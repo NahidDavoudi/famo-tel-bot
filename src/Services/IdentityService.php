@@ -41,7 +41,7 @@ final class IdentityService
     {
         $res = self::api()->request('POST', '');
     }
-    public static function getRole(int $chatId): string
+    public static function getRole(int $chatId)
     {
         if(self::resolve($chatId)){
             $role = self::resolve($chatId)['role'];
