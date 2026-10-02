@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use InvalidArgumentException;
 
-final class PhoneNumberService
+final class PhoneNormalizer
 {
     public static function normalizeIranianMobile(string $input): string
     {

@@ -9,10 +9,14 @@ use Telegram\Bot\Objects\Update;
 use App\Logging\Logger;
 // use GuzzleHttp\Psr7\Message;
 use Telegram\Bot\Objects\Message as ObjectsMessage;
-
+use App\Services\IdentityService;
 class CallBackHandler
 {
-    public function __construct(private Api $telegram) {}
+    private IdentityService $identityService;
+    public function __construct(private Api $telegram ) {
+
+        $this->identityService = new IdentityService();
+    }
 
     public function handle(Update $update): void
     {
@@ -48,17 +52,17 @@ class CallBackHandler
         };
     }
 
-    private function getPhone(int $chatId): ObjectsMessage
+    protected function getPhone(int $chatId): void
     {
         $tmp = $this->telegram->sendMessage([
             'chat_id' => $chatId,
             'text' => 'Send Your Registred Phone number',
         ]);
         $messageId = $tmp->messageId();
-        $copyedMessage = $this->telegram->copyMessage([
+        $phoneNumber = $this->telegram->copyMessage([
             'chat_id' => $chatId,
             'message_id' => $messageId
         ]);
-        return $copyedMessage;
+        $linkGuest = $this->identityService->linkGuest($phoneNumber, $chatId);
     }
 }
