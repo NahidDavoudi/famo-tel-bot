@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Logging;
+namespace App;
 
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
@@ -62,7 +62,6 @@ final class Logger
         self::channel()->error(self::redact($message), self::scrub($context));
     }
 
-    /** Mask Telegram bot tokens that may appear inside URLs or messages. */
     public static function redact(string $text): string
     {
         return preg_replace('#bot\d+:[A-Za-z0-9_\-]+#', 'bot[REDACTED]', $text) ?? $text;
@@ -79,6 +78,7 @@ final class Logger
             foreach ($value as $key => $item) {
                 $out[$key] = self::scrub($item);
             }
+
             return $out;
         }
 
@@ -87,6 +87,6 @@ final class Logger
 
     private static function defaultPath(): string
     {
-        return dirname(__DIR__, 2) . '/storage/logs/bot.log';
+        return dirname(__DIR__) . '/storage/logs/bot.log';
     }
 }

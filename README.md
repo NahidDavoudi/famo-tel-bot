@@ -1,403 +1,119 @@
-# Famo Telegram Bot — راهنمای کامل توسعه
+# ربات تلگرام فامو
 
-این سند راهنمای کامل پروژهٔ ربات تلگرام فامو است: معماری، راه‌اندازی، نحوهٔ افزودن قابلیت، و عیب‌یابی.
-سیستم نام‌گذاری متن‌ها جداگانه در [`lang/README.md`](lang/README.md) توضیح داده شده است.
+لایهٔ نازکی بین **تلگرام** و **API فامو** (`api.famoacademy.ir`). ربات هیچ دیتابیس
+کسب‌وکاری ندارد؛ فقط یک SQLite محلی برای **state موقت گفتگو** نگه می‌دارد. هر تصمیم،
+دسترسی و داده از API فامو می‌آید.
 
----
+- PHP 8.2+ (روی سرور 8.4)
+- بدون فریم‌ورک؛ پکیج‌ها: `irazasyed/telegram-bot-sdk`, `vlucas/phpdotenv`, `monolog/monolog`
+- شاخهٔ توسعه: `agent` (نسخهٔ جدید)، شاخهٔ قبلی `dev` دست‌نخورده می‌ماند
+- مرجع UX: `famo-bot-ux-flow.md` — مرجع متن‌ها/دکمه‌ها: `lang/fa.json` + `KeyboardKit`
 
-## ۱) این پروژه چیست
-
-لایهٔ نازکی بین **تلگرام** و **API فامو** (`api.famoacademy.ir`). ربات برای هر تصمیم/داده از API فامو می‌پرسد و هیچ دیتابیس محلیِ حقیقت ندارد. ارتباط با فامو با هدر `X-Bot-Key` انجام می‌شود.
-
-- PHP 8.2+ (روی سرور فعلی 8.4)
-- بدون فریم‌ورک؛ فقط دو پکیج: `irazasyed/telegram-bot-sdk` و `vlucas/phpdotenv`
-- مسیر فعال ربات: `public/webhook.php` → `src/Bot.php`
-
----
-
-## ۲) معماری و جریان درخواست
+## معماری
 
 ```
-Telegram
-   │  POST update (JSON)
-   ▼
-public/webhook.php        ← نقطهٔ ورود (composition root)
-   │  Dotenv، ساخت Config، boot کردن سرویس‌ها، try/catch → همیشه 200
-   ▼
-src/Bot.php               ← راه‌اندازی SDK، register کردن commandها
-   │  getWebhookUpdate()
-   ├── callback_query؟  → src/Handlers/CallBackHandler.php
-   └── message/command؟ → Telegram SDK  → (CommandBus)
-                                   ▼
-                          src/Commands/*Command.php   ← فقط Telegram I/O
-                                   ▼
-                          src/Services/*Service.php   ← منطق کسب‌وکار (استاتیک)
-                                   ▼
-                          src/Api/FamoApiClient.php   ← HTTP به فامو (X-Bot-Key)
-                                   ▼
-                          api.famoacademy.ir/api/v1/bot/*
+Telegram ──POST──► public/webhook.php
+   .env → Logger/Lang → Config
+   اعتبارسنجی X-Telegram-Bot-Api-Secret-Token (اگر BOT_WEBHOOK_SECRET تنظیم باشد)
+   ساخت FamoApi, TelegramApi, StateStore, ScreenManager, Handlerها
+   Router::route(update)
+        ├─ dedupe (processed_update)
+        ├─ بارگذاری ChatState (انقضای ۳۰ دقیقه‌ای mode/payload)
+        ├─ callback_query  → CallbackRouter (prefix) → Handler
+        ├─ دکمهٔ Reply     → Handler
+        ├─ دستور /...      → Handler
+        └─ پیام بر اساس role/mode → Handler
+   ذخیرهٔ state → همیشه HTTP 200
 ```
 
-قواعد لایه‌ها:
-- **Command**: فقط آپدیت را می‌خواند، سرویس را صدا می‌زند، و `replyWithMessage` می‌کند. هیچ HTTP و منطق ندارد.
-- **Service**: منطق و تصمیم‌گیری؛ با `FamoApiClient` کار می‌کند و مقادیر ساده برمی‌گرداند (نه آبجکت SDK).
-- **FamoApiClient**: یک `ApiResult` برمی‌گرداند (`status`, `body`, `errorCode`, `transportError`, `ok()`, `data()`).
+لایه‌ها:
 
----
+- **Router** فقط update را تشخیص می‌دهد و به handler می‌رساند؛ نه API صدا می‌زند نه صفحه می‌سازد.
+- **Handlers** (`Link`, `Student`, `Account`؛ بعداً `Supporter`, `Broadcast`) داده را از API
+  می‌گیرند، `Screen` می‌سازند و با `ScreenManager` نمایش می‌دهند.
+- **Screens** فقط متن و کیبورد می‌سازند؛ بدون I/O.
+- **Famo** کلاینت API و ErrorMap؛ **State** ذخیره‌سازی موقت؛ **Telegram** کلاینت/ScreenManager/کیبورد.
 
-## ۳) ساختار پوشه‌ها (مسیر فعال)
+### ساختار پوشه‌ها
 
 ```
-public/
-  webhook.php              # نقطهٔ ورود وب‌هوک
+public/webhook.php                 # نقطهٔ ورود
 src/
-  Bot.php                  # SDK + register commandها + مسیریابی callback
-  Config.php               # خواندن .env
-  Api/
-    FamoApiClient.php      # HTTP به فامو
-    ApiResult.php
-  Commands/
-    StartCommand.php  HelpCommand.php  ReportCommand.php
-  Handlers/
-    CallBackHandler.php    # مدیریت callback_query
-  Services/
-    IdentityService.php    # (استاتیک) شناسایی/اتصال حساب
-    MessageService.php     # (استاتیک) خواندن متن‌ها از lang/fa.json
-    JwtService.php         # (استاتیک) encode/decode با firebase/php-jwt
-  Errors/
-    ErrorHandler.php       # Throwable → پیام فارسی
-    ApiErrorMessages.php   # کد خطای API → پیام فارسی
-  Logging/
-    Logger.php             # Monolog: همه‌چیز اینجا لاگ می‌شود
-    RuntimeLogger.php      # (legacy، بدون استفاده در مسیر فعال)
-lang/
-  fa.json                  # همهٔ متن‌ها
-  README.md                # قرارداد نام‌گذاری متن‌ها
+  Router.php  Config.php  Lang.php  RawHtml.php  Num.php  Logger.php
+  Telegram/  TelegramApi.php  ScreenManager.php  Screen.php  KeyboardKit.php  UpdateContext.php
+  Famo/      FamoApi.php  ApiResult.php  ErrorMap.php
+  State/     StateStore.php  ChatState.php
+  Handlers/  LinkHandler.php  StudentHandler.php  AccountHandler.php
+  Screens/   WelcomeScreen.php  HomeScreen.php  DayScreen.php  WeekScreen.php  AccountScreen.php  HelpScreen.php
+lang/fa.json
+tools/lint.php  tools/replay.php
+tests/run.php
 ```
 
-> فایل‌های `src/Bootstrap.php`، `src/WebhookHandler.php`، `src/Outbox/`، `src/Logging/` و `public/bot/internal-drain.php` باقی‌ماندهٔ یک معماری قدیمی‌ترند و با کد فعلی کار نمی‌کنند (به بخش «کارهای باقی‌مانده» نگاه کن).
+## راه‌اندازی
 
----
-
-## ۴) راه‌اندازی
-
-### پیش‌نیازها
-- PHP 8.2+ با اکستنشن‌های `curl`, `json`, `mbstring`, `openssl`
-- Composer
-
-### نصب
 ```bash
 composer install
-```
-
-### فایل `.env` (در ریشهٔ پروژه، هرگز کامیت نشود)
-از `.env.example` کپی بگیر:
-```bash
 cp .env.example .env
 ```
-سپس مقادیر را پر کن. متغیرهای مهم:
 
-| متغیر | لازم؟ | توضیح |
+### متغیرهای محیطی
+
+| کلید | لازم؟ | توضیح |
 | --- | --- | --- |
-| `TELEGRAM_BOT_TOKEN` | بله | توکن ربات از @BotFather |
-| `FAMO_API_URL` (یا `API_BASE_URL`) | بله | بیس API فامو **بدون** `/api/v1`؛ مثل `https://api.famoacademy.ir` |
-| `FAMO_API_TOKEN` (یا `BOT_SERVICE_KEY`) | بله | همان `BOT_SERVICE_KEY` سرور API؛ به‌عنوان هدر `X-Bot-Key` فرستاده می‌شود |
-| `BOT_WEBHOOK_URL` | برای ثبت وب‌هوک | مثل `https://nadcorp.ir/public/webhook.php` |
-| `TELEGRAM_API_URL` | خیر | فقط اگر از relay استفاده می‌کنی |
-| `BOT_WEBHOOK_SECRET` | خیر | فعلاً در `webhook.php` اعتبارسنجی نمی‌شود (بخش امنیت) |
-| `JWT_SECRET` | برای JWT | کلید HMAC (حداقل ۳۲ بایت برای HS256) — `App\Services\JwtService` |
+| `TELEGRAM_BOT_TOKEN` | بله | توکن ربات از BotFather |
+| `FAMO_API_URL` | بله | بیس API فامو بدون `/api/v1` |
+| `BOT_SERVICE_KEY` | بله | همان `BOT_SERVICE_KEY` سرور API؛ به‌عنوان `X-Bot-Key` فرستاده می‌شود |
+| `BOT_LOGIN_URL` | بله | صفحهٔ ورود سایت فامو (ویجت ورود تلگرام) |
+| `BOT_WEBHOOK_SECRET` | خیر | اگر تنظیم شود، هدر secret اعتبارسنجی می‌شود |
+| `BOT_STORAGE_DIR` | خیر | پیش‌فرض `<root>/storage` |
+| `BOT_LOG_FILE` | خیر | پیش‌فرض `<root>/storage/logs/bot.log` |
 
-نام‌های جایگزین پشتیبانی‌شده: `API_BASE_URL`, `FAMO_API_BASE_URL` برای URL و `BOT_SERVICE_KEY`, `FAMO_SERVICE_KEY` برای کلید.
+> نام قبلی `FAMO_API_TOKEN` به `BOT_SERVICE_KEY` تغییر کرده تا در ربات و بک‌اند یک نام باشد.
 
-### ثبت وب‌هوک
+## جریان دانشجو (نسخهٔ ۱)
+
+- **اتصال:** `/start` بدون اتصال ← صفحهٔ خوش‌آمد با دکمهٔ URL سایت + «وارد شدم، ادامه».
+  ربات فقط `resolve` را صدا می‌زند و به payload اعتماد نمی‌کند.
+- **منوی اصلی:** نام، پشتیبان، وضعیت امروز، پاسخ‌های خوانده‌نشده.
+- **ارسال گزارش:** هر متن/عکس/فایل/ویس/ویدیو در حالت idle ← ثبت در API + ری‌اکشن 👍 (بدون پیام متنی).
+- **گفتگوی امروز / یک روز (S-T/S-D):** صفحهٔ ۱۰ پیام آخر؛ سپس mark read.
+- **وضعیت هفته (S-W):** ۷ روز با نشانگر ✅/❌/⏳ و 💬/🔵؛ روزهای آینده غیرفعال.
+- **پاسخ‌های جدید (S-N)** و **حساب من (S-A)** (تغییر نقش، اتصال دیگر، قطع اتصال).
+- دستورات: `/start`, `/menu`, `/cancel`, `/help`. دکمه‌های Reply فقط ناوبری‌اند.
+
+### callback_data
+
+`nop`, `h`, `ln:check`, `ac`, `ac:role:{role}`, `ac:switch`, `ac:unlink`,
+`ac:unlink:ok`, `ac:home`, `st:t`, `st:w[:{weekStart}]`, `st:d:{day}:{page}`,
+`st:f:{day}:{page}`, `st:n`. قالب `scope:action[:params]`، حداکثر ۶۴ بایت.
+
+## State
+
+`storage/bot.sqlite` (WAL): جدول `chat_state` (role, mode, payload, active_screen_message_id,
+updated_at) و `processed_update` (dedupe). انقضای ۳۰ دقیقه‌ای state؛ پاک‌سازی روزانهٔ
+`processed_update`. هیچ دادهٔ کسب‌وکاری محلی ذخیره نمی‌شود.
+
+## تست و ابزار
+
 ```bash
-php bot-admin set-webhook      # از BOT_WEBHOOK_URL در .env استفاده می‌کند
-php bot-admin status           # getWebhookInfo
-php bot-admin delete-webhook [--drop-pending]
-```
-انتظار: در `status` مقدار `URL` درست و `last_error_message` خالی.
-
----
-
-## ۵) سیستم متن‌ها (JSON)
-
-همهٔ متن‌ها در `lang/fa.json` هستند و با سرویس استاتیک خوانده می‌شوند:
-```php
-use App\Services\MessageService;
-
-MessageService::get('start.desc');
-MessageService::get('profile.name', ['name' => 'علی']);   // {name} جایگزین می‌شود
-```
-قرارداد کامل کلیدها: [`lang/README.md`](lang/README.md).
-خلاصهٔ قاعده: `گروه.نام`؛ برای هر feature مثل `/report` کلیدهای `report.*`، دکمه‌ها `btn.*`، ایموجی‌ها `ico.*`، خطاها `error.*`.
-
----
-
-## ۵.۱) لاگ کردن همه‌چیز + JWT
-
-### لاگر (Monolog)
-کلاس استاتیک `App\Logging\Logger` روی Monolog کار می‌کند و همه‌چیز را در فایل چرخشی روزانه می‌ریزد:
-```
-storage/logs/bot-YYYY-MM-DD.log     # ۱۴ روز نگه داشته می‌شود، در gitignore است
-```
-در `public/webhook.php` یک‌بار `Logger::boot()` صدا زده می‌شود. در کد:
-```php
-use App\Logging\Logger;
-Logger::info('chat.message', ['chat_id' => 123, 'text' => '...']);
+composer lint    # php -l روی src/public/tools/tests
+composer test    # تست‌های خالص (بدون شبکه)
+php tools/replay.php   # نمایش صفحه‌ها با دادهٔ نمونه
 ```
 
-چه چیزهایی لاگ می‌شوند (در مسیر فعال):
-- `webhook.request` — بدنهٔ خام هر درخواست ورودی + IP + متد
-- `telegram.update` — type، chat_id و کل آبجکت update
-- `telegram.request` / `telegram.response` — هر تماس با Telegram API و پاسخش (بدنهٔ کامل)
-- `famo.request` / `famo.response` / `famo.transport_error` — هر تماس با API فامو و پاسخش
-- `callback.received` — دادهٔ دکمه، chat_id و user id
-- `command.start` / `command.help` / `command.report` — اجرای هر دستور
-- `telegram.handle_error` / `webhook.error` — خطاها
+## ثبت وب‌هوک
 
-**امنیت:** توکن ربات تلگرام که داخل URL است به‌صورت خودکار با `Logger::redact()` به `bot[REDACTED]` تبدیل می‌شود؛ هدر `X-Bot-Key` هرگز لاگ نمی‌شود. سرویس‌ها/خطاها را با همین `Logger` لاگ کن، نه `error_log` خام.
-
-### JWT (`firebase/php-jwt`)
-```php
-use App\Services\JwtService;
-
-JwtService::boot($config->get('JWT_SECRET'));   // در webhook انجام شده
-$token = JwtService::encode(['sub' => 42], 3600);
-$payload = JwtService::decode($token);
 ```
-نکته: نسخهٔ v7 حداقل طول کلید HMAC را ۲۵۶ بیت (۳۲ بایت برای HS256) الزامی می‌کند؛ پس `JWT_SECRET` باید به‌اندازهٔ کافی بلند و تصادفی باشد.
-
-## ۶) افزودن یک قابلیت جدید
-
-### الف) افزودن یک Command (مثلاً `/profile`)
-1. متن‌ها را در `lang/fa.json` اضافه کن (طبق قرارداد):
-   ```json
-   "profile.desc": "حساب من",
-   "profile.title": "حساب کاربری"
-   ```
-2. کلاس command را بساز:
-   ```php
-   <?php
-   namespace App\Commands;
-
-   use Telegram\Bot\Commands\Command;
-   use App\Services\MessageService;
-
-   class ProfileCommand extends Command
-   {
-       protected string $name = 'profile';
-
-       public function __construct()
-       {
-           $this->description = MessageService::get('profile.desc');
-       }
-
-       public function handle()
-       {
-           $chatId = (int) $this->getUpdate()->getChat()->get('id');
-           // منطق را به سرویس بسپار:
-           // $data = IdentityService::profile($chatId);
-
-           $this->replyWithMessage([
-               'text' => MessageService::get('profile.title'),
-               'parse_mode' => 'HTML',
-           ]);
-       }
-   }
-   ```
-3. در `src/Bot.php` ثبت کن:
-   ```php
-   $this->telegram->addCommands([
-       StartCommand::class, HelpCommand::class, ReportCommand::class, ProfileCommand::class,
-   ]);
-   ```
-
-> نکته: SDK هر command را با `new $class` می‌سازد؛ پس **constructor اجباری نگذار** یا اگر لازم داری، سرویس را استاتیک صدا بزن.
-
-### ب) افزودن یک Service (استاتیک)
-الگوی `IdentityService` را دنبال کن:
-```php
-namespace App\Services;
-
-use App\Api\FamoApiClient;
-
-final class StudentService
-{
-    private static ?FamoApiClient $api = null;
-
-    public static function boot(FamoApiClient $api): void { self::$api = $api; }
-
-    public static function today(int $chatId, int $userId): array
-    {
-        $res = self::api()->request('GET', '/bot/students/today', [
-            'X-Telegram-User-Id' => (string) $userId,
-            'X-Telegram-Chat-Id' => (string) $chatId,
-            'X-Bot-Role' => 'student',
-        ]);
-        if (!$res->ok()) {
-            throw new \RuntimeException('API status ' . $res->status);
-        }
-        return (array) ($res->data()['items'] ?? []);
-    }
-}
+https://<host>/public/webhook.php
 ```
-و در `public/webhook.php` یک‌بار `boot` کن:
-```php
-StudentService::boot($api);   // $api همان FamoApiClient است
-```
+اگر `BOT_WEBHOOK_SECRET` تنظیم شود، همان مقدار باید هنگام `setWebhook` به‌عنوان
+`secret_token` ثبت شود.
 
-### ج) افزودن callback (دکمه‌های inline)
-قرارداد `callback_data`: `scope.action` (مثلاً `guest.identify`, `report.submit`).
-- در `src/Bot.php` مسیر callback به `CallBackHandler` می‌رود.
-- در `CallBackHandler::handle()` یک `case` جدید به `match` اضافه کن:
-  ```php
-  match ((string) $callback->getData()) {
-      'guest.identify' => $this->guestIdentify((int) $chatId),
-      'report.submit'  => $this->reportSubmit((int) $chatId),
-      default => null,
-  };
-  ```
-- همیشه اول `answerCallbackQuery` بزن تا اسپینر دکمه بسته شود.
+## وضعیت و کارهای بعدی
 
-### د) فراخوانی API فامو
-```php
-$res = $api->request('POST', '/bot/identity/link', $headers, $jsonBody, $query);
-if ($res->ok()) { $data = $res->data(); }
-else { $msg = \App\Errors\ApiErrorMessages::toPersian($res->errorCode); }
-```
-هدرهای رایج که API لازم دارد: `X-Bot-Key` (خودکار)، `X-Bot-Role`, `X-Telegram-User-Id`, `X-Telegram-Chat-Id`. مرجع قطعی: `openapi.yaml`.
+فاز ۲: **outbox + پشتیبان** (صندوق ورودی، لیست دانشجوها، پاسخ‌دهی، پیام همگانی)
+تا چرخهٔ «دانشجو می‌فرستد → پشتیبان جواب می‌دهد» کامل شود. تا آن زمان، eventها و
+پاسخ پشتیبان به دانشجو ارسال نمی‌شود.
 
----
-
-## ۷) مدیریت خطا
-
-- `Bot::handle()` کل dispatch را در `try/catch` دارد؛ در صورت خطا لاگ می‌کند و پیام کاربرپسند با `ErrorHandler::message($e)` می‌فرستد.
-- `public/webhook.php` هم هر `Throwable` را لاگ می‌کند و **همیشه ۲۰۰** برمی‌گرداند تا تلگرام retry بی‌پایان نکند.
-- استثناها را با پیام‌هایی لاگ کن که کد وضعیت API را داشته باشد (مثل `API status 401`) تا `ErrorHandler` درست map کند.
-
----
-
-## ۸) تست و دیباگ
-
-- به‌جای تست واقعی، از HTTP client ماک استفاده کن (نمونه در همین پروژه برای `/start` و callback استفاده شد):
-  ```php
-  $handler = fn () => \GuzzleHttp\Promise\Create::promiseFor(
-      new \GuzzleHttp\Psr7\Response(200, [], json_encode(['ok' => true, 'result' => [...]]))
-  );
-  $api = new \Telegram\Bot\Api('123:FAKE', false,
-      new \Telegram\Bot\HttpClients\GuzzleHttpClient(new \GuzzleHttp\Client(['handler' => \GuzzleHttp\HandlerStack::create($handler)])));
-  $api->processCommand(new \Telegram\Bot\Objects\Update([...]));
-  ```
-- لاگ خطا: `public/error_log` (مسیر در `public/webhook.php`). **هشدار:** این فایل داخل web root است.
-- بررسی syntax: `php -l <file>`.
-- `getWebhookInfo` را با `php bot-admin status` ببین.
-
----
-
-## ۹) دیپلوی
-
-1. کد را روی سرور بکش (`git pull`).
-2. اگر dependency عوض شده: `composer install --no-dev`.
-3. `.env` سرور را چک کن (مخصوصاً `FAMO_API_TOKEN` و `BOT_WEBHOOK_URL`).
-4. **OPcache را ریست کن** (تغییرات PHP تا ری‌استارت PHP-FPM/Apache دیده نمی‌شوند): با `pkill -USR2 php-fpm` یا مقدار `opcache.validate_timestamps=1`.
-5. `php bot-admin set-webhook` و بعد `php bot-admin status`.
-6. یک `/start` بفرست و `pending_update_count` را چک کن.
-
----
-
-## ۱۰) عیب‌یابی
-
-| نشانه | علت احتمالی | راه‌حل |
-| --- | --- | --- |
-| `500 Internal Server Error` از وب‌هوک | خطای PHP؛ نبودن `vendor`؛ مسیر `.env` | `composer install`؛ `public/error_log` را ببین؛ `php -l` |
-| `BOT_UNAUTHORIZED` (401) از API | مقدار `X-Bot-Key` با `BOT_SERVICE_KEY` سرور API یکی نیست | مقدار `FAMO_API_TOKEN` بات = مقدار `BOT_SERVICE_KEY` در `api/.env`؛ بدون کوتیشن/فاصله |
-| `BOT_NOT_CONFIGURED` (500) از API | `BOT_SERVICE_KEY` سمت API خالی است | در `api/.env` مقدار بگذار و ری‌استارت کن |
-| `pending_update_count` کم نمی‌شود | وب‌هوک خطا می‌دهد | `bot-admin status` → `last_error_message` |
-| دکمهٔ inline هیچ کاری نمی‌کند | `callback_query` مدیریت نشده یا خطای داخل handler | `public/error_log`؛ `handle()` را چک کن |
-| تغییر کد دیده نمی‌شود | OPcache | ری‌استارت PHP-FPM/Apache |
-
----
-
-## ۱۱) وضعیت فعلی و کارهای باقی‌مانده (Known gaps)
-
-- **پنل ادمین حذف شد** (`index.php`). ابزار CLI وب‌هوک یعنی `bot-admin` حفظ شده چون مدیریت وب‌هوک به آن وابسته است.
-- **اسکلت‌های آینده**: `src/Bootstrap.php`, `src/WebhookHandler.php`, `src/Outbox/OutboxDrainer.php`, `public/bot/internal-drain.php` نگه داشته شده‌اند و حالا بدون ارجاع به کلاس‌های حذف‌شده کار می‌کنند (آماده برای فاز بعد).
-- **جریان شناسایی حساب نیمه‌کاره است**: `IdentityService::isLinked` نوشته شده ولی توسط هیچ command صدا زده نمی‌شود؛ و پیامِ `contact` ارسالی کاربر پردازش نمی‌شود.
-- **امنیت**: `public/error_log` داخل web root است؛ و `public/webhook.php` هدر `X-Telegram-Bot-Api-Secret-Token` را اعتبارسنجی نمی‌کند در حالی که `bot-admin set-webhook` می‌تواند secret ثبت کند.
-- **`ErrorHandler`** بر اساس جست‌وجوی زیررشته (`'401'`, `'500'`, ...) تشخیص می‌دهد؛ بهتر است بر اساس `ApiResult->status` کار کند.
-- **`Config`** هنگام autoload شدن، `Dotenv::load()` را در سطح فایل اجرا می‌کند؛ بهتر است فقط در نقطهٔ ورود یک‌بار انجام شود.
-
----
-
-## ۱۲) اجرای محلی Swagger Editor / Swagger UI
-
-مشخصاتِ API در `openapi.yaml` (ریشهٔ پروژه) نگه داشته می‌شود. برای دیدن/ویرایش آن به‌صورت لوکال از نسخه‌های آمادهٔ (prebuilt) استفاده می‌کنیم؛ **نیازی به clone یا build مخزن swagger-editor نیست**.
-
-### پیش‌نیاز
-- Node.js (نسخهٔ LTS؛ تست‌شده با Node 22).
-- اینترنت فقط برای مرحلهٔ نصب.
-
-### نصب (یک‌بار)
-از ریشهٔ پروژه:
-```bash
-npm install
-```
-اگر PowerShell اجازهٔ اجرای `npm` را نداد (`npm.ps1 cannot be loaded`):
-```bash
-npm.cmd install
-```
-این دستور فقط `swagger-editor-dist` و `swagger-ui-dist` را داخل `node_modules/` ریشهٔ پروژه نصب می‌کند (در `.gitignore` هست).
-
-### اجرا
-دو ترمینال جدا باز کن و هر دو را در **ریشهٔ پروژه** اجرا کن:
-
-**Swagger Editor (ویرایشگر):**
-```bash
-npm run swagger:editor
-# یا معادل آن:
-node .swagger-editor-local.cjs
-```
-→ http://127.0.0.1:8080/
-
-**Swagger UI (نمایشگر مستندات):**
-```bash
-npm run swagger:ui
-# یا معادل آن:
-node .swagger-ui-local.cjs
-```
-→ http://127.0.0.1:8081/
-
-هر دو سرور فایل `openapi.yaml` را روی مسیر `/openapi.yaml` سرو می‌کنند؛ با تغییر فایل و رفرش مرورگر، تغییرات دیده می‌شود.
-
-### تغییر پورت
-اگر پورت اشغال بود (مثلاً Apache روی 8080):
-```powershell
-$env:SWAGGER_EDITOR_PORT=8090; npm run swagger:editor
-$env:SWAGGER_UI_PORT=8091; npm run swagger:ui
-```
-در `cmd`: `set SWAGGER_EDITOR_PORT=8090 && npm run swagger:editor`
-
-### عیب‌یابی
-| نشانه | راه‌حل |
-| --- | --- |
-| `Missing ...node_modules...` | در ریشهٔ پروژه `npm install` را بزن |
-| `npm.ps1 cannot be loaded` | از `npm.cmd` یا مستقیماً `node <script>.cjs` استفاده کن |
-| صفحهٔ خالی یا ۴۰۴ در مرورگر | مطمئن شو سرور در ترمینال بالاست و پورت درست را باز کردی |
-| پورت در حال استفاده | با متغیرهای `SWAGGER_EDITOR_PORT` / `SWAGGER_UI_PORT` پورت را عوض کن |
-
-### نکته: Swagger Editor نسخهٔ ۵
-بستهٔ `swagger-editor-dist` نسخهٔ آمادهٔ ۴ است و بدون build کار می‌کند. اگر واقعاً به `swagger-editor@5` (alpha) نیاز داری، باید مخزن آن را clone و `npm i && npm start` کنی؛ برای بازبینی/ویرایش سادهٔ `openapi.yaml` همین نسخهٔ آمادهٔ بالا کافی است.
-
----
-
-## پیوست: چه چیزی را کجا بنویسم؟
-
-| نیاز | فایل |
-| --- | --- |
-| متن جدید | `lang/fa.json` (+ قرارداد در `lang/README.md`) |
-| دستور جدید تلگرام | `src/Commands/<Name>Command.php` + ثبت در `src/Bot.php` |
-| منطق کسب‌وکار | `src/Services/<Name>Service.php` (استاتیک) |
-| دکمهٔ inline جدید | `callback_data` در Command + `case` در `src/Handlers/CallBackHandler.php` |
-| درخواست به فامو | `src/Api/FamoApiClient.php` از داخل سرویس |
-| خطای فارسی | `src/Errors/ErrorHandler.php` / `src/Errors/ApiErrorMessages.php` |
-| دیدن/ویرایش `openapi.yaml` | `npm run swagger:editor` / `npm run swagger:ui` (بخش ۱۲) |
+پنل ادمین و کدهای drain قدیمی حذف شده‌اند و در صورت نیاز از نو و کوچک‌تر ساخته می‌شوند.
