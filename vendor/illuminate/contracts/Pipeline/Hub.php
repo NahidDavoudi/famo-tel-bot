@@ -9,7 +9,7 @@ interface Hub
      *
      * @param  mixed  $object
      * @param  string|null  $pipeline
-     * @return mixed
+     *  mixed
      */
     public function pipe($object, $pipeline = null);
 }

@@ -16,7 +16,7 @@ class ShippingOption extends BaseObject
     /**
      * {@inheritdoc}
      *
-     * @return array{prices: string[]}
+     *  array{prices: string[]}
      */
     public function relations(): array
     {

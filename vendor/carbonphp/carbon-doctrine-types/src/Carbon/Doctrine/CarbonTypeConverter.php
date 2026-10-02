@@ -30,7 +30,7 @@ trait CarbonTypeConverter
     public bool $external = true;
 
     /**
-     * @return class-string<T>
+     *  class-string<T>
      */
     protected function getCarbonClassName(): string
     {

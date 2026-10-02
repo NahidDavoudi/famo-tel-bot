@@ -30,7 +30,7 @@ trait MessageTrait
     }
 
     /**
-     * @return static
+     *  static
      */
     public function withProtocolVersion($version): MessageInterface
     {
@@ -84,7 +84,7 @@ trait MessageTrait
     }
 
     /**
-     * @return static
+     *  static
      */
     public function withHeader($header, $value): MessageInterface
     {
@@ -116,7 +116,7 @@ trait MessageTrait
     }
 
     /**
-     * @return static
+     *  static
      */
     public function withAddedHeader($header, $value): MessageInterface
     {
@@ -150,7 +150,7 @@ trait MessageTrait
     }
 
     /**
-     * @return static
+     *  static
      */
     public function withoutHeader($header): MessageInterface
     {
@@ -178,7 +178,7 @@ trait MessageTrait
     }
 
     /**
-     * @return static
+     *  static
      */
     public function withBody(StreamInterface $body): MessageInterface
     {
@@ -232,7 +232,7 @@ trait MessageTrait
     /**
      * @param mixed $value
      *
-     * @return string[]
+     *  string[]
      */
     private function normalizeHeaderValue($value): array
     {
@@ -261,7 +261,7 @@ trait MessageTrait
      *
      * @param mixed[] $values Header values
      *
-     * @return string[] Trimmed header values
+     *  string[] Trimmed header values
      *
      * @see https://datatracker.ietf.org/doc/html/rfc7230#section-3.2.4
      */

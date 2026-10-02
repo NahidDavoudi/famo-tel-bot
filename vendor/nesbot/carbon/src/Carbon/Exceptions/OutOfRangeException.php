@@ -70,7 +70,7 @@ class OutOfRangeException extends BaseInvalidArgumentException implements Invali
     }
 
     /**
-     * @return mixed
+     *  mixed
      */
     public function getMax()
     {
@@ -78,7 +78,7 @@ class OutOfRangeException extends BaseInvalidArgumentException implements Invali
     }
 
     /**
-     * @return mixed
+     *  mixed
      */
     public function getMin()
     {
@@ -86,7 +86,7 @@ class OutOfRangeException extends BaseInvalidArgumentException implements Invali
     }
 
     /**
-     * @return mixed
+     *  mixed
      */
     public function getUnit()
     {
@@ -94,7 +94,7 @@ class OutOfRangeException extends BaseInvalidArgumentException implements Invali
     }
 
     /**
-     * @return mixed
+     *  mixed
      */
     public function getValue()
     {

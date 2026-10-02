@@ -28,7 +28,7 @@ abstract class InlineBaseObject extends Collection
     /**
      * Magic method to set properties dynamically.
      *
-     * @return $this|mixed
+     *  $this|mixed
      */
     public function __call($name, $arguments)
     {

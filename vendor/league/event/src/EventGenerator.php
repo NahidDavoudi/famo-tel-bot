@@ -9,7 +9,7 @@ interface EventGenerator
     /**
      * Release all the added events.
      *
-     * @return object[]
+     *  object[]
      */
     public function releaseEvents();
 }

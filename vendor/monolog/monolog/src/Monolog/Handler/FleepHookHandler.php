@@ -78,7 +78,7 @@ class FleepHookHandler extends SocketHandler
      *
      * Overloaded to remove empty context and extra arrays from the end of the log message.
      *
-     * @return LineFormatter
+     *  LineFormatter
      */
     protected function getDefaultFormatter(): FormatterInterface
     {

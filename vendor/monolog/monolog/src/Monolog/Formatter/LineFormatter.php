@@ -52,7 +52,7 @@ class LineFormatter extends NormalizerFormatter
 
     /**
      * Setting a base path will hide the base path from exception and stack trace file names to shorten them
-     * @return $this
+     *  $this
      */
     public function setBasePath(string $path = ''): self
     {
@@ -66,7 +66,7 @@ class LineFormatter extends NormalizerFormatter
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function includeStacktraces(bool $include = true, ?Closure $parser = null): self
     {
@@ -83,7 +83,7 @@ class LineFormatter extends NormalizerFormatter
      * Indent stack traces to separate them a bit from the main log record messages
      *
      * @param  string $indent The string used to indent, for example "    "
-     * @return $this
+     *  $this
      */
     public function indentStacktraces(string $indent): self
     {
@@ -93,7 +93,7 @@ class LineFormatter extends NormalizerFormatter
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function allowInlineLineBreaks(bool $allow = true): self
     {
@@ -103,7 +103,7 @@ class LineFormatter extends NormalizerFormatter
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function ignoreEmptyContextAndExtra(bool $ignore = true): self
     {
@@ -116,7 +116,7 @@ class LineFormatter extends NormalizerFormatter
      * Allows cutting the level name to get fixed-length levels like INF for INFO, ERR for ERROR if you set this to 3 for example
      *
      * @param  int|null $maxLevelNameLength Maximum characters for the level name. Set null for infinite length (default)
-     * @return $this
+     *  $this
      */
     public function setMaxLevelNameLength(?int $maxLevelNameLength = null): self
     {

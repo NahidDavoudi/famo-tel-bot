@@ -13,7 +13,7 @@ trait ForwardsCalls
      * @param  mixed  $object
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      *
      * @throws \BadMethodCallException
      */
@@ -43,7 +43,7 @@ trait ForwardsCalls
      * @param  mixed  $object
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      *
      * @throws \BadMethodCallException
      */
@@ -58,7 +58,7 @@ trait ForwardsCalls
      * Throw a bad method call exception for the given method.
      *
      * @param  string  $method
-     * @return never
+     *  never
      *
      * @throws \BadMethodCallException
      */

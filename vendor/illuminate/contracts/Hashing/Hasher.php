@@ -8,7 +8,7 @@ interface Hasher
      * Get information about the given hashed value.
      *
      * @param  string  $hashedValue
-     * @return array
+     *  array
      */
     public function info($hashedValue);
 
@@ -17,7 +17,7 @@ interface Hasher
      *
      * @param  string  $value
      * @param  array  $options
-     * @return string
+     *  string
      */
     public function make(#[\SensitiveParameter] $value, array $options = []);
 
@@ -27,7 +27,7 @@ interface Hasher
      * @param  string  $value
      * @param  string  $hashedValue
      * @param  array  $options
-     * @return bool
+     *  bool
      */
     public function check(#[\SensitiveParameter] $value, $hashedValue, array $options = []);
 
@@ -36,7 +36,7 @@ interface Hasher
      *
      * @param  string  $hashedValue
      * @param  array  $options
-     * @return bool
+     *  bool
      */
     public function needsRehash($hashedValue, array $options = []);
 }

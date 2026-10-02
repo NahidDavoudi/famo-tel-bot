@@ -60,7 +60,7 @@ abstract class MultipleInstanceManager
     /**
      * Get the default instance name.
      *
-     * @return string
+     *  string
      */
     abstract public function getDefaultInstance();
 
@@ -68,7 +68,7 @@ abstract class MultipleInstanceManager
      * Set the default instance name.
      *
      * @param  string  $name
-     * @return void
+     *  void
      */
     abstract public function setDefaultInstance($name);
 
@@ -76,7 +76,7 @@ abstract class MultipleInstanceManager
      * Get the instance specific configuration.
      *
      * @param  string  $name
-     * @return array
+     *  array
      */
     abstract public function getInstanceConfig($name);
 
@@ -84,7 +84,7 @@ abstract class MultipleInstanceManager
      * Get an instance by name.
      *
      * @param  string|null  $name
-     * @return mixed
+     *  mixed
      */
     public function instance($name = null)
     {
@@ -97,7 +97,7 @@ abstract class MultipleInstanceManager
      * Attempt to get an instance from the local cache.
      *
      * @param  string  $name
-     * @return mixed
+     *  mixed
      */
     protected function get($name)
     {
@@ -108,7 +108,7 @@ abstract class MultipleInstanceManager
      * Resolve the given instance.
      *
      * @param  string  $name
-     * @return mixed
+     *  mixed
      *
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
@@ -150,7 +150,7 @@ abstract class MultipleInstanceManager
      * Call a custom instance creator.
      *
      * @param  array  $config
-     * @return mixed
+     *  mixed
      */
     protected function callCustomCreator(array $config)
     {
@@ -161,7 +161,7 @@ abstract class MultipleInstanceManager
      * Unset the given instances.
      *
      * @param  array|string|null  $name
-     * @return $this
+     *  $this
      */
     public function forgetInstance($name = null)
     {
@@ -180,7 +180,7 @@ abstract class MultipleInstanceManager
      * Disconnect the given instance and remove from local cache.
      *
      * @param  string|null  $name
-     * @return void
+     *  void
      */
     public function purge($name = null)
     {
@@ -197,7 +197,7 @@ abstract class MultipleInstanceManager
      *
      * @param-closure-this  $this  $callback
      *
-     * @return $this
+     *  $this
      */
     public function extend($name, Closure $callback)
     {
@@ -216,7 +216,7 @@ abstract class MultipleInstanceManager
      * Set the application instance used by the manager.
      *
      * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @return $this
+     *  $this
      */
     public function setApplication($app)
     {
@@ -230,7 +230,7 @@ abstract class MultipleInstanceManager
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      */
     public function __call($method, $parameters)
     {

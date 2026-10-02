@@ -14,7 +14,7 @@ final class Paths
      *
      * @codeCoverageIgnore
      *
-     * @return void
+     *  void
      */
     private function __construct()
     {
@@ -27,7 +27,7 @@ final class Paths
      * @param string[] $paths
      * @param string[] $names
      *
-     * @return string[]
+     *  string[]
      */
     public static function filePaths(array $paths, array $names)
     {

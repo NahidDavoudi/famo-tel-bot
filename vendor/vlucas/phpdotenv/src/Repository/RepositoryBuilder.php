@@ -63,7 +63,7 @@ final class RepositoryBuilder
      * @param bool                                         $immutable
      * @param string[]|null                                $allowList
      *
-     * @return void
+     *  void
      */
     private function __construct(array $readers = [], array $writers = [], bool $immutable = false, ?array $allowList = null)
     {
@@ -76,7 +76,7 @@ final class RepositoryBuilder
     /**
      * Create a new repository builder instance with no adapters added.
      *
-     * @return \Dotenv\Repository\RepositoryBuilder
+     *  \Dotenv\Repository\RepositoryBuilder
      */
     public static function createWithNoAdapters()
     {
@@ -86,7 +86,7 @@ final class RepositoryBuilder
     /**
      * Create a new repository builder instance with the default adapters added.
      *
-     * @return \Dotenv\Repository\RepositoryBuilder
+     *  \Dotenv\Repository\RepositoryBuilder
      */
     public static function createWithDefaultAdapters()
     {
@@ -98,7 +98,7 @@ final class RepositoryBuilder
     /**
      * Return the array of default adapters.
      *
-     * @return \Generator<\Dotenv\Repository\Adapter\AdapterInterface>
+     *  \Generator<\Dotenv\Repository\Adapter\AdapterInterface>
      */
     private static function defaultAdapters()
     {
@@ -115,7 +115,7 @@ final class RepositoryBuilder
      *
      * @param string $name
      *
-     * @return bool
+     *  bool
      */
     private static function isAnAdapterClass(string $name)
     {
@@ -136,7 +136,7 @@ final class RepositoryBuilder
      *
      * @throws \InvalidArgumentException
      *
-     * @return \Dotenv\Repository\RepositoryBuilder
+     *  \Dotenv\Repository\RepositoryBuilder
      */
     public function addReader($reader)
     {
@@ -169,7 +169,7 @@ final class RepositoryBuilder
      *
      * @throws \InvalidArgumentException
      *
-     * @return \Dotenv\Repository\RepositoryBuilder
+     *  \Dotenv\Repository\RepositoryBuilder
      */
     public function addWriter($writer)
     {
@@ -203,7 +203,7 @@ final class RepositoryBuilder
      *
      * @throws \InvalidArgumentException
      *
-     * @return \Dotenv\Repository\RepositoryBuilder
+     *  \Dotenv\Repository\RepositoryBuilder
      */
     public function addAdapter($adapter)
     {
@@ -230,7 +230,7 @@ final class RepositoryBuilder
     /**
      * Creates a repository builder with immutability enabled.
      *
-     * @return \Dotenv\Repository\RepositoryBuilder
+     *  \Dotenv\Repository\RepositoryBuilder
      */
     public function immutable()
     {
@@ -242,7 +242,7 @@ final class RepositoryBuilder
      *
      * @param string[]|null $allowList
      *
-     * @return \Dotenv\Repository\RepositoryBuilder
+     *  \Dotenv\Repository\RepositoryBuilder
      */
     public function allowList(?array $allowList = null)
     {
@@ -252,7 +252,7 @@ final class RepositoryBuilder
     /**
      * Creates a new repository instance.
      *
-     * @return \Dotenv\Repository\RepositoryInterface
+     *  \Dotenv\Repository\RepositoryInterface
      */
     public function make()
     {

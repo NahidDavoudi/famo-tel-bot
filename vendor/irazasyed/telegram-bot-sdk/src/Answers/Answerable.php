@@ -32,7 +32,7 @@ trait Answerable
     /**
      * Magic Method to handle all ReplyWith Methods.
      *
-     * @return mixed|string
+     *  mixed|string
      */
     public function __call(string $method, array $parameters)
     {

@@ -67,7 +67,7 @@ class Bus extends Facade
      *
      * @param  array|string  $jobsToFake
      * @param  \Illuminate\Bus\BatchRepository|null  $batchRepository
-     * @return \Illuminate\Support\Testing\Fakes\BusFake
+     *  \Illuminate\Support\Testing\Fakes\BusFake
      */
     public static function fake($jobsToFake = [], ?BatchRepository $batchRepository = null)
     {
@@ -84,7 +84,7 @@ class Bus extends Facade
      * Dispatch the given chain of jobs.
      *
      * @param  mixed  $jobs
-     * @return \Illuminate\Foundation\Bus\PendingDispatch
+     *  \Illuminate\Foundation\Bus\PendingDispatch
      */
     public static function dispatchChain($jobs)
     {
@@ -97,7 +97,7 @@ class Bus extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {

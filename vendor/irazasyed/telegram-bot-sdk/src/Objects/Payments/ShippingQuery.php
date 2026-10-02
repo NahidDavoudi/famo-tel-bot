@@ -20,7 +20,7 @@ class ShippingQuery extends BaseObject
     /**
      * {@inheritdoc}
      *
-     * @return array{from: string, shipping_address: string}
+     *  array{from: string, shipping_address: string}
      */
     public function relations(): array
     {

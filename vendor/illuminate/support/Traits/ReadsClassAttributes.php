@@ -14,7 +14,7 @@ trait ReadsClassAttributes
      * @param  class-string  $attributeClass
      * @param  string|null  $property
      * @param  mixed  $default
-     * @return mixed
+     *  mixed
      */
     protected function getAttributeValue($target, string $attributeClass, ?string $property = null, $default = null)
     {
@@ -41,7 +41,7 @@ trait ReadsClassAttributes
      * Extract the value from an attribute instance.
      *
      * @param  object  $instance
-     * @return mixed
+     *  mixed
      */
     protected function extractAttributeValue($instance)
     {
@@ -56,7 +56,7 @@ trait ReadsClassAttributes
      * @param  object  $target
      * @param  class-string  $attributeClass
      * @param  \ReflectionClass|null  $declaringClass
-     * @return object|null
+     *  object|null
      */
     protected function getAttributeInstance($target, string $attributeClass, ?ReflectionClass &$declaringClass = null)
     {
@@ -96,7 +96,7 @@ trait ReadsClassAttributes
      * @param  \ReflectionClass  $reflection
      * @param  string|null  $property
      * @param  \ReflectionClass  $attributeDeclaringClass
-     * @return bool
+     *  bool
      */
     protected function propertyOverridesAttribute($target, ReflectionClass $reflection, ?string $property, ReflectionClass $attributeDeclaringClass)
     {

@@ -9,7 +9,7 @@ interface Engine
      *
      * @param  string  $path
      * @param  array  $data
-     * @return string
+     *  string
      */
     public function get($path, array $data = []);
 }

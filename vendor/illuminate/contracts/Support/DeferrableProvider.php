@@ -7,7 +7,7 @@ interface DeferrableProvider
     /**
      * Get the services provided by the provider.
      *
-     * @return array
+     *  array
      */
     public function provides();
 }

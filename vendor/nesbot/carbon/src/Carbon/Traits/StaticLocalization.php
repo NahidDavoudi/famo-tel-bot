@@ -64,7 +64,7 @@ trait StaticLocalization
      *
      * @param TranslatorInterface $translator
      *
-     * @return void
+     *  void
      */
     public static function setTranslator(TranslatorInterface $translator): void
     {

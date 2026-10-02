@@ -9,7 +9,7 @@ class Yarn implements NodePackageManager
     /**
      * Determine if the Yarn package manager is in use.
      *
-     * @return bool
+     *  bool
      */
     public static function matches(): bool
     {
@@ -20,7 +20,7 @@ class Yarn implements NodePackageManager
      * Get the command to run a script using Yarn.
      *
      * @param  string  $command
-     * @return string
+     *  string
      */
     public function getRunCommand(string $command): string
     {
@@ -31,7 +31,7 @@ class Yarn implements NodePackageManager
      * Get the command to execute a package using Yarn.
      *
      * @param  string  $command
-     * @return string
+     *  string
      */
     public function getExecCommand(string $command): string
     {

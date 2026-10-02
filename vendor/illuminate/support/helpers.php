@@ -96,7 +96,7 @@ if (! function_exists('class_uses_recursive')) {
      * Returns all traits used by a class, its parent classes and trait of their traits.
      *
      * @param  object|string  $class
-     * @return array<string, string>
+     *  array<string, string>
      */
     function class_uses_recursive($class): array
     {
@@ -145,7 +145,7 @@ if (! function_exists('env')) {
      *
      * @param  string  $key
      * @param  mixed  $default
-     * @return mixed
+     *  mixed
      */
     function env($key, $default = null)
     {
@@ -185,7 +185,7 @@ if (! function_exists('literal')) {
     /**
      * Return a new literal or anonymous object using named arguments.
      *
-     * @return mixed
+     *  mixed
      */
     function literal(...$arguments)
     {
@@ -206,7 +206,7 @@ if (! function_exists('object_get')) {
      * @param  TValue  $object
      * @param  string|null  $key
      * @param  mixed  $default
-     * @return ($key is empty ? TValue : mixed)
+     *  ($key is empty ? TValue : mixed)
      */
     function object_get($object, $key, $default = null)
     {
@@ -244,7 +244,7 @@ if (! function_exists('once')) {
      * @template  TReturnType
      *
      * @param  callable(): TReturnType  $callback
-     * @return TReturnType
+     *  TReturnType
      */
     function once(callable $callback)
     {
@@ -266,7 +266,7 @@ if (! function_exists('optional')) {
      *
      * @param  TValue  $value
      * @param  (callable(TValue): TReturn)|null  $callback
-     * @return ($callback is null ? \Illuminate\Support\Optional : ($value is null ? null : TReturn))
+     *  ($callback is null ? \Illuminate\Support\Optional : ($value is null ? null : TReturn))
      */
     function optional($value = null, ?callable $callback = null)
     {
@@ -304,7 +304,7 @@ if (! function_exists('retry')) {
      * @param  callable(int): TValue  $callback
      * @param  CarbonInterval|int|\Closure(int, \Throwable): CarbonInterval|int  $sleepMilliseconds
      * @param  (callable(\Throwable): bool)|null  $when
-     * @return TValue
+     *  TValue
      *
      * @throws \Throwable
      */
@@ -351,7 +351,7 @@ if (! function_exists('str')) {
      * Get a new stringable object from the given string.
      *
      * @param  string|null  $string
-     * @return ($string is null ? object : \Illuminate\Support\Stringable)
+     *  ($string is null ? object : \Illuminate\Support\Stringable)
      */
     function str($string = null)
     {
@@ -382,7 +382,7 @@ if (! function_exists('tap')) {
      *
      * @param  TValue  $value
      * @param  (callable(TValue): mixed)|null  $callback
-     * @return ($callback is null ? \Illuminate\Support\HigherOrderTapProxy<TValue> : TValue)
+     *  ($callback is null ? \Illuminate\Support\HigherOrderTapProxy<TValue> : TValue)
      */
     function tap($value, $callback = null)
     {
@@ -408,7 +408,7 @@ if (! function_exists('throw_if')) {
      * @param  TValue  $condition
      * @param  Closure(TParams): TExceptionValue|TExceptionValue  $exception
      * @param  TParams  ...$parameters
-     * @return ($condition is true ? never : ($condition is non-empty-mixed ? never : TValue))
+     *  ($condition is true ? never : ($condition is non-empty-mixed ? never : TValue))
      *
      * @throws TException
      */
@@ -442,7 +442,7 @@ if (! function_exists('throw_unless')) {
      * @param  TValue  $condition
      * @param  Closure(TParams): TExceptionValue|TExceptionValue  $exception
      * @param  TParams  ...$parameters
-     * @return ($condition is false ? never : ($condition is non-empty-mixed ? TValue : never))
+     *  ($condition is false ? never : ($condition is non-empty-mixed ? TValue : never))
      *
      * @throws TException
      */
@@ -459,7 +459,7 @@ if (! function_exists('trait_uses_recursive')) {
      * Returns all traits used by a trait and its traits.
      *
      * @param  object|string  $trait
-     * @return array<string, string>
+     *  array<string, string>
      */
     function trait_uses_recursive($trait): array
     {
@@ -484,7 +484,7 @@ if (! function_exists('transform')) {
      * @param  TValue  $value
      * @param  callable(TValue): TReturn  $callback
      * @param  TDefault|callable(TValue): TDefault  $default
-     * @return ($value is empty ? TDefault : TReturn)
+     *  ($value is empty ? TDefault : TReturn)
      */
     function transform($value, callable $callback, $default = null)
     {
@@ -519,7 +519,7 @@ if (! function_exists('with')) {
      *
      * @param  TValue  $value
      * @param  (callable(TValue): (TReturn))|null  $callback
-     * @return ($callback is null ? TValue : TReturn)
+     *  ($callback is null ? TValue : TReturn)
      */
     function with($value, ?callable $callback = null)
     {

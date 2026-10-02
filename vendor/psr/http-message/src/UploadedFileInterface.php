@@ -24,7 +24,7 @@ interface UploadedFileInterface
      * If the moveTo() method has been called previously, this method MUST raise
      * an exception.
      *
-     * @return StreamInterface Stream representation of the uploaded file.
+     *  StreamInterface Stream representation of the uploaded file.
      * @throws \RuntimeException in cases when no stream is available or can be
      *     created.
      */
@@ -71,7 +71,7 @@ interface UploadedFileInterface
      * the file in the $_FILES array if available, as PHP calculates this based
      * on the actual size transmitted.
      *
-     * @return int|null The file size in bytes or null if unknown.
+     *  int|null The file size in bytes or null if unknown.
      */
     public function getSize(): ?int;
     
@@ -87,7 +87,7 @@ interface UploadedFileInterface
      * the file in the $_FILES array.
      *
      * @see http://php.net/manual/en/features.file-upload.errors.php
-     * @return int One of PHP's UPLOAD_ERR_XXX constants.
+     *  int One of PHP's UPLOAD_ERR_XXX constants.
      */
     public function getError(): int;
     
@@ -101,7 +101,7 @@ interface UploadedFileInterface
      * Implementations SHOULD return the value stored in the "name" key of
      * the file in the $_FILES array.
      *
-     * @return string|null The filename sent by the client or null if none
+     *  string|null The filename sent by the client or null if none
      *     was provided.
      */
     public function getClientFilename(): ?string;
@@ -116,7 +116,7 @@ interface UploadedFileInterface
      * Implementations SHOULD return the value stored in the "type" key of
      * the file in the $_FILES array.
      *
-     * @return string|null The media type sent by the client or null if none
+     *  string|null The media type sent by the client or null if none
      *     was provided.
      */
     public function getClientMediaType(): ?string;

@@ -8,7 +8,7 @@ interface DataAwareRule
      * Set the data under validation.
      *
      * @param  array  $data
-     * @return $this
+     *  $this
      */
     public function setData(array $data);
 }

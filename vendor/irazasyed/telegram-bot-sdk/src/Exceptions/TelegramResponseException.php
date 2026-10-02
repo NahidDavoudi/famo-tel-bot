@@ -32,7 +32,7 @@ final class TelegramResponseException extends TelegramSDKException
      * Checks isset and returns that or a default value.
      *
      * @param  string  $key
-     * @return mixed
+     *  mixed
      */
     public function get($key, mixed $default = null)
     {

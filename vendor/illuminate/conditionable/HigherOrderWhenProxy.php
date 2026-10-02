@@ -46,7 +46,7 @@ class HigherOrderWhenProxy
      * Set the condition on the proxy.
      *
      * @param  bool  $condition
-     * @return $this
+     *  $this
      */
     public function condition($condition)
     {
@@ -58,7 +58,7 @@ class HigherOrderWhenProxy
     /**
      * Indicate that the condition should be negated.
      *
-     * @return $this
+     *  $this
      */
     public function negateConditionOnCapture()
     {
@@ -71,7 +71,7 @@ class HigherOrderWhenProxy
      * Proxy accessing an attribute onto the target.
      *
      * @param  string  $key
-     * @return mixed
+     *  mixed
      */
     public function __get($key)
     {
@@ -91,7 +91,7 @@ class HigherOrderWhenProxy
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      */
     public function __call($method, $parameters)
     {

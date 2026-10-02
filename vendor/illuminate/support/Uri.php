@@ -62,7 +62,7 @@ class Uri implements Htmlable, JsonSerializable, Responsable, Stringable
      * @param  \BackedEnum|string  $name
      * @param  mixed  $parameters
      * @param  bool  $absolute
-     * @return static
+     *  static
      *
      * @throws \Symfony\Component\Routing\Exception\RouteNotFoundException|\InvalidArgumentException
      */
@@ -78,7 +78,7 @@ class Uri implements Htmlable, JsonSerializable, Responsable, Stringable
      * @param  mixed  $parameters
      * @param  \DateTimeInterface|\DateInterval|int|null  $expiration
      * @param  bool  $absolute
-     * @return static
+     *  static
      *
      * @throws \InvalidArgumentException
      */
@@ -94,7 +94,7 @@ class Uri implements Htmlable, JsonSerializable, Responsable, Stringable
      * @param  \DateTimeInterface|\DateInterval|int  $expiration
      * @param  array  $parameters
      * @param  bool  $absolute
-     * @return static
+     *  static
      */
     public static function temporarySignedRoute($name, $expiration, $parameters = [], $absolute = true): static
     {
@@ -107,7 +107,7 @@ class Uri implements Htmlable, JsonSerializable, Responsable, Stringable
      * @param  string|array  $action
      * @param  mixed  $parameters
      * @param  bool  $absolute
-     * @return static
+     *  static
      *
      * @throws \InvalidArgumentException
      */
@@ -171,7 +171,7 @@ class Uri implements Htmlable, JsonSerializable, Responsable, Stringable
      *
      * Empty or missing paths are returned as a single "/".
      *
-     * @return non-empty-string
+     *  non-empty-string
      */
     public function path(): string
     {
@@ -354,7 +354,7 @@ class Uri implements Htmlable, JsonSerializable, Responsable, Stringable
     /**
      * Get the URI as a Stringable instance.
      *
-     * @return \Illuminate\Support\Stringable
+     *  \Illuminate\Support\Stringable
      */
     public function toStringable()
     {
@@ -365,7 +365,7 @@ class Uri implements Htmlable, JsonSerializable, Responsable, Stringable
      * Create an HTTP response that represents the URI object.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     *  \Symfony\Component\HttpFoundation\Response
      */
     public function toResponse($request)
     {
@@ -375,7 +375,7 @@ class Uri implements Htmlable, JsonSerializable, Responsable, Stringable
     /**
      * Get the URI as a string of HTML.
      *
-     * @return string
+     *  string
      */
     public function toHtml()
     {
@@ -430,7 +430,7 @@ class Uri implements Htmlable, JsonSerializable, Responsable, Stringable
      * Dump the string representation of the URI.
      *
      * @param  mixed  ...$args
-     * @return $this
+     *  $this
      */
     public function dump(...$args)
     {
@@ -458,7 +458,7 @@ class Uri implements Htmlable, JsonSerializable, Responsable, Stringable
     /**
      * Convert the object into a value that is JSON serializable.
      *
-     * @return string
+     *  string
      */
     public function jsonSerialize(): string
     {

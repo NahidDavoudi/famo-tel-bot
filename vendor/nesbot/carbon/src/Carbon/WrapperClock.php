@@ -86,7 +86,7 @@ final class WrapperClock implements ClockInterface
      *
      * @param class-string<T> $class
      *
-     * @return T
+     *  T
      */
     public function nowAs(string $class, DateTimeZone|string|int|null $timezone = null): CarbonInterface
     {

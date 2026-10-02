@@ -100,7 +100,7 @@ trait Options
      *
      * @param array $settings
      *
-     * @return $this|static
+     *  $this|static
      */
     public function settings(array $settings): static
     {

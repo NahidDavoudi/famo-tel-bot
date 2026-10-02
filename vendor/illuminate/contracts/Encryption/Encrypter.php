@@ -9,7 +9,7 @@ interface Encrypter
      *
      * @param  mixed  $value
      * @param  bool  $serialize
-     * @return string
+     *  string
      *
      * @throws \Illuminate\Contracts\Encryption\EncryptException
      */
@@ -20,7 +20,7 @@ interface Encrypter
      *
      * @param  string  $payload
      * @param  bool  $unserialize
-     * @return mixed
+     *  mixed
      *
      * @throws \Illuminate\Contracts\Encryption\DecryptException
      */
@@ -29,21 +29,21 @@ interface Encrypter
     /**
      * Get the encryption key that the encrypter is currently using.
      *
-     * @return string
+     *  string
      */
     public function getKey();
 
     /**
      * Get the current encryption key and all previous encryption keys.
      *
-     * @return array
+     *  array
      */
     public function getAllKeys();
 
     /**
      * Get the previous encryption keys.
      *
-     * @return array
+     *  array
      */
     public function getPreviousKeys();
 }

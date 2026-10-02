@@ -113,7 +113,7 @@ class Date extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      *
      * @throws \RuntimeException
      */
@@ -126,7 +126,7 @@ class Date extends Facade
      * Resolve the facade root instance from the container.
      *
      * @param  string  $name
-     * @return mixed
+     *  mixed
      */
     protected static function resolveFacadeInstance($name)
     {

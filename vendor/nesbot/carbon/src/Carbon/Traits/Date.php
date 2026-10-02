@@ -951,7 +951,7 @@ trait Date
      *
      * @throws InvalidTimeZoneException
      *
-     * @return CarbonTimeZone|null
+     *  CarbonTimeZone|null
      */
     protected static function safeCreateDateTimeZone(
         DateTimeZone|string|int|false|null $object,
@@ -994,7 +994,7 @@ trait Date
     /**
      * Get a copy of the instance.
      *
-     * @return static
+     *  static
      */
     public function copy()
     {
@@ -1006,7 +1006,7 @@ trait Date
      *
      * Get a copy of the instance.
      *
-     * @return static
+     *  static
      */
     public function clone()
     {
@@ -1019,7 +1019,7 @@ trait Date
      * This method is convenient to ensure you don't mutate the initial object
      * but avoid to make a useless copy of it if it's already immutable.
      *
-     * @return static
+     *  static
      */
     public function avoidMutation(): static
     {
@@ -1033,7 +1033,7 @@ trait Date
     /**
      * Returns a present instance in the same timezone.
      *
-     * @return static
+     *  static
      */
     public function nowWithSameTz(): static
     {
@@ -1048,7 +1048,7 @@ trait Date
      *
      * @param Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|DateTimeInterface|string|null $date
      *
-     * @return static
+     *  static
      */
     public function carbonize($date = null)
     {
@@ -1072,7 +1072,7 @@ trait Date
      *
      * @throws UnknownGetterException
      *
-     * @return string|int|bool|DateTimeZone|null
+     *  string|int|bool|DateTimeZone|null
      */
     public function __get(string $name): mixed
     {
@@ -1084,7 +1084,7 @@ trait Date
      *
      * @throws UnknownGetterException
      *
-     * @return string|int|bool|DateTimeZone
+     *  string|int|bool|DateTimeZone
      */
     public function get(Unit|string $name): mixed
     {
@@ -1357,7 +1357,7 @@ trait Date
      *
      * @param string $name
      *
-     * @return bool
+     *  bool
      */
     public function __isset($name)
     {
@@ -1378,7 +1378,7 @@ trait Date
      *
      * @throws UnknownSetterException|ReflectionException
      *
-     * @return void
+     *  void
      */
     public function __set($name, $value)
     {
@@ -1400,7 +1400,7 @@ trait Date
      *
      * @throws ImmutableException|UnknownSetterException
      *
-     * @return static
+     *  static
      */
     public function set(Unit|array|string $name, DateTimeZone|Month|string|int|float|null $value = null): static
     {
@@ -1624,7 +1624,7 @@ trait Date
      *
      * @param int|null $value new value for day of year if using as setter.
      *
-     * @return ($value is null ? int : static)
+     *  ($value is null ? int : static)
      */
     public function dayOfYear(?int $value = null): static|int
     {
@@ -1638,7 +1638,7 @@ trait Date
      *
      * @param WeekDay|int|null $value new value for weekday if using as setter.
      *
-     * @return ($value is null ? int : static)
+     *  ($value is null ? int : static)
      */
     public function weekday(WeekDay|int|null $value = null): static|int
     {
@@ -1657,7 +1657,7 @@ trait Date
      *
      * @param WeekDay|int|null $value new value for weekday if using as setter.
      *
-     * @return ($value is null ? int : static)
+     *  ($value is null ? int : static)
      */
     public function isoWeekday(WeekDay|int|null $value = null): static|int
     {
@@ -1773,7 +1773,7 @@ trait Date
     /**
      * Returns the minutes offset to UTC if no arguments passed, else set the timezone with given minutes shift passed.
      *
-     * @return ($minuteOffset is null ? int : static)
+     *  ($minuteOffset is null ? int : static)
      */
     public function utcOffset(?int $minuteOffset = null): static|int
     {
@@ -1864,7 +1864,7 @@ trait Date
     /**
      * Set the timezone or returns the timezone name if no arguments passed.
      *
-     * @return ($value is null ? string : static)
+     *  ($value is null ? string : static)
      */
     public function tz(DateTimeZone|string|int|null $value = null): static|string
     {
@@ -1948,7 +1948,7 @@ trait Date
     /**
      * Get the first day of week.
      *
-     * @return int
+     *  int
      */
     public static function getWeekStartsAt(?string $locale = null): int
     {
@@ -1963,7 +1963,7 @@ trait Date
      *
      * @param string $locale local to consider the last day of week.
      *
-     * @return int
+     *  int
      */
     public static function getWeekEndsAt(?string $locale = null): int
     {
@@ -2009,7 +2009,7 @@ trait Date
     /**
      * Determine if a time string will produce a relative date.
      *
-     * @return bool true if time match a relative date, false if absolute or invalid time string
+     *  bool true if time match a relative date, false if absolute or invalid time string
      */
     public static function hasRelativeKeywords(?string $time): bool
     {
@@ -3035,7 +3035,7 @@ trait Date
      *
      * @param T $date
      *
-     * @return T
+     *  T
      */
     private function mutateIfMutable(CarbonInterface $date): CarbonInterface
     {

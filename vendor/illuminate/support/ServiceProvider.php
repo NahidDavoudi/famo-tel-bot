@@ -92,7 +92,7 @@ abstract class ServiceProvider
     /**
      * Register any application services.
      *
-     * @return void
+     *  void
      */
     public function register()
     {
@@ -103,7 +103,7 @@ abstract class ServiceProvider
      * Register a booting callback to be run before the "boot" method is called.
      *
      * @param  \Closure  $callback
-     * @return void
+     *  void
      */
     public function booting(Closure $callback)
     {
@@ -114,7 +114,7 @@ abstract class ServiceProvider
      * Register a booted callback to be run after the "boot" method is called.
      *
      * @param  \Closure  $callback
-     * @return void
+     *  void
      */
     public function booted(Closure $callback)
     {
@@ -124,7 +124,7 @@ abstract class ServiceProvider
     /**
      * Call the registered booting callbacks.
      *
-     * @return void
+     *  void
      */
     public function callBootingCallbacks()
     {
@@ -140,7 +140,7 @@ abstract class ServiceProvider
     /**
      * Call the registered booted callbacks.
      *
-     * @return void
+     *  void
      */
     public function callBootedCallbacks()
     {
@@ -158,7 +158,7 @@ abstract class ServiceProvider
      *
      * @param  string  $path
      * @param  string  $key
-     * @return void
+     *  void
      */
     protected function mergeConfigFrom($path, $key)
     {
@@ -176,7 +176,7 @@ abstract class ServiceProvider
      *
      * @param  string  $path
      * @param  string  $key
-     * @return void
+     *  void
      */
     protected function replaceConfigRecursivelyFrom($path, $key)
     {
@@ -193,7 +193,7 @@ abstract class ServiceProvider
      * Load the given routes file if routes are not already cached.
      *
      * @param  string  $path
-     * @return void
+     *  void
      */
     protected function loadRoutesFrom($path)
     {
@@ -207,7 +207,7 @@ abstract class ServiceProvider
      *
      * @param  string|array  $path
      * @param  string  $namespace
-     * @return void
+     *  void
      */
     protected function loadViewsFrom($path, $namespace)
     {
@@ -230,7 +230,7 @@ abstract class ServiceProvider
      *
      * @param  string  $prefix
      * @param  array  $components
-     * @return void
+     *  void
      */
     protected function loadViewComponentsAs($prefix, array $components)
     {
@@ -246,7 +246,7 @@ abstract class ServiceProvider
      *
      * @param  string  $path
      * @param  string|null  $namespace
-     * @return void
+     *  void
      */
     protected function loadTranslationsFrom($path, $namespace = null)
     {
@@ -259,7 +259,7 @@ abstract class ServiceProvider
      * Register a JSON translation file path.
      *
      * @param  string  $path
-     * @return void
+     *  void
      */
     protected function loadJsonTranslationsFrom($path)
     {
@@ -272,7 +272,7 @@ abstract class ServiceProvider
      * Register database migration paths.
      *
      * @param  array|string  $paths
-     * @return void
+     *  void
      */
     protected function loadMigrationsFrom($paths)
     {
@@ -289,7 +289,7 @@ abstract class ServiceProvider
      * @deprecated Will be removed in a future Laravel version.
      *
      * @param  array|string  $paths
-     * @return void
+     *  void
      */
     protected function loadFactoriesFrom($paths)
     {
@@ -305,7 +305,7 @@ abstract class ServiceProvider
      *
      * @param  string  $name
      * @param  callable  $callback
-     * @return void
+     *  void
      */
     protected function callAfterResolving($name, $callback)
     {
@@ -321,7 +321,7 @@ abstract class ServiceProvider
      *
      * @param  array  $paths
      * @param  mixed  $groups
-     * @return void
+     *  void
      */
     protected function publishesMigrations(array $paths, $groups = null)
     {
@@ -337,7 +337,7 @@ abstract class ServiceProvider
      *
      * @param  array  $paths
      * @param  mixed  $groups
-     * @return void
+     *  void
      */
     protected function publishes(array $paths, $groups = null)
     {
@@ -354,7 +354,7 @@ abstract class ServiceProvider
      * Ensure the publish array for the service provider is initialized.
      *
      * @param  string  $class
-     * @return void
+     *  void
      */
     protected function ensurePublishArrayInitialized($class)
     {
@@ -368,7 +368,7 @@ abstract class ServiceProvider
      *
      * @param  string  $group
      * @param  array  $paths
-     * @return void
+     *  void
      */
     protected function addPublishGroup($group, $paths)
     {
@@ -386,7 +386,7 @@ abstract class ServiceProvider
      *
      * @param  string|null  $provider
      * @param  string|null  $group
-     * @return array
+     *  array
      */
     public static function pathsToPublish($provider = null, $group = null)
     {
@@ -404,7 +404,7 @@ abstract class ServiceProvider
      *
      * @param  string|null  $provider
      * @param  string|null  $group
-     * @return array
+     *  array
      */
     protected static function pathsForProviderOrGroup($provider, $group)
     {
@@ -424,7 +424,7 @@ abstract class ServiceProvider
      *
      * @param  string  $provider
      * @param  string  $group
-     * @return array
+     *  array
      */
     protected static function pathsForProviderAndGroup($provider, $group)
     {
@@ -438,7 +438,7 @@ abstract class ServiceProvider
     /**
      * Get the service providers available for publishing.
      *
-     * @return array
+     *  array
      */
     public static function publishableProviders()
     {
@@ -448,7 +448,7 @@ abstract class ServiceProvider
     /**
      * Get the migration paths available for publishing.
      *
-     * @return array
+     *  array
      */
     public static function publishableMigrationPaths()
     {
@@ -458,7 +458,7 @@ abstract class ServiceProvider
     /**
      * Get the groups available for publishing.
      *
-     * @return array
+     *  array
      */
     public static function publishableGroups()
     {
@@ -469,7 +469,7 @@ abstract class ServiceProvider
      * Register the package's custom Artisan commands.
      *
      * @param  mixed  $commands
-     * @return void
+     *  void
      */
     public function commands($commands)
     {
@@ -486,7 +486,7 @@ abstract class ServiceProvider
      * @param  string|null  $optimize
      * @param  string|null  $clear
      * @param  string|null  $key
-     * @return void
+     *  void
      */
     protected function optimizes(?string $optimize = null, ?string $clear = null, ?string $key = null)
     {
@@ -506,7 +506,7 @@ abstract class ServiceProvider
      *
      * @param  string  $reload
      * @param  string|null  $key
-     * @return void
+     *  void
      */
     protected function reloads(string $reload, ?string $key = null)
     {
@@ -519,7 +519,7 @@ abstract class ServiceProvider
      * Get a short descriptive key for the current service provider.
      *
      * @param  string|null  $key
-     * @return string
+     *  string
      */
     protected function getProviderKey(?string $key = null): string
     {
@@ -541,7 +541,7 @@ abstract class ServiceProvider
     /**
      * Get the services provided by the provider.
      *
-     * @return array
+     *  array
      */
     public function provides()
     {
@@ -551,7 +551,7 @@ abstract class ServiceProvider
     /**
      * Get the events that trigger this service provider to register.
      *
-     * @return array
+     *  array
      */
     public function when()
     {
@@ -561,7 +561,7 @@ abstract class ServiceProvider
     /**
      * Determine if the provider is deferred.
      *
-     * @return bool
+     *  bool
      */
     public function isDeferred()
     {
@@ -571,7 +571,7 @@ abstract class ServiceProvider
     /**
      * Get the default providers for a Laravel application.
      *
-     * @return \Illuminate\Support\DefaultProviders
+     *  \Illuminate\Support\DefaultProviders
      */
     public static function defaultProviders()
     {
@@ -583,7 +583,7 @@ abstract class ServiceProvider
      *
      * @param  string  $provider
      * @param  string|null  $path
-     * @return bool
+     *  bool
      */
     public static function addProviderToBootstrapFile(string $provider, ?string $path = null)
     {
@@ -622,7 +622,7 @@ return [
      * @param  string|array  $providersToRemove
      * @param  string|null  $path
      * @param  bool  $strict
-     * @return bool
+     *  bool
      */
     public static function removeProviderFromBootstrapFile(string|array $providersToRemove, ?string $path = null, bool $strict = false)
     {

@@ -126,7 +126,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Specify the jobs that should be queued instead of faked.
      *
      * @param  array|string  $jobsToBeQueued
-     * @return $this
+     *  $this
      */
     public function except($jobsToBeQueued)
     {
@@ -140,7 +140,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      *
      * @param  string|\Closure  $job
      * @param  callable|int|null  $callback
-     * @return void
+     *  void
      */
     public function assertPushed($job, $callback = null)
     {
@@ -163,7 +163,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      *
      * @param  string  $job
      * @param  int  $times
-     * @return void
+     *  void
      */
     public function assertPushedTimes($job, $times = 1)
     {
@@ -183,7 +183,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Assert if a job was pushed exactly once.
      *
      * @param  string  $job
-     * @return void
+     *  void
      */
     public function assertPushedOnce($job)
     {
@@ -196,7 +196,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * @param  \UnitEnum|string  $queue
      * @param  string|\Closure  $job
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public function assertPushedOn($queue, $job, $callback = null)
     {
@@ -221,7 +221,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * @param  string  $job
      * @param  array  $expectedChain
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public function assertPushedWithChain($job, $expectedChain = [], $callback = null)
     {
@@ -245,7 +245,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      *
      * @param  string  $job
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public function assertPushedWithoutChain($job, $callback = null)
     {
@@ -263,7 +263,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * @param  string  $job
      * @param  array  $expectedChain
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     protected function assertPushedWithChainOfObjects($job, $expectedChain, $callback)
     {
@@ -281,7 +281,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * @param  string  $job
      * @param  array  $expectedChain
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     protected function assertPushedWithChainOfClasses($job, $expectedChain, $callback)
     {
@@ -300,7 +300,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Assert if a closure was pushed based on a truth-test callback.
      *
      * @param  callable|int|null  $callback
-     * @return void
+     *  void
      */
     public function assertClosurePushed($callback = null)
     {
@@ -311,7 +311,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Assert that a closure was not pushed based on a truth-test callback.
      *
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public function assertClosureNotPushed($callback = null)
     {
@@ -322,7 +322,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Determine if the given chain is entirely composed of objects.
      *
      * @param  array  $chain
-     * @return bool
+     *  bool
      */
     protected function isChainOfObjects($chain)
     {
@@ -334,7 +334,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      *
      * @param  string|\Closure  $job
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public function assertNotPushed($job, $callback = null)
     {
@@ -352,7 +352,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Assert the total count of jobs that were pushed.
      *
      * @param  int  $expectedCount
-     * @return void
+     *  void
      */
     public function assertCount($expectedCount)
     {
@@ -367,7 +367,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Assert that no jobs were pushed.
      *
-     * @return void
+     *  void
      */
     public function assertNothingPushed()
     {
@@ -381,7 +381,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      *
      * @param  string  $job
      * @param  callable|null  $callback
-     * @return \Illuminate\Support\Collection
+     *  \Illuminate\Support\Collection
      */
     public function pushed($job, $callback = null)
     {
@@ -400,7 +400,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Get all of the raw pushes matching a truth-test callback.
      *
      * @param  null|\Closure(string, ?string, array): bool  $callback
-     * @return \Illuminate\Support\Collection<int, RawPushType>
+     *  \Illuminate\Support\Collection<int, RawPushType>
      */
     public function pushedRaw($callback = null)
     {
@@ -414,7 +414,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      *
      * @param  class-string  $listenerClass
      * @param  (\Closure(mixed, \Illuminate\Events\CallQueuedListener, string|null, mixed): bool)|null  $callback
-     * @return \Illuminate\Support\Collection<int, \Illuminate\Events\CallQueuedListener>
+     *  \Illuminate\Support\Collection<int, \Illuminate\Events\CallQueuedListener>
      */
     public function listenersPushed($listenerClass, $callback = null)
     {
@@ -436,7 +436,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Determine if there are any stored jobs for a given class.
      *
      * @param  string  $job
-     * @return bool
+     *  bool
      */
     public function hasPushed($job)
     {
@@ -447,7 +447,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Resolve a queue connection instance.
      *
      * @param  mixed  $value
-     * @return \Illuminate\Contracts\Queue\Queue
+     *  \Illuminate\Contracts\Queue\Queue
      */
     public function connection($value = null)
     {
@@ -458,7 +458,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Get the size of the queue.
      *
      * @param  \UnitEnum|string|null  $queue
-     * @return int
+     *  int
      */
     public function size($queue = null)
     {
@@ -474,7 +474,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Get the number of pending jobs.
      *
      * @param  \UnitEnum|string|null  $queue
-     * @return int
+     *  int
      */
     public function pendingSize($queue = null)
     {
@@ -485,7 +485,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Get the number of delayed jobs.
      *
      * @param  \UnitEnum|string|null  $queue
-     * @return int
+     *  int
      */
     public function delayedSize($queue = null)
     {
@@ -496,7 +496,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Get the number of reserved jobs.
      *
      * @param  \UnitEnum|string|null  $queue
-     * @return int
+     *  int
      */
     public function reservedSize($queue = null)
     {
@@ -506,7 +506,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Get the number of jobs across every queue.
      *
-     * @return int
+     *  int
      */
     public function totalSize()
     {
@@ -516,7 +516,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Get the number of pending jobs across every queue.
      *
-     * @return int
+     *  int
      */
     public function totalPendingSize()
     {
@@ -526,7 +526,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Get the number of delayed jobs across every queue.
      *
-     * @return int
+     *  int
      */
     public function totalDelayedSize()
     {
@@ -536,7 +536,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Get the number of reserved jobs across every queue.
      *
-     * @return int
+     *  int
      */
     public function totalReservedSize()
     {
@@ -547,7 +547,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Get the pending jobs for the given queue.
      *
      * @param  \UnitEnum|string|null  $queue
-     * @return \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
+     *  \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
      */
     public function pendingJobs($queue = null): Collection
     {
@@ -558,7 +558,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Get the delayed jobs for the given queue.
      *
      * @param  \UnitEnum|string|null  $queue
-     * @return \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
+     *  \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
      */
     public function delayedJobs($queue = null): Collection
     {
@@ -569,7 +569,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Get the reserved jobs for the given queue.
      *
      * @param  \UnitEnum|string|null  $queue
-     * @return \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
+     *  \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
      */
     public function reservedJobs($queue = null): Collection
     {
@@ -579,7 +579,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Get all pending jobs across every queue.
      *
-     * @return \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
+     *  \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
      */
     public function allPendingJobs(): Collection
     {
@@ -589,7 +589,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Get all delayed jobs across every queue.
      *
-     * @return \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
+     *  \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
      */
     public function allDelayedJobs(): Collection
     {
@@ -600,7 +600,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Map an array of jobs to a collection of inspected jobs.
      *
      * @param  array  $jobs
-     * @return \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
+     *  \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
      */
     protected function inspectJobs(array $jobs): Collection
     {
@@ -621,7 +621,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Get all reserved jobs across every queue.
      *
-     * @return \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
+     *  \Illuminate\Support\Collection<int, \Illuminate\Queue\Jobs\InspectedJob>
      */
     public function allReservedJobs(): Collection
     {
@@ -632,7 +632,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Get the creation timestamp of the oldest pending job, excluding delayed jobs.
      *
      * @param  \UnitEnum|string|null  $queue
-     * @return int|null
+     *  int|null
      */
     public function creationTimeOfOldestPendingJob($queue = null)
     {
@@ -648,7 +648,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * @param  string|object  $job
      * @param  mixed  $data
      * @param  \UnitEnum|string|null  $queue
-     * @return mixed
+     *  mixed
      */
     public function push($job, $data = '', $queue = null)
     {
@@ -689,7 +689,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Determine if a job should be faked or actually dispatched.
      *
      * @param  object  $job
-     * @return bool
+     *  bool
      */
     public function shouldFakeJob($job)
     {
@@ -710,7 +710,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Determine if a job should be pushed to the queue instead of faked.
      *
      * @param  object  $job
-     * @return bool
+     *  bool
      */
     protected function shouldDispatchJob($job)
     {
@@ -729,7 +729,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * @param  string  $payload
      * @param  \UnitEnum|string|null  $queue
      * @param  array  $options
-     * @return mixed
+     *  mixed
      */
     public function pushRaw($payload, $queue = null, array $options = [])
     {
@@ -749,7 +749,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * @param  string|object  $job
      * @param  mixed  $data
      * @param  \UnitEnum|string|null  $queue
-     * @return mixed
+     *  mixed
      */
     public function later($delay, $job, $data = '', $queue = null)
     {
@@ -771,7 +771,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * @param  \UnitEnum|string  $queue
      * @param  string|object  $job
      * @param  mixed  $data
-     * @return mixed
+     *  mixed
      */
     public function pushOn($queue, $job, $data = '')
     {
@@ -785,7 +785,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * @param  \DateTimeInterface|\DateInterval|int  $delay
      * @param  string|object  $job
      * @param  mixed  $data
-     * @return mixed
+     *  mixed
      */
     public function laterOn($queue, $delay, $job, $data = '')
     {
@@ -797,7 +797,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      *
      * @param  \Closure|string|object  $job
      * @param  \UnitEnum|string|null  $queue
-     * @return void
+     *  void
      */
     public function reserve($job, $queue = null)
     {
@@ -819,7 +819,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Pop the next job off of the queue.
      *
      * @param  \UnitEnum|string|null  $queue
-     * @return \Illuminate\Contracts\Queue\Job|null
+     *  \Illuminate\Contracts\Queue\Job|null
      */
     public function pop($queue = null)
     {
@@ -832,7 +832,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * @param  array  $jobs
      * @param  mixed  $data
      * @param  \UnitEnum|string|null  $queue
-     * @return mixed
+     *  mixed
      */
     public function bulk($jobs, $data = '', $queue = null)
     {
@@ -850,7 +850,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Get the jobs that have been pushed.
      *
-     * @return array
+     *  array
      */
     public function pushedJobs()
     {
@@ -860,7 +860,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Get the payloads that were pushed raw.
      *
-     * @return list<RawPushType>
+     *  list<RawPushType>
      */
     public function rawPushes()
     {
@@ -871,7 +871,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Specify if jobs should be serialized and restored when being "pushed" to the queue.
      *
      * @param  bool  $serializeAndRestore
-     * @return $this
+     *  $this
      */
     public function serializeAndRestore(bool $serializeAndRestore = true)
     {
@@ -884,7 +884,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Serialize and unserialize the job to simulate the queueing process.
      *
      * @param  mixed  $job
-     * @return mixed
+     *  mixed
      */
     protected function serializeAndRestoreJob($job)
     {
@@ -894,7 +894,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Release the locks for all unique jobs that were pushed.
      *
-     * @return void
+     *  void
      */
     public function releaseUniqueJobLocks()
     {
@@ -910,7 +910,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Clear all of the reserved jobs.
      *
-     * @return void
+     *  void
      */
     public function clearReserved()
     {
@@ -921,7 +921,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Register a callback to be invoked before pushing a job.
      *
      * @param  callable  $callback
-     * @return $this
+     *  $this
      */
     public function beforePushing(callable $callback)
     {
@@ -934,7 +934,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Register a callback to be invoked after pushing a job.
      *
      * @param  callable  $callback
-     * @return $this
+     *  $this
      */
     public function afterPushing(callable $callback)
     {
@@ -946,7 +946,7 @@ class QueueFake extends QueueManager implements Fake, Queue
     /**
      * Get the connection name for the queue.
      *
-     * @return string
+     *  string
      */
     public function getConnectionName()
     {
@@ -957,7 +957,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      * Set the connection name for the queue.
      *
      * @param  string  $name
-     * @return $this
+     *  $this
      */
     public function setConnectionName($name)
     {
@@ -969,7 +969,7 @@ class QueueFake extends QueueManager implements Fake, Queue
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      *
      * @throws \BadMethodCallException
      */

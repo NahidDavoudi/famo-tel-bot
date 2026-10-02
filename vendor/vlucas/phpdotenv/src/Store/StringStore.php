@@ -18,7 +18,7 @@ final class StringStore implements StoreInterface
      *
      * @param string $content
      *
-     * @return void
+     *  void
      */
     public function __construct(string $content)
     {
@@ -28,7 +28,7 @@ final class StringStore implements StoreInterface
     /**
      * Read the content of the environment file(s).
      *
-     * @return string
+     *  string
      */
     public function read()
     {

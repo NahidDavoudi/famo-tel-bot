@@ -8,7 +8,7 @@ interface Store
      * Retrieve an item from the cache by key.
      *
      * @param  string  $key
-     * @return mixed
+     *  mixed
      */
     public function get($key);
 
@@ -18,7 +18,7 @@ interface Store
      * Items not found in the cache will have a null value.
      *
      * @param  array  $keys
-     * @return array
+     *  array
      */
     public function many(array $keys);
 
@@ -28,7 +28,7 @@ interface Store
      * @param  string  $key
      * @param  mixed  $value
      * @param  int  $seconds
-     * @return bool
+     *  bool
      */
     public function put($key, $value, $seconds);
 
@@ -37,7 +37,7 @@ interface Store
      *
      * @param  array  $values
      * @param  int  $seconds
-     * @return bool
+     *  bool
      */
     public function putMany(array $values, $seconds);
 
@@ -46,7 +46,7 @@ interface Store
      *
      * @param  string  $key
      * @param  mixed  $value
-     * @return int|bool
+     *  int|bool
      */
     public function increment($key, $value = 1);
 
@@ -55,7 +55,7 @@ interface Store
      *
      * @param  string  $key
      * @param  mixed  $value
-     * @return int|bool
+     *  int|bool
      */
     public function decrement($key, $value = 1);
 
@@ -64,7 +64,7 @@ interface Store
      *
      * @param  string  $key
      * @param  mixed  $value
-     * @return bool
+     *  bool
      */
     public function forever($key, $value);
 
@@ -73,7 +73,7 @@ interface Store
      *
      * @param  string  $key
      * @param  int  $seconds
-     * @return bool
+     *  bool
      */
     public function touch($key, $seconds);
 
@@ -81,21 +81,21 @@ interface Store
      * Remove an item from the cache.
      *
      * @param  string  $key
-     * @return bool
+     *  bool
      */
     public function forget($key);
 
     /**
      * Remove all items from the cache.
      *
-     * @return bool
+     *  bool
      */
     public function flush();
 
     /**
      * Get the cache key prefix.
      *
-     * @return string
+     *  string
      */
     public function getPrefix();
 }

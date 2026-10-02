@@ -49,7 +49,7 @@ interface ServerRequestInterface extends RequestInterface
      * typically derived from PHP's $_SERVER superglobal. The data IS NOT
      * REQUIRED to originate from $_SERVER.
      *
-     * @return array
+     *  array
      */
     public function getServerParams(): array;
 
@@ -61,7 +61,7 @@ interface ServerRequestInterface extends RequestInterface
      * The data MUST be compatible with the structure of the $_COOKIE
      * superglobal.
      *
-     * @return array
+     *  array
      */
     public function getCookieParams(): array;
 
@@ -80,7 +80,7 @@ interface ServerRequestInterface extends RequestInterface
      * updated cookie values.
      *
      * @param array $cookies Array of key/value pairs representing cookies.
-     * @return static
+     *  static
      */
     public function withCookieParams(array $cookies): ServerRequestInterface;
 
@@ -94,7 +94,7 @@ interface ServerRequestInterface extends RequestInterface
      * values, you may need to parse the query string from `getUri()->getQuery()`
      * or from the `QUERY_STRING` server param.
      *
-     * @return array
+     *  array
      */
     public function getQueryParams(): array;
 
@@ -118,7 +118,7 @@ interface ServerRequestInterface extends RequestInterface
      *
      * @param array $query Array of query string arguments, typically from
      *     $_GET.
-     * @return static
+     *  static
      */
     public function withQueryParams(array $query): ServerRequestInterface;
 
@@ -131,7 +131,7 @@ interface ServerRequestInterface extends RequestInterface
      * These values MAY be prepared from $_FILES or the message body during
      * instantiation, or MAY be injected via withUploadedFiles().
      *
-     * @return array An array tree of UploadedFileInterface instances; an empty
+     *  array An array tree of UploadedFileInterface instances; an empty
      *     array MUST be returned if no data is present.
      */
     public function getUploadedFiles(): array;
@@ -144,7 +144,7 @@ interface ServerRequestInterface extends RequestInterface
      * updated body parameters.
      *
      * @param array $uploadedFiles An array tree of UploadedFileInterface instances.
-     * @return static
+     *  static
      * @throws \InvalidArgumentException if an invalid structure is provided.
      */
     public function withUploadedFiles(array $uploadedFiles): ServerRequestInterface;
@@ -161,7 +161,7 @@ interface ServerRequestInterface extends RequestInterface
      * potential types MUST be arrays or objects only. A null value indicates
      * the absence of body content.
      *
-     * @return null|array|object The deserialized body parameters, if any.
+     *  null|array|object The deserialized body parameters, if any.
      *     These will typically be an array or object.
      */
     public function getParsedBody();
@@ -190,7 +190,7 @@ interface ServerRequestInterface extends RequestInterface
      *
      * @param null|array|object $data The deserialized body data. This will
      *     typically be in an array or object.
-     * @return static
+     *  static
      * @throws \InvalidArgumentException if an unsupported argument type is
      *     provided.
      */
@@ -205,7 +205,7 @@ interface ServerRequestInterface extends RequestInterface
      * deserializing non-form-encoded message bodies; etc. Attributes
      * will be application and request specific, and CAN be mutable.
      *
-     * @return array Attributes derived from the request.
+     *  array Attributes derived from the request.
      */
     public function getAttributes(): array;
 
@@ -222,7 +222,7 @@ interface ServerRequestInterface extends RequestInterface
      * @see getAttributes()
      * @param string $name The attribute name.
      * @param mixed $default Default value to return if the attribute does not exist.
-     * @return mixed
+     *  mixed
      */
     public function getAttribute(string $name, $default = null);
 
@@ -239,7 +239,7 @@ interface ServerRequestInterface extends RequestInterface
      * @see getAttributes()
      * @param string $name The attribute name.
      * @param mixed $value The value of the attribute.
-     * @return static
+     *  static
      */
     public function withAttribute(string $name, $value): ServerRequestInterface;
 
@@ -255,7 +255,7 @@ interface ServerRequestInterface extends RequestInterface
      *
      * @see getAttributes()
      * @param string $name The attribute name.
-     * @return static
+     *  static
      */
     public function withoutAttribute(string $name): ServerRequestInterface;
 }

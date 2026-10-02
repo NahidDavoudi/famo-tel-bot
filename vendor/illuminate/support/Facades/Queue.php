@@ -103,7 +103,7 @@ class Queue extends Facade
      *
      * @param  string  $workerName
      * @param  callable  $callback
-     * @return void
+     *  void
      */
     public static function popUsing($workerName, $callback)
     {
@@ -114,7 +114,7 @@ class Queue extends Facade
      * Replace the bound instance with a fake.
      *
      * @param  array|string  $jobsToFake
-     * @return \Illuminate\Support\Testing\Fakes\QueueFake
+     *  \Illuminate\Support\Testing\Fakes\QueueFake
      */
     public static function fake($jobsToFake = [])
     {
@@ -131,7 +131,7 @@ class Queue extends Facade
      * Replace the bound instance with a fake that fakes all jobs except the given jobs.
      *
      * @param  string[]|string  $jobsToAllow
-     * @return \Illuminate\Support\Testing\Fakes\QueueFake
+     *  \Illuminate\Support\Testing\Fakes\QueueFake
      */
     public static function fakeExcept($jobsToAllow)
     {
@@ -143,7 +143,7 @@ class Queue extends Facade
      *
      * @param  callable  $callable
      * @param  array  $jobsToFake
-     * @return mixed
+     *  mixed
      */
     public static function fakeFor(callable $callable, array $jobsToFake = [])
     {
@@ -163,7 +163,7 @@ class Queue extends Facade
      *
      * @param  callable  $callable
      * @param  array  $jobsToAllow
-     * @return mixed
+     *  mixed
      */
     public static function fakeExceptFor(callable $callable, array $jobsToAllow = [])
     {
@@ -181,7 +181,7 @@ class Queue extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {

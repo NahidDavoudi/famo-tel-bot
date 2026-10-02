@@ -131,7 +131,7 @@ class BrowserConsoleHandler extends AbstractProcessingHandler
      * If Content-Type is set to text/html, or is unset -> html
      * If Content-Type is anything else -> unknown
      *
-     * @return string One of 'js', 'html' or 'unknown'
+     *  string One of 'js', 'html' or 'unknown'
      * @phpstan-return self::FORMAT_*
      */
     protected static function getResponseFormat(): string
@@ -147,7 +147,7 @@ class BrowserConsoleHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return string One of 'js', 'html' or 'unknown'
+     *  string One of 'js', 'html' or 'unknown'
      * @phpstan-return self::FORMAT_*
      */
     protected static function getResponseFormatFromContentType(string $contentType): string
@@ -199,7 +199,7 @@ class BrowserConsoleHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return string[]
+     *  string[]
      */
     private static function handleStyles(string $formatted): array
     {
@@ -251,7 +251,7 @@ class BrowserConsoleHandler extends AbstractProcessingHandler
 
     /**
      * @param  mixed[] $dict
-     * @return mixed[]
+     *  mixed[]
      */
     private static function dump(string $title, array $dict): array
     {

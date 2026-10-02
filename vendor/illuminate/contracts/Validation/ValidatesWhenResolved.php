@@ -7,7 +7,7 @@ interface ValidatesWhenResolved
     /**
      * Validate the given class instance.
      *
-     * @return void
+     *  void
      */
     public function validateResolved();
 }

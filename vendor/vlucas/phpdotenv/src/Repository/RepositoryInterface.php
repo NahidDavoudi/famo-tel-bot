@@ -11,7 +11,7 @@ interface RepositoryInterface
      *
      * @param string $name
      *
-     * @return bool
+     *  bool
      */
     public function has(string $name);
 
@@ -22,7 +22,7 @@ interface RepositoryInterface
      *
      * @throws \InvalidArgumentException
      *
-     * @return string|null
+     *  string|null
      */
     public function get(string $name);
 
@@ -34,7 +34,7 @@ interface RepositoryInterface
      *
      * @throws \InvalidArgumentException
      *
-     * @return bool
+     *  bool
      */
     public function set(string $name, string $value);
 
@@ -45,7 +45,7 @@ interface RepositoryInterface
      *
      * @throws \InvalidArgumentException
      *
-     * @return bool
+     *  bool
      */
     public function clear(string $name);
 }

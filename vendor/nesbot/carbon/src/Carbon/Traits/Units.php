@@ -44,7 +44,7 @@ trait Units
      * @param string         $unit
      * @param int|float|null $value
      *
-     * @return static
+     *  static
      */
     public function addRealUnit(string $unit, $value = 1): static
     {
@@ -58,7 +58,7 @@ trait Units
      * @param string         $unit
      * @param int|float|null $value
      *
-     * @return static
+     *  static
      */
     public function addUTCUnit(string $unit, $value = 1): static
     {
@@ -177,7 +177,7 @@ trait Units
      * @param string $unit
      * @param int    $value
      *
-     * @return static
+     *  static
      */
     public function subRealUnit($unit, $value = 1): static
     {
@@ -191,7 +191,7 @@ trait Units
      * @param string $unit
      * @param int    $value
      *
-     * @return static
+     *  static
      */
     public function subUTCUnit($unit, $value = 1): static
     {
@@ -203,7 +203,7 @@ trait Units
      *
      * @param string $unit
      *
-     * @return bool
+     *  bool
      */
     public static function isModifiableUnit($unit): bool
     {
@@ -230,7 +230,7 @@ trait Units
      *
      * @param DateInterval $interval
      *
-     * @return static
+     *  static
      */
     public function rawAdd(DateInterval $interval): static
     {
@@ -249,7 +249,7 @@ trait Units
      * @param OverflowMode|bool|null                                        $overflow
      * @param int|null                                                      $anchorDay
      *
-     * @return static
+     *  static
      */
     #[ReturnTypeWillChange]
     public function add($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static
@@ -446,7 +446,7 @@ trait Units
      * @param OverflowMode|bool|null                                        $overflow
      * @param int|null                                                      $anchorDay
      *
-     * @return static
+     *  static
      */
     #[ReturnTypeWillChange]
     public function sub($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static
@@ -500,7 +500,7 @@ trait Units
      * @param OverflowMode|bool|null       $overflow
      * @param int|null                     $anchorDay
      *
-     * @return static
+     *  static
      */
     public function subtract($unit, $value = 1, OverflowMode|bool|null $overflow = null, ?int $anchorDay = null): static
     {

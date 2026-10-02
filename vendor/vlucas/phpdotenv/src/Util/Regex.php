@@ -17,7 +17,7 @@ final class Regex
      *
      * @codeCoverageIgnore
      *
-     * @return void
+     *  void
      */
     private function __construct()
     {
@@ -30,7 +30,7 @@ final class Regex
      * @param string $pattern
      * @param string $subject
      *
-     * @return \GrahamCampbell\ResultType\Result<bool, string>
+     *  \GrahamCampbell\ResultType\Result<bool, string>
      */
     public static function matches(string $pattern, string $subject)
     {
@@ -43,7 +43,7 @@ final class Regex
      * @param string $pattern
      * @param string $subject
      *
-     * @return \GrahamCampbell\ResultType\Result<int<0, max>, string>
+     *  \GrahamCampbell\ResultType\Result<int<0, max>, string>
      */
     public static function occurrences(string $pattern, string $subject)
     {
@@ -58,7 +58,7 @@ final class Regex
      * @param string                     $subject
      * @param int|null                   $limit
      *
-     * @return \GrahamCampbell\ResultType\Result<string, string>
+     *  \GrahamCampbell\ResultType\Result<string, string>
      */
     public static function replaceCallback(string $pattern, callable $callback, string $subject, ?int $limit = null)
     {
@@ -71,7 +71,7 @@ final class Regex
      * @param string $pattern
      * @param string $subject
      *
-     * @return \GrahamCampbell\ResultType\Result<string[], string>
+     *  \GrahamCampbell\ResultType\Result<string[], string>
      */
     public static function split(string $pattern, string $subject)
     {
@@ -88,7 +88,7 @@ final class Regex
      *
      * @param V $result
      *
-     * @return \GrahamCampbell\ResultType\Result<V, string>
+     *  \GrahamCampbell\ResultType\Result<V, string>
      */
     private static function wrap($result)
     {

@@ -7,7 +7,7 @@ interface CanResetPassword
     /**
      * Get the e-mail address where password reset links are sent.
      *
-     * @return string
+     *  string
      */
     public function getEmailForPasswordReset();
 
@@ -15,7 +15,7 @@ interface CanResetPassword
      * Send the password reset notification.
      *
      * @param  string  $token
-     * @return void
+     *  void
      */
     public function sendPasswordResetNotification($token);
 }

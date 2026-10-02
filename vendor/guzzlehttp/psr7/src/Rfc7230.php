@@ -22,7 +22,7 @@ final class Rfc7230
     public const HEADER_FOLD_REGEX = "(\r?\n[ \t]++)";
 
     /**
-     * @return array{0: string, 1: int|null}|null
+     *  array{0: string, 1: int|null}|null
      */
     public static function parseHostHeader(string $authority): ?array
     {

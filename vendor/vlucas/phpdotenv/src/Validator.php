@@ -31,7 +31,7 @@ class Validator
      * @param \Dotenv\Repository\RepositoryInterface $repository
      * @param string[]                               $variables
      *
-     * @return void
+     *  void
      */
     public function __construct(RepositoryInterface $repository, array $variables)
     {
@@ -44,7 +44,7 @@ class Validator
      *
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
+     *  \Dotenv\Validator
      */
     public function required()
     {
@@ -61,7 +61,7 @@ class Validator
      *
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
+     *  \Dotenv\Validator
      */
     public function notEmpty()
     {
@@ -78,7 +78,7 @@ class Validator
      *
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
+     *  \Dotenv\Validator
      */
     public function isInteger()
     {
@@ -95,7 +95,7 @@ class Validator
      *
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
+     *  \Dotenv\Validator
      */
     public function isBoolean()
     {
@@ -118,7 +118,7 @@ class Validator
      *
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
+     *  \Dotenv\Validator
      */
     public function allowedValues(array $choices)
     {
@@ -137,7 +137,7 @@ class Validator
      *
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
+     *  \Dotenv\Validator
      */
     public function allowedRegexValues(string $regex)
     {
@@ -166,7 +166,7 @@ class Validator
      *
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
+     *  \Dotenv\Validator
      */
     public function assert(callable $callback, string $message)
     {
@@ -198,7 +198,7 @@ class Validator
      *
      * @throws \Dotenv\Exception\ValidationException
      *
-     * @return \Dotenv\Validator
+     *  \Dotenv\Validator
      */
     public function assertNullable(callable $callback, string $message)
     {

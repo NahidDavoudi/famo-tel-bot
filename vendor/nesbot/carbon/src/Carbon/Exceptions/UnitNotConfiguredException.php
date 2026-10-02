@@ -41,7 +41,7 @@ class UnitNotConfiguredException extends UnitException
     /**
      * Get the unit.
      *
-     * @return string
+     *  string
      */
     public function getUnit(): string
     {

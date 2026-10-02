@@ -88,7 +88,7 @@ trait Test
      * @param DateTimeInterface|Closure|static|string|false|null $testNow  real or mock Carbon instance
      * @param Closure(): T                                       $callback
      *
-     * @return T
+     *  T
      */
     public static function withTestNow(mixed $testNow, callable $callback): mixed
     {
@@ -99,7 +99,7 @@ trait Test
      * Get the Carbon instance (real or mock) to be returned when a "now"
      * instance is created.
      *
-     * @return Closure|CarbonInterface|null the current instance used for testing
+     *  Closure|CarbonInterface|null the current instance used for testing
      */
     public static function getTestNow(): Closure|CarbonInterface|null
     {
@@ -110,7 +110,7 @@ trait Test
      * Determine if there is a valid test instance set. A valid test instance
      * is anything that is not null.
      *
-     * @return bool true if there is a test instance, otherwise false
+     *  bool true if there is a test instance, otherwise false
      */
     public static function hasTestNow(): bool
     {

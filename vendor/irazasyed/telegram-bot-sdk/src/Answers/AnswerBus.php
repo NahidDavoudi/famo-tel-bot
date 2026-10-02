@@ -16,7 +16,7 @@ abstract class AnswerBus
     /**
      * Handle calls to missing methods.
      *
-     * @return mixed
+     *  mixed
      *
      * @throws BadMethodCallException
      */

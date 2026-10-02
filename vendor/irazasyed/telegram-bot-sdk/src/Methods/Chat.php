@@ -605,7 +605,7 @@ trait Chat
      *
      * @link https://core.telegram.org/bots/api#getchatadministrators
      *
-     * @return ChatMember[]
+     *  ChatMember[]
      *
      * @throws TelegramSDKException
      */

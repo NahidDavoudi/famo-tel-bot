@@ -42,7 +42,7 @@ class UnknownSetterException extends BaseInvalidArgumentException implements Bad
     /**
      * Get the setter.
      *
-     * @return string
+     *  string
      */
     public function getSetter(): string
     {

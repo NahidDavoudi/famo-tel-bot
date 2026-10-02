@@ -7,7 +7,7 @@ interface PreparesForDispatch
     /**
      * Run preparation logic before dispatch. Return false to abort.
      *
-     * @return bool|void
+     *  bool|void
      */
     public function prepareForDispatch();
 }

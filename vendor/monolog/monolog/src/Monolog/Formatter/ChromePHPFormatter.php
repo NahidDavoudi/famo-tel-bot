@@ -24,7 +24,7 @@ class ChromePHPFormatter implements FormatterInterface
     /**
      * Translates Monolog log levels to Wildfire levels.
      *
-     * @return 'log'|'info'|'warn'|'error'
+     *  'log'|'info'|'warn'|'error'
      */
     private function toWildfireLevel(Level $level): string
     {

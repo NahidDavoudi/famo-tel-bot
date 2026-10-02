@@ -70,7 +70,7 @@ trait Commands
      *
      * @link https://core.telegram.org/bots/api#getmycommands
      *
-     * @return BotCommand[]
+     *  BotCommand[]
      *
      * @throws TelegramSDKException
      */

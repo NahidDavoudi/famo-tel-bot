@@ -91,7 +91,7 @@ class Uri implements UriInterface, \JsonSerializable
      * @see https://www.php.net/manual/en/function.parse-url.php#114817
      * @see https://curl.haxx.se/libcurl/c/CURLOPT_URL.html#ENCODING
      *
-     * @return array|false
+     *  array|false
      */
     private static function parse(string $url)
     {
@@ -159,7 +159,7 @@ class Uri implements UriInterface, \JsonSerializable
     }
 
     /**
-     * @return array{path: string, query?: string, fragment?: string}
+     *  array{path: string, query?: string, fragment?: string}
      */
     private static function parsePathNoSchemeReference(string $url): array
     {
@@ -769,7 +769,7 @@ class Uri implements UriInterface, \JsonSerializable
     /**
      * @param (string|int)[] $keys
      *
-     * @return string[]
+     *  string[]
      */
     private static function getFilteredQueryString(UriInterface $uri, array $keys): array
     {

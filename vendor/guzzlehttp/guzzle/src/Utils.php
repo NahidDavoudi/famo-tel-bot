@@ -19,7 +19,7 @@ final class Utils
      *
      * @param mixed $input
      *
-     * @return string Returns a string containing the type of the variable and
+     *  string Returns a string containing the type of the variable and
      *                if a class is provided, the class name.
      *
      * @deprecated Utils::describeType() will be removed in guzzlehttp/guzzle:8.0. Use get_debug_type() instead.
@@ -72,7 +72,7 @@ final class Utils
      *
      * @param mixed $value Optional value
      *
-     * @return resource
+     *  resource
      */
     public static function debugResource($value = null)
     {
@@ -93,7 +93,7 @@ final class Utils
      *
      * @param array{transport_sharing?: mixed, max_host_connections?: mixed, max_total_connections?: mixed, multiplex?: mixed} $handlerOptions Handler constructor options.
      *
-     * @return callable(RequestInterface, array): Promise\PromiseInterface Returns the best handler for the given system.
+     *  callable(RequestInterface, array): Promise\PromiseInterface Returns the best handler for the given system.
      *
      * @throws \RuntimeException if no viable Handler is available.
      */
@@ -139,7 +139,7 @@ final class Utils
     /**
      * @param array{max_host_connections?: mixed, max_total_connections?: mixed, multiplex?: mixed} $handlerOptions
      *
-     * @return (callable(RequestInterface, array): Promise\PromiseInterface)|null
+     *  (callable(RequestInterface, array): Promise\PromiseInterface)|null
      */
     private static function createCurlHandler(string $sharingMode, array $handlerOptions): ?callable
     {
@@ -185,7 +185,7 @@ final class Utils
     }
 
     /**
-     * @return array<string, mixed>
+     *  array<string, mixed>
      */
     private static function createCurlHandlerOptions(string $sharingMode): array
     {
@@ -201,7 +201,7 @@ final class Utils
     /**
      * @param array{max_host_connections?: mixed, max_total_connections?: mixed} $handlerOptions
      *
-     * @return array{max_host_connections?: int, max_total_connections?: int}
+     *  array{max_host_connections?: int, max_total_connections?: int}
      */
     private static function connectionCapOptions(array $handlerOptions): array
     {
@@ -226,7 +226,7 @@ final class Utils
      * @param (callable(RequestInterface, array): Promise\PromiseInterface)|null $handler
      * @param array{max_host_connections?: int, max_total_connections?: int}     $connectionCapOptions
      *
-     * @return callable(RequestInterface, array): Promise\PromiseInterface
+     *  callable(RequestInterface, array): Promise\PromiseInterface
      */
     private static function addStreamHandler(?callable $handler, string $sharingMode, bool $sharingRequired, array $connectionCapOptions): callable
     {
@@ -341,7 +341,7 @@ EOT
     /**
      * @param mixed $protocols
      *
-     * @return string[]
+     *  string[]
      *
      * @throws InvalidArgumentException
      */
@@ -462,7 +462,7 @@ EOT
     }
 
     /**
-     * @return array{type: string, value: string, port: int|null, matchesRoot: bool}|null
+     *  array{type: string, value: string, port: int|null, matchesRoot: bool}|null
      */
     private static function parseNoProxyTarget(UriInterface $uri): ?array
     {
@@ -475,7 +475,7 @@ EOT
     }
 
     /**
-     * @return array{type: string, value: string, port: int|null, matchesRoot: bool}|null
+     *  array{type: string, value: string, port: int|null, matchesRoot: bool}|null
      */
     private static function parseNoProxyHostString(string $host): ?array
     {
@@ -490,7 +490,7 @@ EOT
     }
 
     /**
-     * @return array{type: string, value: string, port: int|null, matchesRoot: bool}|array{type: string, value: string, prefix: int}|null
+     *  array{type: string, value: string, port: int|null, matchesRoot: bool}|array{type: string, value: string, prefix: int}|null
      */
     private static function parseNoProxyRule(string $area): ?array
     {
@@ -538,7 +538,7 @@ EOT
     }
 
     /**
-     * @return array{type: string, value: string, port: int|null, matchesRoot: bool}|null
+     *  array{type: string, value: string, port: int|null, matchesRoot: bool}|null
      */
     private static function parseNoProxyHost(string $host, ?int $port, bool $matchesRoot): ?array
     {
@@ -586,7 +586,7 @@ EOT
     }
 
     /**
-     * @return array{0: string, 1: int|null}|null
+     *  array{0: string, 1: int|null}|null
      */
     private static function splitNoProxyHostAndPort(string $area): ?array
     {
@@ -634,7 +634,7 @@ EOT
     }
 
     /**
-     * @return array{type: string, value: string, prefix: int}|null
+     *  array{type: string, value: string, prefix: int}|null
      */
     private static function parseNoProxyCidrRule(string $area): ?array
     {
@@ -728,7 +728,7 @@ EOT
     }
 
     /**
-     * @return string|false
+     *  string|false
      */
     private static function packIpAddress(string $ip)
     {
@@ -779,7 +779,7 @@ EOT
      * @param int    $depth   User specified recursion depth.
      * @param int    $options Bitmask of JSON decode options.
      *
-     * @return object|array|string|int|float|bool|null
+     *  object|array|string|int|float|bool|null
      *
      * @throws InvalidArgumentException if the JSON cannot be decoded.
      *
@@ -831,7 +831,7 @@ EOT
      * Wrapper for the hrtime() or microtime() functions
      * (depending on the PHP version, one of the two is used)
      *
-     * @return float UNIX timestamp
+     *  float UNIX timestamp
      *
      * @internal
      */
@@ -929,7 +929,7 @@ EOT
     }
 
     /**
-     * @return string|false
+     *  string|false
      */
     private static function idnToAsci(string $domain, int $options, ?array &$info = [])
     {

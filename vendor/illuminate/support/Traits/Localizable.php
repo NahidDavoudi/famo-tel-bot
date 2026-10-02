@@ -13,7 +13,7 @@ trait Localizable
      *
      * @param  string  $locale
      * @param  \Closure(): TReturn  $callback
-     * @return TReturn
+     *  TReturn
      */
     public function withLocale($locale, $callback)
     {

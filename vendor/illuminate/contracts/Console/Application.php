@@ -10,14 +10,14 @@ interface Application
      * @param  string  $command
      * @param  array  $parameters
      * @param  \Symfony\Component\Console\Output\OutputInterface|null  $outputBuffer
-     * @return int
+     *  int
      */
     public function call($command, array $parameters = [], $outputBuffer = null);
 
     /**
      * Get the output from the last command.
      *
-     * @return string
+     *  string
      */
     public function output();
 }

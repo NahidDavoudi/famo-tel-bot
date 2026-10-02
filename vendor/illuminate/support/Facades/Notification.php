@@ -50,7 +50,7 @@ class Notification extends Facade
     /**
      * Replace the bound instance with a fake.
      *
-     * @return \Illuminate\Support\Testing\Fakes\NotificationFake
+     *  \Illuminate\Support\Testing\Fakes\NotificationFake
      */
     public static function fake()
     {
@@ -63,7 +63,7 @@ class Notification extends Facade
      * Begin sending a notification to an anonymous notifiable on the given channels.
      *
      * @param  array  $channels
-     * @return \Illuminate\Notifications\AnonymousNotifiable
+     *  \Illuminate\Notifications\AnonymousNotifiable
      */
     public static function routes(array $channels)
     {
@@ -81,7 +81,7 @@ class Notification extends Facade
      *
      * @param  string  $channel
      * @param  mixed  $route
-     * @return \Illuminate\Notifications\AnonymousNotifiable
+     *  \Illuminate\Notifications\AnonymousNotifiable
      */
     public static function route($channel, $route)
     {
@@ -91,7 +91,7 @@ class Notification extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {

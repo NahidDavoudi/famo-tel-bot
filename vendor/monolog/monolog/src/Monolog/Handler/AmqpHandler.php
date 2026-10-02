@@ -46,7 +46,7 @@ class AmqpHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return array<string, mixed>
+     *  array<string, mixed>
      */
     public function getExtraAttributes(): array
     {
@@ -60,7 +60,7 @@ class AmqpHandler extends AbstractProcessingHandler
      *                                               message_id, user_id, app_id, delivery_mode,
      *                                               priority, timestamp, expiration, type
      *                                               or reply_to, headers.
-     * @return $this
+     *  $this
      */
     public function setExtraAttributes(array $extraAttributes): self
     {

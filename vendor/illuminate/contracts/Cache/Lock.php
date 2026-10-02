@@ -8,7 +8,7 @@ interface Lock
      * Attempt to acquire the lock.
      *
      * @param  callable|null  $callback
-     * @return mixed
+     *  mixed
      */
     public function get($callback = null);
 
@@ -17,7 +17,7 @@ interface Lock
      *
      * @param  int  $seconds
      * @param  callable|null  $callback
-     * @return mixed
+     *  mixed
      *
      * @throws \Illuminate\Contracts\Cache\LockTimeoutException
      */
@@ -26,21 +26,21 @@ interface Lock
     /**
      * Release the lock.
      *
-     * @return bool
+     *  bool
      */
     public function release();
 
     /**
      * Returns the current owner of the lock.
      *
-     * @return string
+     *  string
      */
     public function owner();
 
     /**
      * Releases this lock in disregard of ownership.
      *
-     * @return void
+     *  void
      */
     public function forceRelease();
 }

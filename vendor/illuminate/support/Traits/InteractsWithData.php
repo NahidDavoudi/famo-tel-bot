@@ -19,7 +19,7 @@ trait InteractsWithData
      * Retrieve all data from the instance.
      *
      * @param  mixed  $keys
-     * @return array
+     *  array
      */
     abstract public function all($keys = null);
 
@@ -28,7 +28,7 @@ trait InteractsWithData
      *
      * @param  string|null  $key
      * @param  mixed  $default
-     * @return mixed
+     *  mixed
      */
     abstract protected function data($key = null, $default = null);
 
@@ -36,7 +36,7 @@ trait InteractsWithData
      * Determine if the data contains a given key.
      *
      * @param  string|array  $key
-     * @return bool
+     *  bool
      */
     public function exists($key)
     {
@@ -47,7 +47,7 @@ trait InteractsWithData
      * Determine if the data contains a given key.
      *
      * @param  string|array  $key
-     * @return bool
+     *  bool
      */
     public function has($key)
     {
@@ -62,7 +62,7 @@ trait InteractsWithData
      * Determine if the instance contains any of the given keys.
      *
      * @param  string|array  $keys
-     * @return bool
+     *  bool
      */
     public function hasAny($keys)
     {
@@ -82,7 +82,7 @@ trait InteractsWithData
      * @param  string  $key
      * @param  callable(mixed): TReturn  $callback
      * @param  (callable(): TReturnDefault)|null  $default
-     * @return $this|TReturn|TReturnDefault
+     *  $this|TReturn|TReturnDefault
      */
     public function whenHas($key, callable $callback, ?callable $default = null)
     {
@@ -101,7 +101,7 @@ trait InteractsWithData
      * Determine if the instance contains a non-empty value for the given key.
      *
      * @param  string|array  $key
-     * @return bool
+     *  bool
      */
     public function filled($key)
     {
@@ -114,7 +114,7 @@ trait InteractsWithData
      * Determine if the instance contains an empty value for the given key.
      *
      * @param  string|array  $key
-     * @return bool
+     *  bool
      */
     public function isNotFilled($key)
     {
@@ -127,7 +127,7 @@ trait InteractsWithData
      * Determine if the instance contains a non-empty value for any of the given keys.
      *
      * @param  string|array  $keys
-     * @return bool
+     *  bool
      */
     public function anyFilled($keys)
     {
@@ -145,7 +145,7 @@ trait InteractsWithData
      * @param  string  $key
      * @param  callable(mixed): TReturn  $callback
      * @param  (callable(): TReturnDefault)|null  $default
-     * @return $this|TReturn|TReturnDefault
+     *  $this|TReturn|TReturnDefault
      */
     public function whenFilled($key, callable $callback, ?callable $default = null)
     {
@@ -171,7 +171,7 @@ trait InteractsWithData
      * @param  class-string<TEnum>  $enumClass
      * @param  callable(TEnum):TReturn  $callback
      * @param  (callable(): TReturnDefault)|null  $default
-     * @return $this|TReturn|TReturnDefault
+     *  $this|TReturn|TReturnDefault
      */
     public function whenEnum($key, string $enumClass, callable $callback, ?callable $default = null)
     {
@@ -194,7 +194,7 @@ trait InteractsWithData
      * Determine if the instance is missing a given key.
      *
      * @param  string|array  $key
-     * @return bool
+     *  bool
      */
     public function missing($key)
     {
@@ -212,7 +212,7 @@ trait InteractsWithData
      * @param  string  $key
      * @param  callable(mixed): TReturn  $callback
      * @param  (callable(): TReturnDefault)|null  $default
-     * @return $this|TReturn|TReturnDefault
+     *  $this|TReturn|TReturnDefault
      */
     public function whenMissing($key, callable $callback, ?callable $default = null)
     {
@@ -231,7 +231,7 @@ trait InteractsWithData
      * Determine if the given key is an empty string for "filled".
      *
      * @param  string  $key
-     * @return bool
+     *  bool
      */
     protected function isEmptyString($key)
     {
@@ -245,7 +245,7 @@ trait InteractsWithData
      *
      * @param  string  $key
      * @param  mixed  $default
-     * @return \Illuminate\Support\Stringable
+     *  \Illuminate\Support\Stringable
      */
     public function str($key, $default = null)
     {
@@ -257,7 +257,7 @@ trait InteractsWithData
      *
      * @param  string  $key
      * @param  mixed  $default
-     * @return \Illuminate\Support\Stringable
+     *  \Illuminate\Support\Stringable
      */
     public function string($key, $default = null)
     {
@@ -271,7 +271,7 @@ trait InteractsWithData
      *
      * @param  string|null  $key
      * @param  bool  $default
-     * @return bool
+     *  bool
      */
     public function boolean($key = null, $default = false)
     {
@@ -283,7 +283,7 @@ trait InteractsWithData
      *
      * @param  string  $key
      * @param  int  $default
-     * @return int
+     *  int
      */
     public function integer($key, $default = 0)
     {
@@ -295,7 +295,7 @@ trait InteractsWithData
      *
      * @param  string  $key
      * @param  float  $default
-     * @return float
+     *  float
      */
     public function float($key, $default = 0.0)
     {
@@ -309,7 +309,7 @@ trait InteractsWithData
      * @param  int|float  $min
      * @param  int|float  $max
      * @param  int|float  $default
-     * @return float|int
+     *  float|int
      */
     public function clamp($key, $min, $max, $default = 0)
     {
@@ -328,7 +328,7 @@ trait InteractsWithData
      * @param  string  $key
      * @param  string|null  $format
      * @param  \UnitEnum|string|null  $tz
-     * @return \Illuminate\Support\Carbon|null
+     *  \Illuminate\Support\Carbon|null
      *
      * @throws \Carbon\Exceptions\InvalidFormatException
      */
@@ -352,7 +352,7 @@ trait InteractsWithData
      *
      * @param  string  $key
      * @param  \Carbon\Unit|string|null  $unit
-     * @return \Carbon\CarbonInterval|null
+     *  \Carbon\CarbonInterval|null
      */
     public function interval($key, $unit = null)
     {
@@ -380,7 +380,7 @@ trait InteractsWithData
      * @param  string  $key
      * @param  class-string<TEnum>  $enumClass
      * @param  TDefault  $default
-     * @return TEnum|TDefault
+     *  TEnum|TDefault
      */
     public function enum($key, $enumClass, $default = null)
     {
@@ -398,7 +398,7 @@ trait InteractsWithData
      *
      * @param  string  $key
      * @param  class-string<TEnum>  $enumClass
-     * @return TEnum[]
+     *  TEnum[]
      */
     public function enums($key, $enumClass)
     {
@@ -416,7 +416,7 @@ trait InteractsWithData
      * Determine if the given enum class is backed.
      *
      * @param  class-string  $enumClass
-     * @return bool
+     *  bool
      */
     protected function isBackedEnum($enumClass)
     {
@@ -427,7 +427,7 @@ trait InteractsWithData
      * Retrieve data from the instance as an array.
      *
      * @param  array|string|null  $key
-     * @return array
+     *  array
      */
     public function array($key = null)
     {
@@ -438,7 +438,7 @@ trait InteractsWithData
      * Retrieve data from the instance as a collection.
      *
      * @param  array|string|null  $key
-     * @return \Illuminate\Support\Collection
+     *  \Illuminate\Support\Collection
      */
     public function collect($key = null)
     {
@@ -449,7 +449,7 @@ trait InteractsWithData
      * Get a subset containing the provided keys with values from the instance data.
      *
      * @param  mixed  $keys
-     * @return array
+     *  array
      */
     public function only($keys)
     {
@@ -474,7 +474,7 @@ trait InteractsWithData
      * Get all of the data except for a specified array of items.
      *
      * @param  mixed  $keys
-     * @return array
+     *  array
      */
     public function except($keys)
     {

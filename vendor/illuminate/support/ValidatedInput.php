@@ -33,7 +33,7 @@ class ValidatedInput implements ValidatedData
      * Merge the validated input with the given array of additional data.
      *
      * @param  array  $items
-     * @return static
+     *  static
      */
     public function merge(array $items)
     {
@@ -44,7 +44,7 @@ class ValidatedInput implements ValidatedData
      * Get the raw, underlying input array.
      *
      * @param  mixed  $keys
-     * @return array
+     *  array
      */
     public function all($keys = null)
     {
@@ -66,7 +66,7 @@ class ValidatedInput implements ValidatedData
      *
      * @param  string|null  $key
      * @param  mixed  $default
-     * @return mixed
+     *  mixed
      */
     protected function data($key = null, $default = null)
     {
@@ -76,7 +76,7 @@ class ValidatedInput implements ValidatedData
     /**
      * Get the keys for all of the input.
      *
-     * @return array
+     *  array
      */
     public function keys()
     {
@@ -88,7 +88,7 @@ class ValidatedInput implements ValidatedData
      *
      * @param  string|null  $key
      * @param  mixed  $default
-     * @return mixed
+     *  mixed
      */
     public function input($key = null, $default = null)
     {
@@ -102,7 +102,7 @@ class ValidatedInput implements ValidatedData
      *
      * @param  string  $key
      * @param  mixed  $default
-     * @return \Illuminate\Http\UploadedFile|null
+     *  \Illuminate\Http\UploadedFile|null
      */
     public function file($key, $default = null)
     {
@@ -115,7 +115,7 @@ class ValidatedInput implements ValidatedData
      * Dump the items.
      *
      * @param  mixed  ...$keys
-     * @return $this
+     *  $this
      */
     public function dump(...$keys)
     {
@@ -127,7 +127,7 @@ class ValidatedInput implements ValidatedData
     /**
      * Get the instance as an array.
      *
-     * @return array
+     *  array
      */
     public function toArray()
     {
@@ -138,7 +138,7 @@ class ValidatedInput implements ValidatedData
      * Dynamically access input data.
      *
      * @param  string  $name
-     * @return mixed
+     *  mixed
      */
     public function __get($name)
     {
@@ -150,7 +150,7 @@ class ValidatedInput implements ValidatedData
      *
      * @param  string  $name
      * @param  mixed  $value
-     * @return mixed
+     *  mixed
      */
     public function __set($name, $value)
     {
@@ -161,7 +161,7 @@ class ValidatedInput implements ValidatedData
      * Determine if an input item is set.
      *
      * @param  string  $name
-     * @return bool
+     *  bool
      */
     public function __isset($name)
     {
@@ -172,7 +172,7 @@ class ValidatedInput implements ValidatedData
      * Remove an input item.
      *
      * @param  string  $name
-     * @return void
+     *  void
      */
     public function __unset($name)
     {
@@ -183,7 +183,7 @@ class ValidatedInput implements ValidatedData
      * Determine if an item exists at an offset.
      *
      * @param  mixed  $key
-     * @return bool
+     *  bool
      */
     public function offsetExists($key): bool
     {
@@ -194,7 +194,7 @@ class ValidatedInput implements ValidatedData
      * Get an item at a given offset.
      *
      * @param  mixed  $key
-     * @return mixed
+     *  mixed
      */
     public function offsetGet($key): mixed
     {
@@ -206,7 +206,7 @@ class ValidatedInput implements ValidatedData
      *
      * @param  mixed  $key
      * @param  mixed  $value
-     * @return void
+     *  void
      */
     public function offsetSet($key, $value): void
     {
@@ -221,7 +221,7 @@ class ValidatedInput implements ValidatedData
      * Unset the item at a given offset.
      *
      * @param  string  $key
-     * @return void
+     *  void
      */
     public function offsetUnset($key): void
     {
@@ -231,7 +231,7 @@ class ValidatedInput implements ValidatedData
     /**
      * Get an iterator for the input.
      *
-     * @return \ArrayIterator
+     *  \ArrayIterator
      */
     public function getIterator(): Traversable
     {

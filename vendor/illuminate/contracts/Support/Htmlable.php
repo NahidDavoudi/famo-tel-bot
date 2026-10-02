@@ -7,7 +7,7 @@ interface Htmlable
     /**
      * Get content as a string of HTML.
      *
-     * @return string
+     *  string
      */
     public function toHtml();
 }

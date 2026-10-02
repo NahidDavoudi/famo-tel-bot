@@ -7,14 +7,14 @@ interface UrlRoutable
     /**
      * Get the value of the model's route key.
      *
-     * @return mixed
+     *  mixed
      */
     public function getRouteKey();
 
     /**
      * Get the route key for the model.
      *
-     * @return string
+     *  string
      */
     public function getRouteKeyName();
 
@@ -23,7 +23,7 @@ interface UrlRoutable
      *
      * @param  mixed  $value
      * @param  string|null  $field
-     * @return \Illuminate\Database\Eloquent\Model|null
+     *  \Illuminate\Database\Eloquent\Model|null
      */
     public function resolveRouteBinding($value, $field = null);
 
@@ -33,7 +33,7 @@ interface UrlRoutable
      * @param  string  $childType
      * @param  mixed  $value
      * @param  string|null  $field
-     * @return \Illuminate\Database\Eloquent\Model|null
+     *  \Illuminate\Database\Eloquent\Model|null
      */
     public function resolveChildRouteBinding($childType, $value, $field);
 }

@@ -29,7 +29,7 @@ final class None extends Option
     private static $instance;
 
     /**
-     * @return None
+     *  None
      */
     public static function create(): self
     {
@@ -50,7 +50,7 @@ final class None extends Option
      *
      * @param callable():S $callable
      *
-     * @return S
+     *  S
      */
     public function getOrCall($callable)
     {
@@ -62,7 +62,7 @@ final class None extends Option
      *
      * @param S $default
      *
-     * @return S
+     *  S
      */
     public function getOrElse($default)
     {
@@ -141,7 +141,7 @@ final class None extends Option
      * @param S                    $initialValue
      * @param callable(S, never):R $callable
      *
-     * @return S
+     *  S
      */
     public function foldLeft($initialValue, $callable)
     {
@@ -155,7 +155,7 @@ final class None extends Option
      * @param S                    $initialValue
      * @param callable(never, S):R $callable
      *
-     * @return S
+     *  S
      */
     public function foldRight($initialValue, $callable)
     {

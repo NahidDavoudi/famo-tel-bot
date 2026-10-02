@@ -186,7 +186,7 @@ final class FamoApi
         return new ApiResult($status, $body, is_string($errorCode) ? $errorCode : null);
     }
 
-    /** @return array{role:string,userId:int,chatId:int} */
+    /**  array{role:string,userId:int,chatId:int} */
     private static function identity(string $role, int $telegramUserId, int $chatId): array
     {
         return ['role' => $role, 'userId' => $telegramUserId, 'chatId' => $chatId];

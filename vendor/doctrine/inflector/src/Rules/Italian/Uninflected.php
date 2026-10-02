@@ -8,19 +8,19 @@ use Doctrine\Inflector\Rules\Pattern;
 
 final class Uninflected
 {
-    /** @return iterable<Pattern> */
+    /**  iterable<Pattern> */
     public static function getSingular(): iterable
     {
         yield from self::getDefault();
     }
 
-    /** @return iterable<Pattern> */
+    /**  iterable<Pattern> */
     public static function getPlural(): iterable
     {
         yield from self::getDefault();
     }
 
-    /** @return iterable<Pattern> */
+    /**  iterable<Pattern> */
     private static function getDefault(): iterable
     {
         // Invariable words (same form in singular and plural)

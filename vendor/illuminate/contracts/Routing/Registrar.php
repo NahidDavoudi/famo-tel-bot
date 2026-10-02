@@ -9,7 +9,7 @@ interface Registrar
      *
      * @param  string  $uri
      * @param  array|string|callable  $action
-     * @return \Illuminate\Routing\Route
+     *  \Illuminate\Routing\Route
      */
     public function get($uri, $action);
 
@@ -18,7 +18,7 @@ interface Registrar
      *
      * @param  string  $uri
      * @param  array|string|callable  $action
-     * @return \Illuminate\Routing\Route
+     *  \Illuminate\Routing\Route
      */
     public function post($uri, $action);
 
@@ -27,7 +27,7 @@ interface Registrar
      *
      * @param  string  $uri
      * @param  array|string|callable  $action
-     * @return \Illuminate\Routing\Route
+     *  \Illuminate\Routing\Route
      */
     public function put($uri, $action);
 
@@ -36,7 +36,7 @@ interface Registrar
      *
      * @param  string  $uri
      * @param  array|string|callable  $action
-     * @return \Illuminate\Routing\Route
+     *  \Illuminate\Routing\Route
      */
     public function delete($uri, $action);
 
@@ -45,7 +45,7 @@ interface Registrar
      *
      * @param  string  $uri
      * @param  array|string|callable  $action
-     * @return \Illuminate\Routing\Route
+     *  \Illuminate\Routing\Route
      */
     public function patch($uri, $action);
 
@@ -54,7 +54,7 @@ interface Registrar
      *
      * @param  string  $uri
      * @param  array|string|callable  $action
-     * @return \Illuminate\Routing\Route
+     *  \Illuminate\Routing\Route
      */
     public function options($uri, $action);
 
@@ -64,7 +64,7 @@ interface Registrar
      * @param  array|string  $methods
      * @param  string  $uri
      * @param  array|string|callable  $action
-     * @return \Illuminate\Routing\Route
+     *  \Illuminate\Routing\Route
      */
     public function match($methods, $uri, $action);
 
@@ -74,7 +74,7 @@ interface Registrar
      * @param  string  $name
      * @param  string  $controller
      * @param  array  $options
-     * @return \Illuminate\Routing\PendingResourceRegistration
+     *  \Illuminate\Routing\PendingResourceRegistration
      */
     public function resource($name, $controller, array $options = []);
 
@@ -83,7 +83,7 @@ interface Registrar
      *
      * @param  array  $attributes
      * @param  \Closure|string  $routes
-     * @return void
+     *  void
      */
     public function group(array $attributes, $routes);
 
@@ -91,7 +91,7 @@ interface Registrar
      * Substitute the route bindings onto the route.
      *
      * @param  \Illuminate\Routing\Route  $route
-     * @return \Illuminate\Routing\Route
+     *  \Illuminate\Routing\Route
      */
     public function substituteBindings($route);
 
@@ -99,7 +99,7 @@ interface Registrar
      * Substitute the implicit Eloquent model bindings for the route.
      *
      * @param  \Illuminate\Routing\Route  $route
-     * @return void
+     *  void
      */
     public function substituteImplicitBindings($route);
 }

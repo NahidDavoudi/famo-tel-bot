@@ -13,7 +13,7 @@ namespace Telegram\Bot\Objects;
 class ChatLocation extends BaseObject
 {
     /**
-     * @return array{location: string}
+     *  array{location: string}
      */
     public function relations(): array
     {

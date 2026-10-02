@@ -7,35 +7,35 @@ interface ProcessResult
     /**
      * Get the original command executed by the process.
      *
-     * @return string
+     *  string
      */
     public function command();
 
     /**
      * Determine if the process was successful.
      *
-     * @return bool
+     *  bool
      */
     public function successful();
 
     /**
      * Determine if the process failed.
      *
-     * @return bool
+     *  bool
      */
     public function failed();
 
     /**
      * Get the exit code of the process.
      *
-     * @return int|null
+     *  int|null
      */
     public function exitCode();
 
     /**
      * Get the standard output of the process.
      *
-     * @return string
+     *  string
      */
     public function output();
 
@@ -43,14 +43,14 @@ interface ProcessResult
      * Determine if the output contains the given string.
      *
      * @param  string  $output
-     * @return bool
+     *  bool
      */
     public function seeInOutput(string $output);
 
     /**
      * Get the error output of the process.
      *
-     * @return string
+     *  string
      */
     public function errorOutput();
 
@@ -58,7 +58,7 @@ interface ProcessResult
      * Determine if the error output contains the given string.
      *
      * @param  string  $output
-     * @return bool
+     *  bool
      */
     public function seeInErrorOutput(string $output);
 
@@ -66,7 +66,7 @@ interface ProcessResult
      * Throw an exception if the process failed.
      *
      * @param  callable|null  $callback
-     * @return $this
+     *  $this
      */
     public function throw(?callable $callback = null);
 
@@ -75,7 +75,7 @@ interface ProcessResult
      *
      * @param  bool  $condition
      * @param  callable|null  $callback
-     * @return $this
+     *  $this
      */
     public function throwIf(bool $condition, ?callable $callback = null);
 }

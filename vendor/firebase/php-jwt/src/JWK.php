@@ -53,7 +53,7 @@ class JWK
      * @param string       $defaultAlg The algorithm for the Key object if "alg" is not set in the
      *                                 JSON Web Key Set
      *
-     * @return array<string, Key> An associative array of key IDs (kid) to Key objects
+     *  array<string, Key> An associative array of key IDs (kid) to Key objects
      *
      * @throws InvalidArgumentException     Provided JWK Set is empty
      * @throws UnexpectedValueException     Provided JWK Set was invalid
@@ -94,7 +94,7 @@ class JWK
      * @param string       $defaultAlg The algorithm for the Key object if "alg" is not set in the
      *                                 JSON Web Key Set
      *
-     * @return Key The key object for the JWK
+     *  Key The key object for the JWK
      *
      * @throws InvalidArgumentException     Provided JWK is empty
      * @throws UnexpectedValueException     Provided JWK was invalid
@@ -204,7 +204,7 @@ class JWK
      * @param   string  $x   The EC x-coordinate
      * @param   string  $y   The EC y-coordinate
      *
-     * @return  string
+     *   string
      */
     private static function createPemFromCrvAndXYCoordinates(string $crv, string $x, string $y): string
     {
@@ -242,7 +242,7 @@ class JWK
      * @param string $n The RSA modulus encoded in Base64
      * @param string $e The RSA exponent encoded in Base64
      *
-     * @return string The RSA public key represented in PEM format
+     *  string The RSA public key represented in PEM format
      *
      * @uses encodeLength
      */
@@ -297,7 +297,7 @@ class JWK
      * for more information.
      *
      * @param int $length
-     * @return string
+     *  string
      */
     private static function encodeLength(int $length): string
     {
@@ -316,7 +316,7 @@ class JWK
      *
      * @param   int     $type DER tag
      * @param   string  $value the value to encode
-     * @return  string  the encoded object
+     *   string  the encoded object
      */
     private static function encodeDER(int $type, string $value): string
     {
@@ -338,7 +338,7 @@ class JWK
      * Encodes a string into a DER-encoded OID.
      *
      * @param   string $oid the OID string
-     * @return  string the binary DER-encoded OID
+     *   string the binary DER-encoded OID
      */
     private static function encodeOID(string $oid): string
     {

@@ -42,7 +42,7 @@ class UnknownGetterException extends BaseInvalidArgumentException implements Inv
     /**
      * Get the getter.
      *
-     * @return string
+     *  string
      */
     public function getGetter(): string
     {

@@ -7,14 +7,14 @@ interface InvokedProcess
     /**
      * Get the process ID if the process is still running.
      *
-     * @return int|null
+     *  int|null
      */
     public function id();
 
     /**
      * Get the command line for the process.
      *
-     * @return string
+     *  string
      */
     public function command();
 
@@ -22,42 +22,42 @@ interface InvokedProcess
      * Send a signal to the process.
      *
      * @param  int  $signal
-     * @return $this
+     *  $this
      */
     public function signal(int $signal);
 
     /**
      * Determine if the process is still running.
      *
-     * @return bool
+     *  bool
      */
     public function running();
 
     /**
      * Get the standard output for the process.
      *
-     * @return string
+     *  string
      */
     public function output();
 
     /**
      * Get the error output for the process.
      *
-     * @return string
+     *  string
      */
     public function errorOutput();
 
     /**
      * Get the latest standard output for the process.
      *
-     * @return string
+     *  string
      */
     public function latestOutput();
 
     /**
      * Get the latest error output for the process.
      *
-     * @return string
+     *  string
      */
     public function latestErrorOutput();
 
@@ -65,7 +65,7 @@ interface InvokedProcess
      * Wait for the process to finish.
      *
      * @param  callable|null  $output
-     * @return \Illuminate\Process\ProcessResult
+     *  \Illuminate\Process\ProcessResult
      */
     public function wait(?callable $output = null);
 
@@ -73,7 +73,7 @@ interface InvokedProcess
      * Wait until the given callback returns true.
      *
      * @param  callable|null  $output
-     * @return \Illuminate\Process\ProcessResult
+     *  \Illuminate\Process\ProcessResult
      */
     public function waitUntil(?callable $output = null);
 }

@@ -14,7 +14,7 @@ interface Driver
     /**
      * Get the dimensions of the given image contents.
      *
-     * @return array{0: int, 1: int}
+     *  array{0: int, 1: int}
      */
     public function dimensions(string $contents): array;
 

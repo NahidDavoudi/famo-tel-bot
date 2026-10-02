@@ -112,7 +112,7 @@ class Http extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {
@@ -123,7 +123,7 @@ class Http extends Facade
      * Register a stub callable that will intercept requests and be able to return stub responses.
      *
      * @param  \Closure|array|null  $callback
-     * @return \Illuminate\Http\Client\Factory
+     *  \Illuminate\Http\Client\Factory
      */
     public static function fake($callback = null)
     {
@@ -136,7 +136,7 @@ class Http extends Facade
      * Register a response sequence for the given URL pattern.
      *
      * @param  string  $urlPattern
-     * @return \Illuminate\Http\Client\ResponseSequence
+     *  \Illuminate\Http\Client\ResponseSequence
      */
     public static function fakeSequence(string $urlPattern = '*')
     {
@@ -151,7 +151,7 @@ class Http extends Facade
      * Indicate that an exception should be thrown if any request is not faked.
      *
      * @param  bool  $prevent
-     * @return \Illuminate\Http\Client\Factory
+     *  \Illuminate\Http\Client\Factory
      */
     public static function preventStrayRequests($prevent = true)
     {
@@ -165,7 +165,7 @@ class Http extends Facade
      *
      * @param  string  $url
      * @param  \Illuminate\Http\Client\Response|\GuzzleHttp\Promise\PromiseInterface|callable  $callback
-     * @return \Illuminate\Http\Client\Factory
+     *  \Illuminate\Http\Client\Factory
      */
     public static function stubUrl($url, $callback)
     {

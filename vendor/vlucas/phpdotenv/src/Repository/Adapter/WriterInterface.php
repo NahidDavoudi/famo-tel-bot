@@ -12,7 +12,7 @@ interface WriterInterface
      * @param non-empty-string $name
      * @param string           $value
      *
-     * @return bool
+     *  bool
      */
     public function write(string $name, string $value);
 
@@ -21,7 +21,7 @@ interface WriterInterface
      *
      * @param non-empty-string $name
      *
-     * @return bool
+     *  bool
      */
     public function delete(string $name);
 }

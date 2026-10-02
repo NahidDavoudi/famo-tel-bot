@@ -10,42 +10,42 @@ interface JsonSchema
      * Create a new object schema instance.
      *
      * @param  (Closure(JsonSchema): array<string, \Illuminate\JsonSchema\Types\Type>)|array<string, \Illuminate\JsonSchema\Types\Type>  $properties
-     * @return \Illuminate\JsonSchema\Types\ObjectType
+     *  \Illuminate\JsonSchema\Types\ObjectType
      */
     public function object(Closure|array $properties = []);
 
     /**
      * Create a new array property instance.
      *
-     * @return \Illuminate\JsonSchema\Types\ArrayType
+     *  \Illuminate\JsonSchema\Types\ArrayType
      */
     public function array();
 
     /**
      * Create a new string property instance.
      *
-     * @return \Illuminate\JsonSchema\Types\StringType
+     *  \Illuminate\JsonSchema\Types\StringType
      */
     public function string();
 
     /**
      * Create a new integer property instance.
      *
-     * @return \Illuminate\JsonSchema\Types\IntegerType
+     *  \Illuminate\JsonSchema\Types\IntegerType
      */
     public function integer();
 
     /**
      * Create a new number property instance.
      *
-     * @return \Illuminate\JsonSchema\Types\NumberType
+     *  \Illuminate\JsonSchema\Types\NumberType
      */
     public function number();
 
     /**
      * Create a new boolean property instance.
      *
-     * @return \Illuminate\JsonSchema\Types\BooleanType
+     *  \Illuminate\JsonSchema\Types\BooleanType
      */
     public function boolean();
 
@@ -53,7 +53,7 @@ interface JsonSchema
      * Create a new multi-type union instance.
      *
      * @param  array<int, string>  $types
-     * @return \Illuminate\JsonSchema\Types\UnionType
+     *  \Illuminate\JsonSchema\Types\UnionType
      */
     public function union(array $types);
 
@@ -61,7 +61,7 @@ interface JsonSchema
      * Create a new anyOf schema instance.
      *
      * @param  (Closure(JsonSchema): array<int, \Illuminate\JsonSchema\Types\Type>)|array<int, \Illuminate\JsonSchema\Types\Type>  $schemas
-     * @return \Illuminate\JsonSchema\Types\AnyOfType
+     *  \Illuminate\JsonSchema\Types\AnyOfType
      */
     public function anyOf(Closure|array $schemas);
 }

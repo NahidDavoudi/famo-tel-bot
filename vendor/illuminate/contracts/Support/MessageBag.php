@@ -9,7 +9,7 @@ interface MessageBag extends Arrayable, Countable
     /**
      * Get the keys present in the message bag.
      *
-     * @return array
+     *  array
      */
     public function keys();
 
@@ -18,7 +18,7 @@ interface MessageBag extends Arrayable, Countable
      *
      * @param  string  $key
      * @param  string  $message
-     * @return $this
+     *  $this
      */
     public function add($key, $message);
 
@@ -26,7 +26,7 @@ interface MessageBag extends Arrayable, Countable
      * Merge a new array of messages into the bag.
      *
      * @param  \Illuminate\Contracts\Support\MessageProvider|array  $messages
-     * @return $this
+     *  $this
      */
     public function merge($messages);
 
@@ -34,7 +34,7 @@ interface MessageBag extends Arrayable, Countable
      * Determine if messages exist for a given key.
      *
      * @param  string|array  $key
-     * @return bool
+     *  bool
      */
     public function has($key);
 
@@ -43,7 +43,7 @@ interface MessageBag extends Arrayable, Countable
      *
      * @param  string|null  $key
      * @param  string|null  $format
-     * @return string
+     *  string
      */
     public function first($key = null, $format = null);
 
@@ -52,7 +52,7 @@ interface MessageBag extends Arrayable, Countable
      *
      * @param  string  $key
      * @param  string|null  $format
-     * @return array
+     *  array
      */
     public function get($key, $format = null);
 
@@ -60,7 +60,7 @@ interface MessageBag extends Arrayable, Countable
      * Get all of the messages for every key in the bag.
      *
      * @param  string|null  $format
-     * @return array
+     *  array
      */
     public function all($format = null);
 
@@ -68,21 +68,21 @@ interface MessageBag extends Arrayable, Countable
      * Remove a message from the bag.
      *
      * @param  string  $key
-     * @return $this
+     *  $this
      */
     public function forget($key);
 
     /**
      * Get the raw messages in the container.
      *
-     * @return array
+     *  array
      */
     public function getMessages();
 
     /**
      * Get the default message format.
      *
-     * @return string
+     *  string
      */
     public function getFormat();
 
@@ -90,21 +90,21 @@ interface MessageBag extends Arrayable, Countable
      * Set the default message format.
      *
      * @param  string  $format
-     * @return $this
+     *  $this
      */
     public function setFormat($format = ':message');
 
     /**
      * Determine if the message bag has any messages.
      *
-     * @return bool
+     *  bool
      */
     public function isEmpty();
 
     /**
      * Determine if the message bag has any messages.
      *
-     * @return bool
+     *  bool
      */
     public function isNotEmpty();
 }

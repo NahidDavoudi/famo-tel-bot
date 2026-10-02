@@ -43,7 +43,7 @@ final class InputFile
     /**
      * Return the file.
      *
-     * @return string|resource|StreamInterface|null
+     *  string|resource|StreamInterface|null
      */
     public function getFile()
     {
@@ -128,7 +128,7 @@ final class InputFile
     /**
      * Get contents.
      *
-     * @return StreamInterface|resource|string
+     *  StreamInterface|resource|string
      *
      * @throws CouldNotUploadInputFile
      */
@@ -150,7 +150,7 @@ final class InputFile
     /**
      * Opens remote & local file.
      *
-     * @return StreamInterface|resource|string
+     *  StreamInterface|resource|string
      *
      * @throws CouldNotUploadInputFile
      */
@@ -170,7 +170,7 @@ final class InputFile
     /**
      * Determine if given param is a string or null.
      *
-     * @return bool true if it's a string or null, false otherwise.
+     *  bool true if it's a string or null, false otherwise.
      */
     private function isStringOrNull(mixed $param): bool
     {
@@ -180,7 +180,7 @@ final class InputFile
     /**
      * Determine if it's a remote file.
      *
-     * @return bool true if it's a valid URL, false otherwise.
+     *  bool true if it's a valid URL, false otherwise.
      */
     public function isFileRemote(): bool
     {
@@ -190,7 +190,7 @@ final class InputFile
     /**
      * Determine if it's a resource file.
      *
-     * @return bool true if it's a resource file or an instance of
+     *  bool true if it's a resource file or an instance of
      *              \Psr\Http\Message\StreamInterface, false otherwise.
      */
     private function isFileResourceOrStream(): bool
@@ -201,7 +201,7 @@ final class InputFile
     /**
      * Determine if it's a local file and exists.
      *
-     * @return bool true if the file exists and readable, false if it's not a
+     *  bool true if the file exists and readable, false if it's not a
      *              local file. Throws exception if the file doesn't exist or
      *              is not readable otherwise.
      *

@@ -109,7 +109,7 @@ class Api
     /**
      * Magic method to process any dynamic method calls.
      *
-     * @return mixed
+     *  mixed
      */
     public function __call($method, $parameters)
     {

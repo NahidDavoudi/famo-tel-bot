@@ -8,7 +8,7 @@ interface Factory
      * Get a guard instance by name.
      *
      * @param  \UnitEnum|string|null  $name
-     * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
+     *  \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
      */
     public function guard($name = null);
 
@@ -16,7 +16,7 @@ interface Factory
      * Set the default guard the factory should serve.
      *
      * @param  \UnitEnum|string|null  $name
-     * @return void
+     *  void
      */
     public function shouldUse($name);
 }

@@ -27,7 +27,7 @@ final class StreamWrapper
      *
      * @param StreamInterface $stream The stream to get a resource for
      *
-     * @return resource
+     *  resource
      *
      * @throws \InvalidArgumentException if stream is not readable or writable
      */
@@ -56,7 +56,7 @@ final class StreamWrapper
     /**
      * Creates a stream context that can be used to open a stream as a php stream resource.
      *
-     * @return resource
+     *  resource
      */
     public static function createStreamContext(StreamInterface $stream)
     {
@@ -117,7 +117,7 @@ final class StreamWrapper
     }
 
     /**
-     * @return resource|false
+     *  resource|false
      */
     public function stream_cast(int $cast_as)
     {
@@ -128,7 +128,7 @@ final class StreamWrapper
     }
 
     /**
-     * @return array{
+     *  array{
      *   dev: int,
      *   ino: int,
      *   mode: int,
@@ -176,7 +176,7 @@ final class StreamWrapper
     }
 
     /**
-     * @return array{
+     *  array{
      *   dev: int,
      *   ino: int,
      *   mode: int,

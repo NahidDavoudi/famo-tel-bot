@@ -513,7 +513,7 @@ class CurlFactory implements CurlFactoryInterface
     }
 
     /**
-     * @return array{0: mixed, 1: string}
+     *  array{0: mixed, 1: string}
      */
     private static function resolveProxy(RequestInterface $request, array $options): array
     {
@@ -761,7 +761,7 @@ class CurlFactory implements CurlFactoryInterface
     }
 
     /**
-     * @return array<int, string|null>
+     *  array<int, string|null>
      */
     private static function conflictingCurlOptions(): array
     {
@@ -839,7 +839,7 @@ class CurlFactory implements CurlFactoryInterface
     }
 
     /**
-     * @return array<int, string>
+     *  array<int, string>
      */
     private static function conflictingCurlOptionSinceOverrides(): array
     {
@@ -863,7 +863,7 @@ class CurlFactory implements CurlFactoryInterface
     }
 
     /**
-     * @return array<int, true>
+     *  array<int, true>
      */
     private static function supportedCurlOptions(): array
     {
@@ -1697,7 +1697,7 @@ class CurlFactory implements CurlFactoryInterface
     }
 
     /**
-     * @return list<string>
+     *  list<string>
      */
     private static function managedProxyAuthorizationHeaderLines(RequestInterface $request): array
     {
@@ -1770,7 +1770,7 @@ class CurlFactory implements CurlFactoryInterface
     /**
      * @param mixed[] $headers
      *
-     * @return list<string>
+     *  list<string>
      */
     private static function proxyAuthorizationHeaderValuesFromList(array $headers): array
     {
@@ -1859,7 +1859,7 @@ class CurlFactory implements CurlFactoryInterface
     /**
      * @param array<int|string, mixed> $conf
      *
-     * @return list<string>
+     *  list<string>
      */
     private static function curlProxyAuthorizationHeaderValues(array $conf): array
     {
@@ -1892,7 +1892,7 @@ class CurlFactory implements CurlFactoryInterface
     }
 
     /**
-     * @return array<int|string, mixed>
+     *  array<int|string, mixed>
      */
     private function getDefaultConf(EasyHandle $easy): array
     {

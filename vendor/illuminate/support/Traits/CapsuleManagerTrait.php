@@ -25,7 +25,7 @@ trait CapsuleManagerTrait
      * Setup the IoC container instance.
      *
      * @param  \Illuminate\Contracts\Container\Container  $container
-     * @return void
+     *  void
      */
     protected function setupContainer(Container $container)
     {
@@ -39,7 +39,7 @@ trait CapsuleManagerTrait
     /**
      * Make this capsule instance available globally.
      *
-     * @return void
+     *  void
      */
     public function setAsGlobal()
     {
@@ -49,7 +49,7 @@ trait CapsuleManagerTrait
     /**
      * Get the IoC container instance.
      *
-     * @return \Illuminate\Contracts\Container\Container
+     *  \Illuminate\Contracts\Container\Container
      */
     public function getContainer()
     {
@@ -60,7 +60,7 @@ trait CapsuleManagerTrait
      * Set the IoC container instance.
      *
      * @param  \Illuminate\Contracts\Container\Container  $container
-     * @return void
+     *  void
      */
     public function setContainer(Container $container)
     {

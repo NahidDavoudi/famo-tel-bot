@@ -14,7 +14,7 @@ final class HeaderProcessor
      *
      * @param string[] $headers
      *
-     * @return array{0:string, 1:int, 2:?string, 3:array}
+     *  array{0:string, 1:int, 2:?string, 3:array}
      *
      * @throws \RuntimeException
      */
@@ -80,7 +80,7 @@ final class HeaderProcessor
     /**
      * @param non-empty-list<string> $headers
      *
-     * @return list<string>
+     *  list<string>
      */
     private static function getLastHeaderBlock(array $headers): array
     {

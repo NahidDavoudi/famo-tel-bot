@@ -75,7 +75,7 @@ final class FnStream implements StreamInterface
      * @param StreamInterface         $stream  Stream to decorate
      * @param array<string, callable> $methods Hash of method name to a callable
      *
-     * @return FnStream
+     *  FnStream
      */
     public static function decorate(StreamInterface $stream, array $methods)
     {
@@ -207,7 +207,7 @@ final class FnStream implements StreamInterface
     }
 
     /**
-     * @return mixed
+     *  mixed
      */
     public function getMetadata($key = null)
     {

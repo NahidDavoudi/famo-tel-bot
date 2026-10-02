@@ -30,7 +30,7 @@ trait CommandsHandler
     /**
      * Processes Inbound Commands.
      *
-     * @return Update|Update[]
+     *  Update|Update[]
      */
     public function commandsHandler(bool $webhook = false, ?RequestInterface $request = null): Update|array
     {
@@ -51,7 +51,7 @@ trait CommandsHandler
     /**
      * Process the update object for a command using the getUpdates method.
      *
-     * @return Update[]
+     *  Update[]
      *
      * @throws TelegramSDKException
      */
@@ -76,7 +76,7 @@ trait CommandsHandler
     /**
      * Mark updates as read.
      *
-     * @return Update[]
+     *  Update[]
      */
     protected function markUpdateAsRead($highestId): array
     {

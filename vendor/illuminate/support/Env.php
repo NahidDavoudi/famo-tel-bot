@@ -35,7 +35,7 @@ class Env
     /**
      * Enable the putenv adapter.
      *
-     * @return void
+     *  void
      */
     public static function enablePutenv()
     {
@@ -46,7 +46,7 @@ class Env
     /**
      * Disable the putenv adapter.
      *
-     * @return void
+     *  void
      */
     public static function disablePutenv()
     {
@@ -71,7 +71,7 @@ class Env
     /**
      * Get the environment repository instance.
      *
-     * @return \Dotenv\Repository\RepositoryInterface
+     *  \Dotenv\Repository\RepositoryInterface
      */
     public static function getRepository()
     {
@@ -97,7 +97,7 @@ class Env
      *
      * @param  string  $key
      * @param  mixed  $default
-     * @return mixed
+     *  mixed
      */
     public static function get($key, $default = null)
     {
@@ -108,7 +108,7 @@ class Env
      * Get the value of a required environment variable.
      *
      * @param  string  $key
-     * @return mixed
+     *  mixed
      *
      * @throws \RuntimeException
      */
@@ -123,7 +123,7 @@ class Env
      * @param  array<string, mixed>  $variables
      * @param  string  $pathToFile
      * @param  bool  $overwrite
-     * @return void
+     *  void
      *
      * @throws \RuntimeException
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -152,7 +152,7 @@ class Env
      * @param  mixed  $value
      * @param  string  $pathToFile
      * @param  bool  $overwrite
-     * @return void
+     *  void
      *
      * @throws \RuntimeException
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -180,7 +180,7 @@ class Env
      * @param  mixed  $value
      * @param  array<int, string>  $envLines
      * @param  bool  $overwrite
-     * @return array<int, string>
+     *  array<int, string>
      */
     protected static function addVariableToEnvContents(string $key, mixed $value, array $envLines, bool $overwrite): array
     {
@@ -247,7 +247,7 @@ class Env
      * Get the possible option for this environment variable.
      *
      * @param  string  $key
-     * @return \PhpOption\Option|\PhpOption\Some
+     *  \PhpOption\Option|\PhpOption\Some
      */
     protected static function getOption($key)
     {
@@ -280,7 +280,7 @@ class Env
      * Wrap a string in quotes, choosing double or single quotes.
      *
      * @param  string  $input
-     * @return string
+     *  string
      */
     protected static function prepareQuotedValue(string $input)
     {
@@ -294,7 +294,7 @@ class Env
      *
      * @param  string  $value
      * @param  array<string>  $except
-     * @return string
+     *  string
      */
     protected static function addSlashesExceptFor(string $value, array $except = [])
     {

@@ -51,7 +51,7 @@ class Js implements Htmlable, Stringable
      * @param  mixed  $data
      * @param  int  $flags
      * @param  int  $depth
-     * @return static
+     *  static
      *
      * @throws \JsonException
      */
@@ -66,7 +66,7 @@ class Js implements Htmlable, Stringable
      * @param  mixed  $data
      * @param  int  $flags
      * @param  int  $depth
-     * @return string
+     *  string
      *
      * @throws \JsonException
      */
@@ -104,7 +104,7 @@ class Js implements Htmlable, Stringable
      * @param  mixed  $data
      * @param  int  $flags
      * @param  int  $depth
-     * @return string
+     *  string
      *
      * @throws \JsonException
      */
@@ -126,7 +126,7 @@ class Js implements Htmlable, Stringable
      *
      * @param  string  $json
      * @param  int  $flags
-     * @return string
+     *  string
      *
      * @throws \JsonException
      */
@@ -146,7 +146,7 @@ class Js implements Htmlable, Stringable
     /**
      * Get the string representation of the data for use in HTML.
      *
-     * @return string
+     *  string
      */
     public function toHtml()
     {
@@ -156,7 +156,7 @@ class Js implements Htmlable, Stringable
     /**
      * Get the string representation of the data for use in HTML.
      *
-     * @return string
+     *  string
      */
     public function __toString()
     {

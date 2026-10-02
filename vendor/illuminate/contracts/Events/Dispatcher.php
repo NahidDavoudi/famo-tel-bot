@@ -9,7 +9,7 @@ interface Dispatcher
      *
      * @param  \Closure|string|array  $events
      * @param  \Closure|string|array|null  $listener
-     * @return void
+     *  void
      */
     public function listen($events, $listener = null);
 
@@ -17,7 +17,7 @@ interface Dispatcher
      * Determine if a given event has listeners.
      *
      * @param  string  $eventName
-     * @return bool
+     *  bool
      */
     public function hasListeners($eventName);
 
@@ -25,7 +25,7 @@ interface Dispatcher
      * Register an event subscriber with the dispatcher.
      *
      * @param  object|string  $subscriber
-     * @return void
+     *  void
      */
     public function subscribe($subscriber);
 
@@ -34,7 +34,7 @@ interface Dispatcher
      *
      * @param  string|object  $event
      * @param  mixed  $payload
-     * @return mixed
+     *  mixed
      */
     public function until($event, $payload = []);
 
@@ -44,7 +44,7 @@ interface Dispatcher
      * @param  string|object  $event
      * @param  mixed  $payload
      * @param  bool  $halt
-     * @return array|null
+     *  array|null
      */
     public function dispatch($event, $payload = [], $halt = false);
 
@@ -53,7 +53,7 @@ interface Dispatcher
      *
      * @param  string  $event
      * @param  array  $payload
-     * @return void
+     *  void
      */
     public function push($event, $payload = []);
 
@@ -61,7 +61,7 @@ interface Dispatcher
      * Flush a set of pushed events.
      *
      * @param  string  $event
-     * @return void
+     *  void
      */
     public function flush($event);
 
@@ -69,14 +69,14 @@ interface Dispatcher
      * Remove a set of listeners from the dispatcher.
      *
      * @param  string  $event
-     * @return void
+     *  void
      */
     public function forget($event);
 
     /**
      * Forget all of the queued listeners.
      *
-     * @return void
+     *  void
      */
     public function forgetPushed();
 }

@@ -170,7 +170,7 @@ final class BufferStream implements StreamInterface
     }
 
     /**
-     * @return mixed
+     *  mixed
      */
     public function getMetadata($key = null)
     {

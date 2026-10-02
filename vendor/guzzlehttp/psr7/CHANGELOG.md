@@ -162,7 +162,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added nested array expansion support to `MultipartStream`
-- Added `@return static` to `MessageTrait` methods
+- Added ` static` to `MessageTrait` methods
 
 ### Changed
 

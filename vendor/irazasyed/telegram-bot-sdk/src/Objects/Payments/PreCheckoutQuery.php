@@ -23,7 +23,7 @@ class PreCheckoutQuery extends BaseObject
     /**
      * {@inheritdoc}
      *
-     * @return array{from: string, order_info: string}
+     *  array{from: string, order_info: string}
      */
     public function relations(): array
     {

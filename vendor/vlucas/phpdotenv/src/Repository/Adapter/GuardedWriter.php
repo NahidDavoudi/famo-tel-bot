@@ -26,7 +26,7 @@ final class GuardedWriter implements WriterInterface
      * @param \Dotenv\Repository\Adapter\WriterInterface $writer
      * @param string[]                                   $allowList
      *
-     * @return void
+     *  void
      */
     public function __construct(WriterInterface $writer, array $allowList)
     {
@@ -40,7 +40,7 @@ final class GuardedWriter implements WriterInterface
      * @param non-empty-string $name
      * @param string           $value
      *
-     * @return bool
+     *  bool
      */
     public function write(string $name, string $value)
     {
@@ -58,7 +58,7 @@ final class GuardedWriter implements WriterInterface
      *
      * @param non-empty-string $name
      *
-     * @return bool
+     *  bool
      */
     public function delete(string $name)
     {
@@ -76,7 +76,7 @@ final class GuardedWriter implements WriterInterface
      *
      * @param non-empty-string $name
      *
-     * @return bool
+     *  bool
      */
     private function isAllowed(string $name)
     {

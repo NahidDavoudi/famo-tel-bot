@@ -8,7 +8,7 @@ namespace GuzzleHttp;
  * @param mixed $input Any type of variable to describe the type of. This
  *                     parameter misses a typehint because of that.
  *
- * @return string Returns a string containing the type of the variable and
+ *  string Returns a string containing the type of the variable and
  *                if a class is provided, the class name.
  *
  * @deprecated describe_type will be removed in guzzlehttp/guzzle:8.0. Use get_debug_type() instead.
@@ -53,7 +53,7 @@ function headers_from_lines(iterable $lines): array
  *
  * @param mixed $value Optional value
  *
- * @return resource
+ *  resource
  *
  * @deprecated debug_resource will be removed in guzzlehttp/guzzle:8.0. Use Utils::debugResource instead.
  */
@@ -69,7 +69,7 @@ function debug_resource($value = null)
  *
  * The returned handler is not wrapped by any default middlewares.
  *
- * @return callable(\Psr\Http\Message\RequestInterface, array): Promise\PromiseInterface Returns the best handler for the given system.
+ *  callable(\Psr\Http\Message\RequestInterface, array): Promise\PromiseInterface Returns the best handler for the given system.
  *
  * @throws \RuntimeException if no viable Handler is available.
  *
@@ -217,7 +217,7 @@ function is_host_in_noproxy(string $host, array $noProxyArray): bool
  * @param int    $depth   User specified recursion depth.
  * @param int    $options Bitmask of JSON decode options.
  *
- * @return object|array|string|int|float|bool|null
+ *  object|array|string|int|float|bool|null
  *
  * @throws Exception\InvalidArgumentException if the JSON cannot be decoded.
  *

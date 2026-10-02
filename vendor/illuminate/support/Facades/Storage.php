@@ -101,7 +101,7 @@ class Storage extends Facade
      *
      * @param  \UnitEnum|string|null  $disk
      * @param  array  $config
-     * @return \Illuminate\Filesystem\LocalFilesystemAdapter
+     *  \Illuminate\Filesystem\LocalFilesystemAdapter
      */
     public static function fake($disk = null, array $config = [])
     {
@@ -133,7 +133,7 @@ class Storage extends Facade
      *
      * @param  \UnitEnum|string|null  $disk
      * @param  array  $config
-     * @return \Illuminate\Filesystem\LocalFilesystemAdapter
+     *  \Illuminate\Filesystem\LocalFilesystemAdapter
      */
     public static function persistentFake($disk = null, array $config = [])
     {
@@ -150,7 +150,7 @@ class Storage extends Facade
      * Get the root path of the given disk.
      *
      * @param  string  $disk
-     * @return string
+     *  string
      */
     protected static function getRootPath(string $disk): string
     {
@@ -163,7 +163,7 @@ class Storage extends Facade
      * @param  string  $disk
      * @param  array  $config
      * @param  string  $root
-     * @return array
+     *  array
      */
     protected static function buildDiskConfiguration(string $disk, array $config, string $root): array
     {
@@ -179,7 +179,7 @@ class Storage extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {

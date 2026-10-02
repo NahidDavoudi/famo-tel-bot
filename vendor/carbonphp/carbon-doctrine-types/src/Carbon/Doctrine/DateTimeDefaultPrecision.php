@@ -21,7 +21,7 @@ class DateTimeDefaultPrecision
     /**
      * Get the default Doctrine datetime and datetime_immutable precision.
      *
-     * @return int
+     *  int
      */
     public static function get(): int
     {

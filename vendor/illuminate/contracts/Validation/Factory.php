@@ -11,7 +11,7 @@ interface Factory
      * @param  array  $rules
      * @param  array  $messages
      * @param  array  $attributes
-     * @return \Illuminate\Contracts\Validation\Validator
+     *  \Illuminate\Contracts\Validation\Validator
      */
     public function make(array $data, array $rules, array $messages = [], array $attributes = []);
 
@@ -21,7 +21,7 @@ interface Factory
      * @param  string  $rule
      * @param  \Closure|string  $extension
      * @param  string|null  $message
-     * @return void
+     *  void
      */
     public function extend($rule, $extension, $message = null);
 
@@ -31,7 +31,7 @@ interface Factory
      * @param  string  $rule
      * @param  \Closure|string  $extension
      * @param  string|null  $message
-     * @return void
+     *  void
      */
     public function extendImplicit($rule, $extension, $message = null);
 
@@ -40,7 +40,7 @@ interface Factory
      *
      * @param  string  $rule
      * @param  \Closure|string  $replacer
-     * @return void
+     *  void
      */
     public function replacer($rule, $replacer);
 }

@@ -20,7 +20,7 @@ class Venue extends BaseObject
     /**
      * {@inheritdoc}
      *
-     * @return array{location: string}
+     *  array{location: string}
      */
     public function relations(): array
     {

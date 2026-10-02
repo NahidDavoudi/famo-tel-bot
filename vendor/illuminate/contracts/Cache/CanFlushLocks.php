@@ -7,14 +7,14 @@ interface CanFlushLocks
     /**
      * Flush all locks managed by the store.
      *
-     * @return bool
+     *  bool
      */
     public function flushLocks(): bool;
 
     /**
      * Determine if the lock store is separate from the cache store.
      *
-     * @return bool
+     *  bool
      */
     public function hasSeparateLockStore(): bool;
 }

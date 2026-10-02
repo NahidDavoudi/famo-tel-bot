@@ -30,7 +30,7 @@ class MultipleItemsFoundException extends RuntimeException
     /**
      * Get the number of items found.
      *
-     * @return int
+     *  int
      */
     public function getCount()
     {

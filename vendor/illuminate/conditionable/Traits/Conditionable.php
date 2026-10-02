@@ -16,7 +16,7 @@ trait Conditionable
      * @param  (\Closure($this): TWhenParameter)|TWhenParameter|null  $value
      * @param  (callable($this, TWhenParameter): TWhenReturnType)|null  $callback
      * @param  (callable($this, TWhenParameter): TWhenReturnType)|null  $default
-     * @return $this|TWhenReturnType
+     *  $this|TWhenReturnType
      */
     public function when($value = null, ?callable $callback = null, ?callable $default = null)
     {
@@ -48,7 +48,7 @@ trait Conditionable
      * @param  (\Closure($this): TUnlessParameter)|TUnlessParameter|null  $value
      * @param  (callable($this, TUnlessParameter): TUnlessReturnType)|null  $callback
      * @param  (callable($this, TUnlessParameter): TUnlessReturnType)|null  $default
-     * @return $this|TUnlessReturnType
+     *  $this|TUnlessReturnType
      */
     public function unless($value = null, ?callable $callback = null, ?callable $default = null)
     {

@@ -61,7 +61,7 @@ class ParseErrorException extends BaseInvalidArgumentException implements Invali
     /**
      * Get the expected.
      *
-     * @return string
+     *  string
      */
     public function getExpected(): string
     {
@@ -71,7 +71,7 @@ class ParseErrorException extends BaseInvalidArgumentException implements Invali
     /**
      * Get the actual.
      *
-     * @return string
+     *  string
      */
     public function getActual(): string
     {
@@ -81,7 +81,7 @@ class ParseErrorException extends BaseInvalidArgumentException implements Invali
     /**
      * Get the help message.
      *
-     * @return string
+     *  string
      */
     public function getHelp(): string
     {

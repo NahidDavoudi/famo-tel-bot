@@ -16,7 +16,7 @@ if (! function_exists('Illuminate\Support\defer')) {
      * @param  callable|null  $callback
      * @param  string|null  $name
      * @param  bool  $always
-     * @return ($callback is null ? \Illuminate\Support\Defer\DeferredCallbackCollection : \Illuminate\Support\Defer\DeferredCallback)
+     *  ($callback is null ? \Illuminate\Support\Defer\DeferredCallbackCollection : \Illuminate\Support\Defer\DeferredCallback)
      */
     function defer(?callable $callback = null, ?string $name = null, bool $always = false): DeferredCallback|DeferredCallbackCollection
     {
@@ -58,7 +58,7 @@ if (! function_exists('Illuminate\Support\now')) {
      * Create a new Carbon instance for the current time.
      *
      * @param  \DateTimeZone|\UnitEnum|string|null  $tz
-     * @return \Illuminate\Support\Carbon
+     *  \Illuminate\Support\Carbon
      */
     function now($tz = null): CarbonInterface
     {

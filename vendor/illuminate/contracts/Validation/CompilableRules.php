@@ -11,7 +11,7 @@ interface CompilableRules
      * @param  mixed  $value
      * @param  mixed  $data
      * @param  mixed  $context
-     * @return \stdClass
+     *  \stdClass
      */
     public function compile($attribute, $value, $data = null, $context = null);
 }

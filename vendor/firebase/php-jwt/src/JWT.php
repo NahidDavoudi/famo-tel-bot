@@ -83,7 +83,7 @@ class JWT
      *                                                                      and 'RS512'.
      * @param stdClass               $headers                               Optional. Populates stdClass with headers.
      *
-     * @return stdClass The JWT's payload as a PHP object
+     *  stdClass The JWT's payload as a PHP object
      *
      * @throws InvalidArgumentException     Provided key/key-array was empty or malformed
      * @throws DomainException              Provided JWT is malformed
@@ -206,7 +206,7 @@ class JWT
      * @param string                $keyId
      * @param array<string, string|string[]> $head  An array with header elements to attach
      *
-     * @return string A signed JWT
+     *  string A signed JWT
      *
      * @uses jsonEncode
      * @uses urlsafeB64Encode
@@ -254,7 +254,7 @@ class JWT
      * @param string $alg  Supported algorithms are 'EdDSA', 'ES384', 'ES256', 'ES256K', 'HS256',
      *                    'HS384', 'HS512', 'RS256', 'RS384', 'PS256' and 'RS512'
      *
-     * @return string An encrypted message
+     *  string An encrypted message
      *
      * @throws DomainException Unsupported algorithm or bad key was specified
      */
@@ -318,7 +318,7 @@ class JWT
      *                                                        for RS*, must be an instance of OpenSSLAsymmetricKey
      * @param string $alg         The algorithm
      *
-     * @return bool
+     *  bool
      *
      * @throws DomainException Invalid Algorithm, bad key, or OpenSSL failure
      */
@@ -383,7 +383,7 @@ class JWT
      *
      * @param string $input JSON string
      *
-     * @return mixed The decoded JSON string
+     *  mixed The decoded JSON string
      *
      * @throws DomainException Provided string was invalid JSON
      */
@@ -404,7 +404,7 @@ class JWT
      *
      * @param array<mixed> $input A PHP array
      *
-     * @return string JSON representation of the PHP array
+     *  string JSON representation of the PHP array
      *
      * @throws DomainException Provided object could not be encoded to valid JSON
      */
@@ -427,7 +427,7 @@ class JWT
      *
      * @param string $input A Base64 encoded string
      *
-     * @return string A decoded string
+     *  string A decoded string
      *
      * @throws InvalidArgumentException invalid base64 characters
      */
@@ -441,7 +441,7 @@ class JWT
      *
      * @param string $input A Base64 encoded string with URL-safe characters (-_ and no padding)
      *
-     * @return string A Base64 encoded string with standard characters (+/) and padding (=), when
+     *  string A Base64 encoded string with standard characters (+/) and padding (=), when
      * needed.
      *
      * @see https://www.rfc-editor.org/rfc/rfc4648
@@ -461,7 +461,7 @@ class JWT
      *
      * @param string $input The string you want encoded
      *
-     * @return string The base64 encode of what you passed in
+     *  string The base64 encode of what you passed in
      */
     public static function urlsafeB64Encode(string $input): string
     {
@@ -476,7 +476,7 @@ class JWT
      *
      * @throws UnexpectedValueException
      *
-     * @return Key
+     *  Key
      */
     private static function getKey(
         #[\SensitiveParameter] $keyOrKeyArray,
@@ -505,7 +505,7 @@ class JWT
     /**
      * @param string $left  The string of known length to compare against
      * @param string $right The user-supplied string
-     * @return bool
+     *  bool
      */
     public static function constantTimeEquals(string $left, string $right): bool
     {
@@ -530,7 +530,7 @@ class JWT
      *
      * @throws DomainException
      *
-     * @return void
+     *  void
      */
     private static function handleJsonError(int $errno): void
     {
@@ -553,7 +553,7 @@ class JWT
      *
      * @param string $str
      *
-     * @return int
+     *  int
      */
     private static function safeStrlen(string $str): int
     {
@@ -567,7 +567,7 @@ class JWT
      * Convert an ECDSA signature to an ASN.1 DER sequence
      *
      * @param   string $sig The ECDSA signature to convert
-     * @return  string The encoded DER object
+     *   string The encoded DER object
      */
     private static function signatureToDER(string $sig): string
     {
@@ -601,7 +601,7 @@ class JWT
      * @param   int     $type DER tag
      * @param   string  $value the value to encode
      *
-     * @return  string  the encoded object
+     *   string  the encoded object
      */
     private static function encodeDER(int $type, string $value): string
     {
@@ -625,7 +625,7 @@ class JWT
      * @param   string  $der binary signature in DER format
      * @param   int     $keySize the number of bits in the key
      *
-     * @return  string  the signature
+     *   string  the signature
      */
     private static function signatureFromDER(string $der, int $keySize): string
     {
@@ -653,7 +653,7 @@ class JWT
      * @param int $offset the offset of the data stream containing the object
      * to decode
      *
-     * @return array{int, string|null} the new offset and the decoded object
+     *  array{int, string|null} the new offset and the decoded object
      */
     private static function readDER(string $der, int $offset = 0): array
     {
@@ -742,7 +742,7 @@ class JWT
 
     /**
      * @param string|OpenSSLAsymmetricKey|OpenSSLCertificate  $keyMaterial
-     * @return non-empty-string
+     *  non-empty-string
      */
     private static function validateEdDSAKey(#[\SensitiveParameter] $keyMaterial): string
     {

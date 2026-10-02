@@ -46,7 +46,7 @@ interface PasswordBroker
      *
      * @param  array  $credentials
      * @param  \Closure|null  $callback
-     * @return string
+     *  string
      */
     public function sendResetLink(array $credentials, ?Closure $callback = null);
 
@@ -55,7 +55,7 @@ interface PasswordBroker
      *
      * @param  array  $credentials
      * @param  \Closure  $callback
-     * @return mixed
+     *  mixed
      */
     public function reset(array $credentials, Closure $callback);
 }

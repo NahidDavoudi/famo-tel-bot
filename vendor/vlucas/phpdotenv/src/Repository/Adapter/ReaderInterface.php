@@ -11,7 +11,7 @@ interface ReaderInterface
      *
      * @param non-empty-string $name
      *
-     * @return \PhpOption\Option<string>
+     *  \PhpOption\Option<string>
      */
     public function read(string $name);
 }

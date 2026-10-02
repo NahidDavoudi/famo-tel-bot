@@ -7,28 +7,28 @@ interface Job
     /**
      * Get the UUID of the job.
      *
-     * @return string|null
+     *  string|null
      */
     public function uuid();
 
     /**
      * Get the job identifier.
      *
-     * @return string
+     *  string
      */
     public function getJobId();
 
     /**
      * Get the decoded body of the job.
      *
-     * @return array
+     *  array
      */
     public function payload();
 
     /**
      * Fire the job.
      *
-     * @return void
+     *  void
      */
     public function fire();
 
@@ -36,56 +36,56 @@ interface Job
      * Release the job back into the queue after (n) seconds.
      *
      * @param  int  $delay
-     * @return void
+     *  void
      */
     public function release($delay = 0);
 
     /**
      * Determine if the job was released back into the queue.
      *
-     * @return bool
+     *  bool
      */
     public function isReleased();
 
     /**
      * Delete the job from the queue.
      *
-     * @return void
+     *  void
      */
     public function delete();
 
     /**
      * Determine if the job has been deleted.
      *
-     * @return bool
+     *  bool
      */
     public function isDeleted();
 
     /**
      * Determine if the job has been deleted or released.
      *
-     * @return bool
+     *  bool
      */
     public function isDeletedOrReleased();
 
     /**
      * Get the number of times the job has been attempted.
      *
-     * @return int
+     *  int
      */
     public function attempts();
 
     /**
      * Determine if the job has been marked as a failure.
      *
-     * @return bool
+     *  bool
      */
     public function hasFailed();
 
     /**
      * Mark the job as "failed".
      *
-     * @return void
+     *  void
      */
     public function markAsFailed();
 
@@ -93,42 +93,42 @@ interface Job
      * Delete the job, call the "failed" method, and raise the failed job event.
      *
      * @param  \Throwable|null  $e
-     * @return void
+     *  void
      */
     public function fail($e = null);
 
     /**
      * Get the number of times to attempt a job.
      *
-     * @return int|null
+     *  int|null
      */
     public function maxTries();
 
     /**
      * Get the maximum number of exceptions allowed, regardless of attempts.
      *
-     * @return int|null
+     *  int|null
      */
     public function maxExceptions();
 
     /**
      * Get the number of seconds the job can run.
      *
-     * @return int|null
+     *  int|null
      */
     public function timeout();
 
     /**
      * Get the timestamp indicating when the job should timeout.
      *
-     * @return int|null
+     *  int|null
      */
     public function retryUntil();
 
     /**
      * Get the name of the queued job class.
      *
-     * @return string
+     *  string
      */
     public function getName();
 
@@ -137,7 +137,7 @@ interface Job
      *
      * Resolves the name of "wrapped" jobs such as class-based handlers.
      *
-     * @return string
+     *  string
      */
     public function resolveName();
 
@@ -146,28 +146,28 @@ interface Job
      *
      * Resolves the class of "wrapped" jobs such as class-based handlers.
      *
-     * @return string
+     *  string
      */
     public function resolveQueuedJobClass();
 
     /**
      * Get the name of the connection the job belongs to.
      *
-     * @return string
+     *  string
      */
     public function getConnectionName();
 
     /**
      * Get the name of the queue the job belongs to.
      *
-     * @return string
+     *  string
      */
     public function getQueue();
 
     /**
      * Get the raw body string for the job.
      *
-     * @return string
+     *  string
      */
     public function getRawBody();
 }

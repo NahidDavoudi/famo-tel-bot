@@ -50,7 +50,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
     /**
      * Get the underlying handler implementation.
      *
-     * @return \Illuminate\Contracts\Debug\ExceptionHandler
+     *  \Illuminate\Contracts\Debug\ExceptionHandler
      */
     public function handler()
     {
@@ -61,7 +61,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
      * Assert if an exception of the given type has been reported.
      *
      * @param  (\Closure(\Throwable): bool)|class-string<\Throwable>  $exception
-     * @return void
+     *  void
      */
     public function assertReported(Closure|string $exception)
     {
@@ -92,7 +92,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
      * Assert the number of exceptions that have been reported.
      *
      * @param  int  $count
-     * @return void
+     *  void
      */
     public function assertReportedCount(int $count)
     {
@@ -108,7 +108,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
      * Assert if an exception of the given type has not been reported.
      *
      * @param  (\Closure(\Throwable): bool)|class-string<\Throwable>  $exception
-     * @return void
+     *  void
      *
      * @throws \PHPUnit\Framework\ExpectationFailedException
      */
@@ -129,7 +129,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
     /**
      * Assert nothing has been reported.
      *
-     * @return void
+     *  void
      */
     public function assertNothingReported()
     {
@@ -146,7 +146,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
      * Report or log an exception.
      *
      * @param  \Throwable  $e
-     * @return void
+     *  void
      *
      * @throws \Throwable
      */
@@ -173,7 +173,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
      * Determine if the given exception is faked.
      *
      * @param  \Throwable  $e
-     * @return bool
+     *  bool
      */
     protected function isFakedException(Throwable $e)
     {
@@ -184,7 +184,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
      * Determine if the exception should be reported.
      *
      * @param  \Throwable  $e
-     * @return bool
+     *  bool
      */
     public function shouldReport($e)
     {
@@ -194,7 +194,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
     /**
      * Determine if the handler is running without exception handling.
      *
-     * @return bool
+     *  bool
      */
     protected function runningWithoutExceptionHandling()
     {
@@ -206,7 +206,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Throwable  $e
-     * @return \Symfony\Component\HttpFoundation\Response
+     *  \Symfony\Component\HttpFoundation\Response
      */
     public function render($request, $e)
     {
@@ -218,7 +218,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
      *
      * @param  \Symfony\Component\Console\Output\OutputInterface  $output
      * @param  \Throwable  $e
-     * @return void
+     *  void
      */
     public function renderForConsole($output, Throwable $e)
     {
@@ -228,7 +228,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
     /**
      * Throw exceptions when they are reported.
      *
-     * @return $this
+     *  $this
      */
     public function throwOnReport()
     {
@@ -240,7 +240,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
     /**
      * Throw the first reported exception.
      *
-     * @return $this
+     *  $this
      *
      * @throws \Throwable
      */
@@ -256,7 +256,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
     /**
      * Get the exceptions that have been reported.
      *
-     * @return list<\Throwable>
+     *  list<\Throwable>
      */
     public function reported()
     {
@@ -267,7 +267,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
      * Set the "original" handler that should be used by the fake.
      *
      * @param  \Illuminate\Contracts\Debug\ExceptionHandler  $handler
-     * @return $this
+     *  $this
      */
     public function setHandler(ExceptionHandler $handler)
     {
@@ -281,7 +281,7 @@ class ExceptionHandlerFake implements ExceptionHandler, Fake
      *
      * @param  string  $method
      * @param  array<string, mixed>  $parameters
-     * @return mixed
+     *  mixed
      */
     public function __call(string $method, array $parameters)
     {

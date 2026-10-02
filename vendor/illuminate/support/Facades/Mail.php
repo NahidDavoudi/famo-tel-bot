@@ -70,7 +70,7 @@ class Mail extends Facade
     /**
      * Replace the bound instance with a fake.
      *
-     * @return \Illuminate\Support\Testing\Fakes\MailFake
+     *  \Illuminate\Support\Testing\Fakes\MailFake
      */
     public static function fake()
     {
@@ -86,7 +86,7 @@ class Mail extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {

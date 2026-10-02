@@ -21,7 +21,7 @@ interface MessageInterface
      *
      * The string MUST contain only the HTTP version number (e.g., "1.1", "1.0").
      *
-     * @return string HTTP protocol version.
+     *  string HTTP protocol version.
      */
     public function getProtocolVersion(): string;
 
@@ -36,7 +36,7 @@ interface MessageInterface
      * new protocol version.
      *
      * @param string $version HTTP protocol version
-     * @return static
+     *  static
      */
     public function withProtocolVersion(string $version): MessageInterface;
 
@@ -61,7 +61,7 @@ interface MessageInterface
      * While header names are not case-sensitive, getHeaders() will preserve the
      * exact case in which headers were originally specified.
      *
-     * @return string[][] Returns an associative array of the message's headers. Each
+     *  string[][] Returns an associative array of the message's headers. Each
      *     key MUST be a header name, and each value MUST be an array of strings
      *     for that header.
      */
@@ -71,7 +71,7 @@ interface MessageInterface
      * Checks if a header exists by the given case-insensitive name.
      *
      * @param string $name Case-insensitive header field name.
-     * @return bool Returns true if any header names match the given header
+     *  bool Returns true if any header names match the given header
      *     name using a case-insensitive string comparison. Returns false if
      *     no matching header name is found in the message.
      */
@@ -87,7 +87,7 @@ interface MessageInterface
      * empty array.
      *
      * @param string $name Case-insensitive header field name.
-     * @return string[] An array of string values as provided for the given
+     *  string[] An array of string values as provided for the given
      *    header. If the header does not appear in the message, this method MUST
      *    return an empty array.
      */
@@ -108,7 +108,7 @@ interface MessageInterface
      * an empty string.
      *
      * @param string $name Case-insensitive header field name.
-     * @return string A string of values as provided for the given header
+     *  string A string of values as provided for the given header
      *    concatenated together using a comma. If the header does not appear in
      *    the message, this method MUST return an empty string.
      */
@@ -126,7 +126,7 @@ interface MessageInterface
      *
      * @param string $name Case-insensitive header field name.
      * @param string|string[] $value Header value(s).
-     * @return static
+     *  static
      * @throws \InvalidArgumentException for invalid header names or values.
      */
     public function withHeader(string $name, $value): MessageInterface;
@@ -144,7 +144,7 @@ interface MessageInterface
      *
      * @param string $name Case-insensitive header field name to add.
      * @param string|string[] $value Header value(s).
-     * @return static
+     *  static
      * @throws \InvalidArgumentException for invalid header names or values.
      */
     public function withAddedHeader(string $name, $value): MessageInterface;
@@ -159,14 +159,14 @@ interface MessageInterface
      * the named header.
      *
      * @param string $name Case-insensitive header field name to remove.
-     * @return static
+     *  static
      */
     public function withoutHeader(string $name): MessageInterface;
 
     /**
      * Gets the body of the message.
      *
-     * @return StreamInterface Returns the body as a stream.
+     *  StreamInterface Returns the body as a stream.
      */
     public function getBody(): StreamInterface;
 
@@ -180,7 +180,7 @@ interface MessageInterface
      * new body stream.
      *
      * @param StreamInterface $body Body.
-     * @return static
+     *  static
      * @throws \InvalidArgumentException When the body is not valid.
      */
     public function withBody(StreamInterface $body): MessageInterface;

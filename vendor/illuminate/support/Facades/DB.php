@@ -133,7 +133,7 @@ class DB extends Facade
      * Prohibits: db:wipe, migrate:fresh, migrate:refresh, migrate:reset, and migrate:rollback
      *
      * @param  bool  $prohibit
-     * @return void
+     *  void
      */
     public static function prohibitDestructiveCommands(bool $prohibit = true)
     {
@@ -147,7 +147,7 @@ class DB extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {

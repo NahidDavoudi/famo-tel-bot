@@ -18,7 +18,7 @@ final class Reader
      *
      * @codeCoverageIgnore
      *
-     * @return void
+     *  void
      */
     private function __construct()
     {
@@ -38,7 +38,7 @@ final class Reader
      *
      * @throws \Dotenv\Exception\InvalidEncodingException
      *
-     * @return array<string, string>
+     *  array<string, string>
      */
     public static function read(array $filePaths, bool $shortCircuit = true, ?string $fileEncoding = null)
     {
@@ -65,7 +65,7 @@ final class Reader
      *
      * @throws \Dotenv\Exception\InvalidEncodingException
      *
-     * @return \PhpOption\Option<string>
+     *  \PhpOption\Option<string>
      */
     private static function readFromFile(string $path, ?string $encoding = null)
     {

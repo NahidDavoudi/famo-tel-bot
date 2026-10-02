@@ -18,7 +18,7 @@ class ChatJoinRequest extends BaseObject
     /**
      * {@inheritdoc}
      *
-     * @return array{chat: string, from: string, invite_link: string}
+     *  array{chat: string, from: string, invite_link: string}
      */
     public function relations(): array
     {

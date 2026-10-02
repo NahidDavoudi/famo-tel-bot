@@ -14,7 +14,7 @@ namespace Telegram\Bot\Objects;
 class ProximityAlertTriggered extends BaseObject
 {
     /**
-     * @return array{user: class-string<User>}
+     *  array{user: class-string<User>}
      */
     public function relations(): array
     {

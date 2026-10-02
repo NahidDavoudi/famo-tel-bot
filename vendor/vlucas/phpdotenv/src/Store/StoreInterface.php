@@ -11,7 +11,7 @@ interface StoreInterface
      *
      * @throws \Dotenv\Exception\InvalidEncodingException|\Dotenv\Exception\InvalidPathException
      *
-     * @return string
+     *  string
      */
     public function read();
 }

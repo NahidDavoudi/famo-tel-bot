@@ -49,7 +49,7 @@ class Event extends Facade
      * Replace the bound instance with a fake.
      *
      * @param  array|string  $eventsToFake
-     * @return \Illuminate\Support\Testing\Fakes\EventFake
+     *  \Illuminate\Support\Testing\Fakes\EventFake
      */
     public static function fake($eventsToFake = [])
     {
@@ -69,7 +69,7 @@ class Event extends Facade
      * Replace the bound instance with a fake that fakes all events except the given events.
      *
      * @param  string[]|string  $eventsToAllow
-     * @return \Illuminate\Support\Testing\Fakes\EventFake
+     *  \Illuminate\Support\Testing\Fakes\EventFake
      */
     public static function fakeExcept($eventsToAllow)
     {
@@ -85,7 +85,7 @@ class Event extends Facade
      *
      * @param  callable  $callable
      * @param  array  $eventsToFake
-     * @return mixed
+     *  mixed
      */
     public static function fakeFor(callable $callable, array $eventsToFake = [])
     {
@@ -108,7 +108,7 @@ class Event extends Facade
      *
      * @param  callable  $callable
      * @param  array  $eventsToAllow
-     * @return mixed
+     *  mixed
      */
     public static function fakeExceptFor(callable $callable, array $eventsToAllow = [])
     {
@@ -129,7 +129,7 @@ class Event extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {

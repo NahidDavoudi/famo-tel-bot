@@ -22,7 +22,7 @@ class ViewErrorBag implements Countable, Stringable
      * Checks if a named MessageBag exists in the bags.
      *
      * @param  string  $key
-     * @return bool
+     *  bool
      */
     public function hasBag($key = 'default')
     {
@@ -33,7 +33,7 @@ class ViewErrorBag implements Countable, Stringable
      * Get a MessageBag instance from the bags.
      *
      * @param  string  $key
-     * @return \Illuminate\Contracts\Support\MessageBag
+     *  \Illuminate\Contracts\Support\MessageBag
      */
     public function getBag($key)
     {
@@ -43,7 +43,7 @@ class ViewErrorBag implements Countable, Stringable
     /**
      * Get all the bags.
      *
-     * @return array<string, \Illuminate\Contracts\Support\MessageBag>
+     *  array<string, \Illuminate\Contracts\Support\MessageBag>
      */
     public function getBags()
     {
@@ -55,7 +55,7 @@ class ViewErrorBag implements Countable, Stringable
      *
      * @param  string  $key
      * @param  \Illuminate\Contracts\Support\MessageBag  $bag
-     * @return $this
+     *  $this
      */
     public function put($key, MessageBagContract $bag)
     {
@@ -67,7 +67,7 @@ class ViewErrorBag implements Countable, Stringable
     /**
      * Determine if the default message bag has any messages.
      *
-     * @return bool
+     *  bool
      */
     public function any()
     {
@@ -77,7 +77,7 @@ class ViewErrorBag implements Countable, Stringable
     /**
      * Get the number of messages in the default bag.
      *
-     * @return int
+     *  int
      */
     public function count(): int
     {
@@ -89,7 +89,7 @@ class ViewErrorBag implements Countable, Stringable
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      */
     public function __call($method, $parameters)
     {
@@ -100,7 +100,7 @@ class ViewErrorBag implements Countable, Stringable
      * Dynamically access a view error bag.
      *
      * @param  string  $key
-     * @return \Illuminate\Contracts\Support\MessageBag
+     *  \Illuminate\Contracts\Support\MessageBag
      */
     public function __get($key)
     {
@@ -112,7 +112,7 @@ class ViewErrorBag implements Countable, Stringable
      *
      * @param  string  $key
      * @param  \Illuminate\Contracts\Support\MessageBag  $value
-     * @return void
+     *  void
      */
     public function __set($key, $value)
     {
@@ -122,7 +122,7 @@ class ViewErrorBag implements Countable, Stringable
     /**
      * Convert the default bag to its string representation.
      *
-     * @return string
+     *  string
      */
     public function __toString()
     {

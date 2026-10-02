@@ -21,7 +21,7 @@ final class Middleware
      * The options array must be set to a CookieJarInterface in order to use
      * cookies. This is typically handled for you by a client.
      *
-     * @return callable Returns a function that accepts the next handler.
+     *  callable Returns a function that accepts the next handler.
      */
     public static function cookies(): callable
     {
@@ -53,7 +53,7 @@ final class Middleware
      *
      * @param BodySummarizerInterface|null $bodySummarizer The body summarizer to use in exception messages.
      *
-     * @return callable(callable): callable Returns a function that accepts the next handler.
+     *  callable(callable): callable Returns a function that accepts the next handler.
      */
     public static function httpErrors(?BodySummarizerInterface $bodySummarizer = null): callable
     {
@@ -81,7 +81,7 @@ final class Middleware
      *
      * @param array|\ArrayAccess<int, array> $container Container to hold the history (by reference).
      *
-     * @return callable(callable): callable Returns a function that accepts the next handler.
+     *  callable(callable): callable Returns a function that accepts the next handler.
      *
      * @throws \InvalidArgumentException if container is not an array or ArrayAccess.
      */
@@ -130,7 +130,7 @@ final class Middleware
      * @param callable $before Function to invoke before forwarding the request.
      * @param callable $after  Function invoked after forwarding.
      *
-     * @return callable Returns a function that accepts the next handler.
+     *  callable Returns a function that accepts the next handler.
      */
     public static function tap(?callable $before = null, ?callable $after = null): callable
     {
@@ -152,7 +152,7 @@ final class Middleware
     /**
      * Middleware that handles request redirects.
      *
-     * @return callable Returns a function that accepts the next handler.
+     *  callable Returns a function that accepts the next handler.
      */
     public static function redirect(): callable
     {
@@ -174,7 +174,7 @@ final class Middleware
      * @param callable $delay   Function that accepts the number of retries and
      *                          returns the number of milliseconds to delay.
      *
-     * @return callable Returns a function that accepts the next handler.
+     *  callable Returns a function that accepts the next handler.
      */
     public static function retry(callable $decider, ?callable $delay = null): callable
     {
@@ -193,7 +193,7 @@ final class Middleware
      *
      * @phpstan-param \Psr\Log\LogLevel::* $logLevel Level at which to log requests.
      *
-     * @return callable Returns a function that accepts the next handler.
+     *  callable Returns a function that accepts the next handler.
      */
     public static function log(LoggerInterface $logger, $formatter, string $logLevel = 'info'): callable
     {

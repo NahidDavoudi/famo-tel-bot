@@ -7,35 +7,35 @@ interface MustVerifyEmail
     /**
      * Determine if the user has verified their email address.
      *
-     * @return bool
+     *  bool
      */
     public function hasVerifiedEmail();
 
     /**
      * Mark the given user's email as verified.
      *
-     * @return bool
+     *  bool
      */
     public function markEmailAsVerified();
 
     /**
      * Mark the given user's email as unverified.
      *
-     * @return bool
+     *  bool
      */
     public function markEmailAsUnverified();
 
     /**
      * Send the email verification notification.
      *
-     * @return void
+     *  void
      */
     public function sendEmailVerificationNotification();
 
     /**
      * Get the email address that should be used for verification.
      *
-     * @return string
+     *  string
      */
     public function getEmailForVerification();
 }

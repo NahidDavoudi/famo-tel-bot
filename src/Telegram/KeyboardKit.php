@@ -30,7 +30,7 @@ final class KeyboardKit
     public const ROUTE_WEEK = 'week';
     public const ROUTE_HOME = 'home';
 
-    /** @return list<list<array<string,string>>> ReplyKeyboardMarkup only (text buttons, no callback_data) */
+    /**  list<list<array<string,string>>> ReplyKeyboardMarkup only (text buttons, no callback_data) */
     public static function replyKeyboardStudentMenu(): array
     {
         return [
@@ -49,19 +49,19 @@ final class KeyboardKit
         };
     }
 
-    /** @return array{text:string,callback_data:string} */
+    /**  array{text:string,callback_data:string} */
     public static function btn(string $text, string $callback): array
     {
         return ['text' => $text, 'callback_data' => $callback];
     }
 
-    /** @return array{text:string,url:string} */
+    /**  array{text:string,url:string} */
     public static function urlBtn(string $text, string $url): array
     {
         return ['text' => $text, 'url' => $url];
     }
 
-    /** @return array{text:string} */
+    /**  array{text:string} */
     private static function key(string $label): array
     {
         return ['text' => $label];

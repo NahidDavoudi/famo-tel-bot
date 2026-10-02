@@ -86,7 +86,7 @@ final class TransferStats
      * anything else. Relying on this value assumes that you know what handler
      * you are using.
      *
-     * @return mixed
+     *  mixed
      */
     public function getHandlerErrorData()
     {
@@ -104,7 +104,7 @@ final class TransferStats
     /**
      * Get the estimated time the request was being transferred by the handler.
      *
-     * @return float|null Time in seconds.
+     *  float|null Time in seconds.
      */
     public function getTransferTime(): ?float
     {
@@ -124,7 +124,7 @@ final class TransferStats
      *
      * @param string $stat Handler specific transfer stat to retrieve.
      *
-     * @return mixed|null
+     *  mixed|null
      */
     public function getHandlerStat(string $stat)
     {

@@ -240,7 +240,7 @@ final class ASCII
     /**
      * Get all languages from the constants "ASCII::.*LANGUAGE_CODE".
      *
-     * @return array<string, string>
+     *  array<string, string>
      *                                 <p>An associative array where the key is the language code in lowercase
      *                                 and the value is the corresponding language string.</p>
      */
@@ -276,7 +276,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return array<string, array<string , string>>
+     *  array<string, array<string , string>>
      *                                               <p>An array where the key is the language code, and the value is
      *                                               an associative array mapping original characters to their replacements.</p>
      */
@@ -305,7 +305,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return array<string, list<string>>
+     *  array<string, list<string>>
      *                                     <p>An array of replacements.</p>
      */
     public static function charsArrayWithMultiLanguageValues(bool $replace_extra_symbols = false): array
@@ -354,7 +354,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return ($asOrigReplaceArray is true ? array{orig: list<string>, replace: list<string>} : array<string, string>)
+     *  ($asOrigReplaceArray is true ? array{orig: list<string>, replace: list<string>} : array<string, string>)
      *
      * @phpstan-param ASCII::*_LANGUAGE_CODE $language
      */
@@ -442,7 +442,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return ($asOrigReplaceArray is true ? array{orig: list<string>, replace: list<string>} : array<string, string>)
+     *  ($asOrigReplaceArray is true ? array{orig: list<string>, replace: list<string>} : array<string, string>)
      */
     public static function charsArrayWithSingleLanguageValues(
         bool $replace_extra_symbols = false,
@@ -503,7 +503,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return string
+     *  string
      *                <p>A clean UTF-8 string.</p>
      */
     public static function clean(
@@ -562,7 +562,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return bool
+     *  bool
      *              <p>
      *              <strong>true</strong> if it is ASCII<br>
      *              <strong>false</strong> otherwise
@@ -590,7 +590,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return string
+     *  string
      *                <p>A string with normalized characters for commonly used chars in Word documents.</p>
      */
     public static function normalize_msword(string $str): string
@@ -630,7 +630,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return string
+     *  string
      *                <p>A string with normalized whitespace.</p>
      */
     public static function normalize_whitespace(
@@ -705,7 +705,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return string
+     *  string
      */
     public static function remove_invisible_characters(
         string $str,
@@ -749,7 +749,7 @@ final class ASCII
      * (in/out map parameter) where non-ascii characters are remapped to
      * the range [128-255] in order of appearance.
      *
-     * @return array{0: string, 1: string}
+     *  array{0: string, 1: string}
      */
     public static function to_ascii_remap(string $str1, string $str2): array
     {
@@ -787,7 +787,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return string
+     *  string
      *                <p>A string that contains only ASCII characters.</p>
      *
      * @phpstan-param ASCII::*_LANGUAGE_CODE $language
@@ -944,7 +944,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return string
+     *  string
      *                <p>A string that contains only safe characters for a filename.</p>
      */
     public static function to_filename(
@@ -995,7 +995,7 @@ final class ASCII
      *                                                     chars.</p>
      * @psalm-pure
      *
-     * @return string
+     *  string
      *                <p>The URL-friendly slug.</p>
      *
      * @phpstan-param ASCII::*_LANGUAGE_CODE $language
@@ -1086,7 +1086,7 @@ final class ASCII
      *
      * @psalm-pure
      *
-     * @return string
+     *  string
      *                <p>A String that contains only ASCII characters.</p>
      */
     public static function to_transliterate(
@@ -1330,7 +1330,7 @@ final class ASCII
      * @param string $str <p>UTF-8 string to be converted to extended ASCII.</p>
      * @param array  $map <p>Internal-Map of code points to ASCII characters.</p>
      *
-     * @return string
+     *  string
      *                <p>Mapped broken string.</p>
      *
      * @phpstan-param array<string, string> $map
@@ -1515,7 +1515,7 @@ final class ASCII
      *       DE_DE -> de
      *       de-de -> de
      *
-     * @return string
+     *  string
      */
     private static function get_language(string $language)
     {
@@ -1544,7 +1544,7 @@ final class ASCII
     }
 
     /**
-     * @return array<string, string>
+     *  array<string, string>
      */
     private static function getAsciiAllReplacementMap(
         bool $replace_extra_symbols,
@@ -1568,7 +1568,7 @@ final class ASCII
     /**
      * @phpstan-param ASCII::*_LANGUAGE_CODE $language
      *
-     * @return array<string, string>
+     *  array<string, string>
      */
     private static function getAsciiLanguageReplacementMap(
         string $language,
@@ -1593,7 +1593,7 @@ final class ASCII
     /**
      * Get data from "/data/*.php".
      *
-     * @return array<array-key,mixed>
+     *  array<array-key,mixed>
      */
     private static function getData(string $file)
     {
@@ -1603,7 +1603,7 @@ final class ASCII
     /**
      * Get data from "/data/*.php".
      *
-     * @return array<array-key,mixed>
+     *  array<array-key,mixed>
      */
     private static function getDataIfExists(string $file): array
     {
@@ -1618,7 +1618,7 @@ final class ASCII
     /**
      * @param array<string, string> $map
      *
-     * @return array<string, string>
+     *  array<string, string>
      */
     private static function filterAsciiReplacementMap(array $map, bool $replace_single_chars_only): array
     {
@@ -1642,7 +1642,7 @@ final class ASCII
     }
 
     /**
-     * @return void
+     *  void
      */
     private static function prepareAsciiAndExtrasMaps()
     {
@@ -1658,7 +1658,7 @@ final class ASCII
     }
 
     /**
-     * @return void
+     *  void
      */
     private static function prepareAsciiMaps()
     {
@@ -1668,7 +1668,7 @@ final class ASCII
     }
 
     /**
-     * @return void
+     *  void
      */
     private static function prepareAsciiExtras()
     {

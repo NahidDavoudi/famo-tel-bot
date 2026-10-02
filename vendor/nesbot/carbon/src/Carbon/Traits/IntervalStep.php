@@ -34,7 +34,7 @@ trait IntervalStep
     /**
      * Get the dynamic step in use.
      *
-     * @return Closure|null
+     *  Closure|null
      */
     public function getStep(): ?Closure
     {
@@ -61,7 +61,7 @@ trait IntervalStep
      * @param DateTimeInterface $dateTime
      * @param bool              $negated
      *
-     * @return CarbonInterface
+     *  CarbonInterface
      */
     public function convertDate(DateTimeInterface $dateTime, bool $negated = false): CarbonInterface
     {

@@ -296,7 +296,7 @@ final class CurlVersion
     }
 
     /**
-     * @return array{version: string, features: int}|null
+     *  array{version: string, features: int}|null
      */
     private static function getVersionInfo(): ?array
     {

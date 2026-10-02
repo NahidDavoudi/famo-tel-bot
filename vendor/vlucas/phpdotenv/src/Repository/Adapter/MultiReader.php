@@ -20,7 +20,7 @@ final class MultiReader implements ReaderInterface
      *
      * @param \Dotenv\Repository\Adapter\ReaderInterface[] $readers
      *
-     * @return void
+     *  void
      */
     public function __construct(array $readers)
     {
@@ -32,7 +32,7 @@ final class MultiReader implements ReaderInterface
      *
      * @param non-empty-string $name
      *
-     * @return \PhpOption\Option<string>
+     *  \PhpOption\Option<string>
      */
     public function read(string $name)
     {

@@ -13,7 +13,7 @@ final class ApacheAdapter implements AdapterInterface
     /**
      * Create a new apache adapter instance.
      *
-     * @return void
+     *  void
      */
     private function __construct()
     {
@@ -23,7 +23,7 @@ final class ApacheAdapter implements AdapterInterface
     /**
      * Create a new instance of the adapter, if it is available.
      *
-     * @return \PhpOption\Option<self>
+     *  \PhpOption\Option<self>
      */
     public static function create()
     {
@@ -39,7 +39,7 @@ final class ApacheAdapter implements AdapterInterface
      *
      * This happens if PHP is running as an Apache module.
      *
-     * @return bool
+     *  bool
      */
     private static function isSupported()
     {
@@ -51,7 +51,7 @@ final class ApacheAdapter implements AdapterInterface
      *
      * @param non-empty-string $name
      *
-     * @return \PhpOption\Option<string>
+     *  \PhpOption\Option<string>
      */
     public function read(string $name)
     {
@@ -67,7 +67,7 @@ final class ApacheAdapter implements AdapterInterface
      * @param non-empty-string $name
      * @param string           $value
      *
-     * @return bool
+     *  bool
      */
     public function write(string $name, string $value)
     {
@@ -79,7 +79,7 @@ final class ApacheAdapter implements AdapterInterface
      *
      * @param non-empty-string $name
      *
-     * @return bool
+     *  bool
      */
     public function delete(string $name)
     {

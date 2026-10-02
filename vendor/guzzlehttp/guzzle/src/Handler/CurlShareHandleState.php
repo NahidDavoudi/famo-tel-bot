@@ -132,7 +132,7 @@ final class CurlShareHandleState
     }
 
     /**
-     * @return int[]
+     *  int[]
      */
     private static function handlerLocks(string $mode): array
     {

@@ -22,7 +22,7 @@ class InputMediaDocument extends InputMedia
     /**
      * {@inheritdoc}
      *
-     * @return array{thumb: string}
+     *  array{thumb: string}
      */
     public function relations(): array
     {

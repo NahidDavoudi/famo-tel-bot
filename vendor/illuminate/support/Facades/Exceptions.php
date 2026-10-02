@@ -51,7 +51,7 @@ class Exceptions extends Facade
      * Replace the bound instance with a fake.
      *
      * @param  array<int, class-string<\Throwable>>|class-string<\Throwable>  $exceptions
-     * @return \Illuminate\Support\Testing\Fakes\ExceptionHandlerFake
+     *  \Illuminate\Support\Testing\Fakes\ExceptionHandlerFake
      */
     public static function fake(array|string $exceptions = [])
     {
@@ -67,7 +67,7 @@ class Exceptions extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {

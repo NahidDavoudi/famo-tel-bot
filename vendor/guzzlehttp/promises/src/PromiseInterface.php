@@ -82,7 +82,7 @@ interface PromiseInterface
      *
      * If the promise cannot be waited on, then the promise will be rejected.
      *
-     * @return mixed
+     *  mixed
      *
      * @throws \LogicException if the promise has no wait function or if the
      *                         promise does not settle after waiting.

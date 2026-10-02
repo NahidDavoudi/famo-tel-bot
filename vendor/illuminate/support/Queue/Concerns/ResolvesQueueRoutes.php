@@ -11,7 +11,7 @@ trait ResolvesQueueRoutes
      * Resolve the default connection name for a given queueable instance.
      *
      * @param  object  $queueable
-     * @return string|null
+     *  string|null
      */
     public function resolveConnectionFromQueueRoute($queueable)
     {
@@ -22,7 +22,7 @@ trait ResolvesQueueRoutes
      * Resolve the default queue name for a given queueable instance.
      *
      * @param  object  $queueable
-     * @return string|null
+     *  string|null
      */
     public function resolveQueueFromQueueRoute($queueable)
     {
@@ -32,7 +32,7 @@ trait ResolvesQueueRoutes
     /**
      * Get the queue routes manager instance.
      *
-     * @return \Illuminate\Queue\QueueRoutes
+     *  \Illuminate\Queue\QueueRoutes
      */
     protected function queueRoutes()
     {

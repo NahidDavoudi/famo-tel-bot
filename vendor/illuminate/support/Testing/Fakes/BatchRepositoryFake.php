@@ -23,7 +23,7 @@ class BatchRepositoryFake implements BatchRepository
      *
      * @param  int  $limit
      * @param  mixed  $before
-     * @return \Illuminate\Bus\Batch[]
+     *  \Illuminate\Bus\Batch[]
      */
     public function get($limit, $before)
     {
@@ -34,7 +34,7 @@ class BatchRepositoryFake implements BatchRepository
      * Retrieve information about an existing batch.
      *
      * @param  string  $batchId
-     * @return \Illuminate\Bus\Batch|null
+     *  \Illuminate\Bus\Batch|null
      */
     public function find(string $batchId)
     {
@@ -45,7 +45,7 @@ class BatchRepositoryFake implements BatchRepository
      * Store a new pending batch.
      *
      * @param  \Illuminate\Bus\PendingBatch  $batch
-     * @return \Illuminate\Bus\Batch
+     *  \Illuminate\Bus\Batch
      */
     public function store(PendingBatch $batch)
     {
@@ -72,7 +72,7 @@ class BatchRepositoryFake implements BatchRepository
      *
      * @param  string  $batchId
      * @param  int  $amount
-     * @return void
+     *  void
      */
     public function incrementTotalJobs(string $batchId, int $amount)
     {
@@ -84,7 +84,7 @@ class BatchRepositoryFake implements BatchRepository
      *
      * @param  string  $batchId
      * @param  string  $jobId
-     * @return \Illuminate\Bus\UpdatedBatchJobCounts
+     *  \Illuminate\Bus\UpdatedBatchJobCounts
      */
     public function decrementPendingJobs(string $batchId, string $jobId)
     {
@@ -96,7 +96,7 @@ class BatchRepositoryFake implements BatchRepository
      *
      * @param  string  $batchId
      * @param  string  $jobId
-     * @return \Illuminate\Bus\UpdatedBatchJobCounts
+     *  \Illuminate\Bus\UpdatedBatchJobCounts
      */
     public function incrementFailedJobs(string $batchId, string $jobId)
     {
@@ -107,7 +107,7 @@ class BatchRepositoryFake implements BatchRepository
      * Mark the batch that has the given ID as finished.
      *
      * @param  string  $batchId
-     * @return void
+     *  void
      */
     public function markAsFinished(string $batchId)
     {
@@ -120,7 +120,7 @@ class BatchRepositoryFake implements BatchRepository
      * Cancel the batch that has the given ID.
      *
      * @param  string  $batchId
-     * @return void
+     *  void
      */
     public function cancel(string $batchId)
     {
@@ -133,7 +133,7 @@ class BatchRepositoryFake implements BatchRepository
      * Delete the batch that has the given ID.
      *
      * @param  string  $batchId
-     * @return void
+     *  void
      */
     public function delete(string $batchId)
     {
@@ -146,7 +146,7 @@ class BatchRepositoryFake implements BatchRepository
      * @template TReturn
      *
      * @param  (\Closure(): TReturn)  $callback
-     * @return TReturn
+     *  TReturn
      */
     public function transaction(Closure $callback)
     {
@@ -156,7 +156,7 @@ class BatchRepositoryFake implements BatchRepository
     /**
      * Rollback the last database transaction for the connection.
      *
-     * @return void
+     *  void
      */
     public function rollBack()
     {

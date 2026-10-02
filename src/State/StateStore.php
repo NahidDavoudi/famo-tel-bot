@@ -187,7 +187,7 @@ final class StateStore
         return json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?: '{}';
     }
 
-    /** @return array<string,mixed> */
+    /**  array<string,mixed> */
     private static function decodePayload(mixed $raw): array
     {
         if (!is_string($raw) || $raw === '') {

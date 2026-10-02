@@ -8,7 +8,7 @@ interface Queue
      * Get the size of the queue.
      *
      * @param  string|null  $queue
-     * @return int
+     *  int
      */
     public function size($queue = null);
 
@@ -16,7 +16,7 @@ interface Queue
      * Get the number of pending jobs.
      *
      * @param  string|null  $queue
-     * @return int
+     *  int
      */
     public function pendingSize($queue = null);
 
@@ -24,7 +24,7 @@ interface Queue
      * Get the number of delayed jobs.
      *
      * @param  string|null  $queue
-     * @return int
+     *  int
      */
     public function delayedSize($queue = null);
 
@@ -32,7 +32,7 @@ interface Queue
      * Get the number of reserved jobs.
      *
      * @param  string|null  $queue
-     * @return int
+     *  int
      */
     public function reservedSize($queue = null);
 
@@ -40,7 +40,7 @@ interface Queue
      * Get the creation timestamp of the oldest pending job, excluding delayed jobs.
      *
      * @param  string|null  $queue
-     * @return int|null
+     *  int|null
      */
     public function creationTimeOfOldestPendingJob($queue = null);
 
@@ -50,7 +50,7 @@ interface Queue
      * @param  string|object  $job
      * @param  mixed  $data
      * @param  string|null  $queue
-     * @return mixed
+     *  mixed
      */
     public function push($job, $data = '', $queue = null);
 
@@ -60,7 +60,7 @@ interface Queue
      * @param  string  $queue
      * @param  string|object  $job
      * @param  mixed  $data
-     * @return mixed
+     *  mixed
      */
     public function pushOn($queue, $job, $data = '');
 
@@ -69,7 +69,7 @@ interface Queue
      *
      * @param  string  $payload
      * @param  string|null  $queue
-     * @return mixed
+     *  mixed
      */
     public function pushRaw($payload, $queue = null, array $options = []);
 
@@ -80,7 +80,7 @@ interface Queue
      * @param  string|object  $job
      * @param  mixed  $data
      * @param  string|null  $queue
-     * @return mixed
+     *  mixed
      */
     public function later($delay, $job, $data = '', $queue = null);
 
@@ -91,7 +91,7 @@ interface Queue
      * @param  \DateTimeInterface|\DateInterval|int  $delay
      * @param  string|object  $job
      * @param  mixed  $data
-     * @return mixed
+     *  mixed
      */
     public function laterOn($queue, $delay, $job, $data = '');
 
@@ -101,7 +101,7 @@ interface Queue
      * @param  array  $jobs
      * @param  mixed  $data
      * @param  string|null  $queue
-     * @return mixed
+     *  mixed
      */
     public function bulk($jobs, $data = '', $queue = null);
 
@@ -109,14 +109,14 @@ interface Queue
      * Pop the next job off of the queue.
      *
      * @param  string|null  $queue
-     * @return \Illuminate\Contracts\Queue\Job|null
+     *  \Illuminate\Contracts\Queue\Job|null
      */
     public function pop($queue = null);
 
     /**
      * Get the connection name for the queue.
      *
-     * @return string
+     *  string
      */
     public function getConnectionName();
 
@@ -124,7 +124,7 @@ interface Queue
      * Set the connection name for the queue.
      *
      * @param  string  $name
-     * @return $this
+     *  $this
      */
     public function setConnectionName($name);
 }

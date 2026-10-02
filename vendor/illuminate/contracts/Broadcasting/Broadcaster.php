@@ -8,7 +8,7 @@ interface Broadcaster
      * Authenticate the incoming request for a given channel.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return mixed
+     *  mixed
      */
     public function auth($request);
 
@@ -17,7 +17,7 @@ interface Broadcaster
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  mixed  $result
-     * @return mixed
+     *  mixed
      */
     public function validAuthenticationResponse($request, $result);
 
@@ -27,7 +27,7 @@ interface Broadcaster
      * @param  array  $channels
      * @param  string  $event
      * @param  array  $payload
-     * @return void
+     *  void
      *
      * @throws \Illuminate\Broadcasting\BroadcastException
      */

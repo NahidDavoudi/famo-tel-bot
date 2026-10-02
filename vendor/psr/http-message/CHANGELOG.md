@@ -18,8 +18,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Updated all `@return self` annotation references in interfaces to use
-  `@return static`, which more closelly follows the semantics of the
+- Updated all ` self` annotation references in interfaces to use
+  ` static`, which more closelly follows the semantics of the
   specification.
 - Updated the `MessageInterface::getHeaders()` return annotation to use the
   value `string[][]`, indicating the format is a nested array of strings.

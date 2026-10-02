@@ -127,7 +127,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
      * @param string $method
      * @param array  $args
      *
-     * @return PromiseInterface|ResponseInterface
+     *  PromiseInterface|ResponseInterface
      *
      * @deprecated Client::__call will be removed in guzzlehttp/guzzle:8.0.
      */
@@ -282,7 +282,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
      *
      * @param string|null $option The config option to retrieve.
      *
-     * @return mixed
+     *  mixed
      */
     public function getConfig(?string $option = null)
     {
@@ -446,7 +446,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
      *
      * @param array<string, mixed> $options
      *
-     * @return array<string, mixed>
+     *  array<string, mixed>
      */
     private static function normalizeDeprecatedRequestOptionValues(array $options): array
     {
@@ -1266,7 +1266,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
     /**
      * @param array<array-key, mixed> $headers
      *
-     * @return list<string>
+     *  list<string>
      */
     private static function castDeprecatedHeaderOptionValues(array &$headers): array
     {

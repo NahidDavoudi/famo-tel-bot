@@ -25,7 +25,7 @@ trait StreamDecoratorTrait
      * Magic method used to create a new stream if streams are not added in
      * the constructor of a decorator (e.g., LazyOpenStream).
      *
-     * @return StreamInterface
+     *  StreamInterface
      */
     public function __get(string $name)
     {
@@ -64,7 +64,7 @@ trait StreamDecoratorTrait
     /**
      * Allow decorators to implement custom methods
      *
-     * @return mixed
+     *  mixed
      */
     public function __call(string $method, array $args)
     {
@@ -82,7 +82,7 @@ trait StreamDecoratorTrait
     }
 
     /**
-     * @return mixed
+     *  mixed
      */
     public function getMetadata($key = null)
     {

@@ -23,7 +23,7 @@ class Arr
      * Determine whether the given value is array accessible.
      *
      * @param  mixed  $value
-     * @return bool
+     *  bool
      */
     public static function accessible($value)
     {
@@ -34,7 +34,7 @@ class Arr
      * Determine whether the given value is arrayable.
      *
      * @param  mixed  $value
-     * @return ($value is array
+     *  ($value is array
      *     ? true
      *     : ($value is \Illuminate\Contracts\Support\Arrayable
      *         ? true
@@ -63,7 +63,7 @@ class Arr
      * @param  array  $array
      * @param  string|int|float  $key
      * @param  mixed  $value
-     * @return array
+     *  array
      */
     public static function add($array, $key, $value)
     {
@@ -114,7 +114,7 @@ class Arr
      * Collapse an array of arrays into a single array.
      *
      * @param  iterable  $array
-     * @return array
+     *  array
      */
     public static function collapse($array)
     {
@@ -137,7 +137,7 @@ class Arr
      * @template TValue
      *
      * @param  iterable<TValue>  ...$arrays
-     * @return array<int, array<array-key, TValue>>
+     *  array<int, array<array-key, TValue>>
      */
     public static function crossJoin(...$arrays)
     {
@@ -167,7 +167,7 @@ class Arr
      * @template TValue
      *
      * @param  array<TKey, TValue>  $array
-     * @return array{TKey[], TValue[]}
+     *  array{TKey[], TValue[]}
      */
     public static function divide($array)
     {
@@ -180,7 +180,7 @@ class Arr
      * @param  iterable  $array
      * @param  string  $prepend
      * @param  int  $depth
-     * @return array
+     *  array
      */
     public static function dot($array, $prepend = '', $depth = INF)
     {
@@ -210,7 +210,7 @@ class Arr
      * Convert a flatten "dot" notation array into an expanded array.
      *
      * @param  iterable  $array
-     * @return array
+     *  array
      */
     public static function undot($array)
     {
@@ -228,7 +228,7 @@ class Arr
      *
      * @param  array  $array
      * @param  array|string|int|float  $keys
-     * @return array
+     *  array
      */
     public static function except($array, $keys)
     {
@@ -243,7 +243,7 @@ class Arr
      * @param  array  $array
      * @param  mixed  $values
      * @param  bool  $strict
-     * @return array
+     *  array
      */
     public static function exceptValues($array, $values, $strict = false)
     {
@@ -259,7 +259,7 @@ class Arr
      *
      * @param  \ArrayAccess|array  $array
      * @param  string|int|float  $key
-     * @return bool
+     *  bool
      */
     public static function exists($array, $key)
     {
@@ -288,7 +288,7 @@ class Arr
      * @param  iterable<TKey, TValue>  $array
      * @param  (callable(TValue, TKey): bool)|null  $callback
      * @param  TFirstDefault|(\Closure(): TFirstDefault)  $default
-     * @return TValue|TFirstDefault
+     *  TValue|TFirstDefault
      */
     public static function first($array, ?callable $callback = null, $default = null)
     {
@@ -325,7 +325,7 @@ class Arr
      * @param  iterable<TKey, TValue>  $array
      * @param  (callable(TValue, TKey): bool)|null  $callback
      * @param  TLastDefault|(\Closure(): TLastDefault)  $default
-     * @return TValue|TLastDefault
+     *  TValue|TLastDefault
      */
     public static function last($array, ?callable $callback = null, $default = null)
     {
@@ -347,7 +347,7 @@ class Arr
      *
      * @param  array  $array
      * @param  int  $limit
-     * @return array
+     *  array
      */
     public static function take($array, $limit)
     {
@@ -363,7 +363,7 @@ class Arr
      *
      * @param  iterable  $array
      * @param  int  $depth
-     * @return array
+     *  array
      */
     public static function flatten($array, $depth = INF)
     {
@@ -411,7 +411,7 @@ class Arr
      *
      * @param  array  $array
      * @param  array|string|int|float  $keys
-     * @return void
+     *  void
      */
     public static function forget(&$array, $keys)
     {
@@ -457,7 +457,7 @@ class Arr
      * @template TValue = mixed
      *
      * @param  array<TKey, TValue>|Enumerable<TKey, TValue>|Arrayable<TKey, TValue>|WeakMap<object, TValue>|Traversable<TKey, TValue>|Jsonable|JsonSerializable|object  $items
-     * @return ($items is WeakMap ? list<TValue> : array<TKey, TValue>)
+     *  ($items is WeakMap ? list<TValue> : array<TKey, TValue>)
      *
      * @throws \InvalidArgumentException
      */
@@ -482,7 +482,7 @@ class Arr
      * @param  \ArrayAccess|array  $array
      * @param  string|int|null  $key
      * @param  mixed  $default
-     * @return mixed
+     *  mixed
      */
     public static function get($array, $key, $default = null)
     {
@@ -518,7 +518,7 @@ class Arr
      *
      * @param  \ArrayAccess|array  $array
      * @param  string|array  $keys
-     * @return bool
+     *  bool
      */
     public static function has($array, $keys)
     {
@@ -552,7 +552,7 @@ class Arr
      *
      * @param  \ArrayAccess|array  $array
      * @param  string|array  $keys
-     * @return bool
+     *  bool
      */
     public static function hasAll($array, $keys)
     {
@@ -570,7 +570,7 @@ class Arr
      *
      * @param  \ArrayAccess|array  $array
      * @param  string|array  $keys
-     * @return bool
+     *  bool
      */
     public static function hasAny($array, $keys)
     {
@@ -596,7 +596,7 @@ class Arr
      *
      * @param  iterable  $array
      * @param  (callable(mixed, array-key): bool)  $callback
-     * @return bool
+     *  bool
      */
     public static function every($array, callable $callback)
     {
@@ -618,7 +618,7 @@ class Arr
      *
      * @param  iterable  $array
      * @param  (callable(mixed, array-key): bool)  $callback
-     * @return bool
+     *  bool
      */
     public static function some($array, callable $callback)
     {
@@ -659,7 +659,7 @@ class Arr
      * An array is "associative" if it doesn't have sequential numerical keys beginning with zero.
      *
      * @param  array  $array
-     * @return ($array is list ? false : true)
+     *  ($array is list ? false : true)
      */
     public static function isAssoc(array $array)
     {
@@ -672,7 +672,7 @@ class Arr
      * An array is a "list" if all array keys are sequential integers starting from 0 with no gaps in between.
      *
      * @param  array  $array
-     * @return ($array is list ? true : false)
+     *  ($array is list ? true : false)
      */
     public static function isList($array)
     {
@@ -685,7 +685,7 @@ class Arr
      * @param  array  $array
      * @param  string  $glue
      * @param  string  $finalGlue
-     * @return string
+     *  string
      */
     public static function join($array, $glue, $finalGlue = '')
     {
@@ -711,7 +711,7 @@ class Arr
      *
      * @param  iterable  $array
      * @param  callable|array|string  $keyBy
-     * @return array
+     *  array
      */
     public static function keyBy($array, $keyBy)
     {
@@ -725,7 +725,7 @@ class Arr
      *
      * @param  array<TValue>  $array
      * @param  string  $prependWith
-     * @return array<string, TValue>
+     *  array<string, TValue>
      */
     public static function prependKeysWith($array, $prependWith)
     {
@@ -737,7 +737,7 @@ class Arr
      *
      * @param  array  $array
      * @param  array|string  $keys
-     * @return array
+     *  array
      */
     public static function only($array, $keys)
     {
@@ -750,7 +750,7 @@ class Arr
      * @param  array  $array
      * @param  mixed  $values
      * @param  bool  $strict
-     * @return array
+     *  array
      */
     public static function onlyValues($array, $values, $strict = false)
     {
@@ -766,7 +766,7 @@ class Arr
      *
      * @param  array  $array
      * @param  array|string  $keys
-     * @return array
+     *  array
      */
     public static function select($array, $keys)
     {
@@ -793,7 +793,7 @@ class Arr
      * @param  iterable  $array
      * @param  string|array|int|Closure|null  $value
      * @param  string|array|Closure|null  $key
-     * @return array
+     *  array
      */
     public static function pluck($array, $value, $key = null)
     {
@@ -832,7 +832,7 @@ class Arr
      *
      * @param  Closure|array|string  $value
      * @param  string|array|Closure|null  $key
-     * @return array
+     *  array
      */
     protected static function explodePluckParameters($value, $key)
     {
@@ -848,7 +848,7 @@ class Arr
      *
      * @param  array  $array
      * @param  callable  $callback
-     * @return array
+     *  array
      */
     public static function map(array $array, callable $callback)
     {
@@ -875,7 +875,7 @@ class Arr
      *
      * @param  array<TKey, TValue>  $array
      * @param  callable(TValue, TKey): array<TMapWithKeysKey, TMapWithKeysValue>  $callback
-     * @return array
+     *  array
      */
     public static function mapWithKeys(array $array, callable $callback)
     {
@@ -900,7 +900,7 @@ class Arr
      *
      * @param  array<TKey, array>  $array
      * @param  callable(mixed...): TValue  $callback
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public static function mapSpread(array $array, callable $callback)
     {
@@ -917,7 +917,7 @@ class Arr
      * @param  array  $array
      * @param  mixed  $value
      * @param  mixed  $key
-     * @return array
+     *  array
      */
     public static function prepend($array, $value, $key = null)
     {
@@ -936,7 +936,7 @@ class Arr
      * @param  array  $array
      * @param  string|int  $key
      * @param  mixed  $default
-     * @return mixed
+     *  mixed
      */
     public static function pull(&$array, $key, $default = null)
     {
@@ -951,7 +951,7 @@ class Arr
      * Convert the array into a query string.
      *
      * @param  array  $array
-     * @return string
+     *  string
      */
     public static function query($array)
     {
@@ -964,7 +964,7 @@ class Arr
      * @param  array  $array
      * @param  int|null  $number
      * @param  bool  $preserveKeys
-     * @return ($number is null ? mixed : array)
+     *  ($number is null ? mixed : array)
      *
      * @throws \InvalidArgumentException
      */
@@ -1013,7 +1013,7 @@ class Arr
      * @param  array  $array
      * @param  string|int|null  $key
      * @param  mixed  $value
-     * @return array
+     *  array
      */
     public static function set(&$array, $key, $value)
     {
@@ -1051,7 +1051,7 @@ class Arr
      * @param  \ArrayAccess|array  $array
      * @param  string|int|null  $key
      * @param  mixed  $values
-     * @return array
+     *  array
      */
     public static function push(ArrayAccess|array &$array, string|int|null $key, mixed ...$values): array
     {
@@ -1066,7 +1066,7 @@ class Arr
      * Shuffle the given array and return the result.
      *
      * @param  array  $array
-     * @return array
+     *  array
      */
     public static function shuffle($array)
     {
@@ -1109,7 +1109,7 @@ class Arr
      *
      * @param  iterable<TKey, TValue>  $array
      * @param  callable|string|null|array<int, (callable(TValue, TValue): -1|0|1)|array{string, SortDirection|'asc'|'desc'}>  $callback
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public static function sort($array, $callback = null)
     {
@@ -1124,7 +1124,7 @@ class Arr
      *
      * @param  iterable<TKey, TValue>  $array
      * @param  callable|string|null|array<int, (callable(TValue, TValue): -1|0|1)|array{string, 'asc'|'desc'}>  $callback
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public static function sortDesc($array, $callback = null)
     {
@@ -1140,7 +1140,7 @@ class Arr
      * @param  array<TKey, TValue>  $array
      * @param  int-mask-of<SORT_REGULAR|SORT_NUMERIC|SORT_STRING|SORT_LOCALE_STRING|SORT_NATURAL|SORT_FLAG_CASE>  $options
      * @param  SortDirection|bool  $descending
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public static function sortRecursive($array, $options = SORT_REGULAR, $descending = false)
     {
@@ -1173,7 +1173,7 @@ class Arr
      *
      * @param  array<TKey, TValue>  $array
      * @param  int-mask-of<SORT_REGULAR|SORT_NUMERIC|SORT_STRING|SORT_LOCALE_STRING|SORT_NATURAL|SORT_FLAG_CASE>  $options
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public static function sortRecursiveDesc($array, $options = SORT_REGULAR)
     {
@@ -1202,7 +1202,7 @@ class Arr
      * Conditionally compile classes from an array into a CSS class list.
      *
      * @param  array<string, bool>|array<int, string|int>|string  $array
-     * @return ($array is array<string, false> ? '' : ($array is '' ? '' : ($array is array{} ? '' : non-empty-string)))
+     *  ($array is array<string, false> ? '' : ($array is '' ? '' : ($array is array{} ? '' : non-empty-string)))
      */
     public static function toCssClasses($array)
     {
@@ -1225,7 +1225,7 @@ class Arr
      * Conditionally compile styles from an array into a style list.
      *
      * @param  array<string, bool>|array<int, string|int>|string  $array
-     * @return ($array is array<string, false> ? '' : ($array is '' ? '' : ($array is array{} ? '' : non-empty-string)))
+     *  ($array is array<string, false> ? '' : ($array is '' ? '' : ($array is array{} ? '' : non-empty-string)))
      */
     public static function toCssStyles($array)
     {
@@ -1252,7 +1252,7 @@ class Arr
      *
      * @param  array<TKey, TValue>  $array
      * @param  callable(TValue, TKey): bool  $callback
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public static function where($array, callable $callback)
     {
@@ -1267,7 +1267,7 @@ class Arr
      *
      * @param  array<TKey, TValue>  $array
      * @param  callable(TValue, TKey): bool  $callback
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public static function reject($array, callable $callback)
     {
@@ -1282,7 +1282,7 @@ class Arr
      *
      * @param  iterable<TKey, TValue>  $array
      * @param  callable(TValue, TKey): bool  $callback
-     * @return array<int<0, 1>, array<TKey, TValue>>
+     *  array<int<0, 1>, array<TKey, TValue>>
      */
     public static function partition($array, callable $callback)
     {
@@ -1307,7 +1307,7 @@ class Arr
      * @template TValue
      *
      * @param  array<TKey, TValue|null>  $array
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public static function whereNotNull($array)
     {
@@ -1321,7 +1321,7 @@ class Arr
      * @template TValue
      *
      * @param  array<TKey, TValue>|TValue|null  $value
-     * @return ($value is null ? array{} : ($value is array ? array<TKey, TValue> : array{TValue}))
+     *  ($value is null ? array{} : ($value is array ? array<TKey, TValue> : array{TValue}))
      */
     public static function wrap($value)
     {

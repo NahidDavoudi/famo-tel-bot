@@ -11,7 +11,7 @@ use Doctrine\Inflector\Rules\Word;
 
 class Inflectible
 {
-    /** @return iterable<Transformation> */
+    /**  iterable<Transformation> */
     public static function getSingular(): iterable
     {
         // Reverse of -sce → -scia (fasce → fascia)
@@ -59,7 +59,7 @@ class Inflectible
         yield new Transformation(new Pattern('i$'), 'o');
     }
 
-    /** @return iterable<Transformation> */
+    /**  iterable<Transformation> */
     public static function getPlural(): iterable
     {
         // Words ending in -scia without stress on 'i' become -sce (e.g. fascia → fasce)
@@ -93,7 +93,7 @@ class Inflectible
         yield new Transformation(new Pattern('o$'), 'i');  // -o → -i
     }
 
-    /** @return iterable<Substitution> */
+    /**  iterable<Substitution> */
     public static function getIrregular(): iterable
     {
         // Irregular substitutions (singular => plural)

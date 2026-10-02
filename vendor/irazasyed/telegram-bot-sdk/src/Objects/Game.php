@@ -19,7 +19,7 @@ class Game extends BaseObject
     /**
      * {@inheritdoc}
      *
-     * @return array{photo: string[], text_entities: string[], animation: string}
+     *  array{photo: string[], text_entities: string[], animation: string}
      */
     public function relations(): array
     {

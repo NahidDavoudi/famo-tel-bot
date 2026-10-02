@@ -15,7 +15,7 @@ interface Paginator
      * Get the URL for a given page.
      *
      * @param  int  $page
-     * @return string
+     *  string
      */
     public function url($page);
 
@@ -24,7 +24,7 @@ interface Paginator
      *
      * @param  array|string|null  $key
      * @param  string|null  $value
-     * @return $this
+     *  $this
      */
     public function appends($key, $value = null);
 
@@ -32,98 +32,98 @@ interface Paginator
      * Get / set the URL fragment to be appended to URLs.
      *
      * @param  string|null  $fragment
-     * @return ($fragment is null ? string|null : $this)
+     *  ($fragment is null ? string|null : $this)
      */
     public function fragment($fragment = null);
 
     /**
      * Add all current query string values to the paginator.
      *
-     * @return $this
+     *  $this
      */
     public function withQueryString();
 
     /**
      * The URL for the next page, or null.
      *
-     * @return string|null
+     *  string|null
      */
     public function nextPageUrl();
 
     /**
      * Get the URL for the previous page, or null.
      *
-     * @return string|null
+     *  string|null
      */
     public function previousPageUrl();
 
     /**
      * Get all of the items being paginated.
      *
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public function items();
 
     /**
      * Get the "index" of the first item being paginated.
      *
-     * @return int|null
+     *  int|null
      */
     public function firstItem();
 
     /**
      * Get the "index" of the last item being paginated.
      *
-     * @return int|null
+     *  int|null
      */
     public function lastItem();
 
     /**
      * Determine how many items are being shown per page.
      *
-     * @return int
+     *  int
      */
     public function perPage();
 
     /**
      * Determine the current page being paginated.
      *
-     * @return int
+     *  int
      */
     public function currentPage();
 
     /**
      * Determine if there are enough items to split into multiple pages.
      *
-     * @return bool
+     *  bool
      */
     public function hasPages();
 
     /**
      * Determine if there are more items in the data store.
      *
-     * @return bool
+     *  bool
      */
     public function hasMorePages();
 
     /**
      * Get the base path for paginator generated URLs.
      *
-     * @return string|null
+     *  string|null
      */
     public function path();
 
     /**
      * Determine if the list of items is empty or not.
      *
-     * @return bool
+     *  bool
      */
     public function isEmpty();
 
     /**
      * Determine if the list of items is not empty.
      *
-     * @return bool
+     *  bool
      */
     public function isNotEmpty();
 
@@ -132,7 +132,7 @@ interface Paginator
      *
      * @param  string|null  $view
      * @param  array  $data
-     * @return string
+     *  string
      */
     public function render($view = null, $data = []);
 }

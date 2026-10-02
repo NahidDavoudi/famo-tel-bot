@@ -54,7 +54,7 @@ abstract class Manager
     /**
      * Get the default driver name.
      *
-     * @return string|null
+     *  string|null
      */
     abstract public function getDefaultDriver();
 
@@ -62,7 +62,7 @@ abstract class Manager
      * Get a driver instance.
      *
      * @param  \UnitEnum|string|null  $driver
-     * @return mixed
+     *  mixed
      *
      * @throws \InvalidArgumentException
      */
@@ -86,7 +86,7 @@ abstract class Manager
      * Create a new driver instance.
      *
      * @param  string  $driver
-     * @return mixed
+     *  mixed
      *
      * @throws \InvalidArgumentException
      */
@@ -112,7 +112,7 @@ abstract class Manager
      * Call a custom driver creator.
      *
      * @param  string  $driver
-     * @return mixed
+     *  mixed
      */
     protected function callCustomCreator($driver)
     {
@@ -126,7 +126,7 @@ abstract class Manager
      *
      * @param-closure-this  $this  $callback
      *
-     * @return $this
+     *  $this
      */
     public function extend($driver, Closure $callback)
     {
@@ -144,7 +144,7 @@ abstract class Manager
     /**
      * Get all of the created "drivers".
      *
-     * @return array<string, mixed>
+     *  array<string, mixed>
      */
     public function getDrivers()
     {
@@ -154,7 +154,7 @@ abstract class Manager
     /**
      * Get the container instance used by the manager.
      *
-     * @return \Illuminate\Contracts\Container\Container
+     *  \Illuminate\Contracts\Container\Container
      */
     public function getContainer()
     {
@@ -165,7 +165,7 @@ abstract class Manager
      * Set the container instance used by the manager.
      *
      * @param  \Illuminate\Contracts\Container\Container  $container
-     * @return $this
+     *  $this
      */
     public function setContainer(Container $container)
     {
@@ -177,7 +177,7 @@ abstract class Manager
     /**
      * Forget all of the resolved driver instances.
      *
-     * @return $this
+     *  $this
      */
     public function forgetDrivers()
     {
@@ -191,7 +191,7 @@ abstract class Manager
      *
      * @param  string  $method
      * @param  array<string, mixed>  $parameters
-     * @return mixed
+     *  mixed
      */
     public function __call($method, $parameters)
     {

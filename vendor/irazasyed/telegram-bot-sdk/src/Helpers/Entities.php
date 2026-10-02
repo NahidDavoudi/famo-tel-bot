@@ -26,7 +26,7 @@ final class Entities
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function withEntities(array $entities): self
     {
@@ -80,7 +80,7 @@ final class Entities
     /**
      * Formatting Syntax.
      *
-     * @return array{bold: string[], italic: string[], code: string[], pre: string[], text_mention: string[], text_link: string[]}
+     *  array{bold: string[], italic: string[], code: string[], pre: string[], text_mention: string[], text_link: string[]}
      */
     private function syntax(): array
     {

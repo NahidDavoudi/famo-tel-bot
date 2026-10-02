@@ -281,7 +281,7 @@ class CurlMultiHandler
     /**
      * @param string $name
      *
-     * @return resource|\CurlMultiHandle
+     *  resource|\CurlMultiHandle
      *
      * @throws \BadMethodCallException   when another field as `_mh` will be gotten
      * @throws \RuntimeException         when curl can not initialize a multi handle
@@ -600,7 +600,7 @@ class CurlMultiHandler
     }
 
     /**
-     * @return array<int, string>
+     *  array<int, string>
      */
     private static function conflictingCurlMultiOptionSinceOverrides(): array
     {
@@ -701,7 +701,7 @@ class CurlMultiHandler
     }
 
     /**
-     * @return array<int, string>
+     *  array<int, string>
      */
     private static function conflictingCurlMultiOptions(): array
     {
@@ -1107,7 +1107,7 @@ class CurlMultiHandler
      * completion callback, so the wait token guards against waiting on an
      * unrelated transfer that inherited the ID.
      *
-     * @return bool Whether another request had reused the native cURL handle
+     *  bool Whether another request had reused the native cURL handle
      *              ID by the time the loop stopped
      */
     private function executeUntil(int $id, object $waitToken): bool
@@ -1202,7 +1202,7 @@ class CurlMultiHandler
      * Fails a synchronous wait attempted from inside a cURL callback, where
      * native execution cannot progress until the callback returns.
      *
-     * @return bool Whether another request had reused the native cURL handle
+     *  bool Whether another request had reused the native cURL handle
      *              ID, which only matters when no transfer was left to fail
      */
     private function failNestedWait(int $id, object $token): bool
@@ -1270,7 +1270,7 @@ class CurlMultiHandler
      * @param object|null $waitToken Identity token that must still match the
      *                               entry when given.
      *
-     * @return bool True on success, false on failure.
+     *  bool True on success, false on failure.
      */
     private function cancel($id, ?object $waitToken = null): bool
     {
@@ -1416,7 +1416,7 @@ class CurlMultiHandler
      * delayed transfer becoming due does not wait out an unrelated
      * transfer's full select timeout.
      *
-     * @return float|int
+     *  float|int
      */
     private function effectiveSelectTimeout()
     {
@@ -1428,7 +1428,7 @@ class CurlMultiHandler
     }
 
     /**
-     * @return float Seconds until the earliest pending delay is due
+     *  float Seconds until the earliest pending delay is due
      */
     private function secondsToNext(): float
     {

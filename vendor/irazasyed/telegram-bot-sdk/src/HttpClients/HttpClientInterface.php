@@ -29,7 +29,7 @@ interface HttpClientInterface
     /**
      * Set Timeout.
      *
-     * @return $this
+     *  $this
      */
     public function setTimeOut(int $timeOut): static;
 
@@ -41,7 +41,7 @@ interface HttpClientInterface
     /**
      * Set Connection Timeout.
      *
-     * @return $this
+     *  $this
      */
     public function setConnectTimeOut(int $connectTimeOut): static;
 }

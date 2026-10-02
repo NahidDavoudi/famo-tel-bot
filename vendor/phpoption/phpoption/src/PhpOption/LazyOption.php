@@ -41,7 +41,7 @@ final class LazyOption extends Option
      * @param callable(mixed...):(Option<S>) $callback
      * @param array<int, mixed>              $arguments
      *
-     * @return LazyOption<S>
+     *  LazyOption<S>
      */
     public static function create($callback, array $arguments = []): self
     {
@@ -140,7 +140,7 @@ final class LazyOption extends Option
     }
 
     /**
-     * @return Traversable<T>
+     *  Traversable<T>
      */
     public function getIterator(): Traversable
     {
@@ -158,7 +158,7 @@ final class LazyOption extends Option
     }
 
     /**
-     * @return Option<T>
+     *  Option<T>
      */
     private function option(): Option
     {

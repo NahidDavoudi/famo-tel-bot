@@ -15,7 +15,7 @@ class Credentials extends BaseObject
     /**
      * {@inheritdoc}
      *
-     * @return array{secure_data: string}
+     *  array{secure_data: string}
      */
     public function relations(): array
     {

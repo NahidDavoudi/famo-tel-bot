@@ -134,7 +134,7 @@ final class RedactingFormatter implements WrappingFormatterInterface
 
     /**
      * @param  array<mixed> $data
-     * @return array<mixed>
+     *  array<mixed>
      */
     private function redactKeys(array $data, int $depth = 0): array
     {
@@ -158,7 +158,7 @@ final class RedactingFormatter implements WrappingFormatterInterface
      * Gathers the secret values present in the given records, longest first
      *
      * @param  iterable<LogRecord> $records
-     * @return list<string>
+     *  list<string>
      */
     private function collectSecrets(iterable $records): array
     {
@@ -269,7 +269,7 @@ final class RedactingFormatter implements WrappingFormatterInterface
      * Non-public properties are included as they can still leak through __toString(), and the
      * result is cached per class as reflecting on every logged object would be far too costly.
      *
-     * @return array<string, \ReflectionProperty>
+     *  array<string, \ReflectionProperty>
      */
     private function getSensitiveProperties(object $data): array
     {

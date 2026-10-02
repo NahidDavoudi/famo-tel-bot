@@ -71,7 +71,7 @@ class Schema extends Facade
      * Get a schema builder instance for a connection.
      *
      * @param  string|null  $name
-     * @return \Illuminate\Database\Schema\Builder
+     *  \Illuminate\Database\Schema\Builder
      */
     public static function connection($name)
     {
@@ -81,7 +81,7 @@ class Schema extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {

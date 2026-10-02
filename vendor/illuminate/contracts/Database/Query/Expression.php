@@ -10,7 +10,7 @@ interface Expression
      * Get the value of the expression.
      *
      * @param  \Illuminate\Database\Grammar  $grammar
-     * @return string|int|float
+     *  string|int|float
      */
     public function getValue(Grammar $grammar);
 }

@@ -49,7 +49,7 @@ trait Week
      * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
      * @param int|null $dayOfYear first day of year included in the week #1
      *
-     * @return int|static
+     *  int|static
      */
     public function isoWeekYear($year = null, $dayOfWeek = null, $dayOfYear = null)
     {
@@ -69,7 +69,7 @@ trait Week
      * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
      * @param int|null $dayOfYear first day of year included in the week #1
      *
-     * @return int|static
+     *  int|static
      */
     public function weekYear($year = null, $dayOfWeek = null, $dayOfYear = null)
     {
@@ -129,7 +129,7 @@ trait Week
      * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
      * @param int|null $dayOfYear first day of year included in the week #1
      *
-     * @return int
+     *  int
      */
     public function isoWeeksInYear($dayOfWeek = null, $dayOfYear = null)
     {
@@ -147,7 +147,7 @@ trait Week
      * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
      * @param int|null $dayOfYear first day of year included in the week #1
      *
-     * @return int
+     *  int
      */
     public function weeksInYear($dayOfWeek = null, $dayOfYear = null)
     {
@@ -177,7 +177,7 @@ trait Week
      * @param int|null $dayOfWeek
      * @param int|null $dayOfYear
      *
-     * @return int|static
+     *  int|static
      */
     public function week($week = null, $dayOfWeek = null, $dayOfYear = null)
     {
@@ -210,7 +210,7 @@ trait Week
      * @param int|null $dayOfWeek
      * @param int|null $dayOfYear
      *
-     * @return int|static
+     *  int|static
      */
     public function isoWeek($week = null, $dayOfWeek = null, $dayOfYear = null)
     {

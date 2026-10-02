@@ -6,7 +6,7 @@ interface JWTExceptionWithPayloadInterface
     /**
      * Get the payload that caused this exception.
      *
-     * @return object
+     *  object
      */
     public function getPayload(): object;
 
@@ -14,7 +14,7 @@ interface JWTExceptionWithPayloadInterface
      * Get the payload that caused this exception.
      *
      * @param object $payload
-     * @return void
+     *  void
      */
     public function setPayload(object $payload): void;
 }

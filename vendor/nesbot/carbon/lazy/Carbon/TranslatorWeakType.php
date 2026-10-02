@@ -22,7 +22,7 @@ if (!class_exists(LazyTranslator::class, false)) {
          * @param string|null $domain
          * @param string|null $locale
          *
-         * @return string
+         *  string
          */
         public function trans($id, array $parameters = [], $domain = null, $locale = null)
         {

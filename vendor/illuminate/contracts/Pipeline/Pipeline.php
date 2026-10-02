@@ -10,7 +10,7 @@ interface Pipeline
      * Set the object being sent through the pipeline.
      *
      * @param  mixed  $passable
-     * @return $this
+     *  $this
      */
     public function send($passable);
 
@@ -18,7 +18,7 @@ interface Pipeline
      * Set the array of pipes.
      *
      * @param  mixed  $pipes
-     * @return $this
+     *  $this
      */
     public function through($pipes);
 
@@ -26,7 +26,7 @@ interface Pipeline
      * Set the method to call on the pipes.
      *
      * @param  string  $method
-     * @return $this
+     *  $this
      */
     public function via($method);
 
@@ -34,7 +34,7 @@ interface Pipeline
      * Run the pipeline with a final destination callback.
      *
      * @param  \Closure  $destination
-     * @return mixed
+     *  mixed
      */
     public function then(Closure $destination);
 }

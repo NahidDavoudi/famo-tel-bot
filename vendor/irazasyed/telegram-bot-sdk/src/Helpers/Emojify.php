@@ -50,7 +50,7 @@ final class Emojify
     /**
      * Returns the *Singleton* instance of this class.
      *
-     * @return Emojify The *Singleton* instance.
+     *  Emojify The *Singleton* instance.
      */
     public static function getInstance(): ?\Telegram\Bot\Helpers\Emojify
     {
@@ -77,7 +77,7 @@ final class Emojify
     /**
      * Translate Word to Emoji.
      *
-     * @return mixed
+     *  mixed
      */
     public function toEmoji($text)
     {
@@ -87,7 +87,7 @@ final class Emojify
     /**
      * Alias of toEmoji().
      *
-     * @return mixed
+     *  mixed
      */
     public static function text($text)
     {
@@ -97,7 +97,7 @@ final class Emojify
     /**
      * Translate Emoji to Word.
      *
-     * @return mixed
+     *  mixed
      */
     public function toWord($text)
     {
@@ -107,7 +107,7 @@ final class Emojify
     /**
      * Alias of toWord().
      *
-     * @return mixed
+     *  mixed
      */
     public static function translate($text)
     {
@@ -117,7 +117,7 @@ final class Emojify
     /**
      * Replace.
      *
-     * @return mixed
+     *  mixed
      */
     private function replace($line, array $replace, bool $toWord = false, string $delimiter = ':')
     {
@@ -132,7 +132,7 @@ final class Emojify
      * Finds words enclosed by the delimiter and converts them to the
      * appropriate emoji character.
      *
-     * @return mixed
+     *  mixed
      */
     private function wordToEmojiReplace($line, array $replace, string $delimiter)
     {
@@ -146,7 +146,7 @@ final class Emojify
     /**
      * Finds emojis and replaces them with text enclosed by the delimiter.
      *
-     * @return mixed
+     *  mixed
      */
     private function emojiToWordReplace($line, array $replace, string $delimiter)
     {
@@ -160,7 +160,7 @@ final class Emojify
     /**
      * Get Emoji Map Array.
      *
-     * @return array
+     *  array
      *
      * @throws TelegramEmojiMapFileNotFoundException
      */

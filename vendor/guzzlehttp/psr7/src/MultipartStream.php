@@ -187,7 +187,7 @@ final class MultipartStream implements StreamInterface
     /**
      * @param array<array-key, mixed> $headers
      *
-     * @return array{0: StreamInterface, 1: array<array-key, string>}
+     *  array{0: StreamInterface, 1: array<array-key, string>}
      */
     private function createElement(string $name, StreamInterface $stream, ?string $filename, array $headers): array
     {
@@ -251,7 +251,7 @@ final class MultipartStream implements StreamInterface
     /**
      * @param array<array-key, mixed> $headers
      *
-     * @return array<array-key, string>
+     *  array<array-key, string>
      */
     private static function normalizePartHeaders(array $headers): array
     {

@@ -99,7 +99,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Specify the jobs that should be dispatched instead of faked.
      *
      * @param  array|string  $jobsToDispatch
-     * @return $this
+     *  $this
      */
     public function except($jobsToDispatch)
     {
@@ -113,7 +113,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string|\Closure  $command
      * @param  callable|int|null  $callback
-     * @return void
+     *  void
      */
     public function assertDispatched($command, $callback = null)
     {
@@ -137,7 +137,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Assert if a job was pushed exactly once.
      *
      * @param  string|\Closure  $command
-     * @return void
+     *  void
      */
     public function assertDispatchedOnce($command)
     {
@@ -149,7 +149,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string|\Closure  $command
      * @param  int  $times
-     * @return void
+     *  void
      */
     public function assertDispatchedTimes($command, $times = 1)
     {
@@ -178,7 +178,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string|\Closure  $command
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public function assertNotDispatched($command, $callback = null)
     {
@@ -197,7 +197,7 @@ class BusFake implements Fake, QueueingDispatcher
     /**
      * Assert that no jobs were dispatched.
      *
-     * @return void
+     *  void
      */
     public function assertNothingDispatched()
     {
@@ -213,7 +213,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string|\Closure  $command
      * @param  callable|int|null  $callback
-     * @return void
+     *  void
      */
     public function assertDispatchedSync($command, $callback = null)
     {
@@ -236,7 +236,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string|\Closure  $command
      * @param  int  $times
-     * @return void
+     *  void
      */
     public function assertDispatchedSyncTimes($command, $times = 1)
     {
@@ -263,7 +263,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string|\Closure  $command
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public function assertNotDispatchedSync($command, $callback = null)
     {
@@ -282,7 +282,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string|\Closure  $command
      * @param  callable|int|null  $callback
-     * @return void
+     *  void
      */
     public function assertDispatchedAfterResponse($command, $callback = null)
     {
@@ -305,7 +305,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string|\Closure  $command
      * @param  int  $times
-     * @return void
+     *  void
      */
     public function assertDispatchedAfterResponseTimes($command, $times = 1)
     {
@@ -332,7 +332,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string|\Closure  $command
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public function assertNotDispatchedAfterResponse($command, $callback = null)
     {
@@ -350,7 +350,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Assert if a chain of jobs was dispatched.
      *
      * @param  array  $expectedChain
-     * @return void
+     *  void
      */
     public function assertChained(array $expectedChain)
     {
@@ -389,7 +389,7 @@ class BusFake implements Fake, QueueingDispatcher
     /**
      * Assert no chained jobs was dispatched.
      *
-     * @return void
+     *  void
      */
     public function assertNothingChained()
     {
@@ -400,7 +400,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Reset the chain properties to their default values on the job.
      *
      * @param  mixed  $job
-     * @return mixed
+     *  mixed
      */
     protected function resetChainPropertiesToDefaults($job)
     {
@@ -417,7 +417,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string|\Closure  $command
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public function assertDispatchedWithoutChain($command, $callback = null)
     {
@@ -439,7 +439,7 @@ class BusFake implements Fake, QueueingDispatcher
      * @param  string  $command
      * @param  array  $expectedChain
      * @param  callable|null  $callback
-     * @return void
+     *  void
      *
      * @throws \RuntimeException
      */
@@ -492,7 +492,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Create a new assertion about a chained batch.
      *
      * @param  \Closure(\Illuminate\Bus\PendingBatch): bool  $callback
-     * @return \Illuminate\Support\Testing\Fakes\ChainedBatchTruthTest
+     *  \Illuminate\Support\Testing\Fakes\ChainedBatchTruthTest
      */
     public function chainedBatch(Closure $callback)
     {
@@ -503,7 +503,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Assert if a batch was dispatched based on a truth-test callback.
      *
      * @param  array|callable(\Illuminate\Bus\PendingBatch): bool  $callback
-     * @return void
+     *  void
      */
     public function assertBatched(callable|array $callback)
     {
@@ -519,7 +519,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Assert the number of batches that have been dispatched.
      *
      * @param  int  $count
-     * @return void
+     *  void
      */
     public function assertBatchCount($count)
     {
@@ -531,7 +531,7 @@ class BusFake implements Fake, QueueingDispatcher
     /**
      * Assert that no batched jobs were dispatched.
      *
-     * @return void
+     *  void
      */
     public function assertNothingBatched()
     {
@@ -546,7 +546,7 @@ class BusFake implements Fake, QueueingDispatcher
     /**
      * Assert that no jobs were dispatched, chained, or batched.
      *
-     * @return void
+     *  void
      */
     public function assertNothingPlaced()
     {
@@ -559,7 +559,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string  $command
      * @param  callable|null  $callback
-     * @return \Illuminate\Support\Collection
+     *  \Illuminate\Support\Collection
      */
     public function dispatched($command, $callback = null)
     {
@@ -577,7 +577,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string  $command
      * @param  callable|null  $callback
-     * @return \Illuminate\Support\Collection
+     *  \Illuminate\Support\Collection
      */
     public function dispatchedSync(string $command, $callback = null)
     {
@@ -595,7 +595,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  string  $command
      * @param  callable|null  $callback
-     * @return \Illuminate\Support\Collection
+     *  \Illuminate\Support\Collection
      */
     public function dispatchedAfterResponse(string $command, $callback = null)
     {
@@ -612,7 +612,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Get all of the pending batches matching a truth-test callback.
      *
      * @param  callable(\Illuminate\Bus\PendingBatch): bool  $callback
-     * @return \Illuminate\Support\Collection<int, \Illuminate\Bus\PendingBatch>
+     *  \Illuminate\Support\Collection<int, \Illuminate\Bus\PendingBatch>
      */
     public function batched(callable $callback)
     {
@@ -627,7 +627,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Determine if there are any stored commands for a given class.
      *
      * @param  string  $command
-     * @return bool
+     *  bool
      */
     public function hasDispatched($command)
     {
@@ -638,7 +638,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Determine if there are any stored commands for a given class.
      *
      * @param  string  $command
-     * @return bool
+     *  bool
      */
     public function hasDispatchedSync($command)
     {
@@ -649,7 +649,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Determine if there are any stored commands for a given class.
      *
      * @param  string  $command
-     * @return bool
+     *  bool
      */
     public function hasDispatchedAfterResponse($command)
     {
@@ -660,7 +660,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Dispatch a command to its appropriate handler.
      *
      * @param  mixed  $command
-     * @return mixed
+     *  mixed
      */
     public function dispatch($command)
     {
@@ -678,7 +678,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  mixed  $command
      * @param  mixed  $handler
-     * @return mixed
+     *  mixed
      */
     public function dispatchSync($command, $handler = null)
     {
@@ -694,7 +694,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  mixed  $command
      * @param  mixed  $handler
-     * @return mixed
+     *  mixed
      */
     public function dispatchNow($command, $handler = null)
     {
@@ -709,7 +709,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Dispatch a command to its appropriate handler behind a queue.
      *
      * @param  mixed  $command
-     * @return mixed
+     *  mixed
      */
     public function dispatchToQueue($command)
     {
@@ -725,7 +725,7 @@ class BusFake implements Fake, QueueingDispatcher
      *
      * @param  mixed  $command
      * @param  mixed  $handler
-     * @return void
+     *  void
      */
     public function dispatchAfterResponse($command, $handler = null)
     {
@@ -740,7 +740,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Dispatch multiple commands in bulk to their appropriate handlers on the queue.
      *
      * @param  iterable  $jobs
-     * @return void
+     *  void
      */
     public function bulk($jobs)
     {
@@ -753,7 +753,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Create a new chain of queueable jobs.
      *
      * @param  \Illuminate\Support\Collection|array|null  $jobs
-     * @return \Illuminate\Foundation\Bus\PendingChain
+     *  \Illuminate\Foundation\Bus\PendingChain
      */
     public function chain($jobs = null)
     {
@@ -767,7 +767,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Attempt to find the batch with the given ID.
      *
      * @param  string  $batchId
-     * @return \Illuminate\Bus\Batch|null
+     *  \Illuminate\Bus\Batch|null
      */
     public function findBatch(string $batchId)
     {
@@ -778,7 +778,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Create a new batch of queueable jobs.
      *
      * @param  \Illuminate\Support\Collection|array  $jobs
-     * @return \Illuminate\Bus\PendingBatch
+     *  \Illuminate\Bus\PendingBatch
      */
     public function batch($jobs)
     {
@@ -789,7 +789,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Dispatch an empty job batch for testing.
      *
      * @param  string  $name
-     * @return \Illuminate\Bus\Batch
+     *  \Illuminate\Bus\Batch
      */
     public function dispatchFakeBatch($name = '')
     {
@@ -800,7 +800,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Record the fake pending batch dispatch.
      *
      * @param  \Illuminate\Bus\PendingBatch  $pendingBatch
-     * @return \Illuminate\Bus\Batch
+     *  \Illuminate\Bus\Batch
      */
     public function recordPendingBatch(PendingBatch $pendingBatch)
     {
@@ -813,7 +813,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Determine if a command should be faked or actually dispatched.
      *
      * @param  mixed  $command
-     * @return bool
+     *  bool
      */
     protected function shouldFakeJob($command)
     {
@@ -837,7 +837,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Determine if a command should be dispatched or not.
      *
      * @param  mixed  $command
-     * @return bool
+     *  bool
      */
     protected function shouldDispatchCommand($command)
     {
@@ -853,7 +853,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Specify if commands should be serialized and restored when being batched.
      *
      * @param  bool  $serializeAndRestore
-     * @return $this
+     *  $this
      */
     public function serializeAndRestore(bool $serializeAndRestore = true)
     {
@@ -866,7 +866,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Serialize and unserialize the command to simulate the queueing process.
      *
      * @param  mixed  $command
-     * @return mixed
+     *  mixed
      */
     protected function serializeAndRestoreCommand($command)
     {
@@ -877,7 +877,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Return the command representation that should be stored.
      *
      * @param  mixed  $command
-     * @return mixed
+     *  mixed
      */
     protected function getCommandRepresentation($command)
     {
@@ -888,7 +888,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Set the pipes commands should be piped through before dispatching.
      *
      * @param  array  $pipes
-     * @return $this
+     *  $this
      */
     public function pipeThrough(array $pipes)
     {
@@ -901,7 +901,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Determine if the given command has a handler.
      *
      * @param  mixed  $command
-     * @return bool
+     *  bool
      */
     public function hasCommandHandler($command)
     {
@@ -912,7 +912,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Retrieve the handler for a command.
      *
      * @param  mixed  $command
-     * @return mixed
+     *  mixed
      */
     public function getCommandHandler($command)
     {
@@ -923,7 +923,7 @@ class BusFake implements Fake, QueueingDispatcher
      * Map a command to a handler.
      *
      * @param  array  $map
-     * @return $this
+     *  $this
      */
     public function map(array $map)
     {
@@ -935,7 +935,7 @@ class BusFake implements Fake, QueueingDispatcher
     /**
      * Get the batches that have been dispatched.
      *
-     * @return array
+     *  array
      */
     public function dispatchedBatches()
     {

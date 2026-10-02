@@ -21,7 +21,7 @@ class Audio extends BaseObject
     /**
      * {@inheritdoc}
      *
-     * @return array{thumb: string}
+     *  array{thumb: string}
      */
     public function relations(): array
     {

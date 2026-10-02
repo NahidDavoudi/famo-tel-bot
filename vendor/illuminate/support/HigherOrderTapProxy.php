@@ -29,7 +29,7 @@ class HigherOrderTapProxy
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return TTarget
+     *  TTarget
      */
     public function __call($method, $parameters)
     {

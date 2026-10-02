@@ -33,7 +33,7 @@ class PendingBatchFake extends PendingBatch
     /**
      * Dispatch the batch.
      *
-     * @return \Illuminate\Bus\Batch
+     *  \Illuminate\Bus\Batch
      */
     public function dispatch()
     {
@@ -43,7 +43,7 @@ class PendingBatchFake extends PendingBatch
     /**
      * Dispatch the batch after the response is sent to the browser.
      *
-     * @return \Illuminate\Bus\Batch
+     *  \Illuminate\Bus\Batch
      */
     public function dispatchAfterResponse()
     {
@@ -54,7 +54,7 @@ class PendingBatchFake extends PendingBatch
      * Determine if the jobs in the batch match the given jobs.
      *
      * @param  array  $expectedJobs
-     * @return bool
+     *  bool
      */
     public function hasJobs(array $expectedJobs)
     {

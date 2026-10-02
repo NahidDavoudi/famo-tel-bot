@@ -11,7 +11,7 @@ if (! function_exists('collect')) {
      * @template TValue
      *
      * @param  \Illuminate\Contracts\Support\Arrayable<TKey, TValue>|iterable<TKey, TValue>|null  $value
-     * @return \Illuminate\Support\Collection<TKey, TValue>
+     *  \Illuminate\Support\Collection<TKey, TValue>
      */
     function collect($value = []): Collection
     {
@@ -26,7 +26,7 @@ if (! function_exists('data_fill')) {
      * @param  mixed  $target
      * @param  string|array  $key
      * @param  mixed  $value
-     * @return mixed
+     *  mixed
      */
     function data_fill(&$target, $key, $value)
     {
@@ -40,7 +40,7 @@ if (! function_exists('data_has')) {
      *
      * @param  mixed  $target
      * @param  string|array|int|null  $key
-     * @return bool
+     *  bool
      */
     function data_has($target, $key): bool
     {
@@ -71,7 +71,7 @@ if (! function_exists('data_get')) {
      * @param  mixed  $target
      * @param  string|array|int|null  $key
      * @param  mixed  $default
-     * @return mixed
+     *  mixed
      */
     function data_get($target, $key, $default = null)
     {
@@ -134,7 +134,7 @@ if (! function_exists('data_set')) {
      * @param  string|array  $key
      * @param  mixed  $value
      * @param  bool  $overwrite
-     * @return mixed
+     *  mixed
      */
     function data_set(&$target, $key, $value, $overwrite = true)
     {
@@ -194,7 +194,7 @@ if (! function_exists('data_forget')) {
      *
      * @param  mixed  $target
      * @param  string|array|int|null  $key
-     * @return mixed
+     *  mixed
      */
     function data_forget(&$target, $key)
     {
@@ -229,7 +229,7 @@ if (! function_exists('head')) {
      * Get the first element of an array. Useful for method chaining.
      *
      * @param  array  $array
-     * @return mixed
+     *  mixed
      */
     function head($array)
     {
@@ -242,7 +242,7 @@ if (! function_exists('last')) {
      * Get the last element from an array.
      *
      * @param  array  $array
-     * @return mixed
+     *  mixed
      */
     function last($array)
     {
@@ -259,7 +259,7 @@ if (! function_exists('value')) {
      *
      * @param  TValue|\Closure(TArgs): TValue  $value
      * @param  TArgs  ...$args
-     * @return TValue
+     *  TValue
      */
     function value($value, ...$args)
     {
@@ -278,7 +278,7 @@ if (! function_exists('when')) {
      * @param  mixed  $condition
      * @param  TValue|\Closure(TArgs): TValue  $value
      * @param  TDefault|\Closure(): TDefault  $default
-     * @return ($condition is true|positive-int|non-falsy-string|non-empty-array ? TValue : ($condition is callable ? TValue|TDefault : TDefault))
+     *  ($condition is true|positive-int|non-falsy-string|non-empty-array ? TValue : ($condition is callable ? TValue|TDefault : TDefault))
      */
     function when($condition, $value, $default = null)
     {

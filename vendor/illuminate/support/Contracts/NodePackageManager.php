@@ -7,7 +7,7 @@ interface NodePackageManager
     /**
      * Determine if the package manager is in use.
      *
-     * @return bool
+     *  bool
      */
     public static function matches(): bool;
 
@@ -15,7 +15,7 @@ interface NodePackageManager
      * Get the command to run a script using the package manager.
      *
      * @param  string  $command
-     * @return string
+     *  string
      */
     public function getRunCommand(string $command): string;
 
@@ -23,7 +23,7 @@ interface NodePackageManager
      * Get the command to execute a package using the package manager.
      *
      * @param  string  $command
-     * @return string
+     *  string
      */
     public function getExecCommand(string $command): string;
 }

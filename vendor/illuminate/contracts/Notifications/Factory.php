@@ -8,7 +8,7 @@ interface Factory
      * Get a channel instance by name.
      *
      * @param  string|null  $name
-     * @return mixed
+     *  mixed
      */
     public function channel($name = null);
 
@@ -17,7 +17,7 @@ interface Factory
      *
      * @param  \Illuminate\Support\Collection|mixed  $notifiables
      * @param  mixed  $notification
-     * @return void
+     *  void
      */
     public function send($notifiables, $notification);
 
@@ -26,7 +26,7 @@ interface Factory
      *
      * @param  \Illuminate\Support\Collection|mixed  $notifiables
      * @param  mixed  $notification
-     * @return void
+     *  void
      */
     public function sendNow($notifiables, $notification);
 }

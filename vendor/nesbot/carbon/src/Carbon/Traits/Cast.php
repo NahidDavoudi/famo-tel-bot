@@ -30,7 +30,7 @@ trait Cast
      *
      * @param class-string<T> $className The $className::instance() method will be called to cast the current object.
      *
-     * @return T
+     *  T
      */
     public function cast(string $className): mixed
     {

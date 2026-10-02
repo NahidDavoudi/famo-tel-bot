@@ -20,7 +20,7 @@ class Timebox
      *
      * @param  (callable($this): TCallReturnType)  $callback
      * @param  int  $microseconds
-     * @return TCallReturnType
+     *  TCallReturnType
      *
      * @throws \Throwable
      */
@@ -52,7 +52,7 @@ class Timebox
     /**
      * Indicate that the timebox can return early.
      *
-     * @return $this
+     *  $this
      */
     public function returnEarly()
     {
@@ -64,7 +64,7 @@ class Timebox
     /**
      * Indicate that the timebox cannot return early.
      *
-     * @return $this
+     *  $this
      */
     public function dontReturnEarly()
     {
@@ -77,7 +77,7 @@ class Timebox
      * Sleep for the specified number of microseconds.
      *
      * @param  int  $microseconds
-     * @return void
+     *  void
      */
     protected function usleep(int $microseconds)
     {

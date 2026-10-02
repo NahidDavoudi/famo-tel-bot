@@ -31,7 +31,7 @@ class BufferedEventDispatcher implements EventDispatcherInterface, ListenerRegis
     }
 
     /**
-     * @return object[]
+     *  object[]
      */
     public function dispatchBufferedEvents(): array
     {

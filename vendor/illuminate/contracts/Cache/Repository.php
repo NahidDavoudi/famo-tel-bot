@@ -14,7 +14,7 @@ interface Repository extends CacheInterface
      *
      * @param  \UnitEnum|array|string  $key
      * @param  TCacheValue|(\Closure(): TCacheValue)  $default
-     * @return (TCacheValue is null ? mixed : TCacheValue)
+     *  (TCacheValue is null ? mixed : TCacheValue)
      */
     public function pull($key, $default = null);
 
@@ -24,7 +24,7 @@ interface Repository extends CacheInterface
      * @param  \UnitEnum|string  $key
      * @param  mixed  $value
      * @param  \DateTimeInterface|\DateInterval|int|null  $ttl
-     * @return bool
+     *  bool
      */
     public function put($key, $value, $ttl = null);
 
@@ -34,7 +34,7 @@ interface Repository extends CacheInterface
      * @param  \UnitEnum|string  $key
      * @param  mixed  $value
      * @param  \DateTimeInterface|\DateInterval|int|null  $ttl
-     * @return bool
+     *  bool
      */
     public function add($key, $value, $ttl = null);
 
@@ -43,7 +43,7 @@ interface Repository extends CacheInterface
      *
      * @param  \UnitEnum|string  $key
      * @param  mixed  $value
-     * @return int|bool
+     *  int|bool
      */
     public function increment($key, $value = 1);
 
@@ -52,7 +52,7 @@ interface Repository extends CacheInterface
      *
      * @param  \UnitEnum|string  $key
      * @param  mixed  $value
-     * @return int|bool
+     *  int|bool
      */
     public function decrement($key, $value = 1);
 
@@ -61,7 +61,7 @@ interface Repository extends CacheInterface
      *
      * @param  \UnitEnum|string  $key
      * @param  mixed  $value
-     * @return bool
+     *  bool
      */
     public function forever($key, $value);
 
@@ -73,7 +73,7 @@ interface Repository extends CacheInterface
      * @param  \UnitEnum|string  $key
      * @param  \DateTimeInterface|\DateInterval|\Closure|int|null  $ttl
      * @param  \Closure(): TCacheValue  $callback
-     * @return TCacheValue
+     *  TCacheValue
      */
     public function remember($key, $ttl, Closure $callback);
 
@@ -84,7 +84,7 @@ interface Repository extends CacheInterface
      *
      * @param  \UnitEnum|string  $key
      * @param  \Closure(): TCacheValue  $callback
-     * @return TCacheValue
+     *  TCacheValue
      */
     public function sear($key, Closure $callback);
 
@@ -95,7 +95,7 @@ interface Repository extends CacheInterface
      *
      * @param  \UnitEnum|string  $key
      * @param  \Closure(): TCacheValue  $callback
-     * @return TCacheValue
+     *  TCacheValue
      */
     public function rememberForever($key, Closure $callback);
 
@@ -104,7 +104,7 @@ interface Repository extends CacheInterface
      *
      * @param  \UnitEnum|string  $key
      * @param  \DateTimeInterface|\DateInterval|int  $ttl
-     * @return bool
+     *  bool
      */
     public function touch($key, $ttl);
 
@@ -112,14 +112,14 @@ interface Repository extends CacheInterface
      * Remove an item from the cache.
      *
      * @param  \UnitEnum|string  $key
-     * @return bool
+     *  bool
      */
     public function forget($key);
 
     /**
      * Get the cache store implementation.
      *
-     * @return \Illuminate\Contracts\Cache\Store
+     *  \Illuminate\Contracts\Cache\Store
      */
     public function getStore();
 }

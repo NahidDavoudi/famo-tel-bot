@@ -27,7 +27,7 @@ class HtmlString implements Htmlable, Stringable
     /**
      * Get the HTML string.
      *
-     * @return string
+     *  string
      */
     public function toHtml()
     {
@@ -37,7 +37,7 @@ class HtmlString implements Htmlable, Stringable
     /**
      * Determine if the given HTML string is empty.
      *
-     * @return bool
+     *  bool
      */
     public function isEmpty()
     {
@@ -47,7 +47,7 @@ class HtmlString implements Htmlable, Stringable
     /**
      * Determine if the given HTML string is not empty.
      *
-     * @return bool
+     *  bool
      */
     public function isNotEmpty()
     {
@@ -57,7 +57,7 @@ class HtmlString implements Htmlable, Stringable
     /**
      * Get the HTML string.
      *
-     * @return string
+     *  string
      */
     public function __toString()
     {

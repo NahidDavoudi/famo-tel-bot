@@ -91,7 +91,7 @@ class JsonFormatter extends NormalizerFormatter
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function includeStacktraces(bool $include = true): self
     {
@@ -101,7 +101,7 @@ class JsonFormatter extends NormalizerFormatter
     }
 
     /**
-     * @return array<array<mixed>|bool|float|int|\stdClass|string|null>
+     *  array<array<mixed>|bool|float|int|\stdClass|string|null>
      */
     protected function normalizeRecord(LogRecord $record): array
     {
@@ -156,7 +156,7 @@ class JsonFormatter extends NormalizerFormatter
     /**
      * Normalizes given $data.
      *
-     * @return null|scalar|array<mixed[]|scalar|null|object>|object
+     *  null|scalar|array<mixed[]|scalar|null|object>|object
      */
     protected function normalize(mixed $data, int $depth = 0): mixed
     {
@@ -220,7 +220,7 @@ class JsonFormatter extends NormalizerFormatter
      * Normalizes given exception with or without its own stack trace based on
      * `includeStacktraces` property.
      *
-     * @return array<array-key, string|int|array<string|int|array<string>>>
+     *  array<array-key, string|int|array<string|int|array<string>>>
      */
     protected function normalizeException(Throwable $e, int $depth = 0): array
     {

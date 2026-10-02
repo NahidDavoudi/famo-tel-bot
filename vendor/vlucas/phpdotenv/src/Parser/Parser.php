@@ -18,7 +18,7 @@ final class Parser implements ParserInterface
      *
      * @throws \Dotenv\Exception\InvalidFileException
      *
-     * @return \Dotenv\Parser\Entry[]
+     *  \Dotenv\Parser\Entry[]
      */
     public function parse(string $content)
     {
@@ -36,7 +36,7 @@ final class Parser implements ParserInterface
      *
      * @param string[] $entries
      *
-     * @return \GrahamCampbell\ResultType\Result<\Dotenv\Parser\Entry[], string>
+     *  \GrahamCampbell\ResultType\Result<\Dotenv\Parser\Entry[], string>
      */
     private static function process(array $entries)
     {

@@ -122,7 +122,7 @@ final class Query
      *
      * @param mixed $value
      *
-     * @return mixed
+     *  mixed
      */
     private static function normalizeNonFiniteFloat($value)
     {

@@ -39,7 +39,7 @@ use Throwable;
  *
  * @param callable $generatorFn Generator function to wrap into a promise.
  *
- * @return Promise
+ *  Promise
  *
  * @see https://github.com/petkaantonov/bluebird/blob/master/API.md#generators inspiration
  */

@@ -363,7 +363,7 @@ class StreamHandler
      *
      * @param callable $callback Callable that returns stream resource
      *
-     * @return resource
+     *  resource
      *
      * @throws \RuntimeException on error
      */
@@ -400,7 +400,7 @@ class StreamHandler
     }
 
     /**
-     * @return resource
+     *  resource
      */
     private function createStream(RequestInterface $request, array $options)
     {
@@ -756,7 +756,7 @@ class StreamHandler
     }
 
     /**
-     * @return string[]
+     *  string[]
      */
     private static function unsupportedStreamContextOptions(array $streamContext): array
     {
@@ -802,7 +802,7 @@ class StreamHandler
     }
 
     /**
-     * @return array<string, array<string, true>>
+     *  array<string, array<string, true>>
      */
     private static function supportedStreamContextOptions(): array
     {
@@ -829,7 +829,7 @@ class StreamHandler
     }
 
     /**
-     * @return array<string, array<string, string>>
+     *  array<string, array<string, string>>
      */
     private static function conflictingStreamContextOptions(): array
     {
@@ -896,7 +896,7 @@ class StreamHandler
     /**
      * @param mixed $value as passed via Request transfer options.
      *
-     * @return array{0: string, 1: string|null}
+     *  array{0: string, 1: string|null}
      */
     private static function normalizeTlsFileOption(string $option, $value): array
     {

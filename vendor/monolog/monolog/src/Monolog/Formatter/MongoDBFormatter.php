@@ -39,7 +39,7 @@ class MongoDBFormatter implements FormatterInterface
     /**
      * @inheritDoc
      *
-     * @return mixed[]
+     *  mixed[]
      */
     public function format(LogRecord $record): array
     {
@@ -52,7 +52,7 @@ class MongoDBFormatter implements FormatterInterface
     /**
      * @inheritDoc
      *
-     * @return array<mixed[]>
+     *  array<mixed[]>
      */
     public function formatBatch(array $records): array
     {
@@ -66,7 +66,7 @@ class MongoDBFormatter implements FormatterInterface
 
     /**
      * @param  mixed[]        $array
-     * @return mixed[]|string Array except when max nesting level is reached then a string "[...]"
+     *  mixed[]|string Array except when max nesting level is reached then a string "[...]"
      */
     protected function formatArray(array $array, int $nestingLevel = 0)
     {
@@ -91,7 +91,7 @@ class MongoDBFormatter implements FormatterInterface
 
     /**
      * @param  mixed          $value
-     * @return mixed[]|string
+     *  mixed[]|string
      */
     protected function formatObject($value, int $nestingLevel)
     {
@@ -102,7 +102,7 @@ class MongoDBFormatter implements FormatterInterface
     }
 
     /**
-     * @return mixed[]|string
+     *  mixed[]|string
      */
     protected function formatException(\Throwable $exception, int $nestingLevel)
     {

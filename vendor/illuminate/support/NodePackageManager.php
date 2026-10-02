@@ -20,7 +20,7 @@ class NodePackageManager
      * Get the command to execute a package using the detected package manager.
      *
      * @param  string  $command
-     * @return string
+     *  string
      */
     public function getExecCommand(string $command): string
     {
@@ -31,7 +31,7 @@ class NodePackageManager
      * Get the command to run a script using the detected package manager.
      *
      * @param  string  $command
-     * @return string
+     *  string
      */
     public function getRunCommand(string $command): string
     {
@@ -41,7 +41,7 @@ class NodePackageManager
     /**
      * Get the Node package manager in use.
      *
-     * @return NodePackageManagerContract
+     *  NodePackageManagerContract
      */
     public function packageManager(): NodePackageManagerContract
     {
@@ -51,7 +51,7 @@ class NodePackageManager
     /**
      * Detect the current package manager.
      *
-     * @return NodePackageManagerContract
+     *  NodePackageManagerContract
      */
     protected function detect(): NodePackageManagerContract
     {

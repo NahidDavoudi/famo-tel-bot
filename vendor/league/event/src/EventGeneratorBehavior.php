@@ -12,7 +12,7 @@ trait EventGeneratorBehavior
     protected $events = [];
 
     /**
-     * @return $this
+     *  $this
      */
     protected function recordEvent(object $event): self
     {
@@ -22,7 +22,7 @@ trait EventGeneratorBehavior
     }
 
     /**
-     * @return object[]
+     *  object[]
      */
     public function releaseEvents(): array
     {

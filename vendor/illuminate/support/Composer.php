@@ -40,7 +40,7 @@ class Composer
      * Determine if the given Composer package is installed.
      *
      * @param  string  $package
-     * @return bool
+     *  bool
      *
      * @throws \RuntimeException
      */
@@ -59,7 +59,7 @@ class Composer
      * @param  bool  $dev
      * @param  \Closure|\Symfony\Component\Console\Output\OutputInterface|null  $output
      * @param  string|null  $composerBinary
-     * @return bool
+     *  bool
      */
     public function requirePackages(array $packages, bool $dev = false, Closure|OutputInterface|null $output = null, $composerBinary = null)
     {
@@ -88,7 +88,7 @@ class Composer
      * @param  bool  $dev
      * @param  \Closure|\Symfony\Component\Console\Output\OutputInterface|null  $output
      * @param  string|null  $composerBinary
-     * @return bool
+     *  bool
      */
     public function removePackages(array $packages, bool $dev = false, Closure|OutputInterface|null $output = null, $composerBinary = null)
     {
@@ -114,7 +114,7 @@ class Composer
      * Modify the "composer.json" file contents using the given callback.
      *
      * @param  callable(array<string, mixed>):array<string, mixed>  $callback
-     * @return void
+     *  void
      *
      * @throws \JsonException
      * @throws \RuntimeException
@@ -139,7 +139,7 @@ class Composer
      *
      * @param  string|array<string>  $extra
      * @param  string|null  $composerBinary
-     * @return int
+     *  int
      */
     public function dumpAutoloads($extra = '', $composerBinary = null)
     {
@@ -154,7 +154,7 @@ class Composer
      * Regenerate the optimized Composer autoloader files.
      *
      * @param  string|null  $composerBinary
-     * @return int
+     *  int
      */
     public function dumpOptimized($composerBinary = null)
     {
@@ -165,7 +165,7 @@ class Composer
      * Get the Composer binary / command for the environment.
      *
      * @param  string|null  $composerBinary
-     * @return array<string>
+     *  array<string>
      */
     public function findComposer($composerBinary = null)
     {
@@ -181,7 +181,7 @@ class Composer
     /**
      * Get the path to the "composer.json" file.
      *
-     * @return string
+     *  string
      *
      * @throws \RuntimeException
      */
@@ -199,7 +199,7 @@ class Composer
     /**
      * Get the PHP binary.
      *
-     * @return string
+     *  string
      */
     protected function phpBinary()
     {
@@ -211,7 +211,7 @@ class Composer
      *
      * @param  array<string>  $command
      * @param  array<string, string>  $env
-     * @return \Symfony\Component\Process\Process
+     *  \Symfony\Component\Process\Process
      */
     protected function getProcess(array $command, array $env = [])
     {
@@ -222,7 +222,7 @@ class Composer
      * Set the working path used by the class.
      *
      * @param  string  $path
-     * @return $this
+     *  $this
      */
     public function setWorkingPath($path)
     {
@@ -234,7 +234,7 @@ class Composer
     /**
      * Get the version of Composer.
      *
-     * @return string|null
+     *  string|null
      */
     public function getVersion()
     {

@@ -40,7 +40,7 @@ class RejectionException extends \RuntimeException
     /**
      * Returns the rejection reason.
      *
-     * @return mixed
+     *  mixed
      */
     public function getReason()
     {

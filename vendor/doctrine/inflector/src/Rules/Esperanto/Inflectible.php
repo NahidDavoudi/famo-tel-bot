@@ -11,19 +11,19 @@ use Doctrine\Inflector\Rules\Word;
 
 class Inflectible
 {
-    /** @return Transformation[] */
+    /**  Transformation[] */
     public static function getSingular(): iterable
     {
         yield new Transformation(new Pattern('oj$'), 'o');
     }
 
-    /** @return Transformation[] */
+    /**  Transformation[] */
     public static function getPlural(): iterable
     {
         yield new Transformation(new Pattern('o$'), 'oj');
     }
 
-    /** @return Substitution[] */
+    /**  Substitution[] */
     public static function getIrregular(): iterable
     {
         yield new Substitution(new Word(''), new Word(''));

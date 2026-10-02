@@ -36,7 +36,7 @@ class Key
     /**
      * Return the algorithm valid for this key
      *
-     * @return string
+     *  string
      */
     public function getAlgorithm(): string
     {
@@ -44,7 +44,7 @@ class Key
     }
 
     /**
-     * @return string|OpenSSLAsymmetricKey|OpenSSLCertificate
+     *  string|OpenSSLAsymmetricKey|OpenSSLCertificate
      */
     public function getKeyMaterial()
     {

@@ -7,35 +7,35 @@ interface Authenticatable
     /**
      * Get the name of the unique identifier for the user.
      *
-     * @return string
+     *  string
      */
     public function getAuthIdentifierName();
 
     /**
      * Get the unique identifier for the user.
      *
-     * @return mixed
+     *  mixed
      */
     public function getAuthIdentifier();
 
     /**
      * Get the name of the password attribute for the user.
      *
-     * @return string
+     *  string
      */
     public function getAuthPasswordName();
 
     /**
      * Get the password for the user.
      *
-     * @return string
+     *  string
      */
     public function getAuthPassword();
 
     /**
      * Get the token value for the "remember me" session.
      *
-     * @return string|null
+     *  string|null
      */
     public function getRememberToken();
 
@@ -43,14 +43,14 @@ interface Authenticatable
      * Set the token value for the "remember me" session.
      *
      * @param  string  $value
-     * @return void
+     *  void
      */
     public function setRememberToken($value);
 
     /**
      * Get the column name for the "remember me" token.
      *
-     * @return string
+     *  string
      */
     public function getRememberTokenName();
 }

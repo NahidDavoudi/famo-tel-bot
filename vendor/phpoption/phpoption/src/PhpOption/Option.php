@@ -41,7 +41,7 @@ abstract class Option implements IteratorAggregate
      * @param mixed $noneValue The value which should be considered "None";
      *                         null by default.
      *
-     * @return Option<S>
+     *  Option<S>
      */
     public static function fromValue($value, $noneValue = null)
     {
@@ -66,7 +66,7 @@ abstract class Option implements IteratorAggregate
      *                                                \ArrayAccess value.
      * @param K|null                           $key   The key to check.
      *
-     * @return Option<S>
+     *  Option<S>
      */
     public static function fromArraysValue($array, $key)
     {
@@ -91,7 +91,7 @@ abstract class Option implements IteratorAggregate
      * @param mixed                $noneValue The value which should be considered "None";
      *                                        null by default.
      *
-     * @return LazyOption<S>
+     *  LazyOption<S>
      */
     public static function fromReturn($callback, array $arguments = [], $noneValue = null)
     {
@@ -124,7 +124,7 @@ abstract class Option implements IteratorAggregate
      * @param mixed $noneValue Used for the None-check when
      *                         $value is not an Option.
      *
-     * @return Option<S>|LazyOption<S>
+     *  Option<S>|LazyOption<S>
      */
     public static function ensure($value, $noneValue = null)
     {
@@ -158,7 +158,7 @@ abstract class Option implements IteratorAggregate
      * @param callable $callback
      * @param mixed    $noneValue
      *
-     * @return callable(mixed...):(Option<mixed>|LazyOption<mixed>)
+     *  callable(mixed...):(Option<mixed>|LazyOption<mixed>)
      */
     public static function lift($callback, $noneValue = null)
     {
@@ -180,7 +180,7 @@ abstract class Option implements IteratorAggregate
             }
 
             $args = array_map(
-                /** @return T */
+                /**  T */
                 static function (self $o) {
                     // it is safe to do so because the fold above checked
                     // that all arguments are of type Some
@@ -199,7 +199,7 @@ abstract class Option implements IteratorAggregate
      *
      * @throws \RuntimeException If value is not available.
      *
-     * @return T
+     *  T
      */
     abstract public function get();
 
@@ -210,7 +210,7 @@ abstract class Option implements IteratorAggregate
      *
      * @param S $default
      *
-     * @return T|S
+     *  T|S
      */
     abstract public function getOrElse($default);
 
@@ -224,7 +224,7 @@ abstract class Option implements IteratorAggregate
      *
      * @param callable():S $callable
      *
-     * @return T|S
+     *  T|S
      */
     abstract public function getOrCall($callable);
 
@@ -235,21 +235,21 @@ abstract class Option implements IteratorAggregate
      *
      * @throws \Exception If value is not available.
      *
-     * @return T
+     *  T
      */
     abstract public function getOrThrow(\Exception $ex);
 
     /**
      * Returns true if no value is available, false otherwise.
      *
-     * @return bool
+     *  bool
      */
     abstract public function isEmpty();
 
     /**
      * Returns true if a value is available, false otherwise.
      *
-     * @return bool
+     *  bool
      */
     abstract public function isDefined();
 
@@ -269,7 +269,7 @@ abstract class Option implements IteratorAggregate
      *
      * @param Option<U> $else
      *
-     * @return Option<T|U>
+     *  Option<T|U>
      */
     abstract public function orElse(self $else);
 
@@ -293,7 +293,7 @@ abstract class Option implements IteratorAggregate
      *
      * @param callable(T):mixed $callable
      *
-     * @return void
+     *  void
      */
     abstract public function ifDefined($callable);
 
@@ -306,7 +306,7 @@ abstract class Option implements IteratorAggregate
      *
      * @param callable(T):mixed $callable
      *
-     * @return Option<T>
+     *  Option<T>
      */
     abstract public function forAll($callable);
 
@@ -324,7 +324,7 @@ abstract class Option implements IteratorAggregate
      *
      * @param callable(T):S $callable
      *
-     * @return Option<S>
+     *  Option<S>
      */
     abstract public function map($callable);
 
@@ -339,7 +339,7 @@ abstract class Option implements IteratorAggregate
      *
      * @param callable(T):Option<S> $callable must return an Option
      *
-     * @return Option<S>
+     *  Option<S>
      */
     abstract public function flatMap($callable);
 
@@ -351,7 +351,7 @@ abstract class Option implements IteratorAggregate
      *
      * @param callable(T):bool $callable
      *
-     * @return Option<T>
+     *  Option<T>
      */
     abstract public function filter($callable);
 
@@ -363,7 +363,7 @@ abstract class Option implements IteratorAggregate
      *
      * @param callable(T):bool $callable
      *
-     * @return Option<T>
+     *  Option<T>
      */
     abstract public function filterNot($callable);
 
@@ -378,7 +378,7 @@ abstract class Option implements IteratorAggregate
      *
      * @param mixed $value
      *
-     * @return Option<T>
+     *  Option<T>
      */
     abstract public function select($value);
 
@@ -393,7 +393,7 @@ abstract class Option implements IteratorAggregate
      *
      * @param mixed $value
      *
-     * @return Option<T>
+     *  Option<T>
      */
     abstract public function reject($value);
 
@@ -424,7 +424,7 @@ abstract class Option implements IteratorAggregate
      * @param S                $initialValue
      * @param callable(S, T):R $callable
      *
-     * @return S|R
+     *  S|R
      */
     abstract public function foldLeft($initialValue, $callable);
 
@@ -437,7 +437,7 @@ abstract class Option implements IteratorAggregate
      * @param S                $initialValue
      * @param callable(T, S):R $callable
      *
-     * @return S|R
+     *  S|R
      */
     abstract public function foldRight($initialValue, $callable);
 }

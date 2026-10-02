@@ -25,7 +25,7 @@ if (!function_exists('clamp')) {
      * @param L $min
      * @param H $max
      *
-     * @return V|L|H
+     *  V|L|H
      */
     function clamp(mixed $value, mixed $min, mixed $max): mixed { return p\Php86::clamp($value, $min, $max); }
 }

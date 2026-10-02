@@ -47,7 +47,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      * Create a new fluent instance.
      *
      * @param  iterable<TKey, TValue>  $attributes
-     * @return static
+     *  static
      */
     public static function make($attributes = [])
     {
@@ -61,7 +61,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      *
      * @param  TKey  $key
      * @param  TGetDefault|(\Closure(): TGetDefault)  $default
-     * @return TValue|TGetDefault
+     *  TValue|TGetDefault
      */
     public function get($key, $default = null)
     {
@@ -73,7 +73,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      *
      * @param  TKey  $key
      * @param  TValue  $value
-     * @return $this
+     *  $this
      */
     public function set($key, $value)
     {
@@ -86,7 +86,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      * Fill the fluent instance with an array of attributes.
      *
      * @param  iterable<TKey, TValue>  $attributes
-     * @return $this
+     *  $this
      */
     public function fill($attributes)
     {
@@ -102,7 +102,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      *
      * @param  string  $key
      * @param  mixed  $default
-     * @return mixed
+     *  mixed
      */
     public function value($key, $default = null)
     {
@@ -118,7 +118,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      *
      * @param  string  $key
      * @param  mixed  $default
-     * @return static
+     *  static
      */
     public function scope($key, $default = null)
     {
@@ -131,7 +131,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      * Get all of the attributes from the fluent instance.
      *
      * @param  mixed  $keys
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public function all($keys = null)
     {
@@ -155,7 +155,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      *
      * @param  string|null  $key
      * @param  mixed  $default
-     * @return mixed
+     *  mixed
      */
     protected function data($key = null, $default = null)
     {
@@ -165,7 +165,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
     /**
      * Get the attributes from the fluent instance.
      *
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public function getAttributes()
     {
@@ -175,7 +175,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
     /**
      * Convert the fluent instance to an array.
      *
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public function toArray()
     {
@@ -185,7 +185,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
     /**
      * Convert the object into something JSON serializable.
      *
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public function jsonSerialize(): array
     {
@@ -196,7 +196,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      * Convert the fluent instance to JSON.
      *
      * @param  int  $options
-     * @return string
+     *  string
      */
     public function toJson($options = 0)
     {
@@ -207,7 +207,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      * Convert the fluent instance to pretty print formatted JSON.
      *
      * @param  int  $options
-     * @return string
+     *  string
      */
     public function toPrettyJson(int $options = 0)
     {
@@ -217,7 +217,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
     /**
      * Determine if the fluent instance is empty.
      *
-     * @return bool
+     *  bool
      */
     public function isEmpty(): bool
     {
@@ -227,7 +227,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
     /**
      * Determine if the fluent instance is not empty.
      *
-     * @return bool
+     *  bool
      */
     public function isNotEmpty(): bool
     {
@@ -238,7 +238,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      * Determine if the given offset exists.
      *
      * @param  TKey  $offset
-     * @return bool
+     *  bool
      */
     public function offsetExists($offset): bool
     {
@@ -249,7 +249,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      * Get the value for a given offset.
      *
      * @param  TKey  $offset
-     * @return TValue|null
+     *  TValue|null
      */
     public function offsetGet($offset): mixed
     {
@@ -261,7 +261,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      *
      * @param  TKey  $offset
      * @param  TValue  $value
-     * @return void
+     *  void
      */
     public function offsetSet($offset, $value): void
     {
@@ -272,7 +272,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      * Unset the value at the given offset.
      *
      * @param  TKey  $offset
-     * @return void
+     *  void
      */
     public function offsetUnset($offset): void
     {
@@ -282,7 +282,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
     /**
      * Get an iterator for the attributes.
      *
-     * @return ArrayIterator<TKey, TValue>
+     *  ArrayIterator<TKey, TValue>
      */
     public function getIterator(): Traversable
     {
@@ -294,7 +294,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      *
      * @param  TKey  $method
      * @param  array{0?: ?TValue}  $parameters
-     * @return $this
+     *  $this
      */
     public function __call($method, $parameters)
     {
@@ -311,7 +311,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      * Dynamically retrieve the value of an attribute.
      *
      * @param  TKey  $key
-     * @return TValue|null
+     *  TValue|null
      */
     public function __get($key)
     {
@@ -323,7 +323,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      *
      * @param  TKey  $key
      * @param  TValue  $value
-     * @return void
+     *  void
      */
     public function __set($key, $value)
     {
@@ -334,7 +334,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      * Dynamically check if an attribute is set.
      *
      * @param  TKey  $key
-     * @return bool
+     *  bool
      */
     public function __isset($key)
     {
@@ -345,7 +345,7 @@ class Fluent implements Arrayable, ArrayAccess, IteratorAggregate, Jsonable, Jso
      * Dynamically unset an attribute.
      *
      * @param  TKey  $key
-     * @return void
+     *  void
      */
     public function __unset($key)
     {

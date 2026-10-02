@@ -44,7 +44,7 @@ final class Header
     /**
      * Split a header value into semicolon-separated parameters.
      *
-     * @return string[]
+     *  string[]
      */
     private static function splitParameters(string $value): array
     {
@@ -118,7 +118,7 @@ final class Header
      *
      * @param string|string[] $values Header value as returned by MessageInterface::getHeader()
      *
-     * @return string[]
+     *  string[]
      */
     public static function splitList($values): array
     {

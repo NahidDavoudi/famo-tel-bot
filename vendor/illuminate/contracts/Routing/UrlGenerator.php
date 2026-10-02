@@ -7,7 +7,7 @@ interface UrlGenerator
     /**
      * Get the current URL for the request.
      *
-     * @return string
+     *  string
      */
     public function current();
 
@@ -15,7 +15,7 @@ interface UrlGenerator
      * Get the URL for the previous request.
      *
      * @param  mixed  $fallback
-     * @return string
+     *  string
      */
     public function previous($fallback = false);
 
@@ -25,7 +25,7 @@ interface UrlGenerator
      * @param  string  $path
      * @param  mixed  $extra
      * @param  bool|null  $secure
-     * @return string
+     *  string
      */
     public function to($path, $extra = [], $secure = null);
 
@@ -34,7 +34,7 @@ interface UrlGenerator
      *
      * @param  string  $path
      * @param  array  $parameters
-     * @return string
+     *  string
      */
     public function secure($path, $parameters = []);
 
@@ -43,7 +43,7 @@ interface UrlGenerator
      *
      * @param  string  $path
      * @param  bool|null  $secure
-     * @return string
+     *  string
      */
     public function asset($path, $secure = null);
 
@@ -53,7 +53,7 @@ interface UrlGenerator
      * @param  string  $name
      * @param  mixed  $parameters
      * @param  bool  $absolute
-     * @return string
+     *  string
      *
      * @throws \InvalidArgumentException
      */
@@ -66,7 +66,7 @@ interface UrlGenerator
      * @param  mixed  $parameters
      * @param  \DateTimeInterface|\DateInterval|int|null  $expiration
      * @param  bool  $absolute
-     * @return string
+     *  string
      *
      * @throws \InvalidArgumentException
      */
@@ -79,7 +79,7 @@ interface UrlGenerator
      * @param  \DateTimeInterface|\DateInterval|int  $expiration
      * @param  array  $parameters
      * @param  bool  $absolute
-     * @return string
+     *  string
      */
     public function temporarySignedRoute($name, $expiration, $parameters = [], $absolute = true);
 
@@ -90,7 +90,7 @@ interface UrlGenerator
      * @param  array  $query
      * @param  mixed  $extra
      * @param  bool|null  $secure
-     * @return string
+     *  string
      */
     public function query($path, $query = [], $extra = [], $secure = null);
 
@@ -100,14 +100,14 @@ interface UrlGenerator
      * @param  string|array  $action
      * @param  mixed  $parameters
      * @param  bool  $absolute
-     * @return string
+     *  string
      */
     public function action($action, $parameters = [], $absolute = true);
 
     /**
      * Get the root controller namespace.
      *
-     * @return string
+     *  string
      */
     public function getRootControllerNamespace();
 
@@ -115,7 +115,7 @@ interface UrlGenerator
      * Set the root controller namespace.
      *
      * @param  string  $rootNamespace
-     * @return $this
+     *  $this
      */
     public function setRootControllerNamespace($rootNamespace);
 }

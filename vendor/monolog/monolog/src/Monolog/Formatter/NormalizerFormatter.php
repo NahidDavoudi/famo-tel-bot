@@ -53,7 +53,7 @@ class NormalizerFormatter implements FormatterInterface
     /**
      * Normalize an arbitrary value to a scalar|array|null
      *
-     * @return null|scalar|array<mixed[]|scalar|null>
+     *  null|scalar|array<mixed[]|scalar|null>
      */
     public function normalizeValue(mixed $data): mixed
     {
@@ -78,7 +78,7 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function setDateFormat(string $dateFormat): self
     {
@@ -96,7 +96,7 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function setMaxNormalizeDepth(int $maxNormalizeDepth): self
     {
@@ -114,7 +114,7 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function setMaxNormalizeItemCount(int $maxNormalizeItemCount): self
     {
@@ -132,7 +132,7 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function setMaxTraceLength(?int $maxTraceLength): self
     {
@@ -144,7 +144,7 @@ class NormalizerFormatter implements FormatterInterface
     /**
      * Enables `json_encode` pretty print.
      *
-     * @return $this
+     *  $this
      */
     public function setJsonPrettyPrint(bool $enable): self
     {
@@ -159,7 +159,7 @@ class NormalizerFormatter implements FormatterInterface
 
     /**
      * Setting a base path will hide the base path from exception and stack trace file names to shorten them
-     * @return $this
+     *  $this
      */
     public function setBasePath(string $path = ''): self
     {
@@ -178,7 +178,7 @@ class NormalizerFormatter implements FormatterInterface
      * Because normalize is called with sub-values of context data etc, normalizeRecord can be
      * extended when data needs to be appended on the record array but not to other normalized data.
      *
-     * @return array<mixed[]|scalar|null>
+     *  array<mixed[]|scalar|null>
      */
     protected function normalizeRecord(LogRecord $record): array
     {
@@ -189,7 +189,7 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
-     * @return null|scalar|array<mixed[]|scalar|null>
+     *  null|scalar|array<mixed[]|scalar|null>
      */
     protected function normalize(mixed $data, int $depth = 0): mixed
     {
@@ -267,7 +267,7 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
-     * @return array<array-key, string|int|array<string|int|array<string>>>
+     *  array<array-key, string|int|array<string|int|array<string>>>
      */
     protected function normalizeException(Throwable $e, int $depth = 0)
     {
@@ -354,7 +354,7 @@ class NormalizerFormatter implements FormatterInterface
      *
      * @param  mixed             $data
      * @throws \RuntimeException if encoding fails and errors are not ignored
-     * @return string            if encoding fails and ignoreErrors is true 'null' is returned
+     *  string            if encoding fails and ignoreErrors is true 'null' is returned
      */
     protected function toJson($data, bool $ignoreErrors = false): string
     {
@@ -373,7 +373,7 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function addJsonEncodeOption(int $option): self
     {
@@ -383,7 +383,7 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function removeJsonEncodeOption(int $option): self
     {

@@ -63,7 +63,7 @@ trait Location
      *
      * @link https://core.telegram.org/bots/api#editmessagelivelocation
      *
-     * @return MessageObject|bool
+     *  MessageObject|bool
      *
      * @throws TelegramSDKException
      */
@@ -88,7 +88,7 @@ trait Location
      *
      * @link https://core.telegram.org/bots/api#stopmessagelivelocation
      *
-     * @return MessageObject|bool
+     *  MessageObject|bool
      *
      * @throws TelegramSDKException
      */

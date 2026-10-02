@@ -13,7 +13,7 @@ interface ResponseFactory
      * @param  array|string  $content
      * @param  int  $status
      * @param  array  $headers
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function make($content = '', $status = 200, array $headers = []);
 
@@ -22,7 +22,7 @@ interface ResponseFactory
      *
      * @param  int  $status
      * @param  array  $headers
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function noContent($status = 204, array $headers = []);
 
@@ -33,7 +33,7 @@ interface ResponseFactory
      * @param  array  $data
      * @param  int  $status
      * @param  array  $headers
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function view($view, $data = [], $status = 200, array $headers = []);
 
@@ -44,7 +44,7 @@ interface ResponseFactory
      * @param  int  $status
      * @param  array  $headers
      * @param  int  $options
-     * @return \Illuminate\Http\JsonResponse
+     *  \Illuminate\Http\JsonResponse
      */
     public function json($data = [], $status = 200, array $headers = [], $options = 0);
 
@@ -56,7 +56,7 @@ interface ResponseFactory
      * @param  int  $status
      * @param  array  $headers
      * @param  int  $options
-     * @return \Illuminate\Http\JsonResponse
+     *  \Illuminate\Http\JsonResponse
      */
     public function jsonp($callback, $data = [], $status = 200, array $headers = [], $options = 0);
 
@@ -66,7 +66,7 @@ interface ResponseFactory
      * @param  \Closure  $callback
      * @param  array  $headers
      * @param  \Illuminate\Http\StreamedEvent|string|null  $endStreamWith
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     *  \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function eventStream(Closure $callback, array $headers = [], StreamedEvent|string|null $endStreamWith = '</stream>');
 
@@ -76,7 +76,7 @@ interface ResponseFactory
      * @param  callable  $callback
      * @param  int  $status
      * @param  array  $headers
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     *  \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function stream($callback, $status = 200, array $headers = []);
 
@@ -87,7 +87,7 @@ interface ResponseFactory
      * @param  int  $status
      * @param  array  $headers
      * @param  int  $encodingOptions
-     * @return \Symfony\Component\HttpFoundation\StreamedJsonResponse
+     *  \Symfony\Component\HttpFoundation\StreamedJsonResponse
      */
     public function streamJson($data, $status = 200, $headers = [], $encodingOptions = 15);
 
@@ -98,7 +98,7 @@ interface ResponseFactory
      * @param  string|null  $name
      * @param  array  $headers
      * @param  string|null  $disposition
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     *  \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function streamDownload($callback, $name = null, array $headers = [], $disposition = 'attachment');
 
@@ -109,7 +109,7 @@ interface ResponseFactory
      * @param  string|null  $name
      * @param  array  $headers
      * @param  string|null  $disposition
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     *  \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function download($file, $name = null, array $headers = [], $disposition = 'attachment');
 
@@ -118,7 +118,7 @@ interface ResponseFactory
      *
      * @param  \SplFileInfo|string  $file
      * @param  array  $headers
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     *  \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function file($file, array $headers = []);
 
@@ -129,7 +129,7 @@ interface ResponseFactory
      * @param  int  $status
      * @param  array  $headers
      * @param  bool|null  $secure
-     * @return \Illuminate\Http\RedirectResponse
+     *  \Illuminate\Http\RedirectResponse
      */
     public function redirectTo($path, $status = 302, $headers = [], $secure = null);
 
@@ -140,7 +140,7 @@ interface ResponseFactory
      * @param  mixed  $parameters
      * @param  int  $status
      * @param  array  $headers
-     * @return \Illuminate\Http\RedirectResponse
+     *  \Illuminate\Http\RedirectResponse
      */
     public function redirectToRoute($route, $parameters = [], $status = 302, $headers = []);
 
@@ -151,7 +151,7 @@ interface ResponseFactory
      * @param  mixed  $parameters
      * @param  int  $status
      * @param  array  $headers
-     * @return \Illuminate\Http\RedirectResponse
+     *  \Illuminate\Http\RedirectResponse
      */
     public function redirectToAction($action, $parameters = [], $status = 302, $headers = []);
 
@@ -162,7 +162,7 @@ interface ResponseFactory
      * @param  int  $status
      * @param  array  $headers
      * @param  bool|null  $secure
-     * @return \Illuminate\Http\RedirectResponse
+     *  \Illuminate\Http\RedirectResponse
      */
     public function redirectGuest($path, $status = 302, $headers = [], $secure = null);
 
@@ -173,7 +173,7 @@ interface ResponseFactory
      * @param  int  $status
      * @param  array  $headers
      * @param  bool|null  $secure
-     * @return \Illuminate\Http\RedirectResponse
+     *  \Illuminate\Http\RedirectResponse
      */
     public function redirectToIntended($default = '/', $status = 302, $headers = [], $secure = null);
 }

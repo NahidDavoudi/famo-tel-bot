@@ -67,7 +67,7 @@ trait StaticOptions
      * Returns true if the strict mode is globally in use, false else.
      * (It can be overridden in specific instances.)
      *
-     * @return bool
+     *  bool
      */
     public static function isStrictModeEnabled(): bool
     {
@@ -85,7 +85,7 @@ trait StaticOptions
      *
      * @param bool $monthsOverflow
      *
-     * @return void
+     *  void
      */
     public static function useMonthsOverflow(bool $monthsOverflow = true): void
     {
@@ -101,7 +101,7 @@ trait StaticOptions
      *
      * Reset the month overflow behavior.
      *
-     * @return void
+     *  void
      */
     public static function resetMonthsOverflow(): void
     {
@@ -111,7 +111,7 @@ trait StaticOptions
     /**
      * Get the month overflow global behavior (can be overridden in specific instances).
      *
-     * @return bool
+     *  bool
      */
     public static function shouldOverflowMonths(): bool
     {
@@ -129,7 +129,7 @@ trait StaticOptions
      *
      * @param bool $yearsOverflow
      *
-     * @return void
+     *  void
      */
     public static function useYearsOverflow(bool $yearsOverflow = true): void
     {
@@ -145,7 +145,7 @@ trait StaticOptions
      *
      * Reset the month overflow behavior.
      *
-     * @return void
+     *  void
      */
     public static function resetYearsOverflow(): void
     {
@@ -155,7 +155,7 @@ trait StaticOptions
     /**
      * Get the month overflow global behavior (can be overridden in specific instances).
      *
-     * @return bool
+     *  bool
      */
     public static function shouldOverflowYears(): bool
     {

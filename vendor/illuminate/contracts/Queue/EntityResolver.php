@@ -9,7 +9,7 @@ interface EntityResolver
      *
      * @param  string  $type
      * @param  mixed  $id
-     * @return mixed
+     *  mixed
      */
     public function resolve($type, $id);
 }

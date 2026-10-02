@@ -36,7 +36,7 @@ abstract class BaseObject extends Collection
     /**
      * Magically access collection data.
      *
-     * @return mixed
+     *  mixed
      */
     public function __get($key)
     {
@@ -88,7 +88,7 @@ abstract class BaseObject extends Collection
     abstract public function relations(): array;
 
     /**
-     * @return array|Enumerable|EnumeratesValues|BaseObject
+     *  array|Enumerable|EnumeratesValues|BaseObject
      */
     protected function getRelationValue(string $relativeName, iterable $relativeData): mixed
     {
@@ -139,7 +139,7 @@ abstract class BaseObject extends Collection
     /**
      * Returns raw response.
      *
-     * @return array|mixed
+     *  array|mixed
      */
     public function getRawResponse(): mixed
     {
@@ -177,7 +177,7 @@ abstract class BaseObject extends Collection
     /**
      * Magic method to get properties dynamically.
      *
-     * @return mixed
+     *  mixed
      */
     public function __call($method, $parameters)
     {

@@ -18,7 +18,7 @@ final class Str
      *
      * @codeCoverageIgnore
      *
-     * @return void
+     *  void
      */
     private function __construct()
     {
@@ -31,7 +31,7 @@ final class Str
      * @param string      $input
      * @param string|null $encoding
      *
-     * @return \GrahamCampbell\ResultType\Result<string, string>
+     *  \GrahamCampbell\ResultType\Result<string, string>
      */
     public static function utf8(string $input, ?string $encoding = null)
     {
@@ -68,7 +68,7 @@ final class Str
      *
      * @param string $encoding
      *
-     * @return bool
+     *  bool
      */
     private static function isValidEncoding(string $encoding)
     {
@@ -93,7 +93,7 @@ final class Str
      * @param string $haystack
      * @param string $needle
      *
-     * @return \PhpOption\Option<int<0, max>>
+     *  \PhpOption\Option<int<0, max>>
      */
     public static function pos(string $haystack, string $needle)
     {
@@ -108,7 +108,7 @@ final class Str
      * @param int      $start
      * @param int|null $length
      *
-     * @return string
+     *  string
      */
     public static function substr(string $input, int $start, ?int $length = null)
     {
@@ -120,7 +120,7 @@ final class Str
      *
      * @param string $input
      *
-     * @return int
+     *  int
      */
     public static function len(string $input)
     {

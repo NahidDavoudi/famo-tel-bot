@@ -36,7 +36,7 @@ interface UriInterface
      * added.
      *
      * @see https://tools.ietf.org/html/rfc3986#section-3.1
-     * @return string The URI scheme.
+     *  string The URI scheme.
      */
     public function getScheme(): string;
 
@@ -56,7 +56,7 @@ interface UriInterface
      * scheme, it SHOULD NOT be included.
      *
      * @see https://tools.ietf.org/html/rfc3986#section-3.2
-     * @return string The URI authority, in "[user-info@]host[:port]" format.
+     *  string The URI authority, in "[user-info@]host[:port]" format.
      */
     public function getAuthority(): string;
 
@@ -73,7 +73,7 @@ interface UriInterface
      * The trailing "@" character is not part of the user information and MUST
      * NOT be added.
      *
-     * @return string The URI user information, in "username[:password]" format.
+     *  string The URI user information, in "username[:password]" format.
      */
     public function getUserInfo(): string;
 
@@ -86,7 +86,7 @@ interface UriInterface
      * Section 3.2.2.
      *
      * @see http://tools.ietf.org/html/rfc3986#section-3.2.2
-     * @return string The URI host.
+     *  string The URI host.
      */
     public function getHost(): string;
 
@@ -103,7 +103,7 @@ interface UriInterface
      * If no port is present, but a scheme is present, this method MAY return
      * the standard port for that scheme, but SHOULD return null.
      *
-     * @return null|int The URI port.
+     *  null|int The URI port.
      */
     public function getPort(): ?int;
 
@@ -130,7 +130,7 @@ interface UriInterface
      *
      * @see https://tools.ietf.org/html/rfc3986#section-2
      * @see https://tools.ietf.org/html/rfc3986#section-3.3
-     * @return string The URI path.
+     *  string The URI path.
      */
     public function getPath(): string;
 
@@ -152,7 +152,7 @@ interface UriInterface
      *
      * @see https://tools.ietf.org/html/rfc3986#section-2
      * @see https://tools.ietf.org/html/rfc3986#section-3.4
-     * @return string The URI query string.
+     *  string The URI query string.
      */
     public function getQuery(): string;
 
@@ -170,7 +170,7 @@ interface UriInterface
      *
      * @see https://tools.ietf.org/html/rfc3986#section-2
      * @see https://tools.ietf.org/html/rfc3986#section-3.5
-     * @return string The URI fragment.
+     *  string The URI fragment.
      */
     public function getFragment(): string;
 
@@ -186,7 +186,7 @@ interface UriInterface
      * An empty scheme is equivalent to removing the scheme.
      *
      * @param string $scheme The scheme to use with the new instance.
-     * @return static A new instance with the specified scheme.
+     *  static A new instance with the specified scheme.
      * @throws \InvalidArgumentException for invalid or unsupported schemes.
      */
     public function withScheme(string $scheme): UriInterface;
@@ -203,7 +203,7 @@ interface UriInterface
      *
      * @param string $user The user name to use for authority.
      * @param null|string $password The password associated with $user.
-     * @return static A new instance with the specified user information.
+     *  static A new instance with the specified user information.
      */
     public function withUserInfo(string $user, ?string $password = null): UriInterface;
 
@@ -216,7 +216,7 @@ interface UriInterface
      * An empty host value is equivalent to removing the host.
      *
      * @param string $host The hostname to use with the new instance.
-     * @return static A new instance with the specified host.
+     *  static A new instance with the specified host.
      * @throws \InvalidArgumentException for invalid hostnames.
      */
     public function withHost(string $host): UriInterface;
@@ -235,7 +235,7 @@ interface UriInterface
      *
      * @param null|int $port The port to use with the new instance; a null value
      *     removes the port information.
-     * @return static A new instance with the specified port.
+     *  static A new instance with the specified port.
      * @throws \InvalidArgumentException for invalid ports.
      */
     public function withPort(?int $port): UriInterface;
@@ -259,7 +259,7 @@ interface UriInterface
      * Implementations ensure the correct encoding as outlined in getPath().
      *
      * @param string $path The path to use with the new instance.
-     * @return static A new instance with the specified path.
+     *  static A new instance with the specified path.
      * @throws \InvalidArgumentException for invalid paths.
      */
     public function withPath(string $path): UriInterface;
@@ -276,7 +276,7 @@ interface UriInterface
      * An empty query string value is equivalent to removing the query string.
      *
      * @param string $query The query string to use with the new instance.
-     * @return static A new instance with the specified query string.
+     *  static A new instance with the specified query string.
      * @throws \InvalidArgumentException for invalid query strings.
      */
     public function withQuery(string $query): UriInterface;
@@ -293,7 +293,7 @@ interface UriInterface
      * An empty fragment value is equivalent to removing the fragment.
      *
      * @param string $fragment The fragment to use with the new instance.
-     * @return static A new instance with the specified fragment.
+     *  static A new instance with the specified fragment.
      */
     public function withFragment(string $fragment): UriInterface;
 
@@ -318,7 +318,7 @@ interface UriInterface
      * - If a fragment is present, it MUST be prefixed by "#".
      *
      * @see http://tools.ietf.org/html/rfc3986#section-4.1
-     * @return string
+     *  string
      */
     public function __toString(): string;
 }

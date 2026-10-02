@@ -7,21 +7,21 @@ interface CachesConfiguration
     /**
      * Determine if the application configuration is cached.
      *
-     * @return bool
+     *  bool
      */
     public function configurationIsCached();
 
     /**
      * Get the path to the configuration cache file.
      *
-     * @return string
+     *  string
      */
     public function getCachedConfigPath();
 
     /**
      * Get the path to the cached services.php file.
      *
-     * @return string
+     *  string
      */
     public function getCachedServicesPath();
 }

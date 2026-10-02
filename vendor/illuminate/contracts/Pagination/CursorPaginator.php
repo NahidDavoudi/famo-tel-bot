@@ -15,7 +15,7 @@ interface CursorPaginator
      * Get the URL for a given cursor.
      *
      * @param  \Illuminate\Pagination\Cursor|null  $cursor
-     * @return string
+     *  string
      */
     public function url($cursor);
 
@@ -24,7 +24,7 @@ interface CursorPaginator
      *
      * @param  array|string|null  $key
      * @param  string|null  $value
-     * @return $this
+     *  $this
      */
     public function appends($key, $value = null);
 
@@ -32,98 +32,98 @@ interface CursorPaginator
      * Get / set the URL fragment to be appended to URLs.
      *
      * @param  string|null  $fragment
-     * @return ($fragment is null ? string|null : $this)
+     *  ($fragment is null ? string|null : $this)
      */
     public function fragment($fragment = null);
 
     /**
      * Add all current query string values to the paginator.
      *
-     * @return $this
+     *  $this
      */
     public function withQueryString();
 
     /**
      * Get the URL for the previous page, or null.
      *
-     * @return string|null
+     *  string|null
      */
     public function previousPageUrl();
 
     /**
      * The URL for the next page, or null.
      *
-     * @return string|null
+     *  string|null
      */
     public function nextPageUrl();
 
     /**
      * Get all of the items being paginated.
      *
-     * @return array<TKey, TValue>
+     *  array<TKey, TValue>
      */
     public function items();
 
     /**
      * Get the "cursor" of the previous set of items.
      *
-     * @return \Illuminate\Pagination\Cursor|null
+     *  \Illuminate\Pagination\Cursor|null
      */
     public function previousCursor();
 
     /**
      * Get the "cursor" of the next set of items.
      *
-     * @return \Illuminate\Pagination\Cursor|null
+     *  \Illuminate\Pagination\Cursor|null
      */
     public function nextCursor();
 
     /**
      * Determine how many items are being shown per page.
      *
-     * @return int
+     *  int
      */
     public function perPage();
 
     /**
      * Get the current cursor being paginated.
      *
-     * @return \Illuminate\Pagination\Cursor|null
+     *  \Illuminate\Pagination\Cursor|null
      */
     public function cursor();
 
     /**
      * Determine if there are enough items to split into multiple pages.
      *
-     * @return bool
+     *  bool
      */
     public function hasPages();
 
     /**
      * Determine if there are more items in the data source.
      *
-     * @return bool
+     *  bool
      */
     public function hasMorePages();
 
     /**
      * Get the base path for paginator generated URLs.
      *
-     * @return string|null
+     *  string|null
      */
     public function path();
 
     /**
      * Determine if the list of items is empty or not.
      *
-     * @return bool
+     *  bool
      */
     public function isEmpty();
 
     /**
      * Determine if the list of items is not empty.
      *
-     * @return bool
+     *  bool
      */
     public function isNotEmpty();
 
@@ -132,7 +132,7 @@ interface CursorPaginator
      *
      * @param  string|null  $view
      * @param  array  $data
-     * @return string
+     *  string
      */
     public function render($view = null, $data = []);
 }

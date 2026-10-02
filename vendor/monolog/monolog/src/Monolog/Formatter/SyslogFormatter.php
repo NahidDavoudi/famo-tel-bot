@@ -44,7 +44,7 @@ class SyslogFormatter extends LineFormatter
     }
 
     /**
-     * @return array<string, mixed>
+     *  array<string, mixed>
      */
     private function formatExtra(LogRecord $record): array
     {

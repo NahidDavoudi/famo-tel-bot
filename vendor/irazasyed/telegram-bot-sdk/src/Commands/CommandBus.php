@@ -39,7 +39,7 @@ class CommandBus extends AnswerBus
     /**
      * Returns the list of commands.
      *
-     * @return array<string, Command>
+     *  array<string, Command>
      */
     public function getCommands(): array
     {
@@ -118,7 +118,7 @@ class CommandBus extends AnswerBus
      * Parse a Command for a Match.
      *
      * @param  string  $text  Command name with a leading slash
-     * @return string Telegram command name (without leading slash)
+     *  string Telegram command name (without leading slash)
      */
     protected function parseCommand(string $text, int $offset, int $length): string
     {

@@ -58,7 +58,7 @@ trait Timestamp
      *
      * @param float|int|string $timestamp
      *
-     * @return static
+     *  static
      */
     public static function createFromTimestampMsUTC($timestamp): static
     {
@@ -115,7 +115,7 @@ trait Timestamp
      *
      * @param int $precision
      *
-     * @return float
+     *  float
      */
     public function getPreciseTimestamp($precision = 6): float
     {
@@ -125,7 +125,7 @@ trait Timestamp
     /**
      * Returns the milliseconds timestamps used amongst other by Date javascript objects.
      *
-     * @return float
+     *  float
      */
     public function valueOf(): float
     {
@@ -135,7 +135,7 @@ trait Timestamp
     /**
      * Returns the timestamp with millisecond precision.
      *
-     * @return int
+     *  int
      */
     public function getTimestampMs(): int
     {
@@ -147,7 +147,7 @@ trait Timestamp
      *
      * Returns the UNIX timestamp for the current date.
      *
-     * @return int
+     *  int
      */
     public function unix(): int
     {
@@ -164,7 +164,7 @@ trait Timestamp
      * @param float|int|string $numbers  one or more numbers
      * @param int              $decimals number of decimals precision (6 by default)
      *
-     * @return array 0-index is integer part, 1-index is decimal part digits
+     *  array 0-index is integer part, 1-index is decimal part digits
      */
     private static function getIntegerAndDecimalParts($numbers, $decimals = 6): array
     {

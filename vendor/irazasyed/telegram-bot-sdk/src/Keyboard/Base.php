@@ -19,7 +19,7 @@ class Base extends Collection
      * Dynamically build params.
      *
      * @param  string  $method
-     * @return $this
+     *  $this
      */
     public function __call($method, $parameters)
     {

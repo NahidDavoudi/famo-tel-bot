@@ -76,7 +76,7 @@ interface ClientInterface
      *
      * @param string|null $option The config option to retrieve.
      *
-     * @return mixed
+     *  mixed
      *
      * @deprecated ClientInterface::getConfig will be removed in guzzlehttp/guzzle:8.0.
      */

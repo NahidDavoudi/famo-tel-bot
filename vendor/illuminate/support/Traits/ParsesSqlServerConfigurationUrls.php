@@ -29,7 +29,7 @@ trait ParsesSqlServerConfigurationUrls
      * Determine if the given value is a SQL Server DSN.
      *
      * @param  string  $url
-     * @return bool
+     *  bool
      */
     protected function isSqlServerDsn($url)
     {
@@ -41,7 +41,7 @@ trait ParsesSqlServerConfigurationUrls
      *
      * @param  array<string, mixed>  $config
      * @param  string  $dsn
-     * @return array<string, mixed>
+     *  array<string, mixed>
      */
     protected function parseSqlServerDsnConfiguration($config, $dsn)
     {
@@ -65,7 +65,7 @@ trait ParsesSqlServerConfigurationUrls
      * Get the database configuration options from a SQL Server DSN.
      *
      * @param  array<string, string>  $options
-     * @return array<string, mixed>
+     *  array<string, mixed>
      */
     protected function getSqlServerDsnConfigurationOptions($options)
     {
@@ -94,7 +94,7 @@ trait ParsesSqlServerConfigurationUrls
      * Parse the options from a SQL Server DSN.
      *
      * @param  string  $dsn
-     * @return array<string, string>
+     *  array<string, string>
      */
     protected function parseSqlServerDsnOptions($dsn)
     {
@@ -124,7 +124,7 @@ trait ParsesSqlServerConfigurationUrls
      * Parse the host and port from a SQL Server DSN Server option.
      *
      * @param  string|null  $server
-     * @return array{0: string|null, 1: int|null}
+     *  array{0: string|null, 1: int|null}
      */
     protected function parseSqlServerDsnServer($server)
     {

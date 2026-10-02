@@ -89,7 +89,7 @@ class CookieJar implements CookieJarInterface
      *
      * @param string $name cookie name to search for
      *
-     * @return SetCookie|null cookie that was found or null if not found
+     *  SetCookie|null cookie that was found or null if not found
      */
     public function getCookieByName(string $name): ?SetCookie
     {
@@ -230,7 +230,7 @@ class CookieJar implements CookieJarInterface
     }
 
     /**
-     * @return \ArrayIterator<int, SetCookie>
+     *  \ArrayIterator<int, SetCookie>
      */
     public function getIterator(): \ArrayIterator
     {

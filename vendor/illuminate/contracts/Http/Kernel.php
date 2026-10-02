@@ -7,7 +7,7 @@ interface Kernel
     /**
      * Bootstrap the application for HTTP requests.
      *
-     * @return void
+     *  void
      */
     public function bootstrap();
 
@@ -15,7 +15,7 @@ interface Kernel
      * Handle an incoming HTTP request.
      *
      * @param  \Symfony\Component\HttpFoundation\Request  $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     *  \Symfony\Component\HttpFoundation\Response
      */
     public function handle($request);
 
@@ -24,14 +24,14 @@ interface Kernel
      *
      * @param  \Symfony\Component\HttpFoundation\Request  $request
      * @param  \Symfony\Component\HttpFoundation\Response  $response
-     * @return void
+     *  void
      */
     public function terminate($request, $response);
 
     /**
      * Get the Laravel application instance.
      *
-     * @return \Illuminate\Contracts\Foundation\Application
+     *  \Illuminate\Contracts\Foundation\Application
      */
     public function getApplication();
 }

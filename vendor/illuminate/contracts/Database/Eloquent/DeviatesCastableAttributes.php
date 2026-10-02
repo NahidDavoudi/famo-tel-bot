@@ -11,7 +11,7 @@ interface DeviatesCastableAttributes
      * @param  string  $key
      * @param  mixed  $value
      * @param  array  $attributes
-     * @return mixed
+     *  mixed
      */
     public function increment($model, string $key, $value, array $attributes);
 
@@ -22,7 +22,7 @@ interface DeviatesCastableAttributes
      * @param  string  $key
      * @param  mixed  $value
      * @param  array  $attributes
-     * @return mixed
+     *  mixed
      */
     public function decrement($model, string $key, $value, array $attributes);
 }

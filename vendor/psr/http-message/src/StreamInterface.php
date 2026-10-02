@@ -23,14 +23,14 @@ interface StreamInterface
      * string casting operations.
      *
      * @see http://php.net/manual/en/language.oop5.magic.php#object.tostring
-     * @return string
+     *  string
      */
     public function __toString(): string;
 
     /**
      * Closes the stream and any underlying resources.
      *
-     * @return void
+     *  void
      */
     public function close(): void;
 
@@ -39,21 +39,21 @@ interface StreamInterface
      *
      * After the stream has been detached, the stream is in an unusable state.
      *
-     * @return resource|null Underlying PHP stream, if any
+     *  resource|null Underlying PHP stream, if any
      */
     public function detach();
 
     /**
      * Get the size of the stream if known.
      *
-     * @return int|null Returns the size in bytes if known, or null if unknown.
+     *  int|null Returns the size in bytes if known, or null if unknown.
      */
     public function getSize(): ?int;
 
     /**
      * Returns the current position of the file read/write pointer
      *
-     * @return int Position of the file pointer
+     *  int Position of the file pointer
      * @throws \RuntimeException on error.
      */
     public function tell(): int;
@@ -61,14 +61,14 @@ interface StreamInterface
     /**
      * Returns true if the stream is at the end of the stream.
      *
-     * @return bool
+     *  bool
      */
     public function eof(): bool;
 
     /**
      * Returns whether or not the stream is seekable.
      *
-     * @return bool
+     *  bool
      */
     public function isSeekable(): bool;
 
@@ -101,7 +101,7 @@ interface StreamInterface
     /**
      * Returns whether or not the stream is writable.
      *
-     * @return bool
+     *  bool
      */
     public function isWritable(): bool;
 
@@ -109,7 +109,7 @@ interface StreamInterface
      * Write data to the stream.
      *
      * @param string $string The string that is to be written.
-     * @return int Returns the number of bytes written to the stream.
+     *  int Returns the number of bytes written to the stream.
      * @throws \RuntimeException on failure.
      */
     public function write(string $string): int;
@@ -117,7 +117,7 @@ interface StreamInterface
     /**
      * Returns whether or not the stream is readable.
      *
-     * @return bool
+     *  bool
      */
     public function isReadable(): bool;
 
@@ -127,7 +127,7 @@ interface StreamInterface
      * @param int $length Read up to $length bytes from the object and return
      *     them. Fewer than $length bytes may be returned if underlying stream
      *     call returns fewer bytes.
-     * @return string Returns the data read from the stream, or an empty string
+     *  string Returns the data read from the stream, or an empty string
      *     if no bytes are available.
      * @throws \RuntimeException if an error occurs.
      */
@@ -136,7 +136,7 @@ interface StreamInterface
     /**
      * Returns the remaining contents in a string
      *
-     * @return string
+     *  string
      * @throws \RuntimeException if unable to read or an error occurs while
      *     reading.
      */
@@ -150,7 +150,7 @@ interface StreamInterface
      *
      * @link http://php.net/manual/en/function.stream-get-meta-data.php
      * @param string|null $key Specific metadata to retrieve.
-     * @return array|mixed|null Returns an associative array if no key is
+     *  array|mixed|null Returns an associative array if no key is
      *     provided. Returns a specific key value if a key is provided and the
      *     value is found, or null if the key is not found.
      */

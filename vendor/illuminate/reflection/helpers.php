@@ -12,7 +12,7 @@ if (! function_exists('lazy')) {
      * @param  (\Closure(TValue): mixed)|int  $callback
      * @param  int  $options
      * @param  array<string, mixed>  $eager
-     * @return TValue
+     *  TValue
      *
      * @throws \ReflectionException
      */
@@ -62,7 +62,7 @@ if (! function_exists('proxy')) {
      * @param  (\Closure(TValue): TValue)|int  $callback
      * @param  int  $options
      * @param  array<string, mixed>  $eager
-     * @return TValue
+     *  TValue
      *
      * @throws \ReflectionException
      */

@@ -37,7 +37,7 @@ final class FileStore implements StoreInterface
      * @param bool        $shortCircuit
      * @param string|null $fileEncoding
      *
-     * @return void
+     *  void
      */
     public function __construct(array $filePaths, bool $shortCircuit, ?string $fileEncoding = null)
     {
@@ -51,7 +51,7 @@ final class FileStore implements StoreInterface
      *
      * @throws \Dotenv\Exception\InvalidEncodingException|\Dotenv\Exception\InvalidPathException
      *
-     * @return string
+     *  string
      */
     public function read()
     {

@@ -28,7 +28,7 @@ final class Value
      * @param string $chars
      * @param int[]  $vars
      *
-     * @return void
+     *  void
      */
     private function __construct(string $chars, array $vars)
     {
@@ -39,7 +39,7 @@ final class Value
     /**
      * Create an empty value instance.
      *
-     * @return \Dotenv\Parser\Value
+     *  \Dotenv\Parser\Value
      */
     public static function blank()
     {
@@ -52,7 +52,7 @@ final class Value
      * @param string $chars
      * @param int[]  $vars
      *
-     * @return \Dotenv\Parser\Value
+     *  \Dotenv\Parser\Value
      */
     public static function create(string $chars, array $vars)
     {
@@ -65,7 +65,7 @@ final class Value
      * @param string $chars
      * @param bool   $var
      *
-     * @return \Dotenv\Parser\Value
+     *  \Dotenv\Parser\Value
      */
     public function append(string $chars, bool $var)
     {
@@ -78,7 +78,7 @@ final class Value
     /**
      * Get the string representation of the parsed value.
      *
-     * @return string
+     *  string
      */
     public function getChars()
     {
@@ -88,7 +88,7 @@ final class Value
     /**
      * Get the locations of the variables in the value.
      *
-     * @return int[]
+     *  int[]
      */
     public function getVars()
     {

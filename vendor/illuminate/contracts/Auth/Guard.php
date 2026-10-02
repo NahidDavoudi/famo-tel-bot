@@ -7,28 +7,28 @@ interface Guard
     /**
      * Determine if the current user is authenticated.
      *
-     * @return bool
+     *  bool
      */
     public function check();
 
     /**
      * Determine if the current user is a guest.
      *
-     * @return bool
+     *  bool
      */
     public function guest();
 
     /**
      * Get the currently authenticated user.
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     *  \Illuminate\Contracts\Auth\Authenticatable|null
      */
     public function user();
 
     /**
      * Get the ID for the currently authenticated user.
      *
-     * @return int|string|null
+     *  int|string|null
      */
     public function id();
 
@@ -36,14 +36,14 @@ interface Guard
      * Validate a user's credentials.
      *
      * @param  array  $credentials
-     * @return bool
+     *  bool
      */
     public function validate(array $credentials = []);
 
     /**
      * Determine if the guard has a user instance.
      *
-     * @return bool
+     *  bool
      */
     public function hasUser();
 
@@ -51,7 +51,7 @@ interface Guard
      * Set the current user.
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @return $this
+     *  $this
      */
     public function setUser(Authenticatable $user);
 }

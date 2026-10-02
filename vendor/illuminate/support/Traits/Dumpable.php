@@ -8,7 +8,7 @@ trait Dumpable
      * Dump the given arguments and terminate execution.
      *
      * @param  mixed  ...$args
-     * @return never
+     *  never
      */
     public function dd(...$args)
     {
@@ -19,7 +19,7 @@ trait Dumpable
      * Dump the given arguments.
      *
      * @param  mixed  ...$args
-     * @return $this
+     *  $this
      */
     public function dump(...$args)
     {

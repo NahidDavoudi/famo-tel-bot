@@ -42,7 +42,7 @@ class UnknownMethodException extends BaseBadMethodCallException implements BadMe
     /**
      * Get the method.
      *
-     * @return string
+     *  string
      */
     public function getMethod(): string
     {

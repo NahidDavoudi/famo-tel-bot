@@ -81,7 +81,7 @@ class HtmlFormatter extends NormalizerFormatter
     /**
      * Formats a log record.
      *
-     * @return string The formatted record
+     *  string The formatted record
      */
     public function format(LogRecord $record): string
     {
@@ -114,7 +114,7 @@ class HtmlFormatter extends NormalizerFormatter
     /**
      * Formats a set of log records.
      *
-     * @return string The formatted set of records
+     *  string The formatted set of records
      */
     public function formatBatch(array $records): string
     {

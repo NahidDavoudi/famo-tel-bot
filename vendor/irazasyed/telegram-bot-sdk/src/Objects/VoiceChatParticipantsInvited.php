@@ -12,7 +12,7 @@ namespace Telegram\Bot\Objects;
 class VoiceChatParticipantsInvited extends BaseObject
 {
     /** {@inheritDoc}
-     * @return array{users: string[]} */
+     *  array{users: string[]} */
     public function relations(): array
     {
         return [

@@ -110,7 +110,7 @@ class ClassLoader
     }
 
     /**
-     * @return array<string, list<string>>
+     *  array<string, list<string>>
      */
     public function getPrefixes()
     {
@@ -122,7 +122,7 @@ class ClassLoader
     }
 
     /**
-     * @return array<string, list<string>>
+     *  array<string, list<string>>
      */
     public function getPrefixesPsr4()
     {
@@ -130,7 +130,7 @@ class ClassLoader
     }
 
     /**
-     * @return list<string>
+     *  list<string>
      */
     public function getFallbackDirs()
     {
@@ -138,7 +138,7 @@ class ClassLoader
     }
 
     /**
-     * @return list<string>
+     *  list<string>
      */
     public function getFallbackDirsPsr4()
     {
@@ -146,7 +146,7 @@ class ClassLoader
     }
 
     /**
-     * @return array<string, string> Array of classname => path
+     *  array<string, string> Array of classname => path
      */
     public function getClassMap()
     {
@@ -156,7 +156,7 @@ class ClassLoader
     /**
      * @param array<string, string> $classMap Class to filename map
      *
-     * @return void
+     *  void
      */
     public function addClassMap(array $classMap)
     {
@@ -175,7 +175,7 @@ class ClassLoader
      * @param list<string>|string $paths   The PSR-0 root directories
      * @param bool                $prepend Whether to prepend the directories
      *
-     * @return void
+     *  void
      */
     public function add($prefix, $paths, $prepend = false)
     {
@@ -225,7 +225,7 @@ class ClassLoader
      *
      * @throws \InvalidArgumentException
      *
-     * @return void
+     *  void
      */
     public function addPsr4($prefix, $paths, $prepend = false)
     {
@@ -273,7 +273,7 @@ class ClassLoader
      * @param string              $prefix The prefix
      * @param list<string>|string $paths  The PSR-0 base directories
      *
-     * @return void
+     *  void
      */
     public function set($prefix, $paths)
     {
@@ -293,7 +293,7 @@ class ClassLoader
      *
      * @throws \InvalidArgumentException
      *
-     * @return void
+     *  void
      */
     public function setPsr4($prefix, $paths)
     {
@@ -314,7 +314,7 @@ class ClassLoader
      *
      * @param bool $useIncludePath
      *
-     * @return void
+     *  void
      */
     public function setUseIncludePath($useIncludePath)
     {
@@ -325,7 +325,7 @@ class ClassLoader
      * Can be used to check if the autoloader uses the include path to check
      * for classes.
      *
-     * @return bool
+     *  bool
      */
     public function getUseIncludePath()
     {
@@ -338,7 +338,7 @@ class ClassLoader
      *
      * @param bool $classMapAuthoritative
      *
-     * @return void
+     *  void
      */
     public function setClassMapAuthoritative($classMapAuthoritative)
     {
@@ -348,7 +348,7 @@ class ClassLoader
     /**
      * Should class lookup fail if not found in the current class map?
      *
-     * @return bool
+     *  bool
      */
     public function isClassMapAuthoritative()
     {
@@ -360,7 +360,7 @@ class ClassLoader
      *
      * @param string|null $apcuPrefix
      *
-     * @return void
+     *  void
      */
     public function setApcuPrefix($apcuPrefix)
     {
@@ -370,7 +370,7 @@ class ClassLoader
     /**
      * The APCu prefix in use, or null if APCu caching is not enabled.
      *
-     * @return string|null
+     *  string|null
      */
     public function getApcuPrefix()
     {
@@ -382,7 +382,7 @@ class ClassLoader
      *
      * @param bool $prepend Whether to prepend the autoloader or not
      *
-     * @return void
+     *  void
      */
     public function register($prepend = false)
     {
@@ -403,7 +403,7 @@ class ClassLoader
     /**
      * Unregisters this instance as an autoloader.
      *
-     * @return void
+     *  void
      */
     public function unregister()
     {
@@ -418,7 +418,7 @@ class ClassLoader
      * Loads the given class or interface.
      *
      * @param  string    $class The name of the class
-     * @return true|null True if loaded, null otherwise
+     *  true|null True if loaded, null otherwise
      */
     public function loadClass($class)
     {
@@ -437,7 +437,7 @@ class ClassLoader
      *
      * @param string $class The name of the class
      *
-     * @return string|false The path if found, false otherwise
+     *  string|false The path if found, false otherwise
      */
     public function findFile($class)
     {
@@ -477,7 +477,7 @@ class ClassLoader
     /**
      * Returns the currently registered loaders keyed by their corresponding vendor directories.
      *
-     * @return array<string, self>
+     *  array<string, self>
      */
     public static function getRegisteredLoaders()
     {
@@ -487,7 +487,7 @@ class ClassLoader
     /**
      * @param  string       $class
      * @param  string       $ext
-     * @return string|false
+     *  string|false
      */
     private function findFileWithExtension($class, $ext)
     {
@@ -556,7 +556,7 @@ class ClassLoader
     }
 
     /**
-     * @return void
+     *  void
      */
     private static function initializeIncludeClosure()
     {
@@ -570,7 +570,7 @@ class ClassLoader
          * Prevents access to $this/self from included files.
          *
          * @param  string $file
-         * @return void
+         *  void
          */
         self::$includeFile = \Closure::bind(static function($file) {
             include $file;

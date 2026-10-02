@@ -10,7 +10,7 @@ interface Translator
      * @param  string  $key
      * @param  array  $replace
      * @param  string|null  $locale
-     * @return mixed
+     *  mixed
      */
     public function get($key, array $replace = [], $locale = null);
 
@@ -21,14 +21,14 @@ interface Translator
      * @param  \Countable|int|float|array  $number
      * @param  array  $replace
      * @param  string|null  $locale
-     * @return string
+     *  string
      */
     public function choice($key, $number, array $replace = [], $locale = null);
 
     /**
      * Get the default locale being used.
      *
-     * @return string
+     *  string
      */
     public function getLocale();
 
@@ -36,7 +36,7 @@ interface Translator
      * Set the default locale.
      *
      * @param  string  $locale
-     * @return void
+     *  void
      */
     public function setLocale($locale);
 }

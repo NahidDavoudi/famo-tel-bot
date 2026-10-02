@@ -33,7 +33,7 @@ final class Error extends Result
      *
      * @param E $value
      *
-     * @return void
+     *  void
      */
     private function __construct($value)
     {
@@ -47,7 +47,7 @@ final class Error extends Result
      *
      * @param F $value
      *
-     * @return \GrahamCampbell\ResultType\Error<F>
+     *  \GrahamCampbell\ResultType\Error<F>
      */
     public static function create($value)
     {
@@ -57,7 +57,7 @@ final class Error extends Result
     /**
      * Get the success option value.
      *
-     * @return \PhpOption\Option<never>
+     *  \PhpOption\Option<never>
      */
     public function success()
     {
@@ -71,7 +71,7 @@ final class Error extends Result
      *
      * @param callable(never):S $f
      *
-     * @return \GrahamCampbell\ResultType\Error<E>
+     *  \GrahamCampbell\ResultType\Error<E>
      */
     public function map(callable $f)
     {
@@ -86,7 +86,7 @@ final class Error extends Result
      *
      * @param callable(never):\GrahamCampbell\ResultType\Result<S,F> $f
      *
-     * @return \GrahamCampbell\ResultType\Error<E>
+     *  \GrahamCampbell\ResultType\Error<E>
      */
     public function flatMap(callable $f)
     {
@@ -96,7 +96,7 @@ final class Error extends Result
     /**
      * Get the error option value.
      *
-     * @return \PhpOption\Option<E>
+     *  \PhpOption\Option<E>
      */
     public function error()
     {
@@ -110,7 +110,7 @@ final class Error extends Result
      *
      * @param callable(E):F $f
      *
-     * @return \GrahamCampbell\ResultType\Error<F>
+     *  \GrahamCampbell\ResultType\Error<F>
      */
     public function mapError(callable $f)
     {

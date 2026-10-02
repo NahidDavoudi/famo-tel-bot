@@ -7,7 +7,7 @@ interface Renderable
     /**
      * Get the evaluated contents of the object.
      *
-     * @return string
+     *  string
      */
     public function render();
 }

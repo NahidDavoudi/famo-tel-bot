@@ -137,7 +137,7 @@ final class BotsManager
     /**
      * Return all the created bots.
      *
-     * @return array<string, Api>
+     *  array<string, Api>
      */
     public function getBots(): array
     {
@@ -179,7 +179,7 @@ final class BotsManager
 
     /**
      * @param  list<(string | class-string<CommandInterface>)>  $commands  A list of command names or FQCNs of CommandInterface instances.
-     * @return array An array of commands which includes global and bot specific commands.
+     *  array An array of commands which includes global and bot specific commands.
      *
      * @deprecated Will be removed in SDK v4
      *
@@ -232,7 +232,7 @@ final class BotsManager
     /**
      * Magically pass methods to the default bot.
      *
-     * @return mixed
+     *  mixed
      *
      * @throws TelegramSDKException
      */

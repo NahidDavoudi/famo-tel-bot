@@ -8,7 +8,7 @@ interface PasswordBrokerFactory
      * Get a password broker instance by name.
      *
      * @param  string|null  $name
-     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     *  \Illuminate\Contracts\Auth\PasswordBroker
      */
     public function broker($name = null);
 }

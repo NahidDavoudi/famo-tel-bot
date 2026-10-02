@@ -31,7 +31,7 @@ class Number
      * @param  int|null  $precision
      * @param  int|null  $maxPrecision
      * @param  string|null  $locale
-     * @return string|false
+     *  string|false
      */
     public static function format(int|float $number, ?int $precision = null, ?int $maxPrecision = null, ?string $locale = null)
     {
@@ -54,7 +54,7 @@ class Number
      * @param  string  $string
      * @param  int|null  $type
      * @param  string|null  $locale
-     * @return int|float|false
+     *  int|float|false
      */
     public static function parse(string $string, ?int $type = NumberFormatter::TYPE_DOUBLE, ?string $locale = null): int|float|false
     {
@@ -70,7 +70,7 @@ class Number
      *
      * @param  string  $string
      * @param  string|null  $locale
-     * @return int|false
+     *  int|false
      */
     public static function parseInt(string $string, ?string $locale = null): int|false
     {
@@ -82,7 +82,7 @@ class Number
      *
      * @param  string  $string
      * @param  string|null  $locale
-     * @return float|false
+     *  float|false
      */
     public static function parseFloat(string $string, ?string $locale = null): float|false
     {
@@ -96,7 +96,7 @@ class Number
      * @param  string|null  $locale
      * @param  int|null  $after
      * @param  int|null  $until
-     * @return string|false
+     *  string|false
      */
     public static function spell(int|float $number, ?string $locale = null, ?int $after = null, ?int $until = null)
     {
@@ -120,7 +120,7 @@ class Number
      *
      * @param  int|float  $number
      * @param  string|null  $locale
-     * @return string|false
+     *  string|false
      */
     public static function ordinal(int|float $number, ?string $locale = null)
     {
@@ -136,7 +136,7 @@ class Number
      *
      * @param  int|float  $number
      * @param  string|null  $locale
-     * @return string|false
+     *  string|false
      */
     public static function spellOrdinal(int|float $number, ?string $locale = null)
     {
@@ -156,7 +156,7 @@ class Number
      * @param  int  $precision
      * @param  int|null  $maxPrecision
      * @param  string|null  $locale
-     * @return string|false
+     *  string|false
      */
     public static function percentage(int|float $number, int $precision = 0, ?int $maxPrecision = null, ?string $locale = null)
     {
@@ -180,7 +180,7 @@ class Number
      * @param  string  $in
      * @param  string|null  $locale
      * @param  int|null  $precision
-     * @return string|false
+     *  string|false
      */
     public static function currency(int|float $number, string $in = '', ?string $locale = null, ?int $precision = null)
     {
@@ -206,7 +206,7 @@ class Number
      * @param  int|float  $bytes
      * @param  int  $precision
      * @param  int|null  $maxPrecision
-     * @return string
+     *  string
      */
     public static function fileSize(int|float $bytes, int $precision = 0, ?int $maxPrecision = null)
     {
@@ -231,7 +231,7 @@ class Number
      * @param  int|float  $number
      * @param  int  $precision
      * @param  int|null  $maxPrecision
-     * @return string|false
+     *  string|false
      */
     public static function abbreviate(int|float $number, int $precision = 0, ?int $maxPrecision = null)
     {
@@ -245,7 +245,7 @@ class Number
      * @param  int  $precision
      * @param  int|null  $maxPrecision
      * @param  bool  $abbreviate
-     * @return string|false
+     *  string|false
      */
     public static function forHumans(int|float $number, int $precision = 0, ?int $maxPrecision = null, bool $abbreviate = false)
     {
@@ -271,7 +271,7 @@ class Number
      * @param  int  $precision
      * @param  int|null  $maxPrecision
      * @param  array<int, string>  $units
-     * @return string|false
+     *  string|false
      *
      * @phpstan-return ($number is INF ? '∞' : ($number is NAN ? 'NaN' : ($number is 0 ? ($precision is non-positive-int ? '0' : non-empty-string|false) : non-empty-string|false)))
      */
@@ -326,7 +326,7 @@ class Number
      * @param  int|float  $number
      * @param  int|float  $min
      * @param  int|float  $max
-     * @return int|float
+     *  int|float
      */
     public static function clamp(int|float $number, int|float $min, int|float $max)
     {
@@ -340,7 +340,7 @@ class Number
      * @param  int|float  $by
      * @param  int|float  $start
      * @param  int|float  $offset
-     * @return list<array{int|float, int|float}>
+     *  list<array{int|float, int|float}>
      */
     public static function pairs(int|float $to, int|float $by, int|float $start = 0, int|float $offset = 1)
     {
@@ -369,7 +369,7 @@ class Number
      * Remove any trailing zero digits after the decimal point of the given number.
      *
      * @param  int|float  $number
-     * @return int|float
+     *  int|float
      */
     public static function trim(int|float $number)
     {
@@ -387,7 +387,7 @@ class Number
      *
      * @param  string  $locale
      * @param  callable(): TReturn  $callback
-     * @return TReturn
+     *  TReturn
      */
     public static function withLocale(string $locale, callable $callback)
     {
@@ -409,7 +409,7 @@ class Number
      *
      * @param  string  $currency
      * @param  callable(): TReturn  $callback
-     * @return TReturn
+     *  TReturn
      */
     public static function withCurrency(string $currency, callable $callback)
     {
@@ -428,7 +428,7 @@ class Number
      * Set the default locale.
      *
      * @param  string  $locale
-     * @return void
+     *  void
      */
     public static function useLocale(string $locale)
     {
@@ -439,7 +439,7 @@ class Number
      * Set the default currency.
      *
      * @param  string  $currency
-     * @return void
+     *  void
      */
     public static function useCurrency(string $currency)
     {
@@ -449,7 +449,7 @@ class Number
     /**
      * Get the default locale.
      *
-     * @return string
+     *  string
      */
     public static function defaultLocale()
     {
@@ -459,7 +459,7 @@ class Number
     /**
      * Get the default currency.
      *
-     * @return string
+     *  string
      */
     public static function defaultCurrency()
     {
@@ -469,7 +469,7 @@ class Number
     /**
      * Ensure the "intl" PHP extension is installed.
      *
-     * @return void
+     *  void
      *
      * @throws \RuntimeException
      */
@@ -487,7 +487,7 @@ class Number
      *
      * @param  int|float  $number
      * @param  callable(int|float): (string|false)  $format
-     * @return int|float
+     *  int|float
      */
     protected static function withoutNegativeZero(int|float $number, callable $format)
     {

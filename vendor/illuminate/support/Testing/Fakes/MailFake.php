@@ -65,7 +65,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string|\Closure  $mailable
      * @param  callable|array|string|int|null  $callback
-     * @return void
+     *  void
      */
     public function assertSent($mailable, $callback = null)
     {
@@ -101,7 +101,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string  $mailable
      * @param  int  $times
-     * @return void
+     *  void
      */
     public function assertSentTimes($mailable, $times = 1)
     {
@@ -121,7 +121,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Assert if a mailable was sent exactly once.
      *
      * @param  string  $mailable
-     * @return void
+     *  void
      */
     public function assertSentOnce($mailable)
     {
@@ -133,7 +133,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string|\Closure  $mailable
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public function assertNotOutgoing($mailable, $callback = null)
     {
@@ -146,7 +146,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string|\Closure  $mailable
      * @param  callable|array|string|null  $callback
-     * @return void
+     *  void
      */
     public function assertNotSent($mailable, $callback = null)
     {
@@ -174,7 +174,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
     /**
      * Assert that no mailables were sent or queued to be sent.
      *
-     * @return void
+     *  void
      */
     public function assertNothingOutgoing()
     {
@@ -185,7 +185,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
     /**
      * Assert that no mailables were sent.
      *
-     * @return void
+     *  void
      */
     public function assertNothingSent()
     {
@@ -201,7 +201,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string|\Closure  $mailable
      * @param  callable|array|string|int|null  $callback
-     * @return void
+     *  void
      */
     public function assertQueued($mailable, $callback = null)
     {
@@ -235,7 +235,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string  $mailable
      * @param  int  $times
-     * @return void
+     *  void
      */
     public function assertQueuedTimes($mailable, $times = 1)
     {
@@ -255,7 +255,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Assert if a mailable was queued exactly once.
      *
      * @param  string  $mailable
-     * @return void
+     *  void
      */
     public function assertQueuedOnce($mailable)
     {
@@ -267,7 +267,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string|\Closure  $mailable
      * @param  callable|array|string|null  $callback
-     * @return void
+     *  void
      */
     public function assertNotQueued($mailable, $callback = null)
     {
@@ -295,7 +295,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
     /**
      * Assert that no mailables were queued.
      *
-     * @return void
+     *  void
      */
     public function assertNothingQueued()
     {
@@ -310,7 +310,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Assert the total number of mailables that were sent.
      *
      * @param  int  $count
-     * @return void
+     *  void
      */
     public function assertSentCount($count)
     {
@@ -326,7 +326,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Assert the total number of mailables that were queued.
      *
      * @param  int  $count
-     * @return void
+     *  void
      */
     public function assertQueuedCount($count)
     {
@@ -342,7 +342,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Assert the total number of mailables that were sent or queued.
      *
      * @param  int  $count
-     * @return void
+     *  void
      */
     public function assertOutgoingCount($count)
     {
@@ -361,7 +361,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string|\Closure  $mailable
      * @param  callable|null  $callback
-     * @return \Illuminate\Support\Collection
+     *  \Illuminate\Support\Collection
      */
     public function sent($mailable, $callback = null)
     {
@@ -380,7 +380,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Determine if the given mailable has been sent.
      *
      * @param  string  $mailable
-     * @return bool
+     *  bool
      */
     public function hasSent($mailable)
     {
@@ -392,7 +392,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string|\Closure  $mailable
      * @param  callable|null  $callback
-     * @return \Illuminate\Support\Collection
+     *  \Illuminate\Support\Collection
      */
     public function queued($mailable, $callback = null)
     {
@@ -411,7 +411,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Determine if the given mailable has been queued.
      *
      * @param  string  $mailable
-     * @return bool
+     *  bool
      */
     public function hasQueued($mailable)
     {
@@ -422,7 +422,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Get all of the mailed mailables for a given type.
      *
      * @param  string  $type
-     * @return \Illuminate\Support\Collection
+     *  \Illuminate\Support\Collection
      */
     protected function mailablesOf($type)
     {
@@ -433,7 +433,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Get all of the mailed mailables for a given type.
      *
      * @param  string  $type
-     * @return \Illuminate\Support\Collection
+     *  \Illuminate\Support\Collection
      */
     protected function queuedMailablesOf($type)
     {
@@ -444,7 +444,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Get a mailer instance by name.
      *
      * @param  string|null  $name
-     * @return \Illuminate\Contracts\Mail\Mailer
+     *  \Illuminate\Contracts\Mail\Mailer
      */
     public function mailer($name = null)
     {
@@ -457,7 +457,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Get a mailer driver instance.
      *
      * @param  string|null  $driver
-     * @return \Illuminate\Contracts\Mail\Mailer
+     *  \Illuminate\Contracts\Mail\Mailer
      */
     public function driver($driver = null)
     {
@@ -468,7 +468,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Begin the process of mailing a mailable class instance.
      *
      * @param  mixed  $users
-     * @return \Illuminate\Mail\PendingMail
+     *  \Illuminate\Mail\PendingMail
      */
     public function to($users)
     {
@@ -479,7 +479,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Begin the process of mailing a mailable class instance.
      *
      * @param  mixed  $users
-     * @return \Illuminate\Mail\PendingMail
+     *  \Illuminate\Mail\PendingMail
      */
     public function cc($users)
     {
@@ -490,7 +490,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * Begin the process of mailing a mailable class instance.
      *
      * @param  mixed  $users
-     * @return \Illuminate\Mail\PendingMail
+     *  \Illuminate\Mail\PendingMail
      */
     public function bcc($users)
     {
@@ -502,7 +502,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string  $text
      * @param  \Closure|string  $callback
-     * @return void
+     *  void
      */
     public function raw($text, $callback)
     {
@@ -515,7 +515,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * @param  \Illuminate\Contracts\Mail\Mailable|string|array  $view
      * @param  array  $data
      * @param  \Closure|string|null  $callback
-     * @return mixed|void
+     *  mixed|void
      */
     public function send($view, array $data = [], $callback = null)
     {
@@ -528,7 +528,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * @param  \Illuminate\Contracts\Mail\Mailable|string|array  $mailable
      * @param  array  $data
      * @param  \Closure|string|null  $callback
-     * @return void
+     *  void
      */
     public function sendNow($mailable, array $data = [], $callback = null)
     {
@@ -540,7 +540,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  \Illuminate\Contracts\Mail\Mailable|string|array  $view
      * @param  bool  $shouldQueue
-     * @return mixed|void
+     *  mixed|void
      */
     protected function sendMail($view, $shouldQueue = false)
     {
@@ -564,7 +564,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  \Illuminate\Contracts\Mail\Mailable|string|array  $view
      * @param  \BackedEnum|string|null  $queue
-     * @return mixed
+     *  mixed
      */
     public function queue($view, $queue = null)
     {
@@ -588,7 +588,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  \BackedEnum|string|null  $queue
      * @param  \Illuminate\Contracts\Mail\Mailable  $view
-     * @return mixed
+     *  mixed
      */
     public function onQueue($queue, $view)
     {
@@ -600,7 +600,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  \BackedEnum|string|null  $queue
      * @param  \Illuminate\Contracts\Mail\Mailable  $view
-     * @return mixed
+     *  mixed
      */
     public function queueOn($queue, $view)
     {
@@ -613,7 +613,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * @param  \DateTimeInterface|\DateInterval|int  $delay
      * @param  \Illuminate\Contracts\Mail\Mailable|string|array  $view
      * @param  string|null  $queue
-     * @return mixed
+     *  mixed
      */
     public function later($delay, $view, $queue = null)
     {
@@ -630,7 +630,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      * @param  string|null  $queue
      * @param  \DateTimeInterface|\DateInterval|int  $delay
      * @param  \Illuminate\Contracts\Mail\Mailable  $view
-     * @return mixed
+     *  mixed
      */
     public function laterOn($queue, $delay, $view)
     {
@@ -642,7 +642,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string|\Closure  $mailable
      * @param  callable|null  $callback
-     * @return array
+     *  array
      */
     protected function prepareMailableAndCallback($mailable, $callback)
     {
@@ -656,7 +656,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
     /**
      * Forget all of the resolved mailer instances.
      *
-     * @return $this
+     *  $this
      */
     public function forgetMailers()
     {
@@ -670,7 +670,7 @@ class MailFake implements Factory, Fake, Mailer, MailQueue
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      */
     public function __call($method, $parameters)
     {

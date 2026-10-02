@@ -30,7 +30,7 @@ final class AdapterRepository implements RepositoryInterface
      * @param \Dotenv\Repository\Adapter\ReaderInterface $reader
      * @param \Dotenv\Repository\Adapter\WriterInterface $writer
      *
-     * @return void
+     *  void
      */
     public function __construct(ReaderInterface $reader, WriterInterface $writer)
     {
@@ -43,7 +43,7 @@ final class AdapterRepository implements RepositoryInterface
      *
      * @param string $name
      *
-     * @return bool
+     *  bool
      */
     public function has(string $name)
     {
@@ -57,7 +57,7 @@ final class AdapterRepository implements RepositoryInterface
      *
      * @throws \InvalidArgumentException
      *
-     * @return string|null
+     *  string|null
      */
     public function get(string $name)
     {
@@ -76,7 +76,7 @@ final class AdapterRepository implements RepositoryInterface
      *
      * @throws \InvalidArgumentException
      *
-     * @return bool
+     *  bool
      */
     public function set(string $name, string $value)
     {
@@ -94,7 +94,7 @@ final class AdapterRepository implements RepositoryInterface
      *
      * @throws \InvalidArgumentException
      *
-     * @return bool
+     *  bool
      */
     public function clear(string $name)
     {

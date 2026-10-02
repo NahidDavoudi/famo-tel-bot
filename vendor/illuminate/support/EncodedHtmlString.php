@@ -41,7 +41,7 @@ class EncodedHtmlString extends HtmlString
      * @param  string|null  $value
      * @param  bool  $withQuote
      * @param  bool  $doubleEncode
-     * @return string
+     *  string
      */
     public static function convert($value, bool $withQuote = true, bool $doubleEncode = true)
     {
@@ -53,7 +53,7 @@ class EncodedHtmlString extends HtmlString
     /**
      * Get the HTML string.
      *
-     * @return string
+     *  string
      */
     #[\Override]
     public function toHtml()
@@ -81,7 +81,7 @@ class EncodedHtmlString extends HtmlString
      * Set the callable that will be used to encode the HTML strings.
      *
      * @param  callable|null  $factory
-     * @return void
+     *  void
      */
     public static function encodeUsing(?callable $factory = null)
     {
@@ -91,7 +91,7 @@ class EncodedHtmlString extends HtmlString
     /**
      * Flush the class's global state.
      *
-     * @return void
+     *  void
      */
     public static function flushState()
     {

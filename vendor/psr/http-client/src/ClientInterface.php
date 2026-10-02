@@ -12,7 +12,7 @@ interface ClientInterface
      *
      * @param RequestInterface $request
      *
-     * @return ResponseInterface
+     *  ResponseInterface
      *
      * @throws \Psr\Http\Client\ClientExceptionInterface If an error happens while processing the request.
      */

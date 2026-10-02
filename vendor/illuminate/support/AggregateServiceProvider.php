@@ -21,7 +21,7 @@ class AggregateServiceProvider extends ServiceProvider
     /**
      * Register the service provider.
      *
-     * @return void
+     *  void
      */
     public function register()
     {
@@ -35,7 +35,7 @@ class AggregateServiceProvider extends ServiceProvider
     /**
      * Get the services provided by the provider.
      *
-     * @return array<int, string>
+     *  array<int, string>
      */
     public function provides()
     {

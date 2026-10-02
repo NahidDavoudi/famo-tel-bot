@@ -11,20 +11,20 @@ use Doctrine\Inflector\Rules\Word;
 
 class Inflectible
 {
-    /** @return Transformation[] */
+    /**  Transformation[] */
     public static function getSingular(): iterable
     {
         yield new Transformation(new Pattern('/l[ae]r$/i'), '');
     }
 
-    /** @return Transformation[] */
+    /**  Transformation[] */
     public static function getPlural(): iterable
     {
         yield new Transformation(new Pattern('/([eöiü][^aoıueöiü]{0,6})$/u'), '\1ler');
         yield new Transformation(new Pattern('/([aoıu][^aoıueöiü]{0,6})$/u'), '\1lar');
     }
 
-    /** @return Substitution[] */
+    /**  Substitution[] */
     public static function getIrregular(): iterable
     {
         yield new Substitution(new Word('ben'), new Word('biz'));

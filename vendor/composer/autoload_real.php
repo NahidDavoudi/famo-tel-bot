@@ -14,7 +14,7 @@ class ComposerAutoloaderInit66ab7240cf3baf647ca8daf9c02dc31b
     }
 
     /**
-     * @return \Composer\Autoload\ClassLoader
+     *  \Composer\Autoload\ClassLoader
      */
     public static function getLoader()
     {

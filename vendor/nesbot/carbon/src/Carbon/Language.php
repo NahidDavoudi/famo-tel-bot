@@ -55,7 +55,7 @@ class Language implements JsonSerializable
     /**
      * Get the list of the known languages.
      *
-     * @return array
+     *  array
      */
     public static function all(): array
     {

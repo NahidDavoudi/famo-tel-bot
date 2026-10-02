@@ -19,7 +19,7 @@ final class ArrayAdapter implements AdapterInterface
     /**
      * Create a new array adapter instance.
      *
-     * @return void
+     *  void
      */
     private function __construct()
     {
@@ -29,7 +29,7 @@ final class ArrayAdapter implements AdapterInterface
     /**
      * Create a new instance of the adapter, if it is available.
      *
-     * @return \PhpOption\Option<self>
+     *  \PhpOption\Option<self>
      */
     public static function create()
     {
@@ -41,7 +41,7 @@ final class ArrayAdapter implements AdapterInterface
      *
      * @param non-empty-string $name
      *
-     * @return \PhpOption\Option<string>
+     *  \PhpOption\Option<string>
      */
     public function read(string $name)
     {
@@ -54,7 +54,7 @@ final class ArrayAdapter implements AdapterInterface
      * @param non-empty-string $name
      * @param string           $value
      *
-     * @return bool
+     *  bool
      */
     public function write(string $name, string $value)
     {
@@ -68,7 +68,7 @@ final class ArrayAdapter implements AdapterInterface
      *
      * @param non-empty-string $name
      *
-     * @return bool
+     *  bool
      */
     public function delete(string $name)
     {

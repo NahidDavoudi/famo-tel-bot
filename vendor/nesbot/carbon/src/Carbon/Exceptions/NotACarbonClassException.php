@@ -72,7 +72,7 @@ class NotACarbonClassException extends BaseInvalidArgumentException implements I
     /**
      * Get the className.
      *
-     * @return string
+     *  string
      */
     public function getClassName(): string
     {

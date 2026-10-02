@@ -5,7 +5,7 @@ if (!function_exists('getallheaders')) {
     /**
      * Get all HTTP header key/values as an associative array for the current request.
      *
-     * @return string[string] The HTTP header key/value pairs.
+     *  string[string] The HTTP header key/value pairs.
      */
     function getallheaders()
     {

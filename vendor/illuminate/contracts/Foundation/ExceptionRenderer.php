@@ -8,7 +8,7 @@ interface ExceptionRenderer
      * Renders the given exception as HTML.
      *
      * @param  \Throwable  $throwable
-     * @return string
+     *  string
      */
     public function render($throwable);
 }

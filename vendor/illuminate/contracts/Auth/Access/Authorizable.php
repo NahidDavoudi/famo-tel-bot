@@ -9,7 +9,7 @@ interface Authorizable
      *
      * @param  \UnitEnum|iterable|string  $abilities
      * @param  mixed  $arguments
-     * @return bool
+     *  bool
      */
     public function can($abilities, $arguments = []);
 }

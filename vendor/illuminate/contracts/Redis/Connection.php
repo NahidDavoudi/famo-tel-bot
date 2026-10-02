@@ -11,7 +11,7 @@ interface Connection
      *
      * @param  array|string  $channels
      * @param  \Closure  $callback
-     * @return void
+     *  void
      */
     public function subscribe($channels, Closure $callback);
 
@@ -20,7 +20,7 @@ interface Connection
      *
      * @param  array|string  $channels
      * @param  \Closure  $callback
-     * @return void
+     *  void
      */
     public function psubscribe($channels, Closure $callback);
 
@@ -29,7 +29,7 @@ interface Connection
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      */
     public function command($method, array $parameters = []);
 }

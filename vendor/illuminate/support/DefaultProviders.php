@@ -50,7 +50,7 @@ class DefaultProviders
      * Merge the given providers into the provider collection.
      *
      * @param  array<class-string>  $providers
-     * @return static
+     *  static
      */
     public function merge(array $providers)
     {
@@ -63,7 +63,7 @@ class DefaultProviders
      * Replace the given providers with other providers.
      *
      * @param  array<class-string, class-string>  $replacements
-     * @return static
+     *  static
      */
     public function replace(array $replacements)
     {
@@ -82,7 +82,7 @@ class DefaultProviders
      * Disable the given providers.
      *
      * @param  array<class-string>  $providers
-     * @return static
+     *  static
      */
     public function except(array $providers)
     {
@@ -95,7 +95,7 @@ class DefaultProviders
     /**
      * Convert the provider collection to an array.
      *
-     * @return array<class-string>
+     *  array<class-string>
      */
     public function toArray()
     {

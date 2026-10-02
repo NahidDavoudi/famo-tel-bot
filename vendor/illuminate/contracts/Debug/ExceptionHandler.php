@@ -15,7 +15,7 @@ interface ExceptionHandler
      * Report or log an exception.
      *
      * @param  \Throwable  $e
-     * @return void
+     *  void
      *
      * @throws \Throwable
      */
@@ -25,7 +25,7 @@ interface ExceptionHandler
      * Determine if the exception should be reported.
      *
      * @param  \Throwable  $e
-     * @return bool
+     *  bool
      */
     public function shouldReport(Throwable $e);
 
@@ -34,7 +34,7 @@ interface ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Throwable  $e
-     * @return \Symfony\Component\HttpFoundation\Response
+     *  \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Throwable
      */
@@ -45,7 +45,7 @@ interface ExceptionHandler
      *
      * @param  \Symfony\Component\Console\Output\OutputInterface  $output
      * @param  \Throwable  $e
-     * @return void
+     *  void
      *
      * @internal This method is not meant to be used or overwritten outside the framework.
      */

@@ -52,7 +52,7 @@ class RetryMiddleware
     /**
      * Default exponential backoff delay function.
      *
-     * @return int milliseconds.
+     *  int milliseconds.
      *
      * @deprecated since 7.11, will be removed in 8.0.
      */

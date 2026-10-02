@@ -66,7 +66,7 @@ class HandlerStack
     /**
      * Invokes the handler stack as a composed handler
      *
-     * @return ResponseInterface|PromiseInterface
+     *  ResponseInterface|PromiseInterface
      */
     public function __invoke(RequestInterface $request, array $options)
     {
@@ -78,7 +78,7 @@ class HandlerStack
     /**
      * Dumps a string representation of the stack.
      *
-     * @return string
+     *  string
      */
     public function __toString()
     {
@@ -211,7 +211,7 @@ class HandlerStack
     /**
      * Compose the middleware and handler into a single callable function.
      *
-     * @return callable(RequestInterface, array): PromiseInterface
+     *  callable(RequestInterface, array): PromiseInterface
      */
     public function resolve(): callable
     {

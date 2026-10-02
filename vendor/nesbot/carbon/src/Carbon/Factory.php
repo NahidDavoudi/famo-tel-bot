@@ -351,7 +351,7 @@ class Factory
      * @param callable $macro
      * @param int      $priority marco with higher priority is tried first
      *
-     * @return void
+     *  void
      */
     public function genericMacro(callable $macro, int $priority = 0): void
     {
@@ -404,7 +404,7 @@ class Factory
     /**
      * Reset the format used to the default when type juggling a Carbon instance to a string
      *
-     * @return void
+     *  void
      */
     public function resetToStringFormat(): void
     {
@@ -505,7 +505,7 @@ class Factory
     /**
      * Get weekend days
      *
-     * @return array
+     *  array
      */
     public function getWeekendDays(): array
     {
@@ -635,7 +635,7 @@ class Factory
      * @param DateTimeInterface|Closure|static|string|false|null $testNow  real or mock Carbon instance
      * @param Closure(): T                                       $callback
      *
-     * @return T
+     *  T
      */
     public function withTestNow(mixed $testNow, callable $callback): mixed
     {
@@ -655,7 +655,7 @@ class Factory
      * Get the Carbon instance (real or mock) to be returned when a "now"
      * instance is created.
      *
-     * @return Closure|CarbonInterface|null the current instance used for testing
+     *  Closure|CarbonInterface|null the current instance used for testing
      */
     public function getTestNow(): Closure|CarbonInterface|null
     {
@@ -716,7 +716,7 @@ class Factory
      * Determine if there is a valid test instance set. A valid test instance
      * is anything that is not null.
      *
-     * @return bool true if there is a test instance, otherwise false
+     *  bool true if there is a test instance, otherwise false
      */
     public function hasTestNow(): bool
     {
@@ -811,7 +811,7 @@ class Factory
      * @param string $format
      * @param array  $replacements
      *
-     * @return bool
+     *  bool
      */
     private function matchFormatPattern(string $date, string $format, array $replacements): bool
     {

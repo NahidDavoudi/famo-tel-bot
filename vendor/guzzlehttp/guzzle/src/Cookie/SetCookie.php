@@ -202,7 +202,7 @@ class SetCookie
     /**
      * Get the cookie name.
      *
-     * @return string
+     *  string
      */
     public function getName()
     {
@@ -226,7 +226,7 @@ class SetCookie
     /**
      * Get the cookie value.
      *
-     * @return string|null
+     *  string|null
      */
     public function getValue()
     {
@@ -250,7 +250,7 @@ class SetCookie
     /**
      * Get the domain.
      *
-     * @return string|null
+     *  string|null
      */
     public function getDomain()
     {
@@ -274,7 +274,7 @@ class SetCookie
     /**
      * Get whether this cookie is scoped to the origin host only.
      *
-     * @return bool
+     *  bool
      */
     public function getHostOnly()
     {
@@ -294,7 +294,7 @@ class SetCookie
     /**
      * Get the path.
      *
-     * @return string
+     *  string
      */
     public function getPath()
     {
@@ -318,7 +318,7 @@ class SetCookie
     /**
      * Maximum lifetime of the cookie in seconds.
      *
-     * @return int|null
+     *  int|null
      */
     public function getMaxAge()
     {
@@ -342,7 +342,7 @@ class SetCookie
     /**
      * The UNIX timestamp when the cookie Expires.
      *
-     * @return string|int|null
+     *  string|int|null
      */
     public function getExpires()
     {
@@ -374,7 +374,7 @@ class SetCookie
     /**
      * Get whether or not this is a secure cookie.
      *
-     * @return bool
+     *  bool
      */
     public function getSecure()
     {
@@ -398,7 +398,7 @@ class SetCookie
     /**
      * Get whether or not this is a session cookie.
      *
-     * @return bool|null
+     *  bool|null
      */
     public function getDiscard()
     {
@@ -422,7 +422,7 @@ class SetCookie
     /**
      * Get whether or not this is an HTTP only cookie.
      *
-     * @return bool
+     *  bool
      */
     public function getHttpOnly()
     {
@@ -576,7 +576,7 @@ class SetCookie
     /**
      * Check if the cookie is valid according to RFC 6265.
      *
-     * @return bool|string Returns true if valid or an error message if invalid
+     *  bool|string Returns true if valid or an error message if invalid
      */
     public function validate()
     {

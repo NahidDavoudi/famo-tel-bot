@@ -75,7 +75,7 @@ final class TelegramServiceProvider extends ServiceProvider implements Deferrabl
     /**
      * Get the services provided by the provider.
      *
-     * @return array
+     *  array
      */
     public function provides()
     {

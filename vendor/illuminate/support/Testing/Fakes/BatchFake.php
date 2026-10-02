@@ -65,7 +65,7 @@ class BatchFake extends Batch
     /**
      * Get a fresh instance of the batch represented by this ID.
      *
-     * @return self
+     *  self
      */
     #[\Override]
     public function fresh()
@@ -77,7 +77,7 @@ class BatchFake extends Batch
      * Add additional jobs to the batch.
      *
      * @param  \Illuminate\Support\Enumerable|object|array  $jobs
-     * @return self
+     *  self
      */
     #[\Override]
     public function add($jobs)
@@ -97,7 +97,7 @@ class BatchFake extends Batch
      * Record that a job within the batch finished successfully, executing any callbacks if necessary.
      *
      * @param  string  $jobId
-     * @return void
+     *  void
      */
     #[\Override]
     public function recordSuccessfulJob(string $jobId)
@@ -109,7 +109,7 @@ class BatchFake extends Batch
      * Decrement the pending jobs for the batch.
      *
      * @param  string  $jobId
-     * @return void
+     *  void
      */
     #[\Override]
     public function decrementPendingJobs(string $jobId)
@@ -122,7 +122,7 @@ class BatchFake extends Batch
      *
      * @param  string  $jobId
      * @param  \Throwable  $e
-     * @return void
+     *  void
      */
     #[\Override]
     public function recordFailedJob(string $jobId, $e)
@@ -134,7 +134,7 @@ class BatchFake extends Batch
      * Increment the failed jobs for the batch.
      *
      * @param  string  $jobId
-     * @return \Illuminate\Bus\UpdatedBatchJobCounts
+     *  \Illuminate\Bus\UpdatedBatchJobCounts
      */
     #[\Override]
     public function incrementFailedJobs(string $jobId)
@@ -145,7 +145,7 @@ class BatchFake extends Batch
     /**
      * Cancel the batch.
      *
-     * @return void
+     *  void
      */
     #[\Override]
     public function cancel(?Throwable $exception = null)
@@ -156,7 +156,7 @@ class BatchFake extends Batch
     /**
      * Delete the batch from storage.
      *
-     * @return void
+     *  void
      */
     #[\Override]
     public function delete()
@@ -167,7 +167,7 @@ class BatchFake extends Batch
     /**
      * Determine if the batch has been deleted.
      *
-     * @return bool
+     *  bool
      */
     public function deleted()
     {

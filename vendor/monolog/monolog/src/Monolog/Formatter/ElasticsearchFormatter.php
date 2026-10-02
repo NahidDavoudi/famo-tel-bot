@@ -74,7 +74,7 @@ class ElasticsearchFormatter extends NormalizerFormatter
      * Convert a log message into an Elasticsearch record
      *
      * @param  mixed[] $record Log message
-     * @return mixed[]
+     *  mixed[]
      */
     protected function getDocument(array $record): array
     {

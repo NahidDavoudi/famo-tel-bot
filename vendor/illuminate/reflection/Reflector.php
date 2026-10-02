@@ -16,7 +16,7 @@ class Reflector
      *
      * @param  mixed  $var
      * @param  bool  $syntaxOnly
-     * @return bool
+     *  bool
      */
     public static function isCallable($var, $syntaxOnly = false)
     {
@@ -65,7 +65,7 @@ class Reflector
      * @param  object|class-string  $objectOrClass
      * @param  class-string<TAttribute>  $attribute
      * @param  bool  $ascend
-     * @return TAttribute|null
+     *  TAttribute|null
      */
     public static function getClassAttribute($objectOrClass, $attribute, $ascend = false)
     {
@@ -81,7 +81,7 @@ class Reflector
      * @param  TTarget|class-string<TTarget>  $objectOrClass
      * @param  class-string<TAttribute>  $attribute
      * @param  bool  $includeParents
-     * @return ($includeParents is true ? Collection<class-string<contravariant TTarget>, Collection<int, TAttribute>> : Collection<int, TAttribute>)
+     *  ($includeParents is true ? Collection<class-string<contravariant TTarget>, Collection<int, TAttribute>> : Collection<int, TAttribute>)
      *
      * @throws \ReflectionException
      */
@@ -105,7 +105,7 @@ class Reflector
      * Get the class name of the given parameter's type, if possible.
      *
      * @param  \ReflectionParameter  $parameter
-     * @return string|null
+     *  string|null
      */
     public static function getParameterClassName($parameter)
     {
@@ -122,7 +122,7 @@ class Reflector
      * Get the class names of the given parameter's type, including union types.
      *
      * @param  \ReflectionParameter  $parameter
-     * @return array
+     *  array
      */
     public static function getParameterClassNames($parameter)
     {
@@ -150,7 +150,7 @@ class Reflector
      *
      * @param  \ReflectionParameter  $parameter
      * @param  \ReflectionNamedType  $type
-     * @return string
+     *  string
      */
     protected static function getTypeName($parameter, $type)
     {
@@ -174,7 +174,7 @@ class Reflector
      *
      * @param  \ReflectionParameter  $parameter
      * @param  string  $className
-     * @return bool
+     *  bool
      */
     public static function isParameterSubclassOf($parameter, $className)
     {
@@ -189,7 +189,7 @@ class Reflector
      * Determine if the parameter's type is a Backed Enum with a string backing type.
      *
      * @param  \ReflectionParameter  $parameter
-     * @return bool
+     *  bool
      */
     public static function isParameterBackedEnumWithStringBackingType($parameter)
     {

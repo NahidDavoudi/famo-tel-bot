@@ -143,7 +143,7 @@ class ProcessHandler extends AbstractProcessingHandler
     /**
      * Selects the STDERR stream.
      *
-     * @return int|bool
+     *  int|bool
      */
     protected function selectErrorStream()
     {
@@ -158,7 +158,7 @@ class ProcessHandler extends AbstractProcessingHandler
      * Reads the errors of the process, if there are any.
      *
      * @codeCoverageIgnore
-     * @return string Empty string if there are no errors.
+     *  string Empty string if there are no errors.
      */
     protected function readProcessErrors(): string
     {

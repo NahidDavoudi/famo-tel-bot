@@ -42,7 +42,7 @@ class BadFluentConstructorException extends BaseBadMethodCallException implement
     /**
      * Get the method.
      *
-     * @return string
+     *  string
      */
     public function getMethod(): string
     {

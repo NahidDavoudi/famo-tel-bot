@@ -97,7 +97,7 @@ trait Serialization
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     *  static
      */
     public static function fromSerialized($value, array $options = []): static
     {
@@ -115,7 +115,7 @@ trait Serialization
      *
      * @param string|array $dump
      *
-     * @return static
+     *  static
      */
     #[ReturnTypeWillChange]
     public static function __set_state($dump): static
@@ -135,7 +135,7 @@ trait Serialization
     /**
      * Returns the values to dump on serialize() called on.
      *
-     * @return array
+     *  array
      */
     public function __serialize(): array
     {

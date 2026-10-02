@@ -13,7 +13,7 @@ interface ComparesCastableAttributes
      * @param  string  $key
      * @param  mixed  $firstValue
      * @param  mixed  $secondValue
-     * @return bool
+     *  bool
      */
     public function compare(Model $model, string $key, mixed $firstValue, mixed $secondValue);
 }

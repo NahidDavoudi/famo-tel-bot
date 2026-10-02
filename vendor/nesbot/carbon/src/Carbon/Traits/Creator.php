@@ -319,7 +319,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     *  static|null
      */
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $timezone = null): ?static
     {
@@ -405,7 +405,7 @@ trait Creator
      *
      * @throws InvalidDateException
      *
-     * @return static|null
+     *  static|null
      */
     public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $timezone = null): ?static
     {
@@ -452,7 +452,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     *  static
      */
     public static function createStrict(?int $year = 0, ?int $month = 1, ?int $day = 1, ?int $hour = 0, ?int $minute = 0, ?int $second = 0, $timezone = null): static
     {
@@ -478,7 +478,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     *  static
      */
     public static function createFromDate($year = null, $month = null, $day = null, $timezone = null)
     {
@@ -495,7 +495,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     *  static
      */
     public static function createMidnightDate($year = null, $month = null, $day = null, $timezone = null)
     {
@@ -512,7 +512,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     *  static
      */
     public static function createFromTime($hour = 0, $minute = 0, $second = 0, $timezone = null): static
     {
@@ -563,7 +563,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     *  static|null
      */
     public static function rawCreateFromFormat(string $format, string $time, $timezone = null): ?static
     {
@@ -639,7 +639,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     *  static|null
      */
     #[ReturnTypeWillChange]
     public static function createFromFormat($format, $time, $timezone = null): ?static
@@ -681,7 +681,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     *  static|null
      */
     public static function createFromIsoFormat(
         string $format,
@@ -825,7 +825,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     *  static|null
      */
     public static function createFromLocaleFormat(string $format, string $locale, string $time, $timezone = null): ?static
     {
@@ -855,7 +855,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     *  static|null
      */
     public static function createFromLocaleIsoFormat(string $format, string $locale, string $time, $timezone = null): ?static
     {
@@ -874,7 +874,7 @@ trait Creator
      *
      * @throws InvalidFormatException
      *
-     * @return static|null
+     *  static|null
      */
     public static function make($var, DateTimeZone|string|null $timezone = null): ?static
     {
@@ -903,7 +903,7 @@ trait Creator
      *
      * @param array|bool $lastErrors
      *
-     * @return void
+     *  void
      */
     private static function setLastErrors($lastErrors): void
     {

@@ -32,7 +32,7 @@ class PendingChainFake extends PendingChain
     /**
      * Dispatch the job with the given arguments.
      *
-     * @return \Illuminate\Foundation\Bus\PendingDispatch
+     *  \Illuminate\Foundation\Bus\PendingDispatch
      */
     public function dispatch()
     {

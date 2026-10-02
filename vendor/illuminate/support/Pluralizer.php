@@ -37,7 +37,7 @@ class Pluralizer
      *
      * @param  string  $value
      * @param  int|array|\Countable  $count
-     * @return string
+     *  string
      */
     public static function plural($value, $count = 2)
     {
@@ -58,7 +58,7 @@ class Pluralizer
      * Get the singular form of an English word.
      *
      * @param  string  $value
-     * @return string
+     *  string
      */
     public static function singular($value)
     {
@@ -71,7 +71,7 @@ class Pluralizer
      * Determine if the given value is uncountable.
      *
      * @param  string  $value
-     * @return bool
+     *  bool
      */
     protected static function uncountable($value)
     {
@@ -83,7 +83,7 @@ class Pluralizer
      *
      * @param  string  $value
      * @param  string  $comparison
-     * @return string
+     *  string
      */
     protected static function matchCase($value, $comparison)
     {
@@ -101,7 +101,7 @@ class Pluralizer
     /**
      * Get the inflector instance.
      *
-     * @return \Doctrine\Inflector\Inflector
+     *  \Doctrine\Inflector\Inflector
      */
     public static function inflector()
     {
@@ -116,7 +116,7 @@ class Pluralizer
      * Specify the language that should be used by the inflector.
      *
      * @param  string  $language
-     * @return void
+     *  void
      */
     public static function useLanguage(string $language)
     {

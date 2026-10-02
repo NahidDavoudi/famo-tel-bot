@@ -76,7 +76,7 @@ class RedirectMiddleware
     }
 
     /**
-     * @return ResponseInterface|PromiseInterface
+     *  ResponseInterface|PromiseInterface
      */
     public function checkRedirect(RequestInterface $request, array $options, ResponseInterface $response)
     {

@@ -62,7 +62,7 @@ trait Macro
      * @param callable $macro
      * @param int      $priority marco with higher priority is tried first
      *
-     * @return void
+     *  void
      */
     public static function genericMacro(callable $macro, int $priority = 0): void
     {
@@ -74,7 +74,7 @@ trait Macro
      *
      * @param string $name
      *
-     * @return bool
+     *  bool
      */
     public static function hasMacro(string $name): bool
     {

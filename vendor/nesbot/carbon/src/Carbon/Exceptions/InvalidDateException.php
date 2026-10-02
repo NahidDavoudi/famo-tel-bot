@@ -50,7 +50,7 @@ class InvalidDateException extends BaseInvalidArgumentException implements Inval
     /**
      * Get the invalid field.
      *
-     * @return string
+     *  string
      */
     public function getField()
     {
@@ -60,7 +60,7 @@ class InvalidDateException extends BaseInvalidArgumentException implements Inval
     /**
      * Get the invalid value.
      *
-     * @return mixed
+     *  mixed
      */
     public function getValue()
     {

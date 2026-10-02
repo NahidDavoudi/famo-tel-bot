@@ -112,7 +112,7 @@ class ServerRequest extends Request implements ServerRequestInterface
      *
      * @param array $value $_FILES struct
      *
-     * @return UploadedFileInterface|UploadedFileInterface[]
+     *  UploadedFileInterface|UploadedFileInterface[]
      */
     private static function createUploadedFileFromSpec(array $value)
     {
@@ -135,7 +135,7 @@ class ServerRequest extends Request implements ServerRequestInterface
      * Loops through all nested files and returns a normalized array of
      * UploadedFileInterface instances.
      *
-     * @return UploadedFileInterface[]
+     *  UploadedFileInterface[]
      */
     private static function normalizeNestedFileSpec(array $files = []): array
     {
@@ -182,7 +182,7 @@ class ServerRequest extends Request implements ServerRequestInterface
     }
 
     /**
-     * @return array<array-key, string>
+     *  array<array-key, string>
      */
     private static function getAllHeaders(): array
     {
@@ -192,7 +192,7 @@ class ServerRequest extends Request implements ServerRequestInterface
     /**
      * @param array<array-key, mixed> $headers
      *
-     * @return array<array-key, string>
+     *  array<array-key, string>
      */
     private static function normalizeHeaderValues(array $headers): array
     {
@@ -215,7 +215,7 @@ class ServerRequest extends Request implements ServerRequestInterface
     /**
      * @param array<array-key, string> $headers
      *
-     * @return array<array-key, string>
+     *  array<array-key, string>
      */
     private static function removeInvalidHostHeader(array $headers): array
     {
@@ -233,7 +233,7 @@ class ServerRequest extends Request implements ServerRequestInterface
     }
 
     /**
-     * @return array{0: string|null, 1: int|null}
+     *  array{0: string|null, 1: int|null}
      */
     private static function extractHostAndPortFromAuthority(string $authority): array
     {
@@ -368,7 +368,7 @@ class ServerRequest extends Request implements ServerRequestInterface
     }
 
     /**
-     * @return array|object|null
+     *  array|object|null
      */
     public function getParsedBody()
     {
@@ -398,7 +398,7 @@ class ServerRequest extends Request implements ServerRequestInterface
     }
 
     /**
-     * @return mixed
+     *  mixed
      */
     public function getAttribute($attribute, $default = null)
     {

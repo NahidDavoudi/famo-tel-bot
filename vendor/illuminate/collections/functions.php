@@ -13,7 +13,7 @@ if (! function_exists('Illuminate\Support\enum_value')) {
      *
      * @param  TValue  $value
      * @param  TDefault|callable(TValue): TDefault  $default
-     * @return ($value is empty ? TDefault : mixed)
+     *  ($value is empty ? TDefault : mixed)
      */
     function enum_value($value, $default = null)
     {

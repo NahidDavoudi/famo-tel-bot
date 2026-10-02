@@ -63,7 +63,7 @@ class EventFake implements Dispatcher, Fake
      * Specify the events that should be dispatched instead of faked.
      *
      * @param  array|string  $eventsToDispatch
-     * @return $this
+     *  $this
      */
     public function except($eventsToDispatch)
     {
@@ -80,7 +80,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param  string  $expectedEvent
      * @param  string|array  $expectedListener
-     * @return void
+     *  void
      */
     public function assertListening($expectedEvent, $expectedListener)
     {
@@ -129,7 +129,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param  string|\Closure  $event
      * @param  callable|int|null  $callback
-     * @return void
+     *  void
      */
     public function assertDispatched($event, $callback = null)
     {
@@ -151,7 +151,7 @@ class EventFake implements Dispatcher, Fake
      * Assert if an event was dispatched exactly once.
      *
      * @param  string  $event
-     * @return void
+     *  void
      */
     public function assertDispatchedOnce($event)
     {
@@ -163,7 +163,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param  string  $event
      * @param  int  $times
-     * @return void
+     *  void
      */
     public function assertDispatchedTimes($event, $times = 1)
     {
@@ -184,7 +184,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param  string|\Closure  $event
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public function assertNotDispatched($event, $callback = null)
     {
@@ -201,7 +201,7 @@ class EventFake implements Dispatcher, Fake
     /**
      * Assert that no events were dispatched.
      *
-     * @return void
+     *  void
      */
     public function assertNothingDispatched()
     {
@@ -227,7 +227,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param  string  $event
      * @param  callable|null  $callback
-     * @return \Illuminate\Support\Collection
+     *  \Illuminate\Support\Collection
      */
     public function dispatched($event, $callback = null)
     {
@@ -246,7 +246,7 @@ class EventFake implements Dispatcher, Fake
      * Determine if the given event has been dispatched.
      *
      * @param  string  $event
-     * @return bool
+     *  bool
      */
     public function hasDispatched($event)
     {
@@ -258,7 +258,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param  \Closure|string|array  $events
      * @param  mixed  $listener
-     * @return void
+     *  void
      */
     public function listen($events, $listener = null)
     {
@@ -269,7 +269,7 @@ class EventFake implements Dispatcher, Fake
      * Determine if a given event has listeners.
      *
      * @param  string  $eventName
-     * @return bool
+     *  bool
      */
     public function hasListeners($eventName)
     {
@@ -281,7 +281,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param  string  $event
      * @param  array  $payload
-     * @return void
+     *  void
      */
     public function push($event, $payload = [])
     {
@@ -292,7 +292,7 @@ class EventFake implements Dispatcher, Fake
      * Register an event subscriber with the dispatcher.
      *
      * @param  object|string  $subscriber
-     * @return void
+     *  void
      */
     public function subscribe($subscriber)
     {
@@ -303,7 +303,7 @@ class EventFake implements Dispatcher, Fake
      * Flush a set of pushed events.
      *
      * @param  string  $event
-     * @return void
+     *  void
      */
     public function flush($event)
     {
@@ -316,7 +316,7 @@ class EventFake implements Dispatcher, Fake
      * @param  string|object  $event
      * @param  mixed  $payload
      * @param  bool  $halt
-     * @return array|null
+     *  array|null
      */
     public function dispatch($event, $payload = [], $halt = false)
     {
@@ -334,7 +334,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param  string  $eventName
      * @param  mixed  $payload
-     * @return bool
+     *  bool
      */
     protected function shouldFakeEvent($eventName, $payload)
     {
@@ -360,7 +360,7 @@ class EventFake implements Dispatcher, Fake
      * @param  string|object  $event
      * @param  string  $name
      * @param  array  $arguments
-     * @return void
+     *  void
      */
     protected function fakeEvent($event, $name, $arguments)
     {
@@ -377,7 +377,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param  string  $eventName
      * @param  mixed  $payload
-     * @return bool
+     *  bool
      */
     protected function shouldDispatchEvent($eventName, $payload)
     {
@@ -397,7 +397,7 @@ class EventFake implements Dispatcher, Fake
      * Remove a set of listeners from the dispatcher.
      *
      * @param  string  $event
-     * @return void
+     *  void
      */
     public function forget($event)
     {
@@ -407,7 +407,7 @@ class EventFake implements Dispatcher, Fake
     /**
      * Forget all of the queued listeners.
      *
-     * @return void
+     *  void
      */
     public function forgetPushed()
     {
@@ -419,7 +419,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param  string|object  $event
      * @param  mixed  $payload
-     * @return mixed
+     *  mixed
      */
     public function until($event, $payload = [])
     {
@@ -429,7 +429,7 @@ class EventFake implements Dispatcher, Fake
     /**
      * Get the events that have been dispatched.
      *
-     * @return array
+     *  array
      */
     public function dispatchedEvents()
     {
@@ -441,7 +441,7 @@ class EventFake implements Dispatcher, Fake
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      */
     public function __call($method, $parameters)
     {

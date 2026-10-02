@@ -96,7 +96,7 @@ class CachedKeySet implements ArrayAccess
 
     /**
      * @param string $keyId
-     * @return Key
+     *  Key
      */
     public function offsetGet($keyId): Key
     {
@@ -108,7 +108,7 @@ class CachedKeySet implements ArrayAccess
 
     /**
      * @param string $keyId
-     * @return bool
+     *  bool
      */
     public function offsetExists($keyId): bool
     {
@@ -133,7 +133,7 @@ class CachedKeySet implements ArrayAccess
     }
 
     /**
-     * @return array<mixed>
+     *  array<mixed>
      */
     private function formatJwksForCache(string $jwks): array
     {

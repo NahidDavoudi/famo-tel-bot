@@ -9,7 +9,7 @@ interface UriFactoryInterface
      *
      * @param string $uri
      *
-     * @return UriInterface
+     *  UriInterface
      *
      * @throws \InvalidArgumentException If the given URI cannot be parsed.
      */

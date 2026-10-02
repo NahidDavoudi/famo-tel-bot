@@ -126,7 +126,7 @@ final class EasyHandle
     /**
      * @param string $name
      *
-     * @return void
+     *  void
      *
      * @throws \BadMethodCallException
      */

@@ -57,7 +57,7 @@ class InstalledVersions
     /**
      * Returns a list of all package names which are present, either by being installed, replaced or provided
      *
-     * @return string[]
+     *  string[]
      * @psalm-return list<string>
      */
     public static function getInstalledPackages()
@@ -78,7 +78,7 @@ class InstalledVersions
      * Returns a list of all package names with a specific type e.g. 'library'
      *
      * @param  string   $type
-     * @return string[]
+     *  string[]
      * @psalm-return list<string>
      */
     public static function getInstalledPackagesByType($type)
@@ -103,7 +103,7 @@ class InstalledVersions
      *
      * @param  string $packageName
      * @param  bool   $includeDevRequirements
-     * @return bool
+     *  bool
      */
     public static function isInstalled($packageName, $includeDevRequirements = true)
     {
@@ -126,7 +126,7 @@ class InstalledVersions
      * @param  VersionParser $parser      Install composer/semver to have access to this class and functionality
      * @param  string        $packageName
      * @param  string|null   $constraint  A version constraint to check for, if you pass one you have to make sure composer/semver is required by your package
-     * @return bool
+     *  bool
      */
     public static function satisfies(VersionParser $parser, $packageName, $constraint)
     {
@@ -143,7 +143,7 @@ class InstalledVersions
      * whether a given version of a package is installed, and not just whether it exists
      *
      * @param  string $packageName
-     * @return string Version constraint usable with composer/semver
+     *  string Version constraint usable with composer/semver
      */
     public static function getVersionRanges($packageName)
     {
@@ -174,7 +174,7 @@ class InstalledVersions
 
     /**
      * @param  string      $packageName
-     * @return string|null If the package is being replaced or provided but is not really installed, null will be returned as version, use satisfies or getVersionRanges if you need to know if a given version is present
+     *  string|null If the package is being replaced or provided but is not really installed, null will be returned as version, use satisfies or getVersionRanges if you need to know if a given version is present
      */
     public static function getVersion($packageName)
     {
@@ -195,7 +195,7 @@ class InstalledVersions
 
     /**
      * @param  string      $packageName
-     * @return string|null If the package is being replaced or provided but is not really installed, null will be returned as version, use satisfies or getVersionRanges if you need to know if a given version is present
+     *  string|null If the package is being replaced or provided but is not really installed, null will be returned as version, use satisfies or getVersionRanges if you need to know if a given version is present
      */
     public static function getPrettyVersion($packageName)
     {
@@ -216,7 +216,7 @@ class InstalledVersions
 
     /**
      * @param  string      $packageName
-     * @return string|null If the package is being replaced or provided but is not really installed, null will be returned as reference
+     *  string|null If the package is being replaced or provided but is not really installed, null will be returned as reference
      */
     public static function getReference($packageName)
     {
@@ -237,7 +237,7 @@ class InstalledVersions
 
     /**
      * @param  string      $packageName
-     * @return string|null If the package is being replaced or provided but is not really installed, null will be returned as install path. Packages of type metapackages also have a null install path.
+     *  string|null If the package is being replaced or provided but is not really installed, null will be returned as install path. Packages of type metapackages also have a null install path.
      */
     public static function getInstallPath($packageName)
     {
@@ -253,7 +253,7 @@ class InstalledVersions
     }
 
     /**
-     * @return array
+     *  array
      * @psalm-return array{name: string, pretty_version: string, version: string, reference: string|null, type: string, install_path: string, aliases: string[], dev: bool}
      */
     public static function getRootPackage()
@@ -267,7 +267,7 @@ class InstalledVersions
      * Returns the raw installed.php data for custom implementations
      *
      * @deprecated Use getAllRawData() instead which returns all datasets for all autoloaders present in the process. getRawData only returns the first dataset loaded, which may not be what you expect.
-     * @return array[]
+     *  array[]
      * @psalm-return array{root: array{name: string, pretty_version: string, version: string, reference: string|null, type: string, install_path: string, aliases: string[], dev: bool}, versions: array<string, array{pretty_version?: string, version?: string, reference?: string|null, type?: string, install_path?: string, aliases?: string[], dev_requirement: bool, replaced?: string[], provided?: string[]}>}
      */
     public static function getRawData()
@@ -290,7 +290,7 @@ class InstalledVersions
     /**
      * Returns the raw data of all installed.php which are currently loaded for custom implementations
      *
-     * @return array[]
+     *  array[]
      * @psalm-return list<array{root: array{name: string, pretty_version: string, version: string, reference: string|null, type: string, install_path: string, aliases: string[], dev: bool}, versions: array<string, array{pretty_version?: string, version?: string, reference?: string|null, type?: string, install_path?: string, aliases?: string[], dev_requirement: bool, replaced?: string[], provided?: string[]}>}>
      */
     public static function getAllRawData()
@@ -312,7 +312,7 @@ class InstalledVersions
      * interference between PHPUnit's dependencies and the project's dependencies.
      *
      * @param  array[] $data A vendor/composer/installed.php data set
-     * @return void
+     *  void
      *
      * @psalm-param array{root: array{name: string, pretty_version: string, version: string, reference: string|null, type: string, install_path: string, aliases: string[], dev: bool}, versions: array<string, array{pretty_version?: string, version?: string, reference?: string|null, type?: string, install_path?: string, aliases?: string[], dev_requirement: bool, replaced?: string[], provided?: string[]}>} $data
      */
@@ -329,7 +329,7 @@ class InstalledVersions
     }
 
     /**
-     * @return string
+     *  string
      */
     private static function getSelfDir()
     {
@@ -341,7 +341,7 @@ class InstalledVersions
     }
 
     /**
-     * @return array[]
+     *  array[]
      * @psalm-return list<array{root: array{name: string, pretty_version: string, version: string, reference: string|null, type: string, install_path: string, aliases: string[], dev: bool}, versions: array<string, array{pretty_version?: string, version?: string, reference?: string|null, type?: string, install_path?: string, aliases?: string[], dev_requirement: bool, replaced?: string[], provided?: string[]}>}>
      */
     private static function getInstalled()

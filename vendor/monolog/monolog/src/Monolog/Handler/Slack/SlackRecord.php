@@ -221,7 +221,7 @@ class SlackRecord
      * Channel used by the bot when posting
      *
      * @param  ?string $channel
-     * @return $this
+     *  $this
      */
     public function setChannel(?string $channel = null): self
     {
@@ -234,7 +234,7 @@ class SlackRecord
      * Username used by the bot when posting
      *
      * @param  ?string $username
-     * @return $this
+     *  $this
      */
     public function setUsername(?string $username = null): self
     {
@@ -244,7 +244,7 @@ class SlackRecord
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function useAttachment(bool $useAttachment = true): self
     {
@@ -254,7 +254,7 @@ class SlackRecord
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function setUserIcon(?string $userIcon = null): self
     {
@@ -268,7 +268,7 @@ class SlackRecord
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function useShortAttachment(bool $useShortAttachment = false): self
     {
@@ -278,7 +278,7 @@ class SlackRecord
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function includeContextAndExtra(bool $includeContextAndExtra = false): self
     {
@@ -293,7 +293,7 @@ class SlackRecord
 
     /**
      * @param  string[] $excludeFields
-     * @return $this
+     *  $this
      */
     public function excludeFields(array $excludeFields = []): self
     {
@@ -303,7 +303,7 @@ class SlackRecord
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function setFormatter(?FormatterInterface $formatter = null): self
     {
@@ -317,7 +317,7 @@ class SlackRecord
      *
      * @param string|mixed[] $value
      *
-     * @return array{title: string, value: string, short: false}
+     *  array{title: string, value: string, short: false}
      */
     private function generateAttachmentField(string $title, $value): array
     {
@@ -337,7 +337,7 @@ class SlackRecord
      *
      * @param mixed[] $data
      *
-     * @return array<array{title: string, value: string, short: false}>
+     *  array<array{title: string, value: string, short: false}>
      */
     private function generateAttachmentFields(array $data): array
     {
@@ -355,7 +355,7 @@ class SlackRecord
     /**
      * Get a copy of record with fields excluded according to $this->excludeFields
      *
-     * @return mixed[]
+     *  mixed[]
      */
     private function removeExcludedFields(LogRecord $record): array
     {

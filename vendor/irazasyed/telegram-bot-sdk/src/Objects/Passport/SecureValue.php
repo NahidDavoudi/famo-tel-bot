@@ -19,7 +19,7 @@ class SecureValue extends BaseObject
     /**
      * {@inheritdoc}
      *
-     * @return array{data: string, front_side: string, reverse_side: string, selfie: string, translation: string[], files: string[]}
+     *  array{data: string, front_side: string, reverse_side: string, selfie: string, translation: string[], files: string[]}
      */
     public function relations(): array
     {

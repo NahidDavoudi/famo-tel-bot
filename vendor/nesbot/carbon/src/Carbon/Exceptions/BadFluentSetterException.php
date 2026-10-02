@@ -42,7 +42,7 @@ class BadFluentSetterException extends BaseBadMethodCallException implements Bad
     /**
      * Get the setter.
      *
-     * @return string
+     *  string
      */
     public function getSetter(): string
     {

@@ -65,7 +65,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @param class-string<DateTimeZone> $className The $className::instance() method will be called to cast the current object.
      *
-     * @return DateTimeZone|mixed
+     *  DateTimeZone|mixed
      */
     public function cast(string $className): mixed
     {
@@ -88,7 +88,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @throws InvalidTimeZoneException
      *
-     * @return static|null
+     *  static|null
      */
     public static function instance(
         DateTimeZone|string|int|false|null $object,
@@ -124,7 +124,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @param bool $dst
      *
-     * @return string
+     *  string
      */
     public function getAbbreviatedName(bool $dst = false): string
     {
@@ -161,7 +161,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @param bool $dst
      *
-     * @return string
+     *  string
      */
     public function getAbbr(bool $dst = false): string
     {
@@ -248,7 +248,7 @@ class CarbonTimeZone extends DateTimeZone
     /**
      * Cast to string (get timezone name).
      *
-     * @return string
+     *  string
      */
     public function __toString()
     {
@@ -272,7 +272,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @param DateTimeZone|string|int|null $object
      *
-     * @return false|static
+     *  false|static
      */
     public static function create($object = null)
     {
@@ -284,7 +284,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @param float $hourOffset number of hour of the timezone shift (can be decimal).
      *
-     * @return false|static
+     *  false|static
      */
     public static function createFromHourOffset(float $hourOffset)
     {
@@ -296,7 +296,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @param float $minuteOffset number of total minutes of the timezone shift.
      *
-     * @return false|static
+     *  false|static
      */
     public static function createFromMinuteOffset(float $minuteOffset)
     {
@@ -308,7 +308,7 @@ class CarbonTimeZone extends DateTimeZone
      *
      * @param float $minutes number of total minutes of the timezone shift.
      *
-     * @return string
+     *  string
      */
     public static function getOffsetNameFromMinuteOffset(float $minutes): string
     {

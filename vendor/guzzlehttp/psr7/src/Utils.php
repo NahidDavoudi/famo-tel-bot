@@ -611,7 +611,7 @@ final class Utils
      * @param string $filename File to open
      * @param string $mode     Mode used to open the file
      *
-     * @return resource
+     *  resource
      *
      * @throws \RuntimeException if the file cannot be opened
      */

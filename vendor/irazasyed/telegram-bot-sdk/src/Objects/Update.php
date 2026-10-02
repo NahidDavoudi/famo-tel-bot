@@ -55,7 +55,7 @@ class Update extends BaseObject
     /**
      * {@inheritdoc}
      *
-     * @return array{message: string, edited_message: string, channel_post: string, edited_channel_post: string, inline_query: string, chosen_inline_result: string, callback_query: string, shipping_query: string, pre_checkout_query: string, poll: string, poll_answer: string, my_chat_member: string, chat_member: string, chat_join_request: string}
+     *  array{message: string, edited_message: string, channel_post: string, edited_channel_post: string, inline_query: string, chosen_inline_result: string, callback_query: string, shipping_query: string, pre_checkout_query: string, poll: string, poll_answer: string, my_chat_member: string, chat_member: string, chat_join_request: string}
      */
     public function relations(): array
     {

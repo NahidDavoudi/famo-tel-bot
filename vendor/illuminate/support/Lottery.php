@@ -69,7 +69,7 @@ class Lottery
      *
      * @param  int|float  $chances
      * @param  int|null  $outOf
-     * @return static
+     *  static
      */
     public static function odds($chances, $outOf = null)
     {
@@ -80,7 +80,7 @@ class Lottery
      * Set the winner callback.
      *
      * @param  callable  $callback
-     * @return $this
+     *  $this
      */
     public function winner($callback)
     {
@@ -93,7 +93,7 @@ class Lottery
      * Set the loser callback.
      *
      * @param  callable  $callback
-     * @return $this
+     *  $this
      */
     public function loser($callback)
     {
@@ -106,7 +106,7 @@ class Lottery
      * Run the lottery.
      *
      * @param  mixed  ...$args
-     * @return mixed
+     *  mixed
      */
     public function __invoke(...$args)
     {
@@ -117,7 +117,7 @@ class Lottery
      * Run the lottery.
      *
      * @param  null|int  $times
-     * @return ($times is null ? mixed : list<mixed>)
+     *  ($times is null ? mixed : list<mixed>)
      */
     public function choose($times = null)
     {
@@ -138,7 +138,7 @@ class Lottery
      * Run the winner or loser callback, randomly.
      *
      * @param  mixed  ...$args
-     * @return callable
+     *  callable
      */
     protected function runCallback(...$args)
     {
@@ -150,7 +150,7 @@ class Lottery
     /**
      * Determine if the lottery "wins" or "loses".
      *
-     * @return bool
+     *  bool
      */
     protected function wins()
     {
@@ -160,7 +160,7 @@ class Lottery
     /**
      * The factory that determines the lottery result.
      *
-     * @return callable
+     *  callable
      */
     protected static function resultFactory()
     {
@@ -173,7 +173,7 @@ class Lottery
      * Force the lottery to always result in a win.
      *
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public static function alwaysWin($callback = null)
     {
@@ -192,7 +192,7 @@ class Lottery
      * Force the lottery to always result in a loss.
      *
      * @param  callable|null  $callback
-     * @return void
+     *  void
      */
     public static function alwaysLose($callback = null)
     {
@@ -212,7 +212,7 @@ class Lottery
      *
      * @param  array  $sequence
      * @param  callable|null  $whenMissing
-     * @return void
+     *  void
      */
     public static function fix($sequence, $whenMissing = null)
     {
@@ -224,7 +224,7 @@ class Lottery
      *
      * @param  array  $sequence
      * @param  callable|null  $whenMissing
-     * @return void
+     *  void
      */
     public static function forceResultWithSequence($sequence, $whenMissing = null)
     {
@@ -256,7 +256,7 @@ class Lottery
     /**
      * Indicate that the lottery results should be determined normally.
      *
-     * @return void
+     *  void
      */
     public static function determineResultsNormally()
     {
@@ -266,7 +266,7 @@ class Lottery
     /**
      * Indicate that the lottery results should be determined normally.
      *
-     * @return void
+     *  void
      */
     public static function determineResultNormally()
     {
@@ -277,7 +277,7 @@ class Lottery
      * Set the factory that should be used to determine the lottery results.
      *
      * @param  callable  $factory
-     * @return void
+     *  void
      */
     public static function setResultFactory($factory)
     {

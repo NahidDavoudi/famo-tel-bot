@@ -75,7 +75,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
      *
      * @param string|null $locale optional initial locale ("en" - english by default)
      *
-     * @return static
+     *  static
      */
     public static function get(?string $locale = null): static
     {
@@ -113,7 +113,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
      *
      * @param array $directories new directories list
      *
-     * @return $this
+     *  $this
      */
     public function setDirectories(array $directories): static
     {
@@ -127,7 +127,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
      *
      * @param string $directory new directory
      *
-     * @return $this
+     *  $this
      */
     public function addDirectory(string $directory): static
     {
@@ -141,7 +141,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
      *
      * @param string $directory directory path
      *
-     * @return $this
+     *  $this
      */
     public function removeDirectory(string $directory): static
     {
@@ -202,7 +202,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
      *
      * @param string $prefix prefix required to filter result
      *
-     * @return array
+     *  array
      */
     public function getLocalesFiles(string $prefix = ''): array
     {
@@ -223,7 +223,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
      *
      * @param string $prefix prefix required to filter result
      *
-     * @return array
+     *  array
      */
     public function getAvailableLocales(string $prefix = ''): array
     {
@@ -267,7 +267,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
      *
      * @param string $locale
      *
-     * @return bool
+     *  bool
      */
     protected function loadMessagesFromFile(string $locale): bool
     {
@@ -280,7 +280,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
      * @param string $locale
      * @param array  $messages
      *
-     * @return $this
+     *  $this
      */
     public function setMessages(string $locale, array $messages): static
     {
@@ -299,7 +299,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
      *
      * @param array $messages
      *
-     * @return $this
+     *  $this
      */
     public function setTranslations(array $messages): static
     {
@@ -387,7 +387,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
     /**
      * Show locale on var_dump().
      *
-     * @return array
+     *  array
      */
     public function __debugInfo()
     {
@@ -482,7 +482,7 @@ abstract class AbstractTranslator extends SymfonyTranslator
         return __DIR__.'/Lang';
     }
 
-    /** @return list<string> */
+    /**  list<string> */
     private static function getInternallySupportedLocales(): array
     {
         return [

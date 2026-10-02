@@ -9,7 +9,7 @@ interface BindingRegistrar
      *
      * @param  string  $key
      * @param  string|callable  $binder
-     * @return void
+     *  void
      */
     public function bind($key, $binder);
 
@@ -17,7 +17,7 @@ interface BindingRegistrar
      * Get the binding callback for a given binding.
      *
      * @param  string  $key
-     * @return \Closure|null
+     *  \Closure|null
      */
     public function getBindingCallback($key);
 }

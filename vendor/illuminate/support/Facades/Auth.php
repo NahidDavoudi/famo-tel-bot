@@ -73,7 +73,7 @@ class Auth extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {
@@ -84,7 +84,7 @@ class Auth extends Facade
      * Register the typical authentication routes for an application.
      *
      * @param  array  $options
-     * @return void
+     *  void
      *
      * @throws \RuntimeException
      */

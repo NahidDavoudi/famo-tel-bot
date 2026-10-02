@@ -33,7 +33,7 @@ class Optional implements ArrayAccess
      * Dynamically access a property on the underlying object.
      *
      * @param  string  $key
-     * @return mixed
+     *  mixed
      */
     public function __get($key)
     {
@@ -46,7 +46,7 @@ class Optional implements ArrayAccess
      * Dynamically check a property exists on the underlying object.
      *
      * @param  mixed  $name
-     * @return bool
+     *  bool
      */
     public function __isset($name)
     {
@@ -65,7 +65,7 @@ class Optional implements ArrayAccess
      * Determine if an item exists at an offset.
      *
      * @param  mixed  $offset
-     * @return bool
+     *  bool
      */
     public function offsetExists($offset): bool
     {
@@ -76,7 +76,7 @@ class Optional implements ArrayAccess
      * Get an item at a given offset.
      *
      * @param  mixed  $offset
-     * @return mixed
+     *  mixed
      */
     public function offsetGet($offset): mixed
     {
@@ -88,7 +88,7 @@ class Optional implements ArrayAccess
      *
      * @param  mixed  $offset
      * @param  mixed  $value
-     * @return void
+     *  void
      */
     public function offsetSet($offset, $value): void
     {
@@ -101,7 +101,7 @@ class Optional implements ArrayAccess
      * Unset the item at a given offset.
      *
      * @param  mixed  $offset
-     * @return void
+     *  void
      */
     public function offsetUnset($offset): void
     {
@@ -115,7 +115,7 @@ class Optional implements ArrayAccess
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      */
     public function __call($method, $parameters)
     {

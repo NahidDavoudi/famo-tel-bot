@@ -105,7 +105,7 @@ final class Callback
         return null;
     }
 
-    /** @return class-string|null */
+    /**  class-string|null */
     private function getPromotedClass(mixed $value): ?string
     {
         if ($value instanceof DateTimeInterface) {

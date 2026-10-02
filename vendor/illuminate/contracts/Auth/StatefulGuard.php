@@ -9,7 +9,7 @@ interface StatefulGuard extends Guard
      *
      * @param  array  $credentials
      * @param  bool  $remember
-     * @return bool
+     *  bool
      */
     public function attempt(array $credentials = [], $remember = false);
 
@@ -17,7 +17,7 @@ interface StatefulGuard extends Guard
      * Log a user into the application without sessions or cookies.
      *
      * @param  array  $credentials
-     * @return bool
+     *  bool
      */
     public function once(array $credentials = []);
 
@@ -26,7 +26,7 @@ interface StatefulGuard extends Guard
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @param  bool  $remember
-     * @return void
+     *  void
      */
     public function login(Authenticatable $user, $remember = false);
 
@@ -35,7 +35,7 @@ interface StatefulGuard extends Guard
      *
      * @param  mixed  $id
      * @param  bool  $remember
-     * @return \Illuminate\Contracts\Auth\Authenticatable|false
+     *  \Illuminate\Contracts\Auth\Authenticatable|false
      */
     public function loginUsingId($id, $remember = false);
 
@@ -43,21 +43,21 @@ interface StatefulGuard extends Guard
      * Log the given user ID into the application without sessions or cookies.
      *
      * @param  mixed  $id
-     * @return \Illuminate\Contracts\Auth\Authenticatable|false
+     *  \Illuminate\Contracts\Auth\Authenticatable|false
      */
     public function onceUsingId($id);
 
     /**
      * Determine if the user was authenticated via "remember me" cookie.
      *
-     * @return bool
+     *  bool
      */
     public function viaRemember();
 
     /**
      * Log the user out of the application.
      *
-     * @return void
+     *  void
      */
     public function logout();
 }

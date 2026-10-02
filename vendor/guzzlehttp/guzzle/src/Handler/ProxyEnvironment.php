@@ -25,7 +25,7 @@ final class ProxyEnvironment
      * variant next (except for "http", where uppercase HTTP_PROXY is never
      * read), then all_proxy/ALL_PROXY.
      *
-     * @return string|null The proxy to use; null when the environment
+     *  string|null The proxy to use; null when the environment
      *                     configures none.
      */
     public static function getProxyForScheme(string $scheme): ?string
@@ -52,7 +52,7 @@ final class ProxyEnvironment
     }
 
     /**
-     * @return string|null The no-proxy list; null when nothing is set.
+     *  string|null The no-proxy list; null when nothing is set.
      */
     public static function getNoProxy(): ?string
     {
@@ -73,7 +73,7 @@ final class ProxyEnvironment
      * blanks, and a single leading dot is ignored, so ".example.com" bypasses
      * example.com and its subdomains exactly as a bare domain entry does.
      *
-     * @return string[]
+     *  string[]
      */
     public static function splitNoProxy(string $noProxy): array
     {

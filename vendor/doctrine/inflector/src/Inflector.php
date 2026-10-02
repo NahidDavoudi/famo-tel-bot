@@ -282,7 +282,7 @@ class Inflector
      * @param string $string     The string to operate on.
      * @param string $delimiters A list of word separators.
      *
-     * @return string The string with all delimiter-separated words capitalized.
+     *  string The string with all delimiter-separated words capitalized.
      */
     public function capitalize(string $string, string $delimiters = " \n\t\r\0\x0B-"): string
     {
@@ -330,7 +330,7 @@ class Inflector
      *
      * @param  string $string String to unaccent
      *
-     * @return string Unaccented string
+     *  string Unaccented string
      */
     public function unaccent(string $string): string
     {
@@ -443,7 +443,7 @@ class Inflector
      *
      * @param  string $string String to urlize.
      *
-     * @return string Urlized string.
+     *  string Urlized string.
      */
     public function urlize(string $string): string
     {
@@ -486,7 +486,7 @@ class Inflector
      *
      * @param string $word The word in plural form.
      *
-     * @return string The word in singular form.
+     *  string The word in singular form.
      */
     public function singularize(string $word): string
     {
@@ -498,7 +498,7 @@ class Inflector
      *
      * @param string $word The word in singular form.
      *
-     * @return string The word in plural form.
+     *  string The word in plural form.
      */
     public function pluralize(string $word): string
     {

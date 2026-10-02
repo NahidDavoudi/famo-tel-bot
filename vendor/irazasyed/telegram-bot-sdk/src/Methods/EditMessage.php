@@ -32,7 +32,7 @@ trait EditMessage
      *
      * @link https://core.telegram.org/bots/api#editmessagetext
      *
-     * @return Message|bool
+     *  Message|bool
      *
      * @throws TelegramSDKException
      */
@@ -59,7 +59,7 @@ trait EditMessage
      *
      * @link https://core.telegram.org/bots/api#editmessagecaption
      *
-     * @return Message|bool
+     *  Message|bool
      *
      * @throws TelegramSDKException
      */
@@ -85,7 +85,7 @@ trait EditMessage
      *
      * @link https://core.telegram.org/bots/api#editmessagemedia
      *
-     * @return Message|bool
+     *  Message|bool
      *
      * @throws TelegramSDKException
      */
@@ -110,7 +110,7 @@ trait EditMessage
      *
      * @link https://core.telegram.org/bots/api#editmessagereplymarkup
      *
-     * @return Message|bool
+     *  Message|bool
      *
      * @throws TelegramSDKException
      */
@@ -164,7 +164,7 @@ trait EditMessage
      *
      * @link https://core.telegram.org/bots/api#deletemessage
      *
-     * @return bool
+     *  bool
      *
      * @throws TelegramSDKException
      */
@@ -185,7 +185,7 @@ trait EditMessage
      *
      * @link https://core.telegram.org/bots/api#deletemessages
      *
-     * @return bool
+     *  bool
      *
      * @throws TelegramSDKException
      */

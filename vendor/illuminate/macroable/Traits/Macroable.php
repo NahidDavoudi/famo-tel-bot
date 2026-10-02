@@ -26,7 +26,7 @@ trait Macroable
      *
      * @param-closure-this static  $macro
      *
-     * @return void
+     *  void
      */
     public static function macro($name, $macro)
     {
@@ -38,7 +38,7 @@ trait Macroable
      *
      * @param  object  $mixin
      * @param  bool  $replace
-     * @return void
+     *  void
      *
      * @throws \ReflectionException
      */
@@ -59,7 +59,7 @@ trait Macroable
      * Checks if macro is registered.
      *
      * @param  string  $name
-     * @return bool
+     *  bool
      */
     public static function hasMacro($name)
     {
@@ -69,7 +69,7 @@ trait Macroable
     /**
      * Flush the existing macros.
      *
-     * @return void
+     *  void
      */
     public static function flushMacros()
     {
@@ -81,7 +81,7 @@ trait Macroable
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      *
      * @throws \BadMethodCallException
      */
@@ -107,7 +107,7 @@ trait Macroable
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return mixed
+     *  mixed
      *
      * @throws \BadMethodCallException
      */

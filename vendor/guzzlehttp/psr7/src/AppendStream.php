@@ -279,7 +279,7 @@ final class AppendStream implements StreamInterface
     }
 
     /**
-     * @return mixed
+     *  mixed
      */
     public function getMetadata($key = null)
     {

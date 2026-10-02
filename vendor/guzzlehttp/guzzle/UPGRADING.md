@@ -1149,9 +1149,9 @@ Commands are now called Operations
 use Guzzle\Service\Description\ServiceDescription;
 
 $sd = new ServiceDescription();
-$sd->getCommands();     // @returns ApiCommandInterface[]
+$sd->getCommands();     // s ApiCommandInterface[]
 $sd->hasCommand($name);
-$sd->getCommand($name); // @returns ApiCommandInterface|null
+$sd->getCommand($name); // s ApiCommandInterface|null
 $sd->addCommand($command); // @param ApiCommandInterface $command
 ```
 
@@ -1161,9 +1161,9 @@ $sd->addCommand($command); // @param ApiCommandInterface $command
 use Guzzle\Service\Description\ServiceDescription;
 
 $sd = new ServiceDescription();
-$sd->getOperations();           // @returns OperationInterface[]
+$sd->getOperations();           // s OperationInterface[]
 $sd->hasOperation($name);
-$sd->getOperation($name);       // @returns OperationInterface|null
+$sd->getOperation($name);       // s OperationInterface|null
 $sd->addOperation($operation);  // @param OperationInterface $operation
 ```
 

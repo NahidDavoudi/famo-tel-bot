@@ -72,7 +72,7 @@ trait Localization
      * @param string|null              $locale     current locale used if null
      * @param string|null              $default    default value if translation returns the key
      *
-     * @return string|Closure|null
+     *  string|Closure|null
      */
     public static function getTranslationMessageWith($translator, string $key, ?string $locale = null, ?string $default = null)
     {
@@ -100,7 +100,7 @@ trait Localization
      * @param string|null         $default    default value if translation returns the key
      * @param TranslatorInterface $translator an optional translator to use
      *
-     * @return string
+     *  string
      */
     public function getTranslationMessage(string $key, ?string $locale = null, ?string $default = null, $translator = null)
     {
@@ -115,7 +115,7 @@ trait Localization
      * @param array               $parameters replacement parameters
      * @param int|float|null      $number     number if plural
      *
-     * @return string
+     *  string
      */
     public static function translateWith(TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string
     {
@@ -143,7 +143,7 @@ trait Localization
      * @param TranslatorInterface|null $translator an optional translator to use
      * @param bool                     $altNumbers pass true to use alternative numbers
      *
-     * @return string
+     *  string
      */
     public function translate(
         string $key,
@@ -166,7 +166,7 @@ trait Localization
      *
      * @param int $number
      *
-     * @return string
+     *  string
      */
     public function translateNumber(int $number): string
     {
@@ -225,7 +225,7 @@ trait Localization
      *                                - CarbonInterface::TRANSLATE_MERIDIEM
      *                                You can use pipe to group: CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS
      *
-     * @return string
+     *  string
      */
     public static function translateTimeString(
         string $timeString,
@@ -394,7 +394,7 @@ trait Localization
      * @param string      $timeString time string to translate
      * @param string|null $to         output locale of the result returned ("en" by default)
      *
-     * @return string
+     *  string
      */
     public function translateTimeStringTo(string $timeString, ?string $to = null): string
     {
@@ -407,7 +407,7 @@ trait Localization
      * @param string|null $locale
      * @param string      ...$fallbackLocales
      *
-     * @return ($locale is null ? string : static)
+     *  ($locale is null ? string : static)
      */
     public function locale(?string $locale = null, string ...$fallbackLocales): static|string
     {
@@ -439,7 +439,7 @@ trait Localization
     /**
      * Get the current translator locale.
      *
-     * @return string
+     *  string
      */
     public static function getLocale(): string
     {
@@ -528,7 +528,7 @@ trait Localization
      * @param string   $locale locale ex. en
      * @param callable $func
      *
-     * @return mixed
+     *  mixed
      */
     public static function executeWithLocale(string $locale, callable $func): mixed
     {
@@ -552,7 +552,7 @@ trait Localization
      *
      * @param string $locale locale ex. en
      *
-     * @return bool
+     *  bool
      */
     public static function localeHasShortUnits(string $locale): bool
     {
@@ -573,7 +573,7 @@ trait Localization
      *
      * @param string $locale locale ex. en
      *
-     * @return bool
+     *  bool
      */
     public static function localeHasDiffSyntax(string $locale): bool
     {
@@ -604,7 +604,7 @@ trait Localization
      *
      * @param string $locale locale ex. en
      *
-     * @return bool
+     *  bool
      */
     public static function localeHasDiffOneDayWords(string $locale): bool
     {
@@ -622,7 +622,7 @@ trait Localization
      *
      * @param string $locale locale ex. en
      *
-     * @return bool
+     *  bool
      */
     public static function localeHasDiffTwoDayWords(string $locale): bool
     {
@@ -639,7 +639,7 @@ trait Localization
      *
      * @param string $locale locale ex. en
      *
-     * @return bool
+     *  bool
      */
     public static function localeHasPeriodSyntax($locale)
     {
@@ -656,7 +656,7 @@ trait Localization
      * Returns the list of internally available locales and already loaded custom locales.
      * (It will ignore custom translator dynamic loading.)
      *
-     * @return array
+     *  array
      */
     public static function getAvailableLocales(): array
     {
@@ -671,7 +671,7 @@ trait Localization
      * Returns list of Language object for each available locale. This object allow you to get the ISO name, native
      * name, region and variant of the locale.
      *
-     * @return Language[]
+     *  Language[]
      */
     public static function getAvailableLocalesInfo(): array
     {
@@ -706,7 +706,7 @@ trait Localization
      *
      * @param LocaleAwareInterface|null $translator
      *
-     * @return LocaleAwareInterface|null
+     *  LocaleAwareInterface|null
      */
     protected static function getLocaleAwareTranslator($translator = null)
     {
@@ -725,7 +725,7 @@ trait Localization
      * @param mixed                                                    $translator
      * @param \Symfony\Component\Translation\MessageCatalogueInterface $catalogue
      *
-     * @return mixed
+     *  mixed
      */
     private static function getFromCatalogue($translator, $catalogue, string $id, string $domain = 'messages')
     {
@@ -739,7 +739,7 @@ trait Localization
      *
      * @param string $word
      *
-     * @return string
+     *  string
      */
     private static function cleanWordFromTranslationString($word)
     {
@@ -761,7 +761,7 @@ trait Localization
      * @param string[] $messages messages bag handling translations.
      * @param string   $key      'to' (to get the translation) or 'from' (to get the detection RegExp pattern).
      *
-     * @return string[]
+     *  string[]
      */
     private static function translateWordsByKeys($keys, $messages, $key): array
     {
@@ -789,7 +789,7 @@ trait Localization
      * @param int      $length
      * @param string   $timeString
      *
-     * @return string[]
+     *  string[]
      */
     private static function getTranslationArray($translation, $length, $timeString): array
     {

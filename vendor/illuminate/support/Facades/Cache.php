@@ -79,7 +79,7 @@ class Cache extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     *  string
      */
     protected static function getFacadeAccessor()
     {
@@ -89,7 +89,7 @@ class Cache extends Facade
     /**
      * Convert the facade into a Mockery spy.
      *
-     * @return \Mockery\MockInterface
+     *  \Mockery\MockInterface
      */
     public static function spy()
     {

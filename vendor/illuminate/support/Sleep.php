@@ -90,7 +90,7 @@ class Sleep
      * Sleep for the given duration.
      *
      * @param  \DateInterval|int|float  $duration
-     * @return static
+     *  static
      */
     public static function for($duration)
     {
@@ -101,7 +101,7 @@ class Sleep
      * Sleep until the given timestamp.
      *
      * @param  \DateTimeInterface|int|float|numeric-string  $timestamp
-     * @return static
+     *  static
      */
     public static function until($timestamp)
     {
@@ -116,7 +116,7 @@ class Sleep
      * Sleep for the given number of microseconds.
      *
      * @param  int  $duration
-     * @return static
+     *  static
      */
     public static function usleep($duration)
     {
@@ -127,7 +127,7 @@ class Sleep
      * Sleep for the given number of seconds.
      *
      * @param  int|float  $duration
-     * @return static
+     *  static
      */
     public static function sleep($duration)
     {
@@ -138,7 +138,7 @@ class Sleep
      * Sleep for the given duration. Replaces any previously defined duration.
      *
      * @param  \DateInterval|int|float  $duration
-     * @return $this
+     *  $this
      */
     protected function duration($duration)
     {
@@ -163,7 +163,7 @@ class Sleep
     /**
      * Sleep for the given number of minutes.
      *
-     * @return $this
+     *  $this
      */
     public function minutes()
     {
@@ -175,7 +175,7 @@ class Sleep
     /**
      * Sleep for one minute.
      *
-     * @return $this
+     *  $this
      */
     public function minute()
     {
@@ -185,7 +185,7 @@ class Sleep
     /**
      * Sleep for the given number of seconds.
      *
-     * @return $this
+     *  $this
      */
     public function seconds()
     {
@@ -197,7 +197,7 @@ class Sleep
     /**
      * Sleep for one second.
      *
-     * @return $this
+     *  $this
      */
     public function second()
     {
@@ -207,7 +207,7 @@ class Sleep
     /**
      * Sleep for the given number of milliseconds.
      *
-     * @return $this
+     *  $this
      */
     public function milliseconds()
     {
@@ -219,7 +219,7 @@ class Sleep
     /**
      * Sleep for one millisecond.
      *
-     * @return $this
+     *  $this
      */
     public function millisecond()
     {
@@ -229,7 +229,7 @@ class Sleep
     /**
      * Sleep for the given number of microseconds.
      *
-     * @return $this
+     *  $this
      */
     public function microseconds()
     {
@@ -241,7 +241,7 @@ class Sleep
     /**
      * Sleep for one microsecond.
      *
-     * @return $this
+     *  $this
      */
     public function microsecond()
     {
@@ -252,7 +252,7 @@ class Sleep
      * Add additional time to sleep for.
      *
      * @param  int|float  $duration
-     * @return $this
+     *  $this
      */
     public function and($duration)
     {
@@ -265,7 +265,7 @@ class Sleep
      * Sleep while a given callback returns "true".
      *
      * @param  \Closure  $callback
-     * @return $this
+     *  $this
      */
     public function while(Closure $callback)
     {
@@ -278,7 +278,7 @@ class Sleep
      * Specify a callback that should be executed after sleeping.
      *
      * @param  callable  $then
-     * @return mixed
+     *  mixed
      */
     public function then(callable $then)
     {
@@ -292,7 +292,7 @@ class Sleep
     /**
      * Handle the object's destruction.
      *
-     * @return void
+     *  void
      */
     public function __destruct()
     {
@@ -302,7 +302,7 @@ class Sleep
     /**
      * Handle the object's destruction.
      *
-     * @return void
+     *  void
      *
      * @throws \RuntimeException
      */
@@ -358,7 +358,7 @@ class Sleep
     /**
      * Resolve the pending duration.
      *
-     * @return int|float
+     *  int|float
      *
      * @throws \RuntimeException
      */
@@ -384,7 +384,7 @@ class Sleep
      *
      * @param  bool  $value
      * @param  bool  $syncWithCarbon
-     * @return void
+     *  void
      */
     public static function fake($value = true, $syncWithCarbon = false)
     {
@@ -400,7 +400,7 @@ class Sleep
      *
      * @param  \Closure  $expected
      * @param  int  $times
-     * @return void
+     *  void
      */
     public static function assertSlept($expected, $times = 1)
     {
@@ -417,7 +417,7 @@ class Sleep
      * Assert sleeping occurred a given number of times.
      *
      * @param  int  $expected
-     * @return void
+     *  void
      */
     public static function assertSleptTimes($expected)
     {
@@ -428,7 +428,7 @@ class Sleep
      * Assert the given sleep sequence was encountered.
      *
      * @param  array  $sequence
-     * @return void
+     *  void
      */
     public static function assertSequence($sequence)
     {
@@ -468,7 +468,7 @@ class Sleep
     /**
      * Assert that no sleeping occurred.
      *
-     * @return void
+     *  void
      */
     public static function assertNeverSlept()
     {
@@ -478,7 +478,7 @@ class Sleep
     /**
      * Assert that no sleeping occurred.
      *
-     * @return void
+     *  void
      */
     public static function assertInsomniac()
     {
@@ -499,7 +499,7 @@ class Sleep
     /**
      * Indicate that the instance should not sleep.
      *
-     * @return $this
+     *  $this
      */
     protected function shouldNotSleep()
     {
@@ -512,7 +512,7 @@ class Sleep
      * Only sleep when the given condition is true.
      *
      * @param  (\Closure($this): bool)|bool  $condition
-     * @return $this
+     *  $this
      */
     public function when($condition)
     {
@@ -525,7 +525,7 @@ class Sleep
      * Don't sleep when the given condition is true.
      *
      * @param  (\Closure($this): bool)|bool  $condition
-     * @return $this
+     *  $this
      */
     public function unless($condition)
     {
@@ -536,7 +536,7 @@ class Sleep
      * Specify a callback that should be invoked when faking sleep within a test.
      *
      * @param  callable  $callback
-     * @return void
+     *  void
      */
     public static function whenFakingSleep($callback)
     {
@@ -546,7 +546,7 @@ class Sleep
     /**
      * Indicate that Carbon's "now" should be kept in sync when sleeping.
      *
-     * @return void
+     *  void
      */
     public static function syncWithCarbon($value = true)
     {

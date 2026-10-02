@@ -37,7 +37,7 @@ class WildfireFormatter extends NormalizerFormatter
     /**
      * Translates Monolog log levels to Wildfire levels.
      *
-     * @return 'LOG'|'INFO'|'WARN'|'ERROR'
+     *  'LOG'|'INFO'|'WARN'|'ERROR'
      */
     private function toWildfireLevel(Level $level): string
     {
@@ -124,7 +124,7 @@ class WildfireFormatter extends NormalizerFormatter
     /**
      * @inheritDoc
      *
-     * @return null|scalar|array<mixed[]|scalar|null>|object
+     *  null|scalar|array<mixed[]|scalar|null>|object
      */
     protected function normalize(mixed $data, int $depth = 0): mixed
     {

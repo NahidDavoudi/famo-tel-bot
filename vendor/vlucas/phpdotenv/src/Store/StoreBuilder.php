@@ -49,7 +49,7 @@ final class StoreBuilder
      * @param bool        $shortCircuit
      * @param string|null $fileEncoding
      *
-     * @return void
+     *  void
      */
     private function __construct(array $paths = [], array $names = [], bool $shortCircuit = false, ?string $fileEncoding = null)
     {
@@ -62,7 +62,7 @@ final class StoreBuilder
     /**
      * Create a new store builder instance with no names.
      *
-     * @return \Dotenv\Store\StoreBuilder
+     *  \Dotenv\Store\StoreBuilder
      */
     public static function createWithNoNames()
     {
@@ -72,7 +72,7 @@ final class StoreBuilder
     /**
      * Create a new store builder instance with the default name.
      *
-     * @return \Dotenv\Store\StoreBuilder
+     *  \Dotenv\Store\StoreBuilder
      */
     public static function createWithDefaultName()
     {
@@ -84,7 +84,7 @@ final class StoreBuilder
      *
      * @param string $path
      *
-     * @return \Dotenv\Store\StoreBuilder
+     *  \Dotenv\Store\StoreBuilder
      */
     public function addPath(string $path)
     {
@@ -96,7 +96,7 @@ final class StoreBuilder
      *
      * @param string $name
      *
-     * @return \Dotenv\Store\StoreBuilder
+     *  \Dotenv\Store\StoreBuilder
      */
     public function addName(string $name)
     {
@@ -106,7 +106,7 @@ final class StoreBuilder
     /**
      * Creates a store builder with short circuit mode enabled.
      *
-     * @return \Dotenv\Store\StoreBuilder
+     *  \Dotenv\Store\StoreBuilder
      */
     public function shortCircuit()
     {
@@ -118,7 +118,7 @@ final class StoreBuilder
      *
      * @param string|null $fileEncoding
      *
-     * @return \Dotenv\Store\StoreBuilder
+     *  \Dotenv\Store\StoreBuilder
      */
     public function fileEncoding(?string $fileEncoding = null)
     {
@@ -128,7 +128,7 @@ final class StoreBuilder
     /**
      * Creates a new store instance.
      *
-     * @return \Dotenv\Store\StoreInterface
+     *  \Dotenv\Store\StoreInterface
      */
     public function make()
     {

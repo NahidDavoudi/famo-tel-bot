@@ -156,7 +156,7 @@ final class TelegramResponse
     /**
      * Helper function to return the payload of a successful response.
      *
-     * @return mixed
+     *  mixed
      */
     public function getResult()
     {
@@ -166,7 +166,7 @@ final class TelegramResponse
     /**
      * Throws the exception.
      *
-     * @return never
+     *  never
      *
      * @throws TelegramSDKException
      */

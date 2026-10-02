@@ -9,7 +9,7 @@ interface MailQueue
      *
      * @param  \Illuminate\Contracts\Mail\Mailable|string|array  $view
      * @param  string|null  $queue
-     * @return mixed
+     *  mixed
      */
     public function queue($view, $queue = null);
 
@@ -19,7 +19,7 @@ interface MailQueue
      * @param  \DateTimeInterface|\DateInterval|int  $delay
      * @param  \Illuminate\Contracts\Mail\Mailable|string|array  $view
      * @param  string|null  $queue
-     * @return mixed
+     *  mixed
      */
     public function later($delay, $view, $queue = null);
 }

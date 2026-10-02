@@ -16,7 +16,7 @@ trait Singleton
     /**
      * Returns the singleton instance of this class.
      *
-     * @return static The Singleton instance.
+     *  static The Singleton instance.
      */
     public static function Instance(): self
     {

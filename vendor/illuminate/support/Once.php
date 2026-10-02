@@ -33,7 +33,7 @@ class Once
     /**
      * Create a new once instance.
      *
-     * @return static
+     *  static
      */
     public static function instance()
     {
@@ -44,7 +44,7 @@ class Once
      * Get the value of the given onceable.
      *
      * @param  Onceable  $onceable
-     * @return mixed
+     *  mixed
      */
     public function value(Onceable $onceable)
     {
@@ -70,7 +70,7 @@ class Once
     /**
      * Re-enable the once instance if it was disabled.
      *
-     * @return void
+     *  void
      */
     public static function enable()
     {
@@ -80,7 +80,7 @@ class Once
     /**
      * Disable the once instance.
      *
-     * @return void
+     *  void
      */
     public static function disable()
     {
@@ -90,7 +90,7 @@ class Once
     /**
      * Flush the once instance.
      *
-     * @return void
+     *  void
      */
     public static function flush()
     {

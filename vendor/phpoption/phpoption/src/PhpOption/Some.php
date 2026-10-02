@@ -43,7 +43,7 @@ final class Some extends Option
      *
      * @param U $value
      *
-     * @return Some<U>
+     *  Some<U>
      */
     public static function create($value): self
     {
@@ -68,7 +68,7 @@ final class Some extends Option
     /**
      * @param mixed $default
      *
-     * @return T
+     *  T
      */
     public function getOrElse($default)
     {
@@ -78,7 +78,7 @@ final class Some extends Option
     /**
      * @param callable():mixed $callable
      *
-     * @return T
+     *  T
      */
     public function getOrCall($callable)
     {
@@ -160,7 +160,7 @@ final class Some extends Option
     }
 
     /**
-     * @return ArrayIterator<int, T>
+     *  ArrayIterator<int, T>
      */
     public function getIterator(): ArrayIterator
     {
@@ -174,7 +174,7 @@ final class Some extends Option
      * @param S                $initialValue
      * @param callable(S, T):R $callable
      *
-     * @return R
+     *  R
      */
     public function foldLeft($initialValue, $callable)
     {
@@ -188,7 +188,7 @@ final class Some extends Option
      * @param S                $initialValue
      * @param callable(T, S):R $callable
      *
-     * @return R
+     *  R
      */
     public function foldRight($initialValue, $callable)
     {

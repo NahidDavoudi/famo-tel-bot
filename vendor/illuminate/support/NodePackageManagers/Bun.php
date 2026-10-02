@@ -9,7 +9,7 @@ class Bun implements NodePackageManager
     /**
      * Determine if the Bun package manager is in use.
      *
-     * @return bool
+     *  bool
      */
     public static function matches(): bool
     {
@@ -20,7 +20,7 @@ class Bun implements NodePackageManager
      * Get the command to run a script using Bun.
      *
      * @param  string  $command
-     * @return string
+     *  string
      */
     public function getRunCommand(string $command): string
     {
@@ -31,7 +31,7 @@ class Bun implements NodePackageManager
      * Get the command to execute a package using Bun.
      *
      * @param  string  $command
-     * @return string
+     *  string
      */
     public function getExecCommand(string $command): string
     {

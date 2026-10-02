@@ -41,7 +41,7 @@ trait Update
      *
      * ]
      *
-     * @return UpdateObject[]
+     *  UpdateObject[]
      *
      * @throws TelegramSDKException
      */

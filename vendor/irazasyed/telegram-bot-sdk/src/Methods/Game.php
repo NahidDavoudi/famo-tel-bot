@@ -80,7 +80,7 @@ trait Game
      *
      * @link https://core.telegram.org/bots/api#getgamehighscores
      *
-     * @return GameHighScore[]
+     *  GameHighScore[]
      *
      * @throws TelegramSDKException
      */

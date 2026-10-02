@@ -22,7 +22,7 @@ class ChatInviteLink extends BaseObject
     /**
      * {@inheritdoc}
      *
-     * @return array{creator: string}
+     *  array{creator: string}
      */
     public function relations(): array
     {

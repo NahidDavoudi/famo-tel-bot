@@ -62,7 +62,7 @@ class FirePHPHandler extends AbstractProcessingHandler
      * @param array<int|string> $meta    Wildfire Plugin, Protocol & Structure Indexes
      * @param string            $message Log message
      *
-     * @return array<string, string> Complete header string ready for the client as key and message as value
+     *  array<string, string> Complete header string ready for the client as key and message as value
      *
      * @phpstan-return non-empty-array<string, string>
      */
@@ -76,7 +76,7 @@ class FirePHPHandler extends AbstractProcessingHandler
     /**
      * Creates message header from record
      *
-     * @return array<string, string>
+     *  array<string, string>
      *
      * @phpstan-return non-empty-array<string, string>
      *
@@ -106,7 +106,7 @@ class FirePHPHandler extends AbstractProcessingHandler
      * @see createHeader()
      * @see sendHeader()
      *
-     * @return array<string, string>
+     *  array<string, string>
      */
     protected function getInitHeaders(): array
     {

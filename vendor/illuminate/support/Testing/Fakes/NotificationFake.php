@@ -45,7 +45,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      *
      * @param  string|\Closure  $notification
      * @param  callable|null  $callback
-     * @return void
+     *  void
      *
      * @throws \Exception
      */
@@ -60,7 +60,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * @param  mixed  $notifiable
      * @param  string|\Closure  $notification
      * @param  callable|null  $callback
-     * @return void
+     *  void
      *
      * @throws \Exception
      */
@@ -97,7 +97,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      *
      * @param  string  $notification
      * @param  int  $times
-     * @return void
+     *  void
      */
     public function assertSentOnDemandTimes($notification, $times = 1)
     {
@@ -108,7 +108,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * Assert if a notification was sent on-demand exactly once.
      *
      * @param  string  $notification
-     * @return void
+     *  void
      */
     public function assertSentOnDemandOnce($notification)
     {
@@ -121,7 +121,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * @param  mixed  $notifiable
      * @param  string  $notification
      * @param  int  $times
-     * @return void
+     *  void
      */
     public function assertSentToTimes($notifiable, $notification, $times = 1)
     {
@@ -138,7 +138,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      *
      * @param  mixed  $notifiable
      * @param  string  $notification
-     * @return void
+     *  void
      */
     public function assertSentToOnce($notifiable, $notification)
     {
@@ -151,7 +151,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * @param  mixed  $notifiable
      * @param  string|\Closure  $notification
      * @param  callable|null  $callback
-     * @return void
+     *  void
      *
      * @throws \Exception
      */
@@ -182,7 +182,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
     /**
      * Assert that no notifications were sent.
      *
-     * @return void
+     *  void
      */
     public function assertNothingSent()
     {
@@ -199,7 +199,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * Assert that no notifications were sent to the given notifiable.
      *
      * @param  mixed  $notifiable
-     * @return void
+     *  void
      *
      * @throws \Exception
      */
@@ -228,7 +228,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      *
      * @param  string  $notification
      * @param  int  $expectedCount
-     * @return void
+     *  void
      */
     public function assertSentTimes($notification, $expectedCount)
     {
@@ -250,7 +250,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * Assert the total count of notification that were sent.
      *
      * @param  int  $expectedCount
-     * @return void
+     *  void
      */
     public function assertCount($expectedCount)
     {
@@ -268,7 +268,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * @param  mixed  $notifiable
      * @param  string  $notification
      * @param  callable|null  $callback
-     * @return \Illuminate\Support\Collection
+     *  \Illuminate\Support\Collection
      */
     public function sent($notifiable, $notification, $callback = null)
     {
@@ -290,7 +290,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      *
      * @param  mixed  $notifiable
      * @param  string  $notification
-     * @return bool
+     *  bool
      */
     public function hasSent($notifiable, $notification)
     {
@@ -302,7 +302,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      *
      * @param  mixed  $notifiable
      * @param  string  $notification
-     * @return array
+     *  array
      */
     protected function notificationsFor($notifiable, $notification)
     {
@@ -314,7 +314,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      *
      * @param  \Illuminate\Support\Collection|mixed  $notifiables
      * @param  mixed  $notification
-     * @return void
+     *  void
      */
     public function send($notifiables, $notification)
     {
@@ -327,7 +327,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * @param  \Illuminate\Support\Collection|mixed  $notifiables
      * @param  mixed  $notification
      * @param  array|null  $channels
-     * @return void
+     *  void
      */
     public function sendNow($notifiables, $notification, ?array $channels = null)
     {
@@ -372,7 +372,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * Get a channel instance by name.
      *
      * @param  string|null  $name
-     * @return mixed
+     *  mixed
      */
     public function channel($name = null)
     {
@@ -383,7 +383,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * Set the locale of notifications.
      *
      * @param  string  $locale
-     * @return $this
+     *  $this
      */
     public function locale($locale)
     {
@@ -396,7 +396,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * Specify if notification should be serialized and restored when being "pushed" to the queue.
      *
      * @param  bool  $serializeAndRestore
-     * @return $this
+     *  $this
      */
     public function serializeAndRestore(bool $serializeAndRestore = true)
     {
@@ -409,7 +409,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      * Serialize and unserialize the notification to simulate the queueing process.
      *
      * @param  mixed  $notification
-     * @return mixed
+     *  mixed
      */
     protected function serializeAndRestoreNotification($notification)
     {
@@ -419,7 +419,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
     /**
      * Get the notifications that have been sent.
      *
-     * @return array
+     *  array
      */
     public function sentNotifications()
     {

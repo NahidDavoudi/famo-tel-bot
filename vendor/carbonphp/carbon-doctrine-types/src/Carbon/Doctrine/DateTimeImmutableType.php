@@ -23,7 +23,7 @@ class DateTimeImmutableType extends VarDateTimeImmutableType implements CarbonDo
     }
 
     /**
-     * @return class-string<CarbonImmutable>
+     *  class-string<CarbonImmutable>
      */
     protected function getCarbonClassName(): string
     {
