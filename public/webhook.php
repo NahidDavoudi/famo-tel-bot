@@ -34,7 +34,7 @@ try {
     IdentityService::boot(new FamoApiClient(
         $config->require('BOT_SERVICE_KEY'),
         $config->apiBaseUrl()
-    ));
+    ) );
 
     $bot = new Bot($config->require('TELEGRAM_BOT_TOKEN'));
     $bot->handle();

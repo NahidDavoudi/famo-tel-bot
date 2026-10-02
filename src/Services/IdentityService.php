@@ -13,11 +13,9 @@ final class IdentityService
     protected CallBackHandler $callBackHandler;
     protected PhoneNormalizer $phoneNormalizer;
 
-    public static function boot(FamoApiClient $api, CallBackHandler $callBackHandler , PhoneNormalizer $phoneNormalizer): void
+    public static function boot(FamoApiClient $api): void
     {
         self::$api = $api;
-        self::$phoneNormalizer = $phoneNormalizer;
-        self::$callBackHandler = $callBackHandler;
     }
 
     public static function resolve(int $chatId): array
