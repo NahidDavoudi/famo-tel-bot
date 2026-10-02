@@ -1,58 +1,74 @@
-# Famo Telegram Bot — Rebuild Design (Foundation + Student Flow)
+# Famo Telegram Bot — Rebuild Design (Iteration 1: Foundation + Student Flow)
 
 - **Date:** 2026-10-02
 - **Branch:** `agent` (isolated from `dev`)
-- **Source spec:** `famo-bot-ux-flow.md`
+- **Source UX:** `famo-bot-ux-flow.md`
 - **API contract:** `openapi.yaml` (`/api/v1/bot/*`)
-- **Status:** approved in chat, pending written-spec review
+- **Status:** approved in chat; structural revisions folded in (rev 2)
 
 ## 1. Goal
 
-Rebuild the Famo Telegram bot as a thin, stateless client of the Famo API with one
-small local SQLite store for **ephemeral conversation state only**. This iteration
-delivers the foundation plus the complete **student** flow. Supporter flows,
-broadcast and the outbox worker are explicitly deferred (section 14).
+Rebuild the Famo Telegram bot as a thin client of the Famo API with one small local
+SQLite store for **ephemeral conversation state only**. Iteration 1 delivers the
+foundation plus the complete **student** flow.
 
-Design constraints from the owner:
+Owner constraints:
 
-- One developer maintains it. Keep the codebase small and readable.
+- One developer maintains it. Small and readable.
 - No enterprise abstraction (no DI container, interfaces, factories, DTO layers "just in case").
-- But keep Telegram I/O, API calls, view building and state logic separated — no tangled god class.
+- Telegram I/O, API calls, view building and state logic stay separated — no god class.
 - No dedicated database; local SQLite only for short-lived state.
-- Modern, minimal UI; emoji used only as functional status markers, not decoratively.
+- Modern, minimal UI; emoji only as functional status markers, never decorative.
+- The UX document's labels/buttons must match one source of truth: `lang/fa.json` + `KeyboardKit`.
 
-## 2. Non-goals
+## 2. Non-goals (Iteration 1)
 
 - Supporter flows (inbox, student list/card, reply mode).
 - Broadcast flow.
-- Outbox worker (`/bot/outbox/claim`, `/bot/outbox/report`) and event delivery
-  (supporter replies, broadcast events, notifications).
-- Scheduled reminders (the UX spec says the bot sends none).
-- Any admin panel or bot-status dashboard (none exists; not in scope).
-- Collecting phone numbers. Linking is done site-side via the Telegram Login Widget.
+- Outbox worker (`/bot/outbox/claim`, `/bot/outbox/report`) and event delivery.
+- Scheduled reminders (the UX spec sends none).
+- Admin panel: **removed for good**; it was dead code and is not needed. No admin
+  CLI/panel is introduced.
+- Collecting phone numbers. Linking is site-side via the Telegram Login Widget.
+
+> Iteration 2 (mandatory next) is **outbox + supporter**, because the
+> "student sends → supporter replies" loop is incomplete without it.
 
 ## 3. Architecture
 
-Approach A — **UpdateRouter + Screen registry**.
+**Layered: Router detects and routes only; Handlers orchestrate API + screens;
+Screens build text/keyboard; Support classes do I/O.**
 
 ```
 Telegram ──POST──► public/webhook.php
    load .env → Logger::boot → Config
    validate X-Telegram-Bot-Api-Secret-Token (if BOT_WEBHOOK_SECRET set)
-   build FamoApi + Famo services + TelegramApi
-   Bot::handle() ──► UpdateRouter::route(update)
+   build FamoApi, TelegramApi, StateStore, ScreenManager, Router
+   Router::route(update)
         ├─ no update_id → return
-        ├─ StateStore: dedupe processed_update
+        ├─ StateStore dedupe
         ├─ load ChatState (expire mode/payload after 30 min idle)
-        ├─ callback_query       → CallbackRouter → ScreenManager
-        ├─ reply-keyboard label → navigation
-        ├─ /start /menu /cancel /help → command handler
-        └─ message by role/mode → report send
+        ├─ callback_query       → parse prefix → Handler method
+        ├─ reply-keyboard label → Handler (navigation)
+        ├─ slash command        → Handler (link/student/account)
+        └─ message by role/mode → Handler (report)
    commit → always HTTP 200
 ```
 
-The only local decisions are navigation and state. Role, access, week/day status,
-unread counts and recipient logic always come from the API.
+Responsibilities:
+
+- **Router** — the ONLY place that inspects an update. It dedupes, loads state,
+  detects the update kind and dispatches to a handler. It does **not** call the Famo
+  API and does **not** build screens.
+- **Handlers** (one per domain: `Link`, `Student`, `Account`; later `Supporter`,
+  `Broadcast`) — fetch data from the API, build a `Screen`, and show it via
+  `ScreenManager`. One handler per concern keeps the future supporter/broadcast
+  work from turning Router into a god class.
+- **Screens** — pure `text + keyboard` builders. No I/O, no state mutation.
+- **Support** — `Telegram/` (client, ScreenManager, keyboard), `Famo/` (API client,
+  ErrorMap), `State/`.
+
+`Bot.php` is deleted; `webhook.php` calls `Router` directly.
 
 ### 3.1 File layout
 
@@ -60,41 +76,41 @@ unread counts and recipient logic always come from the API.
 public/
   webhook.php
 src/
-  Bot.php
+  Router.php
   Config.php
-  Support/
+  Lang.php
+  RawHtml.php
+  Logger.php
+  Telegram/
     TelegramApi.php
-    KeyboardKit.php
     ScreenManager.php
-  Router/
-    UpdateRouter.php
-    CallbackRouter.php
+    Screen.php
+    KeyboardKit.php
+  Famo/
+    FamoApi.php
+    ApiResult.php
+    ErrorMap.php
   State/
     StateStore.php
+    ChatState.php
+  Handlers/
+    LinkHandler.php
+    StudentHandler.php
+    AccountHandler.php
   Screens/
     WelcomeScreen.php
     HomeScreen.php
     DayScreen.php
     WeekScreen.php
     AccountScreen.php
-  Famo/
-    FamoApi.php
-    ApiResult.php
-    IdentityService.php
-    ThreadService.php
-  ErrorMap.php
-  Lang.php
-  Logger.php
 lang/fa.json
-tools/
-  replay.php
+tools/replay.php
 tests/
-  ...
-docs/superpowers/specs/
 ```
 
-A "Screen" is a pure builder returning `{text, inline_keyboard}`. It performs no
-Telegram I/O and no state mutation. `ScreenManager` renders it.
+No `Support/` catch-all folder. `IdentityService`/`ThreadService` are **not**
+separate classes: they are methods on one `FamoApi`. Split `FamoApi` only if it
+exceeds ~400 lines.
 
 ## 4. State store
 
@@ -117,152 +133,99 @@ CREATE TABLE processed_update (
 );
 ```
 
-Rules:
+- **Dedupe:** `INSERT OR IGNORE`; 0 rows affected → already handled → return.
+- **Expiry:** on load, `now - updated_at > 1800` → `mode='idle'`, `payload=NULL`
+  (keep `role` and `active_screen_message_id`).
+- **Cleanup:** probabilistic (~1/100 requests) `DELETE FROM processed_update WHERE created_at < now-86400`.
+- **Concurrency:** dedupe + state read/write in a short `BEGIN IMMEDIATE` transaction.
+- **No business data, no message history, no outbox** stored locally.
 
-- **Dedupe:** `INSERT OR IGNORE` into `processed_update`; if 0 rows affected, the
-  update was already handled → return without side effects.
-- **Expiry:** on load, if `now - updated_at > 1800` → `mode='idle'`, `payload=NULL`
-  (role and `active_screen_message_id` are kept).
-- **Cleanup:** lazily `DELETE FROM processed_update WHERE created_at < now-86400`
-  on roughly 1% of requests (random) to avoid a cron.
-- **Concurrency:** each webhook wraps dedupe + state read/write in a short
-  `BEGIN IMMEDIATE` transaction, so two updates for the same chat serialize.
-- **No business data, no message history, no outbox** is stored locally.
+Modes: `unlinked`, `idle`, and (deferred) `replying`, `composing_broadcast`,
+`confirming_broadcast`.
 
-### 4.1 Modes
+## 5. Roles and identity
 
-| mode | meaning |
-|---|---|
-| `unlinked` | no linked account |
-| `idle` | normal (student) |
-| `replying` | (deferred — supporter) |
-| `composing_broadcast` / `confirming_broadcast` | (deferred) |
+- Role values are **exactly** the `openapi.yaml` enum: `student` | `supporter`
+  (also the `X-Bot-Role` header values). No guessing, no `mentor`, no typos.
+- Every identity-scoped API call sends `X-Bot-Key` + `X-Bot-Role` +
+  `X-Telegram-User-Id` + `X-Telegram-Chat-Id`. The API returns
+  "not linked / disabled" on its own; the bot does **not** call `/bot/me` on every
+  interaction — only during `/start` (resolve).
 
-`/start`, `/menu`, `/cancel`, reply-keyboard taps, or an API "not linked/disabled"
-response reset to `idle` or `unlinked`.
-
-## 5. ScreenManager and edit-vs-new rule
-
-`show(Screen $screen, Render $how)` where `Render` is one of:
-
-- `EDIT` — navigation between screens. `editMessageText`; ignore
-  `message is not modified`; on "message to edit not found" fall back to a new message.
-- `NEW` — events, prompts, results, and any reply from a fresh command; send a new message.
-
-After adopting a new active screen:
-
-- clear the previous active screen's keyboard via `editMessageReplyMarkup` with an
-  empty keyboard (errors swallowed),
-- persist the new `active_screen_message_id`.
-
-Reply keyboard: set only when the link/role is established or the role changes;
-removed on unlink. It is never used for actions.
-
-`KeyboardKit` holds the reply-keyboard label constants and the `callback_data`
-constants, so a label or prefix cannot desync between builder and router.
-
-## 6. Famo API client and errors
-
-`FamoApi` (cURL):
-
-- URL: `rtrim(FAMO_API_URL,'/') . '/api/v1' . path`.
-- Headers: `X-Bot-Key` (always), plus `X-Bot-Role`, `X-Telegram-User-Id`,
-  `X-Telegram-Chat-Id` when the call is identity-scoped.
-- Timeout 15s, connect timeout 5s, **no retries**.
-- Returns `ApiResult{status, body, errorCode, transportError}` with `ok()` and `data()`.
+## 6. Error handling
 
 `ErrorMap` is the single map from documented API codes and transport failures to
-Persian text. Unknown codes → generic message. Documented codes only; never guess.
+Persian text. Unknown codes → generic. Documented codes only.
 
-`X-Bot-Key` is never logged. `Logger` keeps the existing Telegram-token redaction.
+Handler rule: when an identity call returns "unlinked" or "disabled",
+`ErrorMap` classifies it and the handler **resets chat state** (to `unlinked`,
+removing the reply keyboard) before showing the appropriate screen. This prevents
+stale links from lingering.
 
-## 7. Student flow (implemented)
+## 7. Lang and escaping
 
-### 7.1 Linking
+`Lang::t(string $key, array $params = []): string` loads `lang/fa.json`.
 
-- `/start` while unlinked → `WelcomeScreen`: text + URL button (`BOT_LOGIN_URL`) +
-  `ln:check`.
-- On `/start linked` or `ln:check`, call `GET /bot/identity/resolve`. The payload is
-  never trusted.
-- 0 links → still unlinked, show WelcomeScreen again.
-- 1 link → set role + reply keyboard; post a short success message; render Home.
-- \>1 links → role chooser (`ac:role:student` / `ac:role:supporter`); supporter
-  deferred but the chooser may exist; choosing student proceeds.
+- **Every param is HTML-escaped by default** (`htmlspecialchars`, `ENT_QUOTES`, UTF-8).
+- Raw HTML is only possible by passing a `RawHtml` value object explicitly:
+  `Lang::t('x', ['name' => new RawHtml($trusted)])`.
+- This makes forgetting to escape impossible for normal values.
 
-### 7.2 Home (S-H)
+The single source of truth for labels/buttons is `lang/fa.json` + `KeyboardKit`.
+The UX document is aligned to this rule (decorative emoji removed; functional status
+markers kept: ✅ ❌ ⏳ 🔵 💬, plus 📎 and ⚠️).
 
-Text: greeting + supporter name + today's status + optional new-replies line +
-one-line explanation that anything sent is today's report.
-Buttons: `گفتگوی امروز`, `وضعیت هفته`, `پاسخهای جدید (k)` when k>0, `حساب من`.
-No-supporter variant replaces the status with a warning and hides day/week.
+## 8. ScreenManager and edit-vs-new
 
-### 7.3 Report sending (idle student)
+`Screen` = `{text, keyboard}` (keyboard is a Telegram `inline_keyboard` array or null).
 
-Any text/photo/document/voice/video/audio/video_note → `POST /bot/threads/messages`
-with `MessageInput`. On success → 👍 reaction on the user's message; no text reply
-(except the first message of the day, which gets one short confirmation). Albums:
-**for this iteration each album part is sent as its own API call and gets its own
-reaction** (Telegram delivers album parts as independent updates and there is no
-completion marker; coalescing needs a scheduler, which is deferred). Coalescing by
-`media_group_id` is a follow-up once the worker exists. Unsupported types
-(sticker/location/poll/…) get a short "not supported" reply.
+`ScreenManager`:
 
-### 7.4 Day view (S-T / S-D)
+- `show(chatId, Screen, bool $edit)`: `$edit=true` → `editMessageText`
+  (ignore `message is not modified`; on "not found" fall back to new message);
+  `$edit=false` → send new.
+- After adopting a new active screen, clear the previous one's keyboard
+  (`editMessageReplyMarkup` with empty), errors swallowed.
+- Persist `active_screen_message_id`.
+- Reply keyboard is set only on link/role change; removed on unlink.
 
-`GET /bot/threads/day?day=&page=`. One message renders the newest page of up to 10
-messages with sender labels (`شما`, supporter name, `پیام همگانی`), file lines as
-summaries, and a footer page indicator. Then `POST /bot/threads/read`. Navigation:
-older/newer page, refresh, back. Files are delivered as separate new messages via
-file_id on demand (`st:f:{day}:{page}`), max 10.
+## 9. Student flow (Iteration 1)
 
-### 7.5 Week view (S-W)
+- **Linking:** `/start` unlinked → `WelcomeScreen` with URL button (`BOT_LOGIN_URL`)
+  and `ln:check`. On `/start linked` or `ln:check`, `FamoApi::resolve..`;
+  payload never trusted. 0 links → Welcome again; 1 link → set role + reply keyboard,
+  short success, Home; >1 → role chooser (`ac:role:student`, supporter deferred).
+- **Home (S-H):** greeting, supporter name, today's status, new-replies line,
+  one-line explanation. Buttons: `گفتگوی امروز`, `وضعیت هفته`, `پاسخهای جدید (k)`,
+  `حساب من`. No-supporter variant shows a warning and hides day/week.
+- **Report sending (idle):** any text/photo/document/voice/video/audio/video_note →
+  `POST /bot/threads/messages`; on success 👍 reaction; no text reply.
+  **Album parts are sent separately this iteration.** The "first message today" text
+  confirmation is **omitted** because the API does not return a `first_today` flag;
+  it will be requested from the backend. (Per-part is acceptable only when that flag
+  exists; otherwise 3 simultaneous photos would give 3 confirmations.)
+  Unsupported types get a short "not supported" reply.
+  (Follow-up, no scheduler needed: buffer album parts in a temp SQLite table, wait
+  ~1.2 s, and whichever request grabs the lock sends them in one API call.)
+- **Day view (S-T/S-D):** `GET /bot/threads/day`; one message, newest page of ≤10
+  messages, sender labels, file lines as summaries, page indicator; then
+  `POST /bot/threads/read`. Older/newer/refresh/back; files on demand (`st:f:`).
+- **Week view (S-W):** `GET /bot/threads/weekly`; 7 day buttons with status
+  (✅/❌/⏳) and reply (💬/🔵) markers; future days `nop`; prev/next week.
+- **New replies (S-N):** shortcut to newest day with unread replies; hidden when 0.
+- **Account (S-A):** name/role/supporter; switch role (if multi-link), link another
+  (URL), unlink (confirm) → API unlink, remove reply keyboard, Welcome.
+- **Global:** `/start`, `/menu`, `/cancel`, `/help`; reply-keyboard label exact
+  match before any report handling; unlinked → Welcome; `edited_message`/groups ignored.
 
-`GET /bot/threads/weekly?week_start=`. Seven day buttons (2 columns + last row),
-each showing state marker (✅ sent / ❌ missed / ⏳ pending) and reply marker
-(💬 / 🔵 unread). Future days are `nop`. Prev/next week, home. Clicking a day →
-DayScreen.
+### 9.1 callback_data catalog (student subset)
 
-### 7.6 New replies (S-N)
+`nop`, `h`, `ln:check`, `ac`, `ac:role:{role}`, `ac:switch`, `ac:unlink`,
+`ac:unlink:ok`, `ac:home`, `st:t`, `st:w:{weekStart}`, `st:d:{day}:{page}`,
+`st:f:{day}:{page}`, `st:n`. Format `scope:action[:params]`, ≤64 bytes ASCII.
+Handlers re-check authorization via the API; ids are references only.
 
-Shortcut to the newest day with unread replies (derived from weekly data if the API
-has no dedicated list). Hidden when k=0.
-
-### 7.7 Account (S-A)
-
-Shows name/role/supporter. Buttons: switch role (only if multiple links), link
-another account (URL), unlink (confirm screen), back. Unlink → API
-`/bot/identity/unlink`, remove reply keyboard, go to WelcomeScreen.
-
-### 7.8 Global commands and unexpected input
-
-| input | behavior |
-|---|---|
-| `/start` | reset state; linked → Home (new message); unlinked → Welcome |
-| `/menu` | same as `/start` for linked users |
-| `/cancel` | exit temporary modes → Home |
-| `/help` | short role-aware help, home button only |
-| reply-keyboard label | exact trimmed match; navigation; delete the user's button message if possible |
-| unlinked → anything | "connect first" + `ln:check` |
-| supporter idle → free text | (deferred) |
-| `edited_message`, groups/channels | ignored (private chat only) |
-
-### 7.9 callback_data catalog (student subset)
-
-| callback | meaning |
-|---|---|
-| `nop` | display-only button; silent answer |
-| `h` | home (edit) |
-| `ln:check` | re-check linking |
-| `ac`, `ac:role:{role}`, `ac:switch`, `ac:unlink`, `ac:unlink:ok`, `ac:home` | account |
-| `st:t` | today's thread |
-| `st:w:{weekStart}` | week view |
-| `st:d:{day}:{page}` | a day |
-| `st:f:{day}:{page}` | fetch files |
-| `st:n` | new replies |
-
-All ids are references only; the API re-checks authorization every call.
-
-## 8. Reply keyboard
+## 10. Reply keyboard
 
 Student, persistent, resized:
 
@@ -271,17 +234,10 @@ Student, persistent, resized:
 [        منوی اصلی        ]
 ```
 
-Unlinked users get `ReplyKeyboardRemove`. Labels are matched exactly (trimmed)
-before any other message handling, so they are never stored as reports.
+Unlinked → `ReplyKeyboardRemove`. Labels matched exactly (trimmed) before message
+handling, so they are never stored as reports.
 
-## 9. Persian texts
-
-`lang/fa.json` is the single source. Emoji are limited to functional status markers
-(✅ ❌ ⏳ 🔵 💬) and a small set of icons (📎 for files, ⚠️ for warnings). Titles,
-greetings and buttons carry no decorative emoji. Exact strings are finalized during
-implementation from `famo-bot-ux-flow.md` with decorative emoji removed.
-
-## 10. Configuration
+## 11. Configuration
 
 `.env` keys read by the code:
 
@@ -289,69 +245,58 @@ implementation from `famo-bot-ux-flow.md` with decorative emoji removed.
 |---|---|---|
 | `TELEGRAM_BOT_TOKEN` | yes | SDK token |
 | `FAMO_API_URL` | yes | base without `/api/v1` |
-| `FAMO_API_TOKEN` | yes | sent as `X-Bot-Key` |
+| `BOT_SERVICE_KEY` | yes | sent as `X-Bot-Key` (same name the backend uses) |
 | `BOT_LOGIN_URL` | yes | site login page with Telegram widget |
 | `BOT_WEBHOOK_SECRET` | no | if set, validate `X-Telegram-Bot-Api-Secret-Token` |
 | `BOT_STORAGE_DIR` | no | default `<root>/storage` |
 | `BOT_LOG_FILE` | no | default `<root>/storage/logs/bot.log` |
 
-Removed from the code and `.env.example`: `JWT_SECRET`, `BOT_RUNTIME_FILE`,
-`BOT_DRAIN_*`, `BOT_ROLLBACK_WEBHOOK_URL`, `BOT_MAX_CHAIN`, and the multi-name
-aliases (`API_BASE_URL`, `FAMO_API_BASE_URL`, `BOT_SERVICE_KEY`,
-`FAMO_SERVICE_KEY`). `.env.example` is updated to match and to include
-`BOT_LOGIN_URL`.
+`FAMO_API_TOKEN` is renamed to `BOT_SERVICE_KEY` everywhere (bot + `.env.example`) so
+both sides use one name. Removed: `JWT_SECRET`, `BOT_RUNTIME_FILE`, `BOT_DRAIN_*`,
+`BOT_ROLLBACK_WEBHOOK_URL`, `BOT_MAX_CHAIN`, and multi-name aliases.
 
-## 11. Deletions
+## 12. Deletions
 
-| Path | Reason |
-|---|---|
-| `src/Bootstrap.php` | legacy bootstrapper, only used by the dead drain endpoint |
-| `src/WebhookHandler.php` | legacy secret validator, never called |
-| `src/Outbox/OutboxDrainer.php` | legacy flock drain; outbox is deferred |
-| `public/bot/internal-drain.php` | legacy endpoint, not in active path |
-| `src/Logging/RuntimeLogger.php` | unused |
-| `src/Errors/InvalidArgumentException.php` | empty stub |
-| `src/Services/JwtService.php` | called but unused (linking is site-side) |
-| `src/Helpers/PhoneNormalizer.php` | no phone collection in the new flow |
-| `src/Commands/ReportCommand.php` | `/report` is not a command in the spec |
-| `src/Commands/StartCommand.php`, `src/Commands/HelpCommand.php` | replaced by Router + Screens |
-| `src/Handlers/CallBackHandler.php` | replaced by CallbackRouter |
-| `src/Services/MessageService.php`, `src/Services/IdentityService.php` | replaced by `Lang` / `Famo\IdentityService` |
-| `storage/bot.sqlite` | empty/unreferenced; recreated with new schema |
+`src/Bootstrap.php`, `src/WebhookHandler.php`, `src/Outbox/OutboxDrainer.php`,
+`public/bot/internal-drain.php`, `src/Logging/RuntimeLogger.php`,
+`src/Errors/InvalidArgumentException.php`, `src/Services/JwtService.php`,
+`src/Helpers/PhoneNormalizer.php`, `src/Commands/ReportCommand.php`,
+`src/Commands/StartCommand.php`, `src/Commands/HelpCommand.php`,
+`src/Handlers/CallBackHandler.php`, `src/Services/MessageService.php`,
+`src/Services/IdentityService.php`, `storage/bot.sqlite`.
+Drain code deletion is fine (isolated branch; will be rebuilt smaller later).
 
 Kept: `src/Config.php`, `src/Logging/Logger.php`, `lang/`, `openapi.yaml`,
-`README.md` (rewritten later), `.env`, `CheatSheet.md`, swagger helper files,
-`node_modules/`.
+`README.md` (rewritten later), `.env`, `CheatSheet.md`, swagger helper files.
 
-## 12. Tooling and tests
+## 13. Tooling and tests
 
 - `composer lint` — `php -l` sweep over `src/`, `public/`, `tools/`.
-- `composer test` — PHPUnit for pure units only, no network:
-  callback_data parsing, week/day grouping, keyboard shape/length limits,
-  error map, state expiry, reply-keyboard label detection.
-- `tools/replay.php` — feed a sample update through `UpdateRouter` using the SDK's
-  fake Guzzle handler, for local screen debugging without Telegram.
+- `composer test` — PHPUnit, pure units only (no network): callback parsing,
+  week/day mapping, keyboard shape/limits, error map, state expiry, label detection.
+- `tools/replay.php` — feed a sample update through `Router` with the SDK's fake
+  Guzzle handler for local screen debugging.
 
-## 13. Acceptance (student subset)
+## 14. Acceptance (Iteration 1)
 
 - `/start` unlinked → Welcome, no reply keyboard; link button opens site; return
   resolves and shows Home with reply keyboard.
-- Forged `/start linked` from an unlinked user does not link.
-- Any text/photo/file/voice in idle → API call + 👍, no text reply except first of day.
-- Album of 3 photos → 3 API calls, 3 reactions (coalescing deferred; see §7.3).
+- Forged `/start linked` does not link.
+- Any text/photo/file/voice idle → API call + 👍, no text reply.
 - Reply-keyboard "منوی اصلی" is never stored as a report.
 - Week: future days never ❌; day click edits; back edits.
 - Viewing a day marks supporter messages read; 🔵 → 💬 next render.
-- All callbacks are answered; no spinner is left.
-- No user text is rendered into bot messages without HTML escaping.
+- All callbacks answered; no spinner left.
+- No user text rendered into bot messages without escaping (enforced by `Lang`).
 - Every `callback_data` ≤ 64 bytes.
+- Role value sent/compared is exactly `student` or `supporter`.
 
-## 14. Deferred / open items
+## 15. Open items
 
-- Supporter flows, broadcast, and the outbox worker (`claim`/`report`) with event
-  delivery. The router and services leave a seam for a worker invoked later.
+- Supporter + outbox (iteration 2).
 - Exact `BOT_LOGIN_URL` value.
-- Whether the backend's Telegram-widget linking endpoints (`/auth/telegram/verify`
-  etc., UX spec §12.1) exist yet. The bot only needs `resolve`, so this does not
-  block the student flow.
-- Album coalescing by `media_group_id` (needs a scheduler/buffer; deferred, see §7.3).
+- Backend login-widget endpoints (`/auth/telegram/*`, UX §12.1): bot only needs
+  `resolve`, so not blocking.
+- Backend `first_today` flag on `POST /bot/threads/messages` (to restore the
+  first-of-day confirmation).
+- Album coalescing via temp-table + ~1.2 s lock (follow-up).
