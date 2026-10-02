@@ -246,7 +246,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
     /**
      * Gets the loaders.
      *
-     * @return LoaderInterface[]
+     *  LoaderInterface[]
      */
     protected function getLoaders(): array
     {

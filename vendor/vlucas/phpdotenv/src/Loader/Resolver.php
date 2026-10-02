@@ -17,7 +17,7 @@ final class Resolver
      *
      * @codeCoverageIgnore
      *
-     * @return void
+     *  void
      */
     private function __construct()
     {
@@ -33,7 +33,7 @@ final class Resolver
      * @param \Dotenv\Repository\RepositoryInterface $repository
      * @param \Dotenv\Parser\Value                   $value
      *
-     * @return string
+     *  string
      */
     public static function resolve(RepositoryInterface $repository, Value $value)
     {
@@ -62,7 +62,7 @@ final class Resolver
      * @param \Dotenv\Repository\RepositoryInterface $repository
      * @param string                                 $str
      *
-     * @return string
+     *  string
      */
     private static function resolveVariable(RepositoryInterface $repository, string $str)
     {

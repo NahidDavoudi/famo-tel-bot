@@ -98,7 +98,7 @@ class ElasticaHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return mixed[]
+     *  mixed[]
      *
      * @phpstan-return Options
      */

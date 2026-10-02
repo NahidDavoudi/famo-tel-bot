@@ -125,7 +125,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
     /**
      * Getter options
      *
-     * @return mixed[]
+     *  mixed[]
      *
      * @phpstan-return Options
      */

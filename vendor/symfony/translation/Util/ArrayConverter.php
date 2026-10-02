@@ -97,7 +97,7 @@ class ArrayConverter
     }
 
     /**
-     * @return string[]
+     *  string[]
      */
     private static function getKeyParts(string $key): array
     {

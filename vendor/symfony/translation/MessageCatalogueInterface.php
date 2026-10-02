@@ -111,7 +111,7 @@ interface MessageCatalogueInterface
     /**
      * Returns an array of resources loaded to build this collection.
      *
-     * @return ResourceInterface[]
+     *  ResourceInterface[]
      */
     public function getResources(): array;
 

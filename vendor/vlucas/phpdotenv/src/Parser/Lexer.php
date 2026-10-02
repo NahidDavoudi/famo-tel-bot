@@ -18,7 +18,7 @@ final class Lexer
      *
      * @codeCoverageIgnore
      *
-     * @return void
+     *  void
      */
     private function __construct()
     {
@@ -33,7 +33,7 @@ final class Lexer
      *
      * @param string $content
      *
-     * @return \Generator<string>
+     *  \Generator<string>
      */
     public static function lex(string $content)
     {

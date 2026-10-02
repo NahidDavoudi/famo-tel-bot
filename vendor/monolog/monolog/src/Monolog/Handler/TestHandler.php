@@ -78,7 +78,7 @@ class TestHandler extends AbstractProcessingHandler
     private bool $skipReset = false;
 
     /**
-     * @return array<LogRecord>
+     *  array<LogRecord>
      */
     #[NoDiscard]
     public function getRecords(): array

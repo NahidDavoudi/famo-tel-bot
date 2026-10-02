@@ -134,7 +134,7 @@ class PHPConsoleHandler extends AbstractProcessingHandler
 
     /**
      * @param  array<string, mixed> $options
-     * @return array<string, mixed>
+     *  array<string, mixed>
      *
      * @phpstan-param InputOptions $options
      * @phpstan-return Options
@@ -210,7 +210,7 @@ class PHPConsoleHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return array<string, mixed>
+     *  array<string, mixed>
      */
     public function getOptions(): array
     {
@@ -269,7 +269,7 @@ class PHPConsoleHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return array{string, mixed[]}
+     *  array{string, mixed[]}
      */
     private function getRecordTags(LogRecord $record): array
     {

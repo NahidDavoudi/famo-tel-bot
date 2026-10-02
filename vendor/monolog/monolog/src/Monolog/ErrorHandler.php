@@ -66,7 +66,7 @@ class ErrorHandler
      * @param  array<int, LogLevel::*>|false          $errorLevelMap     an array of E_* constant to LogLevel::* constant mapping, or false to disable error handling
      * @param  array<class-string, LogLevel::*>|false $exceptionLevelMap an array of class name to LogLevel::* constant mapping, or false to disable exception handling
      * @param  LogLevel::*|null|false                 $fatalLevel        a LogLevel::* constant, null to use the default LogLevel::ALERT or false to disable fatal error handling
-     * @return static
+     *  static
      */
     public static function register(LoggerInterface $logger, $errorLevelMap = [], $exceptionLevelMap = [], $fatalLevel = null): self
     {
@@ -87,7 +87,7 @@ class ErrorHandler
 
     /**
      * @param  array<class-string, LogLevel::*> $levelMap an array of class name to LogLevel::* constant mapping
-     * @return $this
+     *  $this
      */
     public function registerExceptionHandler(array $levelMap = [], bool $callPrevious = true): self
     {
@@ -109,7 +109,7 @@ class ErrorHandler
 
     /**
      * @param  array<int, LogLevel::*> $levelMap an array of E_* constant to LogLevel::* constant mapping
-     * @return $this
+     *  $this
      */
     public function registerErrorHandler(array $levelMap = [], bool $callPrevious = true, int $errorTypes = -1, bool $handleOnlyReportedErrors = true): self
     {
@@ -129,7 +129,7 @@ class ErrorHandler
     /**
      * @param  LogLevel::*|null $level              a LogLevel::* constant, null to use the default LogLevel::ALERT
      * @param  int              $reservedMemorySize Amount of KBs to reserve in memory so that it can be freed when handling fatal errors giving Monolog some room in memory to get its job done
-     * @return $this
+     *  $this
      */
     public function registerFatalHandler($level = null, int $reservedMemorySize = 20): self
     {
@@ -157,7 +157,7 @@ class ErrorHandler
      * frequent in legacy code while rarely being worth a stack trace.
      *
      * @param  int   $errorTypes bitmask of E_* constants to capture stack traces for
-     * @return $this
+     *  $this
      */
     public function captureStackTraces(bool $capture = true, int $errorTypes = E_ALL): self
     {
@@ -167,7 +167,7 @@ class ErrorHandler
     }
 
     /**
-     * @return array<class-string, LogLevel::*>
+     *  array<class-string, LogLevel::*>
      */
     protected function defaultExceptionLevelMap(): array
     {
@@ -178,7 +178,7 @@ class ErrorHandler
     }
 
     /**
-     * @return array<int, LogLevel::*>
+     *  array<int, LogLevel::*>
      */
     protected function defaultErrorLevelMap(): array
     {

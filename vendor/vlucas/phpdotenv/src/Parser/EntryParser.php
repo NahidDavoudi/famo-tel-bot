@@ -28,7 +28,7 @@ final class EntryParser
      *
      * @codeCoverageIgnore
      *
-     * @return void
+     *  void
      */
     private function __construct()
     {
@@ -43,7 +43,7 @@ final class EntryParser
      *
      * @param string $entry
      *
-     * @return \GrahamCampbell\ResultType\Result<\Dotenv\Parser\Entry, string>
+     *  \GrahamCampbell\ResultType\Result<\Dotenv\Parser\Entry, string>
      */
     public static function parse(string $entry)
     {
@@ -65,7 +65,7 @@ final class EntryParser
      *
      * @param string $line
      *
-     * @return \GrahamCampbell\ResultType\Result<array{string, string|null},string>
+     *  \GrahamCampbell\ResultType\Result<array{string, string|null},string>
      */
     private static function splitStringIntoParts(string $line)
     {
@@ -92,7 +92,7 @@ final class EntryParser
      *
      * @param string $name
      *
-     * @return \GrahamCampbell\ResultType\Result<string, string>
+     *  \GrahamCampbell\ResultType\Result<string, string>
      */
     private static function parseName(string $name)
     {
@@ -116,7 +116,7 @@ final class EntryParser
      *
      * @param string $name
      *
-     * @return bool
+     *  bool
      */
     private static function isQuotedName(string $name)
     {
@@ -135,7 +135,7 @@ final class EntryParser
      *
      * @param string $name
      *
-     * @return bool
+     *  bool
      */
     private static function isValidName(string $name)
     {
@@ -156,7 +156,7 @@ final class EntryParser
      *
      * @param string $value
      *
-     * @return \GrahamCampbell\ResultType\Result<\Dotenv\Parser\Value, string>
+     *  \GrahamCampbell\ResultType\Result<\Dotenv\Parser\Value, string>
      */
     private static function parseValue(string $value)
     {
@@ -211,7 +211,7 @@ final class EntryParser
      *
      * @param string $value
      *
-     * @return \PhpOption\Option<string>
+     *  \PhpOption\Option<string>
      */
     private static function parseLiteral(string $value)
     {
@@ -228,7 +228,7 @@ final class EntryParser
      * @param int    $state
      * @param string $token
      *
-     * @return \GrahamCampbell\ResultType\Result<array{string, bool, int}, string>
+     *  \GrahamCampbell\ResultType\Result<array{string, bool, int}, string>
      */
     private static function processToken(int $state, string $token)
     {
@@ -305,7 +305,7 @@ final class EntryParser
      * @param string $cause
      * @param string $subject
      *
-     * @return string
+     *  string
      */
     private static function getErrorMessage(string $cause, string $subject)
     {
@@ -337,7 +337,7 @@ final class EntryParser
      * @param string $input
      * @param int    $limit
      *
-     * @return string
+     *  string
      */
     private static function cutBytes(string $input, int $limit)
     {

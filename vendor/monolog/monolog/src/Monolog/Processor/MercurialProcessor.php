@@ -53,7 +53,7 @@ class MercurialProcessor implements ProcessorInterface
     }
 
     /**
-     * @return array{branch: string, revision: string}|array<never>
+     *  array{branch: string, revision: string}|array<never>
      */
     private static function getMercurialInfo(): array
     {

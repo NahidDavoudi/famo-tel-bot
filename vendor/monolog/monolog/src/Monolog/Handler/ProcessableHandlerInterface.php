@@ -27,7 +27,7 @@ interface ProcessableHandlerInterface
      * @phpstan-param ProcessorInterface|(callable(LogRecord): LogRecord) $callback
      *
      * @param  ProcessorInterface|callable $callback
-     * @return HandlerInterface            self
+     *  HandlerInterface            self
      */
     public function pushProcessor(callable $callback): HandlerInterface;
 
@@ -37,7 +37,7 @@ interface ProcessableHandlerInterface
      * @phpstan-return ProcessorInterface|(callable(LogRecord): LogRecord) $callback
      *
      * @throws \LogicException             In case the processor stack is empty
-     * @return callable|ProcessorInterface
+     *  callable|ProcessorInterface
      */
     public function popProcessor(): callable;
 }

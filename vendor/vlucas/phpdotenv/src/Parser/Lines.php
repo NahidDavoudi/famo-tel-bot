@@ -13,7 +13,7 @@ final class Lines
      *
      * @codeCoverageIgnore
      *
-     * @return void
+     *  void
      */
     private function __construct()
     {
@@ -27,7 +27,7 @@ final class Lines
      *
      * @param string[] $lines
      *
-     * @return string[]
+     *  string[]
      */
     public static function process(array $lines)
     {
@@ -53,7 +53,7 @@ final class Lines
      * @param string   $line
      * @param string[] $buffer
      *
-     * @return array{bool,string, string[]}
+     *  array{bool,string, string[]}
      */
     private static function multilineProcess(bool $multiline, string $line, array $buffer)
     {
@@ -82,7 +82,7 @@ final class Lines
      *
      * @param string $line
      *
-     * @return bool
+     *  bool
      */
     private static function looksLikeMultilineStart(string $line)
     {
@@ -107,7 +107,7 @@ final class Lines
      * @param string $line
      * @param bool   $started
      *
-     * @return bool
+     *  bool
      */
     private static function looksLikeMultilineStop(string $line, bool $started)
     {
@@ -125,7 +125,7 @@ final class Lines
      *
      * @param string $line
      *
-     * @return bool
+     *  bool
      */
     private static function isCommentOrWhitespace(string $line)
     {

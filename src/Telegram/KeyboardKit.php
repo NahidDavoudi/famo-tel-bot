@@ -22,13 +22,36 @@ final class KeyboardKit
     public const CB_FILES = 'st:f:';
     public const CB_NEW = 'st:n';
 
+    // Supporter
+    public const CB_SUPPORTER_HOME = 'sp';
+    public const CB_INBOX_AT = 'sp:inbox:';
+    public const CB_STUDENTS = 'sp:students';
+    public const CB_STUDENT = 'sp:stu:';
+    public const CB_SUPPORTER_DAY = 'sp:day:';
+    public const CB_SUPPORTER_FILES = 'sp:f:';
+    public const CB_REPLY = 'sp:reply:';
+
+    // Broadcast
+    public const CB_BROADCAST = 'bc';
+    public const CB_BC_AUDIENCE = 'bc:a:';
+    public const CB_BC_SEND = 'bc:ok';
+    public const CB_BC_CANCEL = 'bc:c';
+    public const CB_BC_LIST = 'bc:list';
+    public const CB_BC_VIEW = 'bc:v:';
+
     public const LBL_TODAY = 'گفتگوی امروز';
     public const LBL_WEEK = 'وضعیت هفته';
     public const LBL_HOME = 'منوی اصلی';
+    public const LBL_INBOX = 'صندوق ورودی';
+    public const LBL_STUDENTS = 'دانشجوها';
+    public const LBL_BROADCAST = 'پیام همگانی';
 
     public const ROUTE_TODAY = 'today';
     public const ROUTE_WEEK = 'week';
     public const ROUTE_HOME = 'home';
+    public const ROUTE_INBOX = 'inbox';
+    public const ROUTE_STUDENTS = 'students';
+    public const ROUTE_BROADCAST = 'broadcast';
 
     /**  list<list<array<string,string>>> ReplyKeyboardMarkup only (text buttons, no callback_data) */
     public static function replyKeyboardStudentMenu(): array
@@ -39,12 +62,24 @@ final class KeyboardKit
         ];
     }
 
+    /**  list<list<array<string,string>>> ReplyKeyboardMarkup only (text buttons, no callback_data) */
+    public static function replyKeyboardSupporterMenu(): array
+    {
+        return [
+            [self::key(self::LBL_INBOX), self::key(self::LBL_STUDENTS)],
+            [self::key(self::LBL_BROADCAST), self::key(self::LBL_HOME)],
+        ];
+    }
+
     public static function labelRoute(string $label): ?string
     {
         return match (trim($label)) {
             self::LBL_TODAY => self::ROUTE_TODAY,
             self::LBL_WEEK => self::ROUTE_WEEK,
             self::LBL_HOME => self::ROUTE_HOME,
+            self::LBL_INBOX => self::ROUTE_INBOX,
+            self::LBL_STUDENTS => self::ROUTE_STUDENTS,
+            self::LBL_BROADCAST => self::ROUTE_BROADCAST,
             default => null,
         };
     }

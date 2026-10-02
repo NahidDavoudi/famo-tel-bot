@@ -64,7 +64,7 @@ class LocaleSwitcher implements LocaleAwareInterface
      *
      * @param callable(string $locale):T $callback
      *
-     * @return T
+     *  T
      */
     public function runWithLocale(string $locale, callable $callback): mixed
     {

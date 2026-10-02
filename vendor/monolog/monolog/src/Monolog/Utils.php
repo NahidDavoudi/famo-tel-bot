@@ -57,7 +57,7 @@ final class Utils
      * Results are cached per class as the reflection cost is otherwise prohibitive.
      *
      * @param  class-string        $class
-     * @return array<string, true> Set of parameter names, to be used with isset()
+     *  array<string, true> Set of parameter names, to be used with isset()
      */
     public static function getSensitiveParameterNames(string $class): array
     {
@@ -144,7 +144,7 @@ final class Utils
      * @param  int               $encodeFlags  flags to pass to json encode, defaults to DEFAULT_JSON_FLAGS
      * @param  bool              $ignoreErrors whether to ignore encoding errors or to throw on error, when ignored and the encoding fails, "null" is returned which is valid json for null
      * @throws \RuntimeException if encoding fails and errors are not ignored
-     * @return string            when errors are ignored and the encoding fails, "null" is returned which is valid json for null
+     *  string            when errors are ignored and the encoding fails, "null" is returned which is valid json for null
      */
     public static function jsonEncode($data, ?int $encodeFlags = null, bool $ignoreErrors = false): string
     {
@@ -181,7 +181,7 @@ final class Utils
      * @param  mixed             $data        data that was meant to be encoded
      * @param  int               $encodeFlags flags to pass to json encode, defaults to JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION
      * @throws \RuntimeException if failure can't be corrected
-     * @return string            JSON encoded data after error correction
+     *  string            JSON encoded data after error correction
      */
     public static function handleJsonError(int $code, $data, ?int $encodeFlags = null): string
     {
@@ -274,7 +274,7 @@ final class Utils
      * Converts a string with a valid 'memory_limit' format, to bytes.
      *
      * @param  string|false $val
-     * @return int|false    Returns an integer representing bytes. Returns FALSE in case of error.
+     *  int|false    Returns an integer representing bytes. Returns FALSE in case of error.
      */
     public static function expandIniShorthandBytes($val)
     {

@@ -124,6 +124,107 @@ final class FamoApi
         );
     }
 
+    public function supporterInbox(
+        int $chatId,
+        int $telegramUserId,
+        string $role,
+        int $page = 1,
+        int $perPage = 10,
+    ): ApiResult {
+        return $this->request(
+            'GET',
+            '/bot/supporter/inbox',
+            ['page' => $page, 'perPage' => $perPage],
+            null,
+            self::identity($role, $telegramUserId, $chatId)
+        );
+    }
+
+    public function supporterStudents(int $chatId, int $telegramUserId, string $role): ApiResult
+    {
+        return $this->request(
+            'GET',
+            '/bot/supporter/students',
+            [],
+            null,
+            self::identity($role, $telegramUserId, $chatId)
+        );
+    }
+
+    public function supporterStudentUnread(
+        int $chatId,
+        int $telegramUserId,
+        string $role,
+        int $studentId,
+        int $limit = 200,
+    ): ApiResult {
+        return $this->request(
+            'GET',
+            '/bot/supporter/students/' . $studentId . '/unread',
+            ['limit' => $limit],
+            null,
+            self::identity($role, $telegramUserId, $chatId)
+        );
+    }
+
+    /** @param array<string,mixed> $input */
+    public function supporterReply(int $chatId, int $telegramUserId, array $input): ApiResult
+    {
+        return $this->request(
+            'POST',
+            '/bot/supporter/reply',
+            [],
+            $input,
+            self::identity('supporter', $telegramUserId, $chatId)
+        );
+    }
+
+    /** @param array<string,mixed> $input */
+    public function broadcastPreview(int $chatId, int $telegramUserId, string $role, array $input): ApiResult
+    {
+        return $this->request(
+            'POST',
+            '/bot/broadcasts/preview',
+            [],
+            $input,
+            self::identity($role, $telegramUserId, $chatId)
+        );
+    }
+
+    /** @param array<string,mixed> $input */
+    public function broadcastConfirm(int $chatId, int $telegramUserId, string $role, array $input): ApiResult
+    {
+        return $this->request(
+            'POST',
+            '/bot/broadcasts/confirm',
+            [],
+            $input,
+            self::identity($role, $telegramUserId, $chatId)
+        );
+    }
+
+    public function broadcastList(int $chatId, int $telegramUserId, string $role, int $page = 1, int $perPage = 10): ApiResult
+    {
+        return $this->request(
+            'GET',
+            '/bot/broadcasts',
+            ['page' => $page, 'perPage' => $perPage],
+            null,
+            self::identity($role, $telegramUserId, $chatId)
+        );
+    }
+
+    public function broadcastGet(int $chatId, int $telegramUserId, string $role, int $id): ApiResult
+    {
+        return $this->request(
+            'GET',
+            '/bot/broadcasts/' . $id,
+            [],
+            null,
+            self::identity($role, $telegramUserId, $chatId)
+        );
+    }
+
     /**
      * @param array<string,int|string> $query
      * @param array<string,mixed>|null $json

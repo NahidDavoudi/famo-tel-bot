@@ -51,10 +51,14 @@ final class StudentHandler
         $todayLabel = '';
         $unread = 0;
         $hasSupporter = false;
+        $supporterName = (string) ($data['supporter_name'] ?? '');
 
         foreach ($days as $day) {
             if (!empty($day['supporter_id'])) {
                 $hasSupporter = true;
+            }
+            if ($supporterName === '' && !empty($day['supporter_name'])) {
+                $supporterName = (string) $day['supporter_name'];
             }
             $unread += (int) ($day['unread_replies'] ?? 0);
             if (($day['day'] ?? null) === $today) {
@@ -63,8 +67,13 @@ final class StudentHandler
             }
         }
 
+        if ($supporterName !== '') {
+            $s->payload['supporter'] = $supporterName;
+        }
+
         $this->screens->show($s, HomeScreen::make([
             'name' => (string) ($s->payload['name'] ?? ''),
+            'supporter' => $supporterName,
             'has_supporter' => $hasSupporter,
             'today_date' => $todayLabel,
             'today_sent' => $todaySent,
@@ -371,7 +380,7 @@ final class StudentHandler
      * @param array<int,mixed> $messages
      * @return list<array<string,mixed>>
      */
-    private function formatMessages(array $messages): array
+    public function formatMessages(array $messages): array
     {
         $out = [];
         foreach ($messages as $message) {
@@ -384,7 +393,7 @@ final class StudentHandler
     }
 
     /** @param list<array<string,mixed>> $messages */
-    private function hasFiles(array $messages): bool
+    public function hasFiles(array $messages): bool
     {
         foreach ($messages as $message) {
             if (($message['files'] ?? '') !== '') {
@@ -432,7 +441,7 @@ final class StudentHandler
         return $parts === [] ? '' : '📎 ' . implode('، ', $parts);
     }
 
-    private function whoLabel(string $role): string
+    public function whoLabel(string $role): string
     {
         return match ($role) {
             'student' => Lang::t('day.you'),
@@ -443,7 +452,7 @@ final class StudentHandler
     }
 
     /** @return array<string,mixed>|null */
-    private function buildInput(Message $message): ?array
+    public function buildInput(Message $message): ?array
     {
         $type = $message->objectType();
         $text = $message->getText();
@@ -529,12 +538,12 @@ final class StudentHandler
         }
     }
 
-    private function today(): string
+    public function today(): string
     {
         return (new \DateTimeImmutable('now', new \DateTimeZone(self::TIMEZONE)))->format('Y-m-d');
     }
 
-    private function tehranTime(mixed $iso): string
+    public function tehranTime(mixed $iso): string
     {
         if (!is_string($iso) || $iso === '') {
             return '';

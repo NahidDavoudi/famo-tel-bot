@@ -13,7 +13,7 @@ interface ParserInterface
      *
      * @throws \Dotenv\Exception\InvalidFileException
      *
-     * @return \Dotenv\Parser\Entry[]
+     *  \Dotenv\Parser\Entry[]
      */
     public function parse(string $content);
 }

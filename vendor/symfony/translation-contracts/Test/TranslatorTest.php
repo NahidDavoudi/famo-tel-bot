@@ -349,7 +349,7 @@ class TranslatorTest extends TestCase
      * This both depends on a complete list trying to add above as understanding
      * the plural rules of the current failing languages.
      *
-     * @return array With nplural together with langcodes
+     *  array With nplural together with langcodes
      */
     public static function failingLangcodes(): array
     {

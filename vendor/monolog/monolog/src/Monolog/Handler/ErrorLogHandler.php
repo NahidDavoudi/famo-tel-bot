@@ -51,7 +51,7 @@ class ErrorLogHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return int[] With all available types
+     *  int[] With all available types
      */
     public static function getAvailableTypes(): array
     {

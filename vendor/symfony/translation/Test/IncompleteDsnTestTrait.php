@@ -18,7 +18,7 @@ use Symfony\Component\Translation\Provider\Dsn;
 trait IncompleteDsnTestTrait
 {
     /**
-     * @return iterable<array{0: string, 1?: string|null}>
+     *  iterable<array{0: string, 1?: string|null}>
      */
     abstract public static function incompleteDsnProvider(): iterable;
 

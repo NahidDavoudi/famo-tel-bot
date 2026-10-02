@@ -83,7 +83,7 @@ class PhpToken implements \Stringable
     }
 
     /**
-     * @return list<static>
+     *  list<static>
      */
     public static function tokenize(string $code, int $flags = 0): array
     {

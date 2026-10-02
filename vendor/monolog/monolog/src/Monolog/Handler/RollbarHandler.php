@@ -56,7 +56,7 @@ class RollbarHandler extends AbstractProcessingHandler
     /**
      * Translates Monolog log levels to Rollbar levels.
      *
-     * @return 'debug'|'info'|'warning'|'error'|'critical'
+     *  'debug'|'info'|'warning'|'error'|'critical'
      */
     protected function toRollbarLevel(Level $level): string
     {

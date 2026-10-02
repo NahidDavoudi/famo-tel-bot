@@ -25,7 +25,7 @@ interface CatalogueMetadataAwareInterface
      * domain and then by key. Passing an empty key will return an array with all
      * catalogue metadata for the given domain.
      *
-     * @return mixed The value that was set or an array with the domains/keys or null
+     *  mixed The value that was set or an array with the domains/keys or null
      */
     public function getCatalogueMetadata(string $key = '', string $domain = 'messages'): mixed;
 

@@ -21,7 +21,7 @@ abstract class AbstractProviderFactory implements ProviderFactoryInterface
     }
 
     /**
-     * @return string[]
+     *  string[]
      */
     abstract protected function getSupportedSchemes(): array;
 

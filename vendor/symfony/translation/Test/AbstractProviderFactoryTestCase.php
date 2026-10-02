@@ -22,17 +22,17 @@ abstract class AbstractProviderFactoryTestCase extends TestCase
     abstract public function createFactory(): ProviderFactoryInterface;
 
     /**
-     * @return iterable<array{0: bool, 1: string}>
+     *  iterable<array{0: bool, 1: string}>
      */
     abstract public static function supportsProvider(): iterable;
 
     /**
-     * @return iterable<array{0: string, 1: string}>
+     *  iterable<array{0: string, 1: string}>
      */
     abstract public static function createProvider(): iterable;
 
     /**
-     * @return iterable<array{0: string, 1?: string|null}>
+     *  iterable<array{0: string, 1?: string|null}>
      */
     abstract public static function unsupportedSchemeProvider(): iterable;
 

@@ -30,7 +30,7 @@ interface TranslatorBagInterface
     /**
      * Returns all catalogues of the instance.
      *
-     * @return MessageCatalogueInterface[]
+     *  MessageCatalogueInterface[]
      */
     public function getCatalogues(): array;
 }

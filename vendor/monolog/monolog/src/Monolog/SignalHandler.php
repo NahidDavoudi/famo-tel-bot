@@ -38,7 +38,7 @@ class SignalHandler
 
     /**
      * @param  int|string|Level $level Level or level name
-     * @return $this
+     *  $this
      *
      * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
      */

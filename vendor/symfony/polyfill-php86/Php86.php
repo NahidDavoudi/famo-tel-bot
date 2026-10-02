@@ -27,7 +27,7 @@ final class Php86
      * @param Minimum $min
      * @param Maximum $max
      *
-     * @return Value|Minimum|Maximum
+     *  Value|Minimum|Maximum
      */
     public static function clamp($value, $min, $max)
     {

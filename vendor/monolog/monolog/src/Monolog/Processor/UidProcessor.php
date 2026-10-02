@@ -58,7 +58,7 @@ class UidProcessor implements ProcessorInterface, ResettableInterface
 
     /**
      * @param  positive-int     $length
-     * @return non-empty-string
+     *  non-empty-string
      */
     private function generateUid(int $length): string
     {

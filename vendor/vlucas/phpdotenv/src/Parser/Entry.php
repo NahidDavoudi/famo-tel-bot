@@ -28,7 +28,7 @@ final class Entry
      * @param string                    $name
      * @param \Dotenv\Parser\Value|null $value
      *
-     * @return void
+     *  void
      */
     public function __construct(string $name, ?Value $value = null)
     {
@@ -39,7 +39,7 @@ final class Entry
     /**
      * Get the entry name.
      *
-     * @return string
+     *  string
      */
     public function getName()
     {
@@ -49,7 +49,7 @@ final class Entry
     /**
      * Get the entry value.
      *
-     * @return \PhpOption\Option<\Dotenv\Parser\Value>
+     *  \PhpOption\Option<\Dotenv\Parser\Value>
      */
     public function getValue()
     {

@@ -22,6 +22,7 @@ final class LinkHandler
         private readonly TelegramApi $tg,
         private readonly ScreenManager $screens,
         private readonly StudentHandler $student,
+        private readonly SupporterHandler $supporter,
         private readonly Config $config,
     ) {}
 
@@ -78,6 +79,7 @@ final class LinkHandler
         }
 
         if (count($active) === 1) {
+            $s->payload['multi'] = false;
             $this->activate($s, $ctx, $active[0]);
 
             return;
@@ -129,9 +131,29 @@ final class LinkHandler
     {
         $role = (string) ($link['role'] ?? '');
 
+        if ($role === 'supporter') {
+            $s->role = 'supporter';
+            $s->mode = 'idle';
+            if ($ctx->userId > 0) {
+                $s->telegramUserId = $ctx->userId;
+            }
+            $s->payload['name'] = (string) ($link['name'] ?? '');
+            $s->payload['account_id'] = (int) ($link['account_id'] ?? 0);
+            unset($s->payload['supporter']);
+
+            $this->tg->setReplyKeyboard(
+                $s->chatId,
+                KeyboardKit::replyKeyboardSupporterMenu(),
+                Lang::t('link.success_supporter', ['name' => $s->payload['name']])
+            );
+
+            $this->supporter->home($s, false);
+
+            return;
+        }
+
         if ($role !== 'student') {
-            $this->student->reset($s);
-            $this->tg->removeReplyKeyboard($s->chatId, Lang::t('link.supporter_soon'));
+            $this->welcome($s);
 
             return;
         }

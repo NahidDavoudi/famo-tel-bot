@@ -215,7 +215,7 @@ class XliffLintCommand extends Command
     }
 
     /**
-     * @return iterable<\SplFileInfo>
+     *  iterable<\SplFileInfo>
      */
     private function getFiles(string $fileOrDirectory): iterable
     {
@@ -235,7 +235,7 @@ class XliffLintCommand extends Command
     }
 
     /**
-     * @return iterable<\SplFileInfo>
+     *  iterable<\SplFileInfo>
      */
     private function getDirectoryIterator(string $directory): iterable
     {
@@ -280,7 +280,7 @@ class XliffLintCommand extends Command
         }
     }
 
-    /** @return string[] */
+    /**  string[] */
     private function getAvailableFormatOptions(): array
     {
         return ['txt', 'json', 'github'];

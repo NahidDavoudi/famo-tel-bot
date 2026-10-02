@@ -19,7 +19,7 @@ namespace Symfony\Polyfill\Php84;
  */
 final class Php84
 {
-    /** @return string|false */
+    /**  string|false */
     public static function mb_ucfirst(string $string, ?string $encoding = null)
     {
         if (null === $encoding) {
@@ -48,7 +48,7 @@ final class Php84
         return $firstChar.mb_substr($string, 1, null, $encoding);
     }
 
-    /** @return string|false */
+    /**  string|false */
     public static function mb_lcfirst(string $string, ?string $encoding = null)
     {
         if (null === $encoding) {
@@ -126,25 +126,25 @@ final class Php84
         return $num ** $exponent;
     }
 
-    /** @return string|false */
+    /**  string|false */
     public static function mb_trim(string $string, ?string $characters = null, ?string $encoding = null)
     {
         return self::mb_internal_trim('{^[%s]+|[%1$s]+$}Du', $string, $characters, $encoding, __FUNCTION__);
     }
 
-    /** @return string|false */
+    /**  string|false */
     public static function mb_ltrim(string $string, ?string $characters = null, ?string $encoding = null)
     {
         return self::mb_internal_trim('{^[%s]+}Du', $string, $characters, $encoding, __FUNCTION__);
     }
 
-    /** @return string|false */
+    /**  string|false */
     public static function mb_rtrim(string $string, ?string $characters = null, ?string $encoding = null)
     {
         return self::mb_internal_trim('{[%s]+$}Du', $string, $characters, $encoding, __FUNCTION__);
     }
 
-    /** @return string|false */
+    /**  string|false */
     private static function mb_internal_trim(string $regex, string $string, ?string $characters, ?string $encoding, string $function)
     {
         if (null === $encoding) {

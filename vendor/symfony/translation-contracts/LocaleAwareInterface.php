@@ -16,7 +16,7 @@ interface LocaleAwareInterface
     /**
      * Sets the current locale.
      *
-     * @return void
+     *  void
      *
      * @throws \InvalidArgumentException If the locale contains invalid characters
      */

@@ -37,7 +37,7 @@ final class LocaleFallbackProvider
     }
 
     /**
-     * @return string[]
+     *  string[]
      */
     public function computeFallbackLocales(string $locale): array
     {

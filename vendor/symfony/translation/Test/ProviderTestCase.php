@@ -42,7 +42,7 @@ abstract class ProviderTestCase extends TestCase
     abstract public static function createProvider(HttpClientInterface $client, LoaderInterface $loader, LoggerInterface $logger, string $defaultLocale, string $endpoint): ProviderInterface;
 
     /**
-     * @return iterable<array{0: ProviderInterface, 1: string}>
+     *  iterable<array{0: ProviderInterface, 1: string}>
      */
     abstract public static function toStringProvider(): iterable;
 

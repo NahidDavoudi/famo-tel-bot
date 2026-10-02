@@ -78,7 +78,7 @@ class RotatingFileHandler extends StreamHandler
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function setFilenameFormat(string $filenameFormat, string $dateFormat): self
     {
@@ -232,7 +232,7 @@ class RotatingFileHandler extends StreamHandler
      * keeps changing which files the cleanup considers. Unlike glob(), symlinked
      * directories are not followed, which also rules out symlink loops.
      *
-     * @return string[]
+     *  string[]
      */
     protected function findRotatedFiles(): array
     {

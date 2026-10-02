@@ -45,7 +45,7 @@ if (\PHP_VERSION_ID < 80400 && \extension_loaded('pdo_pgsql')) {
         }
 
         /**
-         * @return array|false
+         *  array|false
          */
         public function copyToArray(string $tableName, string $separator = "\t", string $nullAs = '\\\\N', ?string $fields = null)
         {
@@ -58,7 +58,7 @@ if (\PHP_VERSION_ID < 80400 && \extension_loaded('pdo_pgsql')) {
         }
 
         /**
-         * @return array|false
+         *  array|false
          */
         public function getNotify(int $fetchMode = \PDO::FETCH_DEFAULT, int $timeoutMilliseconds = 0)
         {
@@ -71,7 +71,7 @@ if (\PHP_VERSION_ID < 80400 && \extension_loaded('pdo_pgsql')) {
         }
 
         /**
-         * @return string|false
+         *  string|false
          */
         public function lobCreate()
         {
@@ -79,7 +79,7 @@ if (\PHP_VERSION_ID < 80400 && \extension_loaded('pdo_pgsql')) {
         }
 
         /**
-         * @return resource|false
+         *  resource|false
          */
         public function lobOpen(string $oid, string $mode = 'rb')
         {

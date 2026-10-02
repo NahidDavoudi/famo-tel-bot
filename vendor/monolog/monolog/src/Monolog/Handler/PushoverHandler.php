@@ -208,7 +208,7 @@ class PushoverHandler extends SocketHandler
 
     /**
      * @param  int|string|Level|LogLevel::* $level
-     * @return $this
+     *  $this
      *
      * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
      */
@@ -221,7 +221,7 @@ class PushoverHandler extends SocketHandler
 
     /**
      * @param  int|string|Level|LogLevel::* $level
-     * @return $this
+     *  $this
      *
      * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
      */
@@ -235,7 +235,7 @@ class PushoverHandler extends SocketHandler
     /**
      * Use the formatted message?
      *
-     * @return $this
+     *  $this
      */
     public function useFormattedMessage(bool $useFormattedMessage): self
     {

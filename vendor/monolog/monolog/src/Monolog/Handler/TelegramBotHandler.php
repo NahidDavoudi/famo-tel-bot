@@ -135,7 +135,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function setParseMode(string|null $parseMode = null): self
     {
@@ -149,7 +149,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function disableWebPagePreview(bool|null $disableWebPagePreview = null): self
     {
@@ -159,7 +159,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function disableNotification(bool|null $disableNotification = null): self
     {
@@ -172,7 +172,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
      * True - split a message longer than MAX_MESSAGE_LENGTH into parts and send in multiple messages.
      * False - truncates a message that is too long.
      *
-     * @return $this
+     *  $this
      */
     public function splitLongMessages(bool $splitLongMessages = false): self
     {
@@ -184,7 +184,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
     /**
      * Adds 1-second delay between sending a split message (according to Telegram API to avoid 429 Too Many Requests).
      *
-     * @return $this
+     *  $this
      */
     public function delayBetweenMessages(bool $delayBetweenMessages = false): self
     {
@@ -194,7 +194,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function setTopic(?int $topic = null): self
     {
@@ -264,7 +264,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
      * Returns extra HTTP headers to send with every Telegram API request.
      * Override in a subclass to inject custom headers (e.g. auth tokens, tracing).
      *
-     * @return string[]
+     *  string[]
      */
     protected function getCurlHeaders(): array
     {
@@ -323,7 +323,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
 
     /**
      * Handle a message that is too long: truncates or splits into several
-     * @return string[]
+     *  string[]
      */
     private function handleMessageLength(string $message): array
     {
@@ -359,7 +359,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
      * tag left open at the end of a chunk and reopening it at the start of the next one,
      * so that neither a tag nor a start/end tag pair is ever cut in half.
      *
-     * @return string[]
+     *  string[]
      */
     private function splitHtmlMessage(string $message, int $maxLength): array
     {
@@ -414,7 +414,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
      * plus any $html opened itself and did not close again).
      *
      * @param  array<array{name: string, raw: string}> $openTags
-     * @return array<array{name: string, raw: string}>
+     *  array<array{name: string, raw: string}>
      */
     private function updateOpenHtmlTags(string $html, array $openTags): array
     {

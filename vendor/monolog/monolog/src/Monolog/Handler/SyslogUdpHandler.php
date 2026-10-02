@@ -89,7 +89,7 @@ class SyslogUdpHandler extends AbstractSyslogHandler
 
     /**
      * @param  string|string[] $message
-     * @return string[]
+     *  string[]
      */
     private function splitMessageIntoLines($message): array
     {
@@ -148,7 +148,7 @@ class SyslogUdpHandler extends AbstractSyslogHandler
     /**
      * Inject your own socket, mainly used for testing
      *
-     * @return $this
+     *  $this
      */
     public function setSocket(UdpSocket $socket): self
     {

@@ -109,7 +109,7 @@ class StreamHandler extends AbstractProcessingHandler
     /**
      * Return the currently active stream if it is open
      *
-     * @return resource|null
+     *  resource|null
      */
     public function getStream()
     {
@@ -238,7 +238,7 @@ class StreamHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return true
+     *  true
      */
     private function customErrorHandler(int $code, string $msg): bool
     {

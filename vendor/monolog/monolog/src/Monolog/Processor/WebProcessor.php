@@ -91,7 +91,7 @@ class WebProcessor implements ProcessorInterface
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function addExtraField(string $extraName, string $serverName): self
     {
@@ -102,7 +102,7 @@ class WebProcessor implements ProcessorInterface
 
     /**
      * @param  mixed[] $extra
-     * @return mixed[]
+     *  mixed[]
      */
     private function appendExtraFields(array $extra): array
     {

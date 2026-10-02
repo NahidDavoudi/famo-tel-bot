@@ -54,7 +54,7 @@ class GitProcessor implements ProcessorInterface
     }
 
     /**
-     * @return array{branch: string, commit: string}|array<never>
+     *  array{branch: string, commit: string}|array<never>
      */
     private static function getGitInfo(): array
     {

@@ -88,7 +88,7 @@ class LogglyHandler extends AbstractProcessingHandler
 
     /**
      * @param  string[]|string $tag
-     * @return $this
+     *  $this
      */
     public function setTag(string|array $tag): self
     {
@@ -103,7 +103,7 @@ class LogglyHandler extends AbstractProcessingHandler
 
     /**
      * @param  string[]|string $tag
-     * @return $this
+     *  $this
      */
     public function addTag(string|array $tag): self
     {

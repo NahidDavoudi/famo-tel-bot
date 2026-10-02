@@ -43,8 +43,10 @@ src/
   Telegram/  TelegramApi.php  ScreenManager.php  Screen.php  KeyboardKit.php  UpdateContext.php
   Famo/      FamoApi.php  ApiResult.php  ErrorMap.php
   State/     StateStore.php  ChatState.php
-  Handlers/  LinkHandler.php  StudentHandler.php  AccountHandler.php
+  Handlers/  LinkHandler.php  StudentHandler.php  AccountHandler.php  SupporterHandler.php  BroadcastHandler.php
   Screens/   WelcomeScreen.php  HomeScreen.php  DayScreen.php  WeekScreen.php  AccountScreen.php  HelpScreen.php
+             SupporterInboxScreen.php  SupporterStudentsScreen.php
+             BroadcastMenuScreen.php  BroadcastPreviewScreen.php  BroadcastListScreen.php  BroadcastDetailScreen.php
 lang/fa.json
 tools/lint.php  tools/replay.php
 tests/run.php
@@ -84,9 +86,28 @@ cp .env.example .env
 
 ### callback_data
 
-`nop`, `h`, `ln:check`, `ac`, `ac:role:{role}`, `ac:switch`, `ac:unlink`,
+دانشجو: `nop`, `h`, `ln:check`, `ac`, `ac:role:{role}`, `ac:switch`, `ac:unlink`,
 `ac:unlink:ok`, `ac:home`, `st:t`, `st:w[:{weekStart}]`, `st:d:{day}:{page}`,
-`st:f:{day}:{page}`, `st:n`. قالب `scope:action[:params]`، حداکثر ۶۴ بایت.
+`st:f:{day}:{page}`, `st:n`.
+
+پشتیبان: `sp`, `sp:inbox:{page}`, `sp:students`, `sp:stu:{studentId}`,
+`sp:day:{studentId}:{day}:{page}`, `sp:f:{studentId}:{day}:{page}`,
+`sp:reply:{studentId}:{day}`.
+
+پیام همگانی: `bc`, `bc:a:{audience}`, `bc:ok`, `bc:c`, `bc:list`, `bc:v:{id}`.
+قالب `scope:action[:params]`، حداکثر ۶۴ بایت.
+
+## جریان پشتیبان و پیام همگانی (نسخهٔ ۲)
+
+- **صندوق ورودی:** دانشجوهای دارای پیام خوانده‌نشده؛ با انتخاب هر دانشجو آخرین روزِ
+  خوانده‌نشده باز و پیام‌ها خوانده می‌شوند.
+- **دانشجوها:** لیست دانشجوهای من با وضعیت امروز (✅/⏳) و نشانگر خوانده‌نشده (🔵).
+- **گفتگوی دانشجو و پاسخ:** باز کردن روز، pagination، دریافت فایل، و دکمهٔ «پاسخ»
+  (mode=`replying`) که پیام بعدی را به‌عنوان پاسخ پشتیبان ثبت می‌کند.
+- **پیام همگانی:** انتخاب مخاطب (`no_report_today` یا `all_students`) → فرستادن متن/فایل
+  → پیش‌نمایش تعداد گیرندگان و سهمیهٔ روزانه (`/bot/broadcasts/preview`) → تأیید
+  (`/bot/broadcasts/confirm`) → خلاصهٔ ارسال؛ به‌همراه تاریخچه (`/bot/broadcasts` و `/{id}`).
+- حالت‌های state: `replying`, `composing_broadcast`, `confirming_broadcast`.
 
 ## State
 
@@ -112,8 +133,10 @@ https://<host>/public/webhook.php
 
 ## وضعیت و کارهای بعدی
 
-فاز ۲: **outbox + پشتیبان** (صندوق ورودی، لیست دانشجوها، پاسخ‌دهی، پیام همگانی)
-تا چرخهٔ «دانشجو می‌فرستد → پشتیبان جواب می‌دهد» کامل شود. تا آن زمان، eventها و
-پاسخ پشتیبان به دانشجو ارسال نمی‌شود.
+فاز ۲ (پشتیبان + پیام همگانی) پیاده‌سازی شده است: صندوق ورودی، لیست دانشجوها،
+گفتگو و پاسخ پشتیبان، و جریان کامل پیام همگانی.
+
+باقی‌مانده: worker ارسال (`/bot/outbox/claim` و `/bot/outbox/report`) برای تحویل
+eventها و پاسخ پشتیبان به دانشجو؛ تا آن زمان، تحویل برون‌خطی بر عهدهٔ سرور است.
 
 پنل ادمین و کدهای drain قدیمی حذف شده‌اند و در صورت نیاز از نو و کوچک‌تر ساخته می‌شوند.

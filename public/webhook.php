@@ -4,8 +4,10 @@ declare(strict_types=1);
 use App\Config;
 use App\Famo\FamoApi;
 use App\Handlers\AccountHandler;
+use App\Handlers\BroadcastHandler;
 use App\Handlers\LinkHandler;
 use App\Handlers\StudentHandler;
+use App\Handlers\SupporterHandler;
 use App\Lang;
 use App\Logger;
 use App\Router;
@@ -52,10 +54,12 @@ try {
     $screens = new ScreenManager($telegram, $state);
 
     $student = new StudentHandler($famo, $telegram, $screens);
-    $link = new LinkHandler($famo, $telegram, $screens, $student, $config);
+    $supporter = new SupporterHandler($famo, $telegram, $screens, $student);
+    $broadcast = new BroadcastHandler($famo, $telegram, $screens, $student, $supporter);
+    $link = new LinkHandler($famo, $telegram, $screens, $student, $supporter, $config);
     $account = new AccountHandler($famo, $telegram, $screens, $student, $link, $config);
 
-    $router = new Router($state, $telegram, $link, $student, $account);
+    $router = new Router($state, $telegram, $link, $student, $account, $supporter, $broadcast);
     $router->route($telegram->update());
 } catch (Throwable $e) {
     Logger::error('webhook.error', [

@@ -21,7 +21,7 @@ use Monolog\LogRecord;
 interface ProcessorInterface
 {
     /**
-     * @return LogRecord The processed record
+     *  LogRecord The processed record
      */
     public function __invoke(LogRecord $record);
 }

@@ -13,7 +13,8 @@ final class DayScreen
     /**
      * @param array<string,mixed> $d
      *  day, weekday, date_label, messages (list of who/time/body/files), page, pages,
-     *  has_files, is_today
+     *  has_files, is_today, and optional: title, empty_text, nav_prefix, files_prefix,
+     *  reply_callback, footer (list of button rows)
      */
     public static function make(array $d): Screen
     {
@@ -22,17 +23,21 @@ final class DayScreen
         $pages = (int) ($d['pages'] ?? 1);
         $isToday = (bool) ($d['is_today'] ?? false);
 
-        $title = Lang::t('day.title', [
-            'weekday' => (string) ($d['weekday'] ?? ''),
-            'date' => (string) ($d['date_label'] ?? $day),
-        ]);
+        $title = (string) ($d['title'] ?? '');
+        if ($title === '') {
+            $title = Lang::t('day.title', [
+                'weekday' => (string) ($d['weekday'] ?? ''),
+                'date' => (string) ($d['date_label'] ?? $day),
+            ]);
+        }
+
+        $emptyText = (string) ($d['empty_text'] ?? ($isToday ? Lang::t('day.empty_today') : Lang::t('day.empty')));
 
         /** @var list<array<string,mixed>> $messages */
         $messages = (array) ($d['messages'] ?? []);
 
         if ($messages === []) {
-            $body = $isToday ? Lang::t('day.empty_today') : Lang::t('day.empty');
-            $text = $title . "\n\n" . $body;
+            $text = $title . "\n\n" . $emptyText;
         } else {
             $blocks = [];
             foreach ($messages as $message) {
@@ -54,34 +59,48 @@ final class DayScreen
             $text .= "\n\n" . Lang::t('day.page', ['page' => Num::fa($page), 'pages' => Num::fa($pages)]);
         }
 
+        $navPrefix = (string) ($d['nav_prefix'] ?? KeyboardKit::CB_DAY);
+        $filesPrefix = (string) ($d['files_prefix'] ?? KeyboardKit::CB_FILES);
+
         $keyboard = [];
+
+        if (!empty($d['reply_callback'])) {
+            $keyboard[] = [KeyboardKit::btn(Lang::t('btn.reply'), (string) $d['reply_callback'])];
+        }
 
         if (!empty($d['has_files'])) {
             $keyboard[] = [KeyboardKit::btn(
                 Lang::t('btn.files'),
-                KeyboardKit::CB_FILES . $day . ':' . $page
+                $filesPrefix . $day . ':' . $page
             )];
         }
 
         $nav = [];
         if ($page < $pages) {
-            $nav[] = KeyboardKit::btn(Lang::t('btn.newer'), KeyboardKit::CB_DAY . $day . ':' . ($page + 1));
+            $nav[] = KeyboardKit::btn(Lang::t('btn.newer'), $navPrefix . $day . ':' . ($page + 1));
         }
         if ($page > 1) {
-            $nav[] = KeyboardKit::btn(Lang::t('btn.older'), KeyboardKit::CB_DAY . $day . ':' . ($page - 1));
+            $nav[] = KeyboardKit::btn(Lang::t('btn.older'), $navPrefix . $day . ':' . ($page - 1));
         }
         if ($nav !== []) {
             $keyboard[] = $nav;
         }
 
-        $keyboard[] = [KeyboardKit::btn(Lang::t('btn.refresh'), KeyboardKit::CB_DAY . $day . ':' . $page)];
+        $keyboard[] = [KeyboardKit::btn(Lang::t('btn.refresh'), $navPrefix . $day . ':' . $page)];
 
-        $footer = [];
-        if (!$isToday) {
-            $footer[] = KeyboardKit::btn(Lang::t('btn.week'), KeyboardKit::CB_WEEK);
+        $footer = $d['footer'] ?? null;
+        if (is_array($footer) && $footer !== []) {
+            foreach ($footer as $row) {
+                $keyboard[] = $row;
+            }
+        } else {
+            $footerRow = [];
+            if (!$isToday) {
+                $footerRow[] = KeyboardKit::btn(Lang::t('btn.week'), KeyboardKit::CB_WEEK);
+            }
+            $footerRow[] = KeyboardKit::btn(Lang::t('btn.home'), KeyboardKit::CB_HOME);
+            $keyboard[] = $footerRow;
         }
-        $footer[] = KeyboardKit::btn(Lang::t('btn.home'), KeyboardKit::CB_HOME);
-        $keyboard[] = $footer;
 
         return new Screen($text, $keyboard);
     }

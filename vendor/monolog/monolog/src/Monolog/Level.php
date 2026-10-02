@@ -83,7 +83,7 @@ enum Level: int
 
     /**
      * @param  value-of<self::NAMES>|LogLevel::*|'Debug'|'Info'|'Notice'|'Warning'|'Error'|'Critical'|'Alert'|'Emergency' $name
-     * @return static
+     *  static
      */
     public static function fromName(string $name): self
     {
@@ -101,7 +101,7 @@ enum Level: int
 
     /**
      * @param  value-of<self::VALUES> $value
-     * @return static
+     *  static
      */
     public static function fromValue(int $value): self
     {
@@ -131,7 +131,7 @@ enum Level: int
      *
      * Use this instead of $level->name which returns the enum case name (e.g. Debug vs DEBUG if you use getName())
      *
-     * @return value-of<self::NAMES>
+     *  value-of<self::NAMES>
      */
     public function getName(): string
     {

@@ -136,7 +136,7 @@ class DeduplicationHandler extends BufferHandler
     }
 
     /**
-     * @return string The given record serialized as a single line of text
+     *  string The given record serialized as a single line of text
      */
     protected function buildDeduplicationStoreEntry(LogRecord $record): string
     {

@@ -111,7 +111,7 @@ class SocketHandler extends AbstractProcessingHandler
     /**
      * Set socket connection to be persistent. It only has effect before the connection is initiated.
      *
-     * @return $this
+     *  $this
      */
     public function setPersistent(bool $persistent): self
     {
@@ -124,7 +124,7 @@ class SocketHandler extends AbstractProcessingHandler
      * Set connection timeout.  Only has effect before we connect.
      *
      * @see http://php.net/manual/en/function.fsockopen.php
-     * @return $this
+     *  $this
      */
     public function setConnectionTimeout(float $seconds): self
     {
@@ -138,7 +138,7 @@ class SocketHandler extends AbstractProcessingHandler
      * Set write timeout. Only has effect before we connect.
      *
      * @see http://php.net/manual/en/function.stream-set-timeout.php
-     * @return $this
+     *  $this
      */
     public function setTimeout(float $seconds): self
     {
@@ -152,7 +152,7 @@ class SocketHandler extends AbstractProcessingHandler
      * Set writing timeout. Only has effect during connection in the writing cycle.
      *
      * @param  float $seconds 0 for no timeout
-     * @return $this
+     *  $this
      */
     public function setWritingTimeout(float $seconds): self
     {
@@ -165,7 +165,7 @@ class SocketHandler extends AbstractProcessingHandler
     /**
      * Set chunk size. Only has effect during connection in the writing cycle.
      *
-     * @return $this
+     *  $this
      */
     public function setChunkSize(int $bytes): self
     {
@@ -236,7 +236,7 @@ class SocketHandler extends AbstractProcessingHandler
     /**
      * Wrapper to allow mocking
      *
-     * @return resource|false
+     *  resource|false
      */
     protected function pfsockopen()
     {
@@ -246,7 +246,7 @@ class SocketHandler extends AbstractProcessingHandler
     /**
      * Wrapper to allow mocking
      *
-     * @return resource|false
+     *  resource|false
      */
     protected function fsockopen()
     {
@@ -275,7 +275,7 @@ class SocketHandler extends AbstractProcessingHandler
      *
      * @see http://php.net/manual/en/function.stream-set-chunk-size.php
      *
-     * @return int|false
+     *  int|false
      */
     protected function streamSetChunkSize(): int|bool
     {
@@ -293,7 +293,7 @@ class SocketHandler extends AbstractProcessingHandler
     /**
      * Wrapper to allow mocking
      *
-     * @return int|false
+     *  int|false
      */
     protected function fwrite(string $data): int|bool
     {
@@ -307,7 +307,7 @@ class SocketHandler extends AbstractProcessingHandler
     /**
      * Wrapper to allow mocking
      *
-     * @return mixed[]|bool
+     *  mixed[]|bool
      */
     protected function streamGetMetadata(): array|bool
     {
@@ -339,7 +339,7 @@ class SocketHandler extends AbstractProcessingHandler
     }
 
     /**
-     * @return resource|null
+     *  resource|null
      */
     protected function getResource()
     {

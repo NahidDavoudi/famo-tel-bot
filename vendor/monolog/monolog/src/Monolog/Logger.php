@@ -197,7 +197,7 @@ class Logger implements LoggerInterface, ResettableInterface
     /**
      * Return a new cloned instance with the name changed
      *
-     * @return static
+     *  static
      */
     public function withName(string $name): self
     {
@@ -210,7 +210,7 @@ class Logger implements LoggerInterface, ResettableInterface
     /**
      * Pushes a handler on to the stack.
      *
-     * @return $this
+     *  $this
      */
     public function pushHandler(HandlerInterface $handler): self
     {
@@ -239,7 +239,7 @@ class Logger implements LoggerInterface, ResettableInterface
      * If a map is passed, keys will be ignored.
      *
      * @param  list<HandlerInterface> $handlers
-     * @return $this
+     *  $this
      */
     public function setHandlers(array $handlers): self
     {
@@ -252,7 +252,7 @@ class Logger implements LoggerInterface, ResettableInterface
     }
 
     /**
-     * @return list<HandlerInterface>
+     *  list<HandlerInterface>
      */
     public function getHandlers(): array
     {
@@ -263,7 +263,7 @@ class Logger implements LoggerInterface, ResettableInterface
      * Adds a processor on to the stack.
      *
      * @phpstan-param ProcessorInterface|(callable(LogRecord): LogRecord) $callback
-     * @return $this
+     *  $this
      */
     public function pushProcessor(ProcessorInterface|callable $callback): self
     {
@@ -288,7 +288,7 @@ class Logger implements LoggerInterface, ResettableInterface
     }
 
     /**
-     * @return callable[]
+     *  callable[]
      * @phpstan-return array<ProcessorInterface|(callable(LogRecord): LogRecord)>
      */
     public function getProcessors(): array
@@ -306,7 +306,7 @@ class Logger implements LoggerInterface, ResettableInterface
      * to suppress microseconds from the output.
      *
      * @param  bool  $micro True to use microtime() to create timestamps
-     * @return $this
+     *  $this
      */
     public function useMicrosecondTimestamps(bool $micro): self
     {
@@ -316,7 +316,7 @@ class Logger implements LoggerInterface, ResettableInterface
     }
 
     /**
-     * @return $this
+     *  $this
      */
     public function useLoggingLoopDetection(bool $detectCycles): self
     {
@@ -333,7 +333,7 @@ class Logger implements LoggerInterface, ResettableInterface
      * @param  mixed[]                $context  The log context
      * @param  JsonSerializableDateTimeImmutable|null $datetime Optional log date to log into the past or future
      *
-     * @return bool                   Whether the record has been processed
+     *  bool                   Whether the record has been processed
      *
      * @phpstan-param value-of<Level::VALUES>|Level $level
      */
@@ -547,7 +547,7 @@ class Logger implements LoggerInterface, ResettableInterface
      *
      * The Closure will receive an exception object and the record that failed to be logged
      *
-     * @return $this
+     *  $this
      */
     public function setExceptionHandler(Closure|null $callback): self
     {
@@ -696,7 +696,7 @@ class Logger implements LoggerInterface, ResettableInterface
     /**
      * Sets the timezone to be used for the timestamp of log records.
      *
-     * @return $this
+     *  $this
      */
     public function setTimezone(DateTimeZone $tz): self
     {
@@ -719,7 +719,7 @@ class Logger implements LoggerInterface, ResettableInterface
      * Pass null to go back to reading the engine's current time. The timezone
      * configured on the logger still decides how the timestamp is rendered.
      *
-     * @return $this
+     *  $this
      */
     public function setClock(ClockInterface|null $clock): self
     {
@@ -787,7 +787,7 @@ class Logger implements LoggerInterface, ResettableInterface
     }
 
     /**
-     * @return array<string, mixed>
+     *  array<string, mixed>
      */
     public function __serialize(): array
     {

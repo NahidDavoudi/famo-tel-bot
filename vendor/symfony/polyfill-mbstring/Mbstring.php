@@ -872,7 +872,7 @@ final class Mbstring
         return $code;
     }
 
-    /** @return string|false */
+    /**  string|false */
     public static function mb_scrub(?string $string, ?string $encoding = null): string
     {
         if (null === $encoding) {
@@ -884,7 +884,7 @@ final class Mbstring
         return self::mb_convert_encoding((string) $string, $encoding, $encoding);
     }
 
-    /** @return string|false */
+    /**  string|false */
     public static function mb_str_pad(string $string, int $length, string $pad_string = ' ', int $pad_type = \STR_PAD_RIGHT, ?string $encoding = null)
     {
         if (null === $encoding) {
@@ -932,7 +932,7 @@ final class Mbstring
         }
     }
 
-    /** @return string|false */
+    /**  string|false */
     public static function mb_ucfirst(string $string, ?string $encoding = null)
     {
         if (null === $encoding) {
@@ -947,7 +947,7 @@ final class Mbstring
         return $firstChar.mb_substr($string, 1, null, $encoding);
     }
 
-    /** @return string|false */
+    /**  string|false */
     public static function mb_lcfirst(string $string, ?string $encoding = null)
     {
         if (null === $encoding) {
@@ -962,19 +962,19 @@ final class Mbstring
         return $firstChar.mb_substr($string, 1, null, $encoding);
     }
 
-    /** @return string|false */
+    /**  string|false */
     public static function mb_trim(string $string, ?string $characters = null, ?string $encoding = null)
     {
         return self::mb_internal_trim('{^[%s]+|[%1$s]+$}Du', $string, $characters, $encoding, __FUNCTION__);
     }
 
-    /** @return string|false */
+    /**  string|false */
     public static function mb_ltrim(string $string, ?string $characters = null, ?string $encoding = null)
     {
         return self::mb_internal_trim('{^[%s]+}Du', $string, $characters, $encoding, __FUNCTION__);
     }
 
-    /** @return string|false */
+    /**  string|false */
     public static function mb_rtrim(string $string, ?string $characters = null, ?string $encoding = null)
     {
         return self::mb_internal_trim('{[%s]+$}Du', $string, $characters, $encoding, __FUNCTION__);
@@ -1073,7 +1073,7 @@ final class Mbstring
             : iconv($fromEncoding, $toEncoding, $s);
     }
 
-    /** @return string|false */
+    /**  string|false */
     private static function mb_internal_trim(string $regex, string $string, ?string $characters, ?string $encoding, string $function)
     {
         if (null === $encoding) {
