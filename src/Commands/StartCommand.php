@@ -20,25 +20,32 @@ class StartCommand extends Command
     public function handle()
     {
         $chatId = (int) $this->getUpdate()->getChat()->get('id');
-        Logger::info('command.start', ['chat_id' => $chatId]);
-        $identityService = new IdentityService();
-        $linkStatus = $identityService->isLinked($chatId);
-        if ($linkStatus) {
-            $name = $linkStatus['name'] ?? '';
-            $replyMarkup = Keyboard::make()->inline()->row([
-                Keyboard::inlineButton(['text' => 'Send a Report']),
-                Keyboard::inlineButton(['text' => "Profile"])
-            ]);
-            $this->replyWithMessage([
-            'text' => 'Welcome to 𝗙𝗮𝗺𝗼 𝗔𝗰𝗮𝗱𝗲𝗺𝘆 '.$name.' 💠'. '\n\n' .'Select an action from list below',
-            'reply_markup' => $replyMarkup,
-            ]);
-        } else {
-            $replyMarkup = Keyboard::make()->inline()->row([
-                Keyboard::inlineButton(['text' => 'Login in Web', 'url' => 'https://auth.famoacademy.ir']),
-                Keyboard::inlineButton(['text' => 'Write Your Number', 'callback_data' => 'get.phone'])
-            ]);
-            $this->replyWithMessage(['text' => '<b>𝗙𝗮𝗺𝗼 𝗔𝗰𝗮𝗱𝗲𝗺𝘆 💠</b>\n\nTo start using the bot, please write down your number or login in web 👇', 'parse_mode' => 'HTML', 'reply_markup' => $replyMarkup]);
+        $Name = (string) $this->getName();
+        // Logger::info('command.start', ['chat_id' => $chatId]);
+        $role = IdentityService::getRole($chatId);
+        if ($role == 'student'){
+            $replyMarkup = Keyboard::make()->inline()
+                ->row([
+                    Keyboard::inlineButton(['text' => 'Send Report', 'callback_data' => 'sendReport']),
+                    Keyboard::inlineButton(['text' => 'See My Profile', 'callback_data' => 'seeProfile'])
+                ]);
+            $this->replyWithMessage(['text' => 'Welcome To the Famo Bot' . $Name]);
+        } elseif ($role == 'supporter') {
+            $replyMarkup = Keyboard::make()->inline()
+                ->row([
+                    Keyboard::inlineButton(['text' => 'Inbox', 'callback_data' => 'seeInbox.supporter']),
+                    Keyboard::inlineButton(['text' => 'See My Profile', 'callback_data' => 'seeProfile.supporter'])
+                ]);
+            $this->replyWithMessage(['text' => 'Welcome To the Famo Bot' . $Name]);
         }
+
+        $replyMarkup = Keyboard::make()->inlineb()
+            ->row([
+                Keyboard::inlineButton(['text' => 'Login', 'url' => 'https://auth.famoacademy.ir']),
+                Keyboard::inlineButton(['text' => 'See Courses', 'callback_data' => 'seeCourse'])])
+            ->row([Keyboard::inlineButton(['text' => 'Open website' , 'style' => 'primary'])]);
+        $this->replyWithMessage(
+            ['text' => MessageService::get('common.title') . "Welcome To Famo Academy's Bot" . '\n\n' . 'To use this Bot Click buttons below' , 'reply_markup' => $replyMarkup ]
+        );
     }
 }

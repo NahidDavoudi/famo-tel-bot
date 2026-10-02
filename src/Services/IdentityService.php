@@ -20,27 +20,37 @@ final class IdentityService
         self::$callBackHandler = $callBackHandler;
     }
 
-    public static function isLinked(int $chatId): bool
+    public static function resolve(int $chatId): array
     {
         $res = self::api()->request('GET', '/bot/identity/resolve', [], null, [
             'chat_id' => (string) $chatId,
         ]);
-
         if (!$res->ok()) {
             throw new \RuntimeException(
                 'identity resolve failed: ' . $res->status
                 . ' ' . ($res->errorCode ?? $res->transportError ?? 'unknown')
             );
         }
+        $result = $res->data() ?? [];
+        return $result;
+    }
 
-        $links = $res->data()['links'] ?? [];
-
-        return is_array($links) && $links !== [];
+    public static function isLinked(int $chatId)
+    {
     }
 
     public static function linkGuest($phone, $chatId)
     {
         $res = self::api()->request('POST', '');
+    }
+    public static function getRole(int $chatId): string
+    {
+        if(self::resolve($chatId)){
+            $role = self::resolve($chatId)['role'];
+        } else {
+            return 'geust';
+        }
+        return $role;
     }
     private static function api(): FamoApiClient
     {
@@ -50,4 +60,5 @@ final class IdentityService
 
         return self::$api;
     }
+    
 }

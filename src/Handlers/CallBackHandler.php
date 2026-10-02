@@ -48,6 +48,7 @@ class CallBackHandler
 
         match ((string) $callback->getData()) {
             'get.phone' => $this->getPhone((int) $chatId),
+            'seeCourse' => $this->showCourse(),
             default => null,
         };
     }
@@ -64,5 +65,9 @@ class CallBackHandler
             'message_id' => $messageId
         ]);
         $linkGuest = $this->identityService->linkGuest($phoneNumber, $chatId);
+    }
+    protected function showCourse()
+    {
+        
     }
 }
