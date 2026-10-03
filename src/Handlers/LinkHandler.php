@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace App\Handlers;
 
-use App\Config;
 use App\Famo\ErrorMap;
 use App\Famo\FamoApi;
 use App\Lang;
-use App\Screens\WelcomeScreen;
 use App\State\ChatState;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
@@ -23,26 +21,86 @@ final class LinkHandler
         private readonly ScreenManager $screens,
         private readonly StudentHandler $student,
         private readonly SupporterHandler $supporter,
-        private readonly Config $config,
+        private readonly \App\Config $config,
     ) {}
 
     public function start(ChatState $s, UpdateContext $ctx): void
     {
+        $continuingSignup = in_array($s->mode, ['signup_name', 'signup_grade', 'signup_major'], true);
         if ($ctx->userId > 0) {
             $s->telegramUserId = $ctx->userId;
         }
-        $s->mode = 'idle';
+        if (!$continuingSignup) {
+            $s->mode = 'idle';
+            unset($s->payload['phone'], $s->payload['full_name'], $s->payload['grade'], $s->payload['major']);
+        }
         $this->resolve($s, $ctx);
+        if ($continuingSignup && $s->role === null && $s->mode === 'idle') {
+            $s->mode = 'signup_name';
+        }
     }
 
     public function onCallback(ChatState $s, string $data, UpdateContext $ctx): void
     {
         match ($data) {
             KeyboardKit::CB_CHECK => $this->resolve($s, $ctx),
+            KeyboardKit::CB_SIGNUP_CANCEL => $this->cancelSignup($s, $ctx),
             KeyboardKit::CB_ROLE_STUDENT => $this->activateRole($s, $ctx, 'student'),
             KeyboardKit::CB_ROLE_SUPPORTER => $this->activateRole($s, $ctx, 'supporter'),
-            default => null,
+            default => $this->signupCallback($s, $data, $ctx),
         };
+    }
+
+    public function onContact(ChatState $s, int $contactUserId, string $phone, UpdateContext $ctx): void
+    {
+        if ($contactUserId !== $ctx->userId) {
+            $this->tg->sendMessage($s->chatId, Lang::t('signup.own_phone'));
+
+            return;
+        }
+
+        $messageId = $ctx->messageId();
+        if ($messageId !== null) {
+            $this->tg->deleteMessage($s->chatId, $messageId);
+        }
+        $this->tg->removeReplyKeyboard($s->chatId, Lang::t('signup.checking_phone'));
+        $s->payload['phone'] = $phone;
+        $result = $this->api->linkPhone($s->chatId, $phone);
+        if (!$result->ok()) {
+            $this->handleSignupError($s, $result, 'contact', $ctx);
+
+            return;
+        }
+
+        $links = (array) ($result->data()['links'] ?? []);
+        if (isset($links[0]) && is_array($links[0])) {
+            $this->activate($s, $ctx, $links[0]);
+
+            return;
+        }
+
+        $s->role = null;
+        $s->mode = 'signup_name';
+        $s->payload['phone'] = $phone;
+        $this->screens->show($s, new Screen(Lang::t('signup.ask_name'), KeyboardKit::signupCancel()), true);
+    }
+
+    public function onSignupText(ChatState $s, string $text, UpdateContext $ctx): void
+    {
+        if ($s->mode !== 'signup_name') {
+            return;
+        }
+
+        $fullName = trim($text);
+        if ($fullName === '' || mb_strlen($fullName) < 2) {
+            $this->tg->sendMessage($s->chatId, Lang::t('signup.invalid_name'), KeyboardKit::signupCancel());
+
+            return;
+        }
+
+        $s->payload['full_name'] = $fullName;
+        $s->mode = 'signup_grade';
+        $this->screens->show($s, new Screen(Lang::t('signup.ask_grade'), KeyboardKit::signupGrades()), true);
     }
 
     public function pickRole(ChatState $s, UpdateContext $ctx): void
@@ -55,9 +113,24 @@ final class LinkHandler
         $result = $this->api->resolveByChat($s->chatId);
 
         if (!$result->ok()) {
-            if (ErrorMap::isTransport($result) || ErrorMap::isDisabled($result) || $result->status >= 500) {
-                $this->student->fail($s, $result);
+            if (in_array($result->errorCode, ['BOT_UNAUTHORIZED', 'BOT_NOT_CONFIGURED', 'BOT_IP_FORBIDDEN'], true)) {
+                $this->tg->sendMessage($s->chatId, Lang::t('error.system_unavailable'));
+                return;
+            }
 
+            if (ErrorMap::isTransport($result)) {
+                $this->tg->sendMessage($s->chatId, Lang::t('error.connection'));
+                return;
+            }
+
+            if ($result->status >= 500 || ErrorMap::isDisabled($result)) {
+                $this->tg->sendMessage($s->chatId, Lang::t('error.system_unavailable'));
+
+                return;
+            }
+
+            if ($result->status === 403) {
+                $this->tg->sendMessage($s->chatId, Lang::t('error.system_unavailable'));
                 return;
             }
 
@@ -67,6 +140,12 @@ final class LinkHandler
         }
 
         $links = (array) ($result->data()['links'] ?? []);
+        if (isset($links[0]) && is_array($links[0])) {
+            $this->activate($s, $ctx, $links[0]);
+
+            return;
+        }
+
         $active = array_values(array_filter(
             $links,
             static fn ($link) => ($link['is_active'] ?? true) !== false
@@ -92,8 +171,12 @@ final class LinkHandler
     private function welcome(ChatState $s): void
     {
         $this->student->reset($s);
-        $loginUrl = (string) ($this->config->get('BOT_LOGIN_URL', '') ?? '');
-        $this->screens->show($s, WelcomeScreen::make($loginUrl), false);
+        unset($s->payload['phone'], $s->payload['full_name'], $s->payload['grade'], $s->payload['major']);
+        if ($s->activeScreenMessageId !== null) {
+            $this->tg->editMessageReplyMarkup($s->chatId, $s->activeScreenMessageId, []);
+            $s->activeScreenMessageId = null;
+        }
+        $this->tg->setReplyKeyboard($s->chatId, KeyboardKit::replyKeyboardRequestContact(), Lang::t('signup.request_phone'));
     }
 
     /** @param list<array<string,mixed>> $links */
@@ -113,7 +196,10 @@ final class LinkHandler
     private function activateRole(ChatState $s, UpdateContext $ctx, string $role): void
     {
         $result = $this->api->resolveByChat($s->chatId);
-        $links = $result->ok() ? (array) ($result->data()['links'] ?? []) : [];
+        $links = [];
+        if ($result->ok()) {
+            $links = (array) ($result->data()['links'] ?? []);
+        }
 
         foreach ($links as $link) {
             if (($link['role'] ?? null) === $role) {
@@ -131,7 +217,12 @@ final class LinkHandler
     {
         $role = (string) ($link['role'] ?? '');
 
+        if ($role === 'admin') {
+            $role = 'supporter';
+        }
+
         if ($role === 'supporter') {
+            unset($s->payload['phone'], $s->payload['full_name'], $s->payload['grade'], $s->payload['major']);
             $s->role = 'supporter';
             $s->mode = 'idle';
             if ($ctx->userId > 0) {
@@ -158,6 +249,7 @@ final class LinkHandler
             return;
         }
 
+        unset($s->payload['phone'], $s->payload['full_name'], $s->payload['grade'], $s->payload['major']);
         $s->role = 'student';
         $s->mode = 'idle';
         if ($ctx->userId > 0) {
@@ -174,4 +266,163 @@ final class LinkHandler
 
         $this->student->home($s, $ctx, true);
     }
+
+    private function signupCallback(ChatState $s, string $data, UpdateContext $ctx): void
+    {
+        if (str_starts_with($data, KeyboardKit::CB_GRADE) && $s->mode === 'signup_grade') {
+            $grade = (int) substr($data, strlen(KeyboardKit::CB_GRADE));
+            if ($grade < 7 || $grade > 12) {
+                return;
+            }
+            $s->payload['grade'] = $grade;
+            if ($grade <= 9) {
+                $s->payload['major'] = 'rahnamayi';
+                $this->submitRegistration($s, $ctx);
+
+                return;
+            }
+            $s->mode = 'signup_major';
+            $this->screens->show($s, new Screen(Lang::t('signup.ask_major'), KeyboardKit::signupMajors()), true);
+
+            return;
+        }
+
+        if (str_starts_with($data, KeyboardKit::CB_MAJOR) && $s->mode === 'signup_major') {
+            $major = substr($data, strlen(KeyboardKit::CB_MAJOR));
+            if (!in_array($major, ['tajrobi', 'riazi', 'ensani'], true)) {
+                return;
+            }
+            $s->payload['major'] = $major;
+            $this->submitRegistration($s, $ctx);
+        }
+    }
+
+    private function submitRegistration(ChatState $s, UpdateContext $ctx): void
+    {
+        $s->mode = 'signup_submitting';
+        $result = $this->api->registerStudent(
+            $s->chatId,
+            (string) ($s->payload['phone'] ?? ''),
+            (string) ($s->payload['full_name'] ?? ''),
+            (int) ($s->payload['grade'] ?? 0),
+            (string) ($s->payload['major'] ?? '')
+        );
+
+        if (!$result->ok()) {
+            $this->handleSignupError($s, $result, 'register', $ctx);
+
+            return;
+        }
+
+        $links = (array) ($result->data()['links'] ?? []);
+        if (!isset($links[0]) || !is_array($links[0])) {
+            $this->tg->sendMessage($s->chatId, Lang::t('error.generic'));
+            $s->mode = 'signup_grade';
+
+            return;
+        }
+
+        $s->payload = [];
+        $this->activate($s, $ctx, $links[0]);
+    }
+
+    private function handleSignupError(ChatState $s, \App\Famo\ApiResult $result, string $step, UpdateContext $ctx): void
+    {
+        $code = $result->errorCode;
+        if ($code === 'VALIDATION_ERROR') {
+            if ($step === 'contact') {
+                unset($s->payload['phone']);
+            }
+            $s->mode = match ($step) {
+                'contact' => 'idle',
+                'register' => isset($s->payload['major']) && $s->payload['major'] !== 'rahnamayi' ? 'signup_major' : 'signup_grade',
+                default => $s->mode,
+            };
+            if ($step === 'contact') {
+                $this->tg->setReplyKeyboard($s->chatId, KeyboardKit::replyKeyboardRequestContact(), Lang::t('signup.request_phone'));
+            } else {
+                $keyboard = $s->mode === 'signup_major' ? KeyboardKit::signupMajors() : KeyboardKit::signupGrades();
+                $this->screens->show($s, new Screen(Lang::t('error.validation'), $keyboard), true);
+            }
+            if ($step === 'contact') {
+                $this->tg->sendMessage($s->chatId, Lang::t('error.validation'));
+            }
+
+            return;
+        }
+
+        if (in_array($code, ['BOT_UNAUTHORIZED', 'BOT_NOT_CONFIGURED', 'BOT_IP_FORBIDDEN'], true)) {
+            if ($step === 'contact') {
+                $s->mode = 'idle';
+                $this->tg->setReplyKeyboard($s->chatId, KeyboardKit::replyKeyboardRequestContact(), Lang::t('error.system_unavailable'));
+            } else {
+                $s->mode = isset($s->payload['major']) && $s->payload['major'] !== 'rahnamayi' ? 'signup_major' : 'signup_grade';
+                $keyboard = $s->mode === 'signup_major' ? KeyboardKit::signupMajors() : KeyboardKit::signupGrades();
+                $this->screens->show($s, new Screen(Lang::t('error.system_unavailable'), $keyboard), true);
+            }
+            return;
+        }
+
+        if (ErrorMap::isTransport($result)) {
+            $s->mode = match ($step) {
+                'contact' => 'idle',
+                'register' => isset($s->payload['major']) && $s->payload['major'] !== 'rahnamayi' ? 'signup_major' : 'signup_grade',
+                default => $s->mode,
+            };
+            if ($step === 'contact') {
+                $this->tg->setReplyKeyboard($s->chatId, KeyboardKit::replyKeyboardRequestContact(), Lang::t('signup.request_phone'));
+                $this->tg->sendMessage($s->chatId, Lang::t('error.connection'));
+            } else {
+                $keyboard = $s->mode === 'signup_major' ? KeyboardKit::signupMajors() : KeyboardKit::signupGrades();
+                $this->screens->show($s, new Screen(Lang::t('error.connection'), $keyboard), true);
+            }
+            return;
+        }
+
+        if ($result->status >= 500) {
+            if ($step === 'contact') {
+                $s->mode = 'idle';
+                $this->tg->setReplyKeyboard($s->chatId, KeyboardKit::replyKeyboardRequestContact(), Lang::t('error.system_unavailable'));
+            } else {
+                $s->mode = isset($s->payload['major']) && $s->payload['major'] !== 'rahnamayi' ? 'signup_major' : 'signup_grade';
+                $keyboard = $s->mode === 'signup_major' ? KeyboardKit::signupMajors() : KeyboardKit::signupGrades();
+                $this->screens->show($s, new Screen(Lang::t('error.system_unavailable'), $keyboard), true);
+            }
+            return;
+        }
+
+        if (in_array($code, ['CHAT_ALREADY_LINKED', 'USER_ALREADY_LINKED', 'PHONE_ALREADY_REGISTERED'], true)) {
+            if ($step === 'contact') {
+                $s->mode = 'idle';
+                unset($s->payload['phone']);
+                $this->tg->setReplyKeyboard($s->chatId, KeyboardKit::replyKeyboardRequestContact(), Lang::t('signup.request_phone'));
+                $this->tg->sendMessage($s->chatId, ErrorMap::toPersian($code, $result->status, $result->transportError));
+            } else {
+                $keyboard = $s->mode === 'signup_major' ? KeyboardKit::signupMajors() : KeyboardKit::signupGrades();
+                $this->screens->show($s, new Screen(ErrorMap::toPersian($code, $result->status, $result->transportError), $keyboard), true);
+            }
+
+            return;
+        }
+
+        if ($step === 'contact') {
+            $s->mode = 'idle';
+            unset($s->payload['phone']);
+            $this->tg->setReplyKeyboard($s->chatId, KeyboardKit::replyKeyboardRequestContact(), ErrorMap::toPersian($code, $result->status, $result->transportError));
+            $this->tg->sendMessage($s->chatId, ErrorMap::toPersian($code, $result->status, $result->transportError));
+        } elseif ($step === 'register') {
+            $s->mode = isset($s->payload['major']) && $s->payload['major'] !== 'rahnamayi' ? 'signup_major' : 'signup_grade';
+            $keyboard = $s->mode === 'signup_major' ? KeyboardKit::signupMajors() : KeyboardKit::signupGrades();
+            $this->screens->show($s, new Screen(ErrorMap::toPersian($code, $result->status, $result->transportError), $keyboard), true);
+        }
+    }
+
+    private function cancelSignup(ChatState $s, UpdateContext $ctx): void
+    {
+        $s->role = null;
+        $s->mode = 'idle';
+        $s->payload = [];
+        $this->resolve($s, $ctx);
+    }
+
 }

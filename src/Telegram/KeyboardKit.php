@@ -11,6 +11,9 @@ final class KeyboardKit
     public const CB_ACCOUNT = 'ac';
     public const CB_ROLE_STUDENT = 'ac:role:student';
     public const CB_ROLE_SUPPORTER = 'ac:role:supporter';
+    public const CB_SIGNUP_CANCEL = 'ln:cancel';
+    public const CB_GRADE = 'grade:';
+    public const CB_MAJOR = 'major:';
     public const CB_SWITCH = 'ac:switch';
     public const CB_UNLINK = 'ac:unlink';
     public const CB_UNLINK_OK = 'ac:unlink:ok';
@@ -69,6 +72,41 @@ final class KeyboardKit
             [self::key(self::LBL_INBOX), self::key(self::LBL_STUDENTS)],
             [self::key(self::LBL_BROADCAST), self::key(self::LBL_HOME)],
         ];
+    }
+
+    /** @return list<list<array{text:string,request_contact?:bool}>> */
+    public static function replyKeyboardRequestContact(): array
+    {
+        return [[['text' => '📱 ارسال شماره', 'request_contact' => true]]];
+    }
+
+    /** @return list<list<array{text:string,callback_data:string}>> */
+    public static function signupGrades(): array
+    {
+        $rows = [];
+        for ($grade = 7; $grade <= 12; $grade++) {
+            $rows[] = [self::btn((string) $grade, self::CB_GRADE . $grade)];
+        }
+        $rows[] = [self::btn('انصراف', self::CB_SIGNUP_CANCEL)];
+
+        return $rows;
+    }
+
+    /** @return list<list<array{text:string,callback_data:string}>> */
+    public static function signupMajors(): array
+    {
+        return [
+            [self::btn('تجربی', self::CB_MAJOR . 'tajrobi')],
+            [self::btn('ریاضی', self::CB_MAJOR . 'riazi')],
+            [self::btn('انسانی', self::CB_MAJOR . 'ensani')],
+            [self::btn('انصراف', self::CB_SIGNUP_CANCEL)],
+        ];
+    }
+
+    /** @return list<list<array{text:string,callback_data:string}>> */
+    public static function signupCancel(): array
+    {
+        return [[self::btn('انصراف', self::CB_SIGNUP_CANCEL)]];
     }
 
     public static function labelRoute(string $label): ?string

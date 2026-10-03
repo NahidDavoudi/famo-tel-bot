@@ -61,6 +61,8 @@ final class Router
         $data = $ctx->callbackData ?? '';
         $known = $data === KeyboardKit::CB_NOP
             || $data === KeyboardKit::CB_HOME
+            || str_starts_with($data, KeyboardKit::CB_GRADE)
+            || str_starts_with($data, KeyboardKit::CB_MAJOR)
             || str_starts_with($data, 'ln:')
             || str_starts_with($data, 'ac')
             || str_starts_with($data, 'st')
@@ -85,7 +87,7 @@ final class Router
             $this->homeForRole($s, $ctx, false);
         } elseif (str_starts_with($data, 'ac:role:')) {
             $this->link->onCallback($s, $data, $ctx);
-        } elseif (str_starts_with($data, 'ln:')) {
+        } elseif (str_starts_with($data, 'ln:') || str_starts_with($data, KeyboardKit::CB_GRADE) || str_starts_with($data, KeyboardKit::CB_MAJOR)) {
             $this->link->onCallback($s, $data, $ctx);
         } elseif ($data === 'ac' || str_starts_with($data, 'ac:')) {
             $this->account->onCallback($s, $data, $ctx);
@@ -93,6 +95,8 @@ final class Router
             $this->supporter->onCallback($s, $data, $ctx);
         } elseif (str_starts_with($data, 'bc')) {
             $this->broadcast->onCallback($s, $data, $ctx);
+        } elseif ($data === KeyboardKit::CB_SIGNUP_CANCEL) {
+            $this->link->onCallback($s, $data, $ctx);
         } else {
             $this->student->onCallback($s, $data, $ctx);
         }
@@ -115,10 +119,23 @@ final class Router
         $s = $this->state->load($ctx->chatId);
         $text = $ctx->text();
 
+        $contact = $message->get('contact');
+        if (is_object($contact) && method_exists($contact, 'get')) {
+            $this->link->onContact(
+                $s,
+                (int) $contact->get('user_id', 0),
+                (string) $contact->get('phone_number', ''),
+                $ctx
+            );
+            $this->state->save($s);
+
+            return;
+        }
+
         if ($text !== null) {
             $trimmed = trim($text);
 
-            $route = KeyboardKit::labelRoute($trimmed);
+            $route = $s->mode === 'signup_name' ? null : KeyboardKit::labelRoute($trimmed);
             if ($route !== null) {
                 $this->routeLabel($s, $route, $ctx);
                 $this->state->save($s);
@@ -141,7 +158,13 @@ final class Router
             }
         }
 
-        if ($s->role === null) {
+        if ($s->mode === 'signup_name' && $text !== null) {
+            $this->link->onSignupText($s, $text, $ctx);
+        } elseif (in_array($s->mode, ['signup_grade', 'signup_major', 'signup_submitting'], true) && $s->role === null) {
+            $this->tg->sendMessage($s->chatId, Lang::t($s->mode === 'signup_major' ? 'signup.ask_major' : 'signup.ask_grade'), [
+                [KeyboardKit::btn(Lang::t('btn.cancel'), KeyboardKit::CB_SIGNUP_CANCEL)],
+            ]);
+        } elseif ($s->role === null) {
             $this->link->start($s, $ctx);
         } elseif ($s->role === 'student') {
             $this->student->onMessage($s, $ctx);
@@ -194,6 +217,12 @@ final class Router
 
     private function cancel(ChatState $s, UpdateContext $ctx): void
     {
+        if (str_starts_with($s->mode, 'signup_')) {
+            $this->link->cancelSignup($s, $ctx);
+
+            return;
+        }
+
         $s->mode = 'idle';
         unset($s->payload['student_id'], $s->payload['day'], $s->payload['audience'], $s->payload['draft']);
         $this->homeForRole($s, $ctx, true);

@@ -5,6 +5,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use App\Famo\ApiResult;
 use App\Famo\ErrorMap;
+use App\Famo\FamoApi;
 use App\Lang;
 use App\RawHtml;
 use App\Router;
@@ -45,6 +46,10 @@ check('transport maps to unavailable', ErrorMap::toPersian(null, null, 'timeout'
 check('429 maps to daily limit', ErrorMap::toPersian(null, 429) === Lang::t('error.daily_limit'));
 check('BOT_UNAUTHORIZED is unlinked', ErrorMap::isUnlinked(new ApiResult(401, null, 'BOT_UNAUTHORIZED')));
 check('unknown code is generic', ErrorMap::toPersian('WHAT') === Lang::t('error.generic'));
+check('CHAT_ALREADY_LINKED has dedicated text', ErrorMap::toPersian('CHAT_ALREADY_LINKED') === Lang::t('error.chat_already_linked'));
+check('USER_ALREADY_LINKED has dedicated text', ErrorMap::toPersian('USER_ALREADY_LINKED') === Lang::t('error.user_already_linked'));
+check('PHONE_ALREADY_REGISTERED has dedicated text', ErrorMap::toPersian('PHONE_ALREADY_REGISTERED') === Lang::t('error.phone_already_registered'));
+check('VALIDATION_ERROR has dedicated text', ErrorMap::toPersian('VALIDATION_ERROR') === Lang::t('error.validation'));
 
 $home = HomeScreen::make([
     'name' => 'علی', 'has_supporter' => true, 'today_date' => '۱۰ مهر',
@@ -90,6 +95,36 @@ $store->save($state);
 $reloaded = $store->load(555);
 check('state persists role', $reloaded->role === 'student');
 check('state persists payload json', ($reloaded->payload['name'] ?? null) === 'مریم');
+$state->mode = 'signup_grade';
+$state->payload = ['phone' => '+989121234567', 'full_name' => 'مریم'];
+$store->save($state);
+$reloadedSignup = $store->load(555);
+check('signup state persists in existing SQLite payload', $reloadedSignup->mode === 'signup_grade'
+    && ($reloadedSignup->payload['phone'] ?? null) === '+989121234567'
+    && ($reloadedSignup->payload['full_name'] ?? null) === 'مریم');
+
+$api = (new ReflectionClass(FamoApi::class))->newInstanceWithoutConstructor();
+$normalize = new ReflectionMethod(FamoApi::class, 'normalizeUserResult');
+$normalize->setAccessible(true);
+$resolved = $normalize->invoke($api, new ApiResult(200, [
+    'success' => true,
+    'data' => ['user' => [
+        'id' => 41,
+        'role' => 'student',
+        'full_name' => 'مریم',
+        'username' => '+989121234567',
+        'chat_id' => '555',
+        'supporter_id' => 8,
+        'linked_id' => 41,
+    ]],
+]));
+$normalizedLink = $resolved->data()['links'][0] ?? [];
+check('resolved user normalized to legacy role link', ($normalizedLink['role'] ?? null) === 'student'
+    && ($normalizedLink['account_id'] ?? null) === 41
+    && ($normalizedLink['name'] ?? null) === 'مریم');
+$unlinked = $normalize->invoke($api, new ApiResult(200, ['success' => true, 'data' => ['user' => null]]));
+check('null resolved user stays unlinked without a synthetic role', !array_key_exists('user', $unlinked->data())
+    && ($unlinked->data()['links'] ?? null) === []);
 
 @unlink($dbPath);
 @unlink($dbPath . '-wal');

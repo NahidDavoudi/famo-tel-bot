@@ -20,7 +20,26 @@ final class FamoApi
 
     public function resolveByChat(int $chatId): ApiResult
     {
-        return $this->request('GET', '/bot/identity/resolve', ['chat_id' => $chatId]);
+        return $this->normalizeUserResult($this->request('POST', '/bot/resolve', [], ['chat_id' => (string) $chatId]));
+    }
+
+    public function linkPhone(int $chatId, string $phone): ApiResult
+    {
+        return $this->normalizeUserResult($this->request('POST', '/bot/link-phone', [], [
+            'chat_id' => (string) $chatId,
+            'phone' => $phone,
+        ]));
+    }
+
+    public function registerStudent(int $chatId, string $phone, string $fullName, int $grade, string $major): ApiResult
+    {
+        return $this->normalizeUserResult($this->request('POST', '/bot/register', [], [
+            'chat_id' => (string) $chatId,
+            'phone' => $phone,
+            'full_name' => $fullName,
+            'grade' => $grade,
+            'major' => $major,
+        ]));
     }
 
     public function resolveByUser(int $telegramUserId): ApiResult
@@ -284,7 +303,48 @@ final class FamoApi
         $body = is_array($body) ? $body : null;
         $errorCode = $body['error']['code'] ?? null;
 
+        if (in_array($errorCode, ['BOT_UNAUTHORIZED', 'BOT_NOT_CONFIGURED', 'BOT_IP_FORBIDDEN'], true)) {
+            Logger::warning('Famo bot API configuration error', [
+                'method' => $method,
+                'path' => $path,
+                'status' => $status,
+                'code' => $errorCode,
+            ]);
+        }
+
         return new ApiResult($status, $body, is_string($errorCode) ? $errorCode : null);
+    }
+
+    private function normalizeUserResult(ApiResult $result): ApiResult
+    {
+        if (!is_array($result->data())) {
+            return $result;
+        }
+
+        $data = $result->data();
+        $user = $data['user'] ?? null;
+        $data['links'] = is_array($user) ? [self::userAsLink($user)] : [];
+        unset($data['user']);
+        $body = $result->body ?? [];
+        $body['data'] = $data;
+
+        return new ApiResult($result->status, $body, $result->errorCode, $result->transportError);
+    }
+
+    /** @param array<string,mixed> $user
+     *  @return array<string,mixed>
+     */
+    private static function userAsLink(array $user): array
+    {
+        return [
+            'role' => (string) ($user['role'] ?? ''),
+            'account_id' => (int) ($user['linked_id'] ?? $user['id'] ?? 0),
+            'name' => (string) ($user['full_name'] ?? ''),
+            'is_active' => true,
+            'is_blocked' => false,
+            'telegram_user_id' => 0,
+            'chat_id' => (int) ($user['chat_id'] ?? 0),
+        ];
     }
 
     /**  array{role:string,userId:int,chatId:int} */
