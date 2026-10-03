@@ -1,11 +1,2 @@
 .env
-# vendor/
-.opencode/
-storage/*
-!storage/.htaccess
-storage/logs/
-*.log
-*.zip
-public/error_log
-/node_modules/
-CheatSheet.md
+__pychache__
