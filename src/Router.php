@@ -44,7 +44,7 @@ final class Router
         }
 
         $message = $update->getMessage();
-        if ($message === null) {
+        if (! $message instanceof Message) {
             return;
         }
 

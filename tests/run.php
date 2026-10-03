@@ -7,11 +7,13 @@ use App\Famo\ApiResult;
 use App\Famo\ErrorMap;
 use App\Lang;
 use App\RawHtml;
+use App\Router;
 use App\Screens\HomeScreen;
 use App\Screens\WeekScreen;
 use App\State\StateStore;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
+use Telegram\Bot\Objects\Update;
 
 $passed = 0;
 $failed = 0;
@@ -92,6 +94,26 @@ check('state persists payload json', ($reloaded->payload['name'] ?? null) === 'Ù
 @unlink($dbPath);
 @unlink($dbPath . '-wal');
 @unlink($dbPath . '-shm');
+
+$router = (new ReflectionClass(Router::class))->newInstanceWithoutConstructor();
+$unknownUpdate = new Update([
+    'update_id' => 0,
+    'message_reaction' => [
+        'chat' => ['id' => 1, 'type' => 'private'],
+        'user' => ['id' => 1],
+        'message_id' => 9,
+        'date' => 1,
+        'old_reaction' => [],
+        'new_reaction' => [],
+    ],
+]);
+$routerThrew = false;
+try {
+    $router->route($unknownUpdate);
+} catch (Throwable $e) {
+    $routerThrew = true;
+}
+check('router ignores update without a message without fatal', $routerThrew === false);
 
 echo "\n{$passed} passed, {$failed} failed\n";
 exit($failed === 0 ? 0 : 1);
