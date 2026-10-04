@@ -6,7 +6,6 @@ ini_set('error_log', __DIR__ . '/error_log');
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
-use App\Config;
 use App\Api\FamoApiClient;
 use App\Services\IdentityService;
 use App\Services\JwtService;
@@ -27,16 +26,15 @@ Logger::info('webhook.request', [
 ]);
 
 try {
-    $config = Config::fromEnv();
 
-    JwtService::boot($config->get('JWT_SECRET'));
+    JwtService::boot($_ENV('JWT_SECRET'));
 
     IdentityService::boot(new FamoApiClient(
-        $config->require('BOT_SERVICE_KEY'),
-        $config->apiBaseUrl()
+        $_ENV('BOT_SERVICE_KEY'),
+        $_ENV('FAMO_API_URL')
     ));
 
-    $bot = new Bot($config->require('TELEGRAM_BOT_TOKEN'));
+    $bot = new Bot($_ENV('TELEGRAM_BOT_TOKEN'));
     $bot->handle();
 } catch (\Throwable $e) {
     Logger::error('webhook.error', [
