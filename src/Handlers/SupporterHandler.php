@@ -5,6 +5,7 @@ namespace App\Handlers;
 
 use App\Famo\ApiResult;
 use App\Famo\FamoApi;
+use App\Logger;
 use App\Lang;
 use App\Num;
 use App\Screens\DayScreen;
