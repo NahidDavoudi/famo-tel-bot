@@ -6,6 +6,7 @@ namespace App\Handlers;
 use App\Famo\ErrorMap;
 use App\Famo\FamoApi;
 use App\Lang;
+use App\Logger;
 use App\State\ChatState;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
@@ -161,6 +162,7 @@ private static function isValidNationalId(string $id): bool
         $result = $this->api->resolveByChat($s->chatId);
 
         if (!$result->ok()) {
+            Logger::error('API ERROR', $result->data());
             if (in_array($result->errorCode, ['BOT_UNAUTHORIZED', 'BOT_NOT_CONFIGURED', 'BOT_IP_FORBIDDEN'], true)) {
                 $this->tg->sendMessage($s->chatId, Lang::t('error.system_unavailable'));
                 return;
