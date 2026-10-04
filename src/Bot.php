@@ -1,13 +1,10 @@
 <?php
 
-
 namespace App;
-
 use Telegram\Bot\Api;
 use App\Commands\StartCommand;
 use App\Commands\HelpCommand;
 use App\Commands\ReportCommand;
-use App\Logging\Logger;
 
 class Bot
 {
@@ -16,23 +13,21 @@ class Bot
     public function __construct(string $token)
     {
         $this->telegram = new Api($token);
+
+        $this->registerCommands();
     }
 
-
-    public function handle(): void
+    private function registerCommands(): void
     {
-        $update = $this->telegram->getWebhookUpdate();
-
         $this->telegram->addCommands([
             StartCommand::class,
             HelpCommand::class,
             ReportCommand::class,
         ]);
-        Logger::info('telegram.update', [
-            'type' => $update->objectType(),
-            'chat_id' => $update->getChat()->get('id'),
-            'raw' => $update->getRawResponse(),
-        ]);
+    }
 
+    public function handle(): void
+    {
+        $this->telegram->commandsHandler(true);
     }
 }
