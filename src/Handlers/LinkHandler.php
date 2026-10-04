@@ -26,7 +26,7 @@ final class LinkHandler
 
     public function start(ChatState $s, UpdateContext $ctx): void
     {
-        $continuingSignup = in_array($s->mode, ['signup_name', 'signup_grade', 'signup_major'], true);
+        $continuingSignup = in_array($s->mode, ['signup_name', 'signup_national_id', 'signup_grade', 'signup_major'], true);
         if ($ctx->userId > 0) {
             $s->telegramUserId = $ctx->userId;
         }
@@ -86,22 +86,70 @@ final class LinkHandler
     }
 
     public function onSignupText(ChatState $s, string $text, UpdateContext $ctx): void
-    {
-        if ($s->mode !== 'signup_name') {
-            return;
-        }
-
+{
+    if ($s->mode === 'signup_name') {
         $fullName = trim($text);
-        if ($fullName === '' || mb_strlen($fullName) < 2) {
+        if (mb_strlen($fullName) < 2) {
             $this->tg->sendMessage($s->chatId, Lang::t('signup.invalid_name'), KeyboardKit::signupCancel());
 
             return;
         }
 
         $s->payload['full_name'] = $fullName;
+        $s->mode = 'signup_national_id';
+        $this->screens->show($s, new Screen(Lang::t('signup.ask_national_id'), KeyboardKit::signupCancel()), true);
+
+        return;
+    }
+
+    if ($s->mode === 'signup_national_id') {
+        $nationalId = self::normalizeDigits(trim($text));
+
+        // پیام حاوی کدملی را از چت پاک کن
+        $messageId = $ctx->messageId();
+        if ($messageId !== null) {
+            $this->tg->deleteMessage($s->chatId, $messageId);
+        }
+
+        if (!self::isValidNationalId($nationalId)) {
+            $this->tg->sendMessage($s->chatId, Lang::t('signup.invalid_national_id'), KeyboardKit::signupCancel());
+
+            return;
+        }
+
+        $s->payload['national_id'] = $nationalId;
         $s->mode = 'signup_grade';
         $this->screens->show($s, new Screen(Lang::t('signup.ask_grade'), KeyboardKit::signupGrades()), true);
     }
+}
+
+private static function normalizeDigits(string $v): string
+{
+    $v = strtr($v, [
+        '۰' => '0', '۱' => '1', '۲' => '2', '۳' => '3', '۴' => '4',
+        '۵' => '5', '۶' => '6', '۷' => '7', '۸' => '8', '۹' => '9',
+        '٠' => '0', '١' => '1', '٢' => '2', '٣' => '3', '٤' => '4',
+        '٥' => '5', '٦' => '6', '٧' => '7', '٨' => '8', '٩' => '9',
+    ]);
+
+    return preg_replace('/\D+/', '', $v) ?? '';
+}
+
+/** اعتبارسنجی کدملی ایران (۱۰ رقم + رقم کنترل) */
+private static function isValidNationalId(string $id): bool
+{
+    if (!preg_match('/^\d{10}$/', $id) || preg_match('/^(\d)\1{9}$/', $id)) {
+        return false;
+    }
+    $sum = 0;
+    for ($i = 0; $i < 9; $i++) {
+        $sum += (int) $id[$i] * (10 - $i);
+    }
+    $r = $sum % 11;
+    $check = (int) $id[9];
+
+    return $r < 2 ? $check === $r : $check === 11 - $r;
+}
 
     public function pickRole(ChatState $s, UpdateContext $ctx): void
     {
@@ -301,11 +349,12 @@ final class LinkHandler
     {
         $s->mode = 'signup_submitting';
         $result = $this->api->registerStudent(
-            $s->chatId,
-            (string) ($s->payload['phone'] ?? ''),
-            (string) ($s->payload['full_name'] ?? ''),
-            (int) ($s->payload['grade'] ?? 0),
-            (string) ($s->payload['major'] ?? '')
+        $s->chatId,
+        (string) ($s->payload['phone'] ?? ''),
+        (string) ($s->payload['full_name'] ?? ''),
+        (string) ($s->payload['national_id'] ?? ''),
+        (int) ($s->payload['grade'] ?? 0),
+        (string) ($s->payload['major'] ?? '')
         );
 
         if (!$result->ok()) {

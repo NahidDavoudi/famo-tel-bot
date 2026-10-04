@@ -31,14 +31,15 @@ final class FamoApi
         ]));
     }
 
-    public function registerStudent(int $chatId, string $phone, string $fullName, int $grade, string $major): ApiResult
+    public function registerStudent(int $chatId, string $phone, string $fullName, string $nationalId, int $grade, string $major): ApiResult
     {
         return $this->normalizeUserResult($this->request('POST', '/bot/register', [], [
-            'chat_id' => (string) $chatId,
-            'phone' => $phone,
-            'full_name' => $fullName,
-            'grade' => $grade,
-            'major' => $major,
+            'chat_id'     => (string) $chatId,
+            'phone'       => $phone,
+            'full_name'   => $fullName,
+            'national_id' => $nationalId,
+            'grade'       => $grade,
+            'major'       => $major,
         ]));
     }
 
