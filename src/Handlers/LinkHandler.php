@@ -162,7 +162,7 @@ private static function isValidNationalId(string $id): bool
         $result = $this->api->resolveByChat($s->chatId);
 
         if (!$result->ok()) {
-            Logger::error('API ERROR', $result->data());
+            Logger::error('API ERROR', ['error' => $result]);
             if (in_array($result->errorCode, ['BOT_UNAUTHORIZED', 'BOT_NOT_CONFIGURED', 'BOT_IP_FORBIDDEN'], true)) {
                 $this->tg->sendMessage($s->chatId, Lang::t('error.system_unavailable'));
                 return;
