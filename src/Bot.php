@@ -81,32 +81,5 @@ class Bot
             'raw' => $update->getRawResponse(),
         ]);
 
-        try {
-            if ($update->getCallbackQuery()) {
-                $this->callbackHandler->handle($update);
-                return;
-            }
-
-            $this->telegram->processCommand($update);
-        } catch (\Throwable $e) {
-            Logger::error('telegram.handle_error', [
-                'exception' => get_class($e),
-                'message' => $e->getMessage(),
-            ]);
-
-            $chatId = $update->getChat()->get('id');
-            if ($chatId === null || $chatId === '') {
-                return;
-            }
-
-            try {
-                $this->telegram->sendMessage([
-                    'chat_id' => $chatId,
-                    'text' => ErrorHandler::message($e),
-                ]);
-            } catch (\Throwable $sendError) {
-                Logger::error('telegram.error_reply_failed', ['message' => $sendError->getMessage()]);
-            }
-        }
     }
 }
