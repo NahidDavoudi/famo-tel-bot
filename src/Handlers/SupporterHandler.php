@@ -157,6 +157,7 @@ final class SupporterHandler
         $page = max(1, $page);
         $result = $this->api->supporterInbox($s->chatId, (int) $s->telegramUserId, (string) $s->role, $page, self::PER_PAGE);
         if (!$result->ok()) {
+            Logger::error('API ERROR', ['error' => $result]);
             $this->fail($s, $result);
 
             return;

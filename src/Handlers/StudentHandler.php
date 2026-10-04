@@ -12,6 +12,7 @@ use App\Screens\DayScreen;
 use App\Screens\HelpScreen;
 use App\Screens\HomeScreen;
 use App\Screens\WeekScreen;
+use App\Screens\WelcomeScreen;
 use App\State\ChatState;
 use App\Telegram\KeyboardKit;
 use App\Telegram\ScreenManager;
