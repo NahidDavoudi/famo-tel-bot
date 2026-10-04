@@ -126,6 +126,31 @@ $unlinked = $normalize->invoke($api, new ApiResult(200, ['success' => true, 'dat
 check('null resolved user stays unlinked without a synthetic role', !array_key_exists('user', $unlinked->data())
     && ($unlinked->data()['links'] ?? null) === []);
 
+$logDir = sys_get_temp_dir() . '/famo-log-test-' . uniqid();
+mkdir($logDir, 0770, true);
+\App\Logger::boot($logDir . '/bot.log');
+$responseResult = new ReflectionMethod(FamoApi::class, 'responseResult');
+$responseResult->setAccessible(true);
+$failedApiResult = $responseResult->invoke(
+    $api,
+    'POST',
+    '/bot/link-phone',
+    422,
+    '{"success":false,"error":{"code":"VALIDATION_ERROR","message":"private response detail"}}'
+);
+$apiLogFiles = glob($logDir . '/bot-*.log') ?: [];
+$apiLog = $apiLogFiles !== [] ? (string) file_get_contents($apiLogFiles[0]) : '';
+check('failed Famo API response is logged with status and code', $failedApiResult instanceof ApiResult
+    && str_contains($apiLog, '/bot/link-phone')
+    && str_contains($apiLog, '422')
+    && str_contains($apiLog, 'VALIDATION_ERROR'));
+check('failed Famo API response log omits response details', !str_contains($apiLog, 'private response detail'));
+foreach ($apiLogFiles as $apiLogFile) {
+    @unlink($apiLogFile);
+}
+@rmdir($logDir);
+\App\Logger::boot();
+
 @unlink($dbPath);
 @unlink($dbPath . '-wal');
 @unlink($dbPath . '-shm');

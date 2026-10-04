@@ -299,20 +299,26 @@ final class FamoApi
             return new ApiResult(0, null, null, $transportError !== '' ? $transportError : 'transport error');
         }
 
-        $body = json_decode((string) $raw, true);
+        return $this->responseResult($method, $path, $status, (string) $raw);
+    }
+
+    private function responseResult(string $method, string $path, int $status, string $raw): ApiResult
+    {
+        $body = json_decode($raw, true);
         $body = is_array($body) ? $body : null;
         $errorCode = $body['error']['code'] ?? null;
+        $result = new ApiResult($status, $body, is_string($errorCode) ? $errorCode : null);
 
-        if (in_array($errorCode, ['BOT_UNAUTHORIZED', 'BOT_NOT_CONFIGURED', 'BOT_IP_FORBIDDEN'], true)) {
-            Logger::warning('Famo bot API configuration error', [
+        if (!$result->ok()) {
+            Logger::warning('Famo API request failed', [
                 'method' => $method,
                 'path' => $path,
                 'status' => $status,
-                'code' => $errorCode,
+                'error_code' => $result->errorCode,
             ]);
         }
 
-        return new ApiResult($status, $body, is_string($errorCode) ? $errorCode : null);
+        return $result;
     }
 
     private function normalizeUserResult(ApiResult $result): ApiResult
