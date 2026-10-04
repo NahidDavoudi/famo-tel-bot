@@ -135,7 +135,9 @@ final class Router
         if ($text !== null) {
             $trimmed = trim($text);
 
-            $route = $s->mode === 'signup_name' ? null : KeyboardKit::labelRoute($trimmed);
+            $route = in_array($s->mode, ['signup_name', 'signup_national_id'], true)
+                ? null
+                : KeyboardKit::labelRoute($trimmed);
             if ($route !== null) {
                 $this->routeLabel($s, $route, $ctx);
                 $this->state->save($s);
@@ -158,7 +160,7 @@ final class Router
             }
         }
 
-        if ($s->mode === 'signup_name' && $text !== null) {
+        if (in_array($s->mode, ['signup_name', 'signup_national_id'], true) && $text !== null) {
             $this->link->onSignupText($s, $text, $ctx);
         } elseif (in_array($s->mode, ['signup_grade', 'signup_major', 'signup_submitting'], true) && $s->role === null) {
             $this->tg->sendMessage($s->chatId, Lang::t($s->mode === 'signup_major' ? 'signup.ask_major' : 'signup.ask_grade'), [

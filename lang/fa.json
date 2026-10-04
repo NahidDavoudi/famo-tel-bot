@@ -9,12 +9,11 @@
     "signup.invalid_name": "نام کامل را وارد کن.",
     "signup.ask_grade": "پایه‌ات را انتخاب کن.",
     "signup.ask_major": "رشته‌ات را انتخاب کن.",
-
+    "signup.ask_national_id": "کدملیت رو وارد کن",
     "link.success": "✅ حسابت وصل شد. خوش اومدی {name}!",
     "link.supporter_soon": "ورود پشتیبان در نسخه‌ی بعدی فعال می‌شه.",
     "link.choose_role": "با کدوم نقش وارد بشیم؟",
     "link.unlinked": "✅ اتصال حسابت قطع شد.",
-
     "home.greeting": "سلام {name}",
     "home.supporter": "پشتیبان تو: {name}",
     "home.no_supporter": "⚠️ هنوز پشتیبانی برای تو تعیین نشده. تا اون موقع نمی‌تونی گزارش بفرستی. با منشی موسسه تماس بگیر.",
@@ -23,7 +22,6 @@
     "home.today_pending": "⏳ هنوز امروز چیزی نفرستادی",
     "home.unread": "🔵 {k} پاسخ خوانده‌نشده از پشتیبانت داری",
     "home.hint": "هر متن، عکس، فایل یا ویسی که همین‌جا بفرستی به‌عنوان گزارش امروز ثبت می‌شه.",
-
     "day.title": "گفتگوی {weekday} {date}",
     "day.line": "{who} · {time}\n{text}",
     "day.page": "صفحه {page} از {pages}",
@@ -38,22 +36,17 @@
     "day.file_video": "ویدیو",
     "day.file_audio": "صدا",
     "day.file_caption": "{who} · {time}",
-
     "week.title": "هفته‌ی {range}",
     "week.summary": "این هفته: {done} از {total} روز گزارش دادی",
     "week.legend": "✅ گزارش دادی   ❌ ندادی   ⏳ در انتظار   💬 پاسخ داره   🔵 پاسخ نخونده",
-
     "account.title": "حساب من",
     "account.name": "نام: {name}",
     "account.role": "نقش: {role}",
     "account.supporter": "پشتیبان: {name}",
     "account.confirm": "مطمئنی می‌خوای اتصال تلگرامت به حساب فامو قطع بشه؟ بعد از این باید دوباره از سایت وصلش کنی.",
-
     "help.text": "راهنمای ربات فامو\n\n/start شروع و منوی اصلی\n/menu منوی اصلی\n/cancel لغو عملیات جاری\n\nهر متن، عکس، فایل یا ویسی که بفرستی به‌عنوان گزارش امروز ثبت می‌شه.",
-
     "unknown.command": "این دستور را نمی‌شناسم. برای دیدن راهنما /help را بزن.",
     "report.unsupported": "این نوع پیام پشتیبانی نمی‌شه. متن، عکس، فایل یا ویس بفرست.",
-
     "btn.today": "گفتگوی امروز",
     "btn.week": "وضعیت هفته",
     "btn.new_replies": "پاسخ‌های جدید ({k})",
@@ -78,10 +71,8 @@
     "btn.broadcast": "پیام همگانی",
     "btn.reply": "پاسخ",
     "btn.broadcast_history": "ارسال‌های قبلی",
-
     "link.success_supporter": "✅ حسابت وصل شد. خوش اومدی {name}!",
     "help.supporter.text": "راهنمای پشتیبان\n\nصندوق ورودی: پیام‌های خوانده‌نشده‌ی دانشجوها\nدانشجوها: لیست دانشجوهای من\nپیام همگانی: ارسال پیام به گروهی از دانشجوها\n\nبرای پاسخ به دانشجو، از صندوق ورودی دانشجو را باز کن و «پاسخ» را بزن.",
-
     "sup.inbox_title": "صندوق ورودی",
     "sup.inbox_empty": "الان پیام خوانده‌نشده‌ای نداری. 🎉",
     "sup.inbox_count": "{k} دانشجو پیام خوانده‌نشده داره",
@@ -93,7 +84,6 @@
     "sup.thread_title": "گفتگوی {name} · {date}",
     "sup.reply_prompt": "متن پاسخ به {name} را بفرست. برای لغو /cancel را بزن.",
     "sup.reply_sent": "✅ پاسخت برای {name} ثبت شد.",
-
     "bc.menu_title": "پیام همگانی",
     "bc.menu_hint": "مخاطب‌ها را انتخاب کن؛ در مرحله‌ی بعد متن یا فایل پیام را می‌فرستی.",
     "bc.audience_no_report": "دانشجوهای بدون گزارش امروز",
@@ -114,7 +104,6 @@
     "bc.list_line": "#{id} · {audience} · {day}",
     "bc.detail_title": "پیام همگانی #{id}",
     "bc.detail_day": "روز: {date}",
-
     "error.generic": "مشکلی پیش آمد. چند لحظه بعد دوباره تلاش کن.",
     "error.system_unavailable": "خطای فنی، بعداً تلاش کن.",
     "error.connection": "مشکل در اتصال، دوباره تلاش کن.",
