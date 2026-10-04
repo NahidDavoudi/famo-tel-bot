@@ -12,8 +12,9 @@ class StartCommand extends Command
 
     public function handle()
     {
+        $chatId = (string) $this->telegram->getChat(['chat_id']);
         $this->replyWithMessage([
-            'text' => 'سلام 👋',
+            'text' => 'Welcome to Famo academy'. '\n\n' . $chatId,
         ]);
     }
 }
