@@ -15,24 +15,19 @@ class Bot
 
     public function __construct(string $token)
     {
-        $this->registerCommands();
-        $telegram = new Api($token);
+        $this->telegram = new Api($token);
     }
 
-    
-    private function registerCommands(): void
-    {
-        $this->telegram->addCommands([
-            StartCommand::class,
-            HelpCommand::class,
-            ReportCommand::class,
-        ]);
-    }
 
     public function handle(): void
     {
         $update = $this->telegram->getWebhookUpdate();
 
+        $this->telegram->addCommands([
+            StartCommand::class,
+            HelpCommand::class,
+            ReportCommand::class,
+        ]);
         Logger::info('telegram.update', [
             'type' => $update->objectType(),
             'chat_id' => $update->getChat()->get('id'),

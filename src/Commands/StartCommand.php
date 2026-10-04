@@ -5,8 +5,6 @@ namespace App\Commands;
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Keyboard\Keyboard;
 use App\Services\MessageService;
-use App\Logging\Logger;
-use App\Services\IdentityService;
 
 class StartCommand extends Command
 {

@@ -28,14 +28,14 @@ Logger::info('webhook.request', [
 
 try {
 
-    JwtService::boot($_ENV('JWT_SECRET'));
+    JwtService::boot($_ENV['JWT_SECRET'] ?? null);
 
     IdentityService::boot(new FamoApiClient(
-        $_ENV('BOT_SERVICE_KEY'),
-        $_ENV('FAMO_API_URL')
+        $_ENV['BOT_SERVICE_KEY'] ?? '',
+        $_ENV['FAMO_API_URL'] ?? ''
     ));
 
-    $bot = new Bot($_ENV('TELEGRAM_BOT_TOKEN'));
+    $bot = new Bot($_ENV['TELEGRAM_BOT_TOKEN'] ?? '');
     $bot->handle();
 } catch (\Throwable $e) {
     Logger::error('webhook.error', [
