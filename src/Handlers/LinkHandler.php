@@ -27,6 +27,7 @@ final class LinkHandler
 
     public function start(ChatState $s, UpdateContext $ctx): void
     {
+
         $continuingSignup = in_array($s->mode, ['signup_name', 'signup_national_id', 'signup_grade', 'signup_major'], true);
         if ($ctx->userId > 0) {
             $s->telegramUserId = $ctx->userId;
@@ -326,7 +327,7 @@ private static function isValidNationalId(string $id): bool
             }
             $s->payload['grade'] = $grade;
             if ($grade <= 9) {
-                $s->payload['major'] = 'rahnamayi';
+                $s->payload['major'] = 'راهنمایی';
                 $this->submitRegistration($s, $ctx);
 
                 return;
@@ -339,7 +340,7 @@ private static function isValidNationalId(string $id): bool
 
         if (str_starts_with($data, KeyboardKit::CB_MAJOR) && $s->mode === 'signup_major') {
             $major = substr($data, strlen(KeyboardKit::CB_MAJOR));
-            if (!in_array($major, ['tajrobi', 'riazi', 'ensani'], true)) {
+            if (!in_array($major, ['تجربی', 'ریاضی', 'انسانی'], true)) {
                 return;
             }
             $s->payload['major'] = $major;
@@ -386,7 +387,7 @@ private static function isValidNationalId(string $id): bool
             }
             $s->mode = match ($step) {
                 'contact' => 'idle',
-                'register' => isset($s->payload['major']) && $s->payload['major'] !== 'rahnamayi' ? 'signup_major' : 'signup_grade',
+                'register' => isset($s->payload['major']) && $s->payload['major'] !== 'راهنمایی' ? 'signup_major' : 'signup_grade',
                 default => $s->mode,
             };
             if ($step === 'contact') {
@@ -407,7 +408,7 @@ private static function isValidNationalId(string $id): bool
                 $s->mode = 'idle';
                 $this->tg->setReplyKeyboard($s->chatId, KeyboardKit::replyKeyboardRequestContact(), Lang::t('error.system_unavailable'));
             } else {
-                $s->mode = isset($s->payload['major']) && $s->payload['major'] !== 'rahnamayi' ? 'signup_major' : 'signup_grade';
+                $s->mode = isset($s->payload['major']) && $s->payload['major'] !== 'راهنمایی' ? 'signup_major' : 'signup_grade';
                 $keyboard = $s->mode === 'signup_major' ? KeyboardKit::signupMajors() : KeyboardKit::signupGrades();
                 $this->screens->show($s, new Screen(Lang::t('error.system_unavailable'), $keyboard), true);
             }
@@ -417,7 +418,7 @@ private static function isValidNationalId(string $id): bool
         if (ErrorMap::isTransport($result)) {
             $s->mode = match ($step) {
                 'contact' => 'idle',
-                'register' => isset($s->payload['major']) && $s->payload['major'] !== 'rahnamayi' ? 'signup_major' : 'signup_grade',
+                'register' => isset($s->payload['major']) && $s->payload['major'] !== 'راهنمایی' ? 'signup_major' : 'signup_grade',
                 default => $s->mode,
             };
             if ($step === 'contact') {
@@ -435,7 +436,7 @@ private static function isValidNationalId(string $id): bool
                 $s->mode = 'idle';
                 $this->tg->setReplyKeyboard($s->chatId, KeyboardKit::replyKeyboardRequestContact(), Lang::t('error.system_unavailable'));
             } else {
-                $s->mode = isset($s->payload['major']) && $s->payload['major'] !== 'rahnamayi' ? 'signup_major' : 'signup_grade';
+                $s->mode = isset($s->payload['major']) && $s->payload['major'] !== 'راهنمایی' ? 'signup_major' : 'signup_grade';
                 $keyboard = $s->mode === 'signup_major' ? KeyboardKit::signupMajors() : KeyboardKit::signupGrades();
                 $this->screens->show($s, new Screen(Lang::t('error.system_unavailable'), $keyboard), true);
             }
@@ -462,7 +463,7 @@ private static function isValidNationalId(string $id): bool
             $this->tg->setReplyKeyboard($s->chatId, KeyboardKit::replyKeyboardRequestContact(), ErrorMap::toPersian($code, $result->status, $result->transportError));
             $this->tg->sendMessage($s->chatId, ErrorMap::toPersian($code, $result->status, $result->transportError));
         } elseif ($step === 'register') {
-            $s->mode = isset($s->payload['major']) && $s->payload['major'] !== 'rahnamayi' ? 'signup_major' : 'signup_grade';
+            $s->mode = isset($s->payload['major']) && $s->payload['major'] !== 'راهنمایی' ? 'signup_major' : 'signup_grade';
             $keyboard = $s->mode === 'signup_major' ? KeyboardKit::signupMajors() : KeyboardKit::signupGrades();
             $this->screens->show($s, new Screen(ErrorMap::toPersian($code, $result->status, $result->transportError), $keyboard), true);
         }

@@ -83,10 +83,11 @@ final class KeyboardKit
     /** @return list<list<array{text:string,callback_data:string}>> */
     public static function signupGrades(): array
     {
-        $rows = [];
-        for ($grade = 7; $grade <= 12; $grade++) {
-            $rows[] = [self::btn((string) $grade, self::CB_GRADE . $grade)];
-        }
+        $rows = [
+            [self::btn((string) 7, self::CB_GRADE . 7) , self::btn((string) 8, self::CB_GRADE . 8) , self::btn((string) 9, self::CB_GRADE . 9)],
+            [self::btn((string) 10, self::CB_GRADE . 10) , self::btn((string) 11, self::CB_GRADE . 11) , self::btn((string) 12, self::CB_GRADE . 12)]
+        ];
+        
         $rows[] = [self::btn('انصراف', self::CB_SIGNUP_CANCEL)];
 
         return $rows;
@@ -96,10 +97,8 @@ final class KeyboardKit
     public static function signupMajors(): array
     {
         return [
-            [self::btn('تجربی', self::CB_MAJOR . 'tajrobi')],
-            [self::btn('ریاضی', self::CB_MAJOR . 'riazi')],
-            [self::btn('انسانی', self::CB_MAJOR . 'ensani')],
-            [self::btn('انصراف', self::CB_SIGNUP_CANCEL)],
+            [self::btn('تجربی', self::CB_MAJOR . 'tajrobi') , self::btn('ریاضی', self::CB_MAJOR . 'riazi')],
+            [self::btn('انسانی', self::CB_MAJOR . 'ensani') , self::btn('انصراف', self::CB_SIGNUP_CANCEL)],
         ];
     }
 

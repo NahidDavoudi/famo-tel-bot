@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use App\Config;
@@ -25,12 +26,73 @@ ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 ini_set('error_log', $logDir . '/php-error.log');
 
-require_once $root . '/vendor/autoload.php';
+// ─── Fallback: هر چیزی که می‌تونه throw بشه، اینجا لاگ می‌شه ───
+$fatalLog = static function (string $label, \Throwable $e) use ($logDir): void {
+    $line = sprintf(
+        "[%s] %s: %s in %s:%d\n%s\n",
+        date('Y-m-d H:i:s'),
+        $label,
+        $e->getMessage(),
+        $e->getFile(),
+        $e->getLine(),
+        $e->getTraceAsString()
+    );
+    @file_put_contents($logDir . '/fatal.log', $line, FILE_APPEND | LOCK_EX);
+};
 
-Dotenv\Dotenv::createImmutable($root)->safeLoad();
-Lang::boot();
-Logger::boot();
+// Fatal errors که catch نمی‌شن (parse error, out of memory, ...)
+register_shutdown_function(static function () use ($fatalLog): void {
+    $err = error_get_last();
+    if ($err === null) {
+        return;
+    }
+    if (!in_array($err['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR], true)) {
+        return;
+    }
+    $fatalLog('SHUTDOWN_FATAL', new \ErrorException(
+        $err['message'],
+        0,
+        $err['type'],
+        $err['file'],
+        $err['line']
+    ));
+});
 
+// هر Throwable که از هر جایی رد بشه
+set_exception_handler(static function (\Throwable $e) use ($fatalLog): void {
+    $fatalLog('UNCAUGHT', $e);
+    if (!headers_sent()) {
+        http_response_code(200);
+        header('Content-Type: application/json; charset=utf-8');
+    }
+    echo json_encode(['ok' => true]);
+});
+
+// PHP warning/notice/deprecation → ErrorException (اختیاری)
+set_error_handler(static function (int $severity, string $message, string $file, int $line): bool {
+    if (!(error_reporting() & $severity)) {
+        return false;
+    }
+    throw new \ErrorException($message, 0, $severity, $file, $line);
+});
+
+// ─── Bootstrap ───
+try {
+    require_once $root . '/vendor/autoload.php';
+
+    Dotenv\Dotenv::createImmutable($root)->safeLoad();
+
+    Lang::boot();
+    Logger::boot();
+} catch (\Throwable $e) {
+    $fatalLog('BOOTSTRAP', $e);
+    if (!headers_sent()) {
+        http_response_code(200);
+    }
+    exit;
+}
+
+// ─── Main ───
 try {
     $config = Config::fromEnv();
 
@@ -61,12 +123,22 @@ try {
 
     $router = new Router($state, $telegram, $link, $student, $account, $supporter, $broadcast);
     $router->route($telegram->update());
-} catch (Throwable $e) {
-    Logger::error('webhook.error', [
-        'exception' => get_class($e),
-        'message' => $e->getMessage(),
-    ]);
-    error_log('famo bot webhook error: ' . $e->getMessage());
+} catch (\Throwable $e) {
+    // اول به فایل fallback (بدون وابستگی به Monolog)
+    $fatalLog('HANDLED', $e);
+
+    // بعد سعی کن به Monolog هم بفرستی، ولی اگه خودش ترکید، بی‌خیال شو
+    try {
+        Logger::error('webhook.error', [
+            'type'    => get_class($e),
+            'message' => $e->getMessage(),
+            'file'    => $e->getFile(),
+            'line'    => $e->getLine(),
+            'trace'   => $e->getTraceAsString(),
+        ]);
+    } catch (\Throwable $inner) {
+        @error_log('Logger::error itself failed: ' . $inner->getMessage());
+    }
 }
 
 http_response_code(200);
