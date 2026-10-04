@@ -10,6 +10,7 @@ use App\Api\FamoApiClient;
 use App\Services\IdentityService;
 use App\Services\JwtService;
 use App\Logging\Logger;
+use App\Bot;
 
 Dotenv::createImmutable(dirname(__DIR__))->load();
 
