@@ -20,12 +20,12 @@ final class FamoApi
 
     public function resolveByChat(int $chatId): ApiResult
     {
-        return $this->normalizeUserResult($this->request('POST', '/bot/identity/resolve', [], ['chat_id' => (string) $chatId]));
+        return $this->normalizeUserResult($this->request('POST', '/bot/resolve', [], ['chat_id' => (string) $chatId]));
     }
 
     public function linkPhone(int $chatId, string $phone): ApiResult
     {
-        return $this->normalizeUserResult($this->request('POST', '/bot/identity/link', [], [
+        return $this->normalizeUserResult($this->request('POST', '/bot/link-phone', [], [
             'chat_id' => (string) $chatId,
             'phone' => $phone,
         ]));
