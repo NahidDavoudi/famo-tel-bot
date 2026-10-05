@@ -256,7 +256,6 @@ final class LinkHandler
             $role = 'supporter';
         }
 
-        // ← مهم: آیا این کاربر از قبل متصل بوده؟
         $isFirstLink = $s->role === null;
 
         if ($role === 'supporter') {
@@ -325,11 +324,25 @@ final class LinkHandler
         }
 
         if (str_starts_with($data, KeyboardKit::CB_MAJOR) && $s->mode === 'signup_major') {
-            $major = substr($data, strlen(KeyboardKit::CB_MAJOR));
-            if (!in_array($major, ['تجربی', 'ریاضی', 'انسانی'], true)) {
+            $key = substr($data, strlen(KeyboardKit::CB_MAJOR));
+
+            // نگاشت کلید لاتین callback → مقدار فارسی ذخیره‌شده در API
+            $map = [
+                'tajrobi' => 'تجربی',
+                'riazi'   => 'ریاضی',
+                'ensani'  => 'انسانی',
+            ];
+
+            if (!isset($map[$key])) {
+                $this->screens->show(
+                    $s,
+                    new Screen(Lang::t('error.validation'), KeyboardKit::signupMajors()),
+                    true
+                );
                 return;
             }
-            $s->payload['major'] = $major;
+
+            $s->payload['major'] = $map[$key];
             $this->submitRegistration($s, $ctx);
         }
     }
