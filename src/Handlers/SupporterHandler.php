@@ -132,7 +132,7 @@ final class SupporterHandler
             $input['day'] = $day;
         }
 
-        $result = $this->api->supporterReply($s->chatId, (int) $s->telegramUserId, $input);
+        $result = $this->api->supporterReply($s->chatId, $s->accountId(), $input);
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -156,7 +156,7 @@ final class SupporterHandler
     private function inbox(ChatState $s, int $page, bool $edit): void
     {
         $page = max(1, $page);
-        $result = $this->api->supporterInbox($s->chatId, (int) $s->telegramUserId, (string) $s->role, $page, self::PER_PAGE);
+        $result = $this->api->supporterInbox($s->chatId, $s->accountId(), (string) $s->role, $page, self::PER_PAGE);
         if (!$result->ok()) {
             Logger::error('API ERROR', ['error' => $result]);
             $this->fail($s, $result);
@@ -196,7 +196,7 @@ final class SupporterHandler
 
     private function students(ChatState $s, bool $edit): void
     {
-        $result = $this->api->supporterStudents($s->chatId, (int) $s->telegramUserId, (string) $s->role);
+        $result = $this->api->supporterStudents($s->chatId, $s->accountId(), (string) $s->role);
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -243,7 +243,7 @@ final class SupporterHandler
         }
 
         $day = $this->student->today();
-        $unread = $this->api->supporterStudentUnread($s->chatId, (int) $s->telegramUserId, (string) $s->role, $studentId);
+        $unread = $this->api->supporterStudentUnread($s->chatId, $s->accountId(), (string) $s->role, $studentId);
         if ($unread->ok()) {
             $messages = (array) ($unread->data()['messages'] ?? []);
             $latest = null;
@@ -266,7 +266,7 @@ final class SupporterHandler
     private function day(ChatState $s, int $studentId, string $day, int $page, bool $edit): void
     {
         $page = max(1, $page);
-        $result = $this->api->day($s->chatId, (int) $s->telegramUserId, (string) $s->role, $day, $studentId, $page, self::PER_PAGE);
+        $result = $this->api->day($s->chatId, $s->accountId(), (string) $s->role, $day, $studentId, $page, self::PER_PAGE);
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -300,13 +300,13 @@ final class SupporterHandler
             ],
         ]), $edit);
 
-        $this->api->markRead($s->chatId, (int) $s->telegramUserId, (string) $s->role, $studentId, $dayValue);
+        $this->api->markRead($s->chatId, $s->accountId(), (string) $s->role, $studentId, $dayValue);
     }
 
     private function files(ChatState $s, int $studentId, string $day, int $page): void
     {
         $page = max(1, $page);
-        $result = $this->api->day($s->chatId, (int) $s->telegramUserId, (string) $s->role, $day, $studentId, $page, self::PER_PAGE);
+        $result = $this->api->day($s->chatId, $s->accountId(), (string) $s->role, $day, $studentId, $page, self::PER_PAGE);
         if (!$result->ok()) {
             $this->fail($s, $result);
 

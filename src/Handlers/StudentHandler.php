@@ -38,7 +38,7 @@ final class StudentHandler
             return;
         }
 
-        $result = $this->api->weekly($s->chatId, (int) $s->telegramUserId, $s->role);
+        $result = $this->api->weekly($s->chatId, $s->accountId(), $s->role);
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -150,7 +150,7 @@ final class StudentHandler
             return;
         }
 
-        $result = $this->api->sendStudentMessage($s->chatId, (int) $s->telegramUserId, $input);
+        $result = $this->api->sendStudentMessage($s->chatId, $s->accountId(), $input);
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -197,7 +197,7 @@ final class StudentHandler
     private function day(ChatState $s, string $day, int $page, bool $edit): void
     {
         $page = max(1, $page);
-        $result = $this->api->day($s->chatId, (int) $s->telegramUserId, $s->role, $day, null, $page, self::PER_PAGE);
+        $result = $this->api->day($s->chatId, $s->accountId(), $s->role, $day, null, $page, self::PER_PAGE);
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -222,12 +222,12 @@ final class StudentHandler
             'is_today' => $dayValue === $this->today(),
         ]), $edit);
 
-        $this->api->markRead($s->chatId, (int) $s->telegramUserId, $s->role, null, $dayValue);
+        $this->api->markRead($s->chatId, $s->accountId(), $s->role, null, $dayValue);
     }
 
     private function week(ChatState $s, ?string $weekStart, bool $edit): void
     {
-        $result = $this->api->weekly($s->chatId, (int) $s->telegramUserId, $s->role, $weekStart);
+        $result = $this->api->weekly($s->chatId, $s->accountId(), $s->role, $weekStart);
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -292,7 +292,7 @@ final class StudentHandler
 
     private function newReplies(ChatState $s, UpdateContext $ctx): void
     {
-        $result = $this->api->weekly($s->chatId, (int) $s->telegramUserId, $s->role);
+        $result = $this->api->weekly($s->chatId, $s->accountId(), $s->role);
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -320,7 +320,7 @@ final class StudentHandler
     private function files(ChatState $s, string $day, int $page): void
     {
         $page = max(1, $page);
-        $result = $this->api->day($s->chatId, (int) $s->telegramUserId, $s->role, $day, null, $page, self::PER_PAGE);
+        $result = $this->api->day($s->chatId, $s->accountId(), $s->role, $day, null, $page, self::PER_PAGE);
         if (!$result->ok()) {
             $this->fail($s, $result);
 

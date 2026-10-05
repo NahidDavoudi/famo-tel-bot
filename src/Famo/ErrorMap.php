@@ -8,20 +8,24 @@ use App\Lang;
 final class ErrorMap
 {
     private const CODE_KEYS = [
-        'BOT_UNAUTHORIZED' => 'error.system_unavailable',
-        'BOT_NOT_CONFIGURED' => 'error.system_unavailable',
-        'BOT_IP_FORBIDDEN' => 'error.system_unavailable',
-        'BOT_ACCOUNT_BLOCKED' => 'error.account_disabled',
-        'FORBIDDEN' => 'error.forbidden',
-        'NOT_FOUND' => 'error.generic',
-        'VALIDATION_ERROR' => 'error.validation',
-        'CHAT_ALREADY_LINKED' => 'error.chat_already_linked',
-        'USER_ALREADY_LINKED' => 'error.user_already_linked',
+        'BOT_UNAUTHORIZED'       => 'error.system_unavailable',
+        'BOT_NOT_CONFIGURED'     => 'error.system_unavailable',
+        'BOT_IP_FORBIDDEN'       => 'error.system_unavailable',
+        'BOT_ACCOUNT_BLOCKED'    => 'error.account_disabled',
+        'BOT_NOT_LINKED'         => 'error.not_linked',
+        'BOT_ROLE_INVALID'       => 'error.system_unavailable',
+        'BOT_CHAT_MISMATCH'      => 'error.not_linked',
+        'ACCOUNT_INACTIVE'       => 'error.account_disabled',
+        'FORBIDDEN'              => 'error.forbidden',
+        'NOT_FOUND'              => 'error.generic',
+        'VALIDATION_ERROR'       => 'error.validation',
+        'CHAT_ALREADY_LINKED'    => 'error.chat_already_linked',
+        'USER_ALREADY_LINKED'    => 'error.user_already_linked',
         'PHONE_ALREADY_REGISTERED' => 'error.phone_already_registered',
         'CONTENT_ACCESS_DISABLED' => 'error.account_disabled',
-        'REGISTRATION_ERROR' => 'error.generic',
-        'INTERNAL_ERROR' => 'error.system_unavailable',
-        'NO_SUPPORTER_ASSIGNED' => 'error.no_supporter',
+        'REGISTRATION_ERROR'     => 'error.generic',
+        'INTERNAL_ERROR'         => 'error.system_unavailable',
+        'NO_SUPPORTER_ASSIGNED'  => 'error.no_supporter',
     ];
 
     public static function toPersian(?string $code, ?int $status = null, ?string $transportError = null): string
@@ -47,13 +51,17 @@ final class ErrorMap
 
     public static function isUnlinked(ApiResult $result): bool
     {
-        return $result->errorCode === 'BOT_UNAUTHORIZED' || $result->status === 401;
+        // فقط BOT_UNAUTHORIZED رو «قطع اتصال قطعی» بدون
+        return $result->errorCode === 'BOT_UNAUTHORIZED';
     }
 
     public static function isDisabled(ApiResult $result): bool
     {
-        return $result->errorCode === 'BOT_ACCOUNT_BLOCKED'
-            || $result->errorCode === 'CONTENT_ACCESS_DISABLED';
+        return in_array($result->errorCode, [
+            'BOT_ACCOUNT_BLOCKED',
+            'CONTENT_ACCESS_DISABLED',
+            'ACCOUNT_INACTIVE',      // ← اضافه شد
+        ], true);
     }
 
     public static function isTransport(ApiResult $result): bool

@@ -7,8 +7,6 @@ final class ChatState
 {
     public int $chatId;
 
-    public ?int $telegramUserId = null;
-
     public ?string $role = null;
 
     public string $mode = 'idle';
@@ -29,4 +27,9 @@ final class ChatState
     {
         return new self($chatId);
     }
+    public function accountId(): int
+    {
+        return (int) ($this->payload['account_id'] ?? 0);
+    }
 }
+

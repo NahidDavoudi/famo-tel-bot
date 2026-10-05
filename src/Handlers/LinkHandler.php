@@ -27,11 +27,7 @@ final class LinkHandler
 
     public function start(ChatState $s, UpdateContext $ctx): void
     {
-
         $continuingSignup = in_array($s->mode, ['signup_name', 'signup_national_id', 'signup_grade', 'signup_major'], true);
-        if ($ctx->userId > 0) {
-            $s->telegramUserId = $ctx->userId;
-        }
         if (!$continuingSignup) {
             $s->mode = 'idle';
             unset($s->payload['phone'], $s->payload['full_name'], $s->payload['grade'], $s->payload['major']);
@@ -57,7 +53,6 @@ final class LinkHandler
     {
         if ($contactUserId !== $ctx->userId) {
             $this->tg->sendMessage($s->chatId, Lang::t('signup.own_phone'));
-
             return;
         }
 
@@ -70,14 +65,12 @@ final class LinkHandler
         $result = $this->api->linkPhone($s->chatId, $phone);
         if (!$result->ok()) {
             $this->handleSignupError($s, $result, 'contact', $ctx);
-
             return;
         }
 
         $links = (array) ($result->data()['links'] ?? []);
         if (isset($links[0]) && is_array($links[0])) {
             $this->activate($s, $ctx, $links[0]);
-
             return;
         }
 
@@ -88,70 +81,65 @@ final class LinkHandler
     }
 
     public function onSignupText(ChatState $s, string $text, UpdateContext $ctx): void
-{
-    if ($s->mode === 'signup_name') {
-        $fullName = trim($text);
-        if (mb_strlen($fullName) < 2) {
-            $this->tg->sendMessage($s->chatId, Lang::t('signup.invalid_name'), KeyboardKit::signupCancel());
+    {
+        if ($s->mode === 'signup_name') {
+            $fullName = trim($text);
+            if (mb_strlen($fullName) < 2) {
+                $this->tg->sendMessage($s->chatId, Lang::t('signup.invalid_name'), KeyboardKit::signupCancel());
+                return;
+            }
 
+            $s->payload['full_name'] = $fullName;
+            $s->mode = 'signup_national_id';
+            $this->screens->show($s, new Screen(Lang::t('signup.ask_national_id'), KeyboardKit::signupCancel()), true);
             return;
         }
 
-        $s->payload['full_name'] = $fullName;
-        $s->mode = 'signup_national_id';
-        $this->screens->show($s, new Screen(Lang::t('signup.ask_national_id'), KeyboardKit::signupCancel()), true);
+        if ($s->mode === 'signup_national_id') {
+            $nationalId = self::normalizeDigits(trim($text));
 
-        return;
-    }
+            $messageId = $ctx->messageId();
+            if ($messageId !== null) {
+                $this->tg->deleteMessage($s->chatId, $messageId);
+            }
 
-    if ($s->mode === 'signup_national_id') {
-        $nationalId = self::normalizeDigits(trim($text));
+            if (!self::isValidNationalId($nationalId)) {
+                $this->tg->sendMessage($s->chatId, Lang::t('signup.invalid_national_id'), KeyboardKit::signupCancel());
+                return;
+            }
 
-        // پیام حاوی کدملی را از چت پاک کن
-        $messageId = $ctx->messageId();
-        if ($messageId !== null) {
-            $this->tg->deleteMessage($s->chatId, $messageId);
+            $s->payload['national_id'] = $nationalId;
+            $s->mode = 'signup_grade';
+            $this->screens->show($s, new Screen(Lang::t('signup.ask_grade'), KeyboardKit::signupGrades()), true);
         }
+    }
 
-        if (!self::isValidNationalId($nationalId)) {
-            $this->tg->sendMessage($s->chatId, Lang::t('signup.invalid_national_id'), KeyboardKit::signupCancel());
+    private static function normalizeDigits(string $v): string
+    {
+        $v = strtr($v, [
+            '۰' => '0', '۱' => '1', '۲' => '2', '۳' => '3', '۴' => '4',
+            '۵' => '5', '۶' => '6', '۷' => '7', '۸' => '8', '۹' => '9',
+            '٠' => '0', '١' => '1', '٢' => '2', '٣' => '3', '٤' => '4',
+            '٥' => '5', '٦' => '6', '٧' => '7', '٨' => '8', '٩' => '9',
+        ]);
 
-            return;
+        return preg_replace('/\D+/', '', $v) ?? '';
+    }
+
+    private static function isValidNationalId(string $id): bool
+    {
+        if (!preg_match('/^\d{10}$/', $id) || preg_match('/^(\d)\1{9}$/', $id)) {
+            return false;
         }
+        $sum = 0;
+        for ($i = 0; $i < 9; $i++) {
+            $sum += (int) $id[$i] * (10 - $i);
+        }
+        $r = $sum % 11;
+        $check = (int) $id[9];
 
-        $s->payload['national_id'] = $nationalId;
-        $s->mode = 'signup_grade';
-        $this->screens->show($s, new Screen(Lang::t('signup.ask_grade'), KeyboardKit::signupGrades()), true);
+        return $r < 2 ? $check === $r : $check === 11 - $r;
     }
-}
-
-private static function normalizeDigits(string $v): string
-{
-    $v = strtr($v, [
-        '۰' => '0', '۱' => '1', '۲' => '2', '۳' => '3', '۴' => '4',
-        '۵' => '5', '۶' => '6', '۷' => '7', '۸' => '8', '۹' => '9',
-        '٠' => '0', '١' => '1', '٢' => '2', '٣' => '3', '٤' => '4',
-        '٥' => '5', '٦' => '6', '٧' => '7', '٨' => '8', '٩' => '9',
-    ]);
-
-    return preg_replace('/\D+/', '', $v) ?? '';
-}
-
-/** اعتبارسنجی کدملی ایران (۱۰ رقم + رقم کنترل) */
-private static function isValidNationalId(string $id): bool
-{
-    if (!preg_match('/^\d{10}$/', $id) || preg_match('/^(\d)\1{9}$/', $id)) {
-        return false;
-    }
-    $sum = 0;
-    for ($i = 0; $i < 9; $i++) {
-        $sum += (int) $id[$i] * (10 - $i);
-    }
-    $r = $sum % 11;
-    $check = (int) $id[9];
-
-    return $r < 2 ? $check === $r : $check === 11 - $r;
-}
 
     public function pickRole(ChatState $s, UpdateContext $ctx): void
     {
@@ -176,7 +164,6 @@ private static function isValidNationalId(string $id): bool
 
             if ($result->status >= 500 || ErrorMap::isDisabled($result)) {
                 $this->tg->sendMessage($s->chatId, Lang::t('error.system_unavailable'));
-
                 return;
             }
 
@@ -186,14 +173,12 @@ private static function isValidNationalId(string $id): bool
             }
 
             $this->welcome($s);
-
             return;
         }
 
         $links = (array) ($result->data()['links'] ?? []);
         if (isset($links[0]) && is_array($links[0])) {
             $this->activate($s, $ctx, $links[0]);
-
             return;
         }
 
@@ -204,14 +189,12 @@ private static function isValidNationalId(string $id): bool
 
         if ($active === []) {
             $this->welcome($s);
-
             return;
         }
 
         if (count($active) === 1) {
             $s->payload['multi'] = false;
             $this->activate($s, $ctx, $active[0]);
-
             return;
         }
 
@@ -255,7 +238,6 @@ private static function isValidNationalId(string $id): bool
         foreach ($links as $link) {
             if (($link['role'] ?? null) === $role) {
                 $this->activate($s, $ctx, $link);
-
                 return;
             }
         }
@@ -263,7 +245,9 @@ private static function isValidNationalId(string $id): bool
         $this->welcome($s);
     }
 
-    /** @param array<string,mixed> $link */
+    /**
+     * @param array<string,mixed> $link
+     */
     private function activate(ChatState $s, UpdateContext $ctx, array $link): void
     {
         $role = (string) ($link['role'] ?? '');
@@ -272,50 +256,54 @@ private static function isValidNationalId(string $id): bool
             $role = 'supporter';
         }
 
+        // ← مهم: آیا این کاربر از قبل متصل بوده؟
+        $isFirstLink = $s->role === null;
+
         if ($role === 'supporter') {
             unset($s->payload['phone'], $s->payload['full_name'], $s->payload['grade'], $s->payload['major']);
             $s->role = 'supporter';
             $s->mode = 'idle';
-            if ($ctx->userId > 0) {
-                $s->telegramUserId = $ctx->userId;
-            }
             $s->payload['name'] = (string) ($link['name'] ?? '');
             $s->payload['account_id'] = (int) ($link['account_id'] ?? 0);
             unset($s->payload['supporter']);
 
-            $this->tg->setReplyKeyboard(
-                $s->chatId,
-                KeyboardKit::replyKeyboardSupporterMenu(),
-                Lang::t('link.success_supporter', ['name' => $s->payload['name']])
-            );
-
-            $this->supporter->home($s, false);
+            if ($isFirstLink) {
+                $messageId = $this->tg->setReplyKeyboard(
+                    $s->chatId,
+                    KeyboardKit::replyKeyboardSupporterMenu(),
+                    Lang::t('link.success_supporter', ['name' => $s->payload['name']])
+                );
+                $s->activeScreenMessageId = $messageId;
+                $this->supporter->home($s, true);
+            } else {
+                $this->supporter->home($s, false);
+            }
 
             return;
         }
 
         if ($role !== 'student') {
             $this->welcome($s);
-
             return;
         }
 
         unset($s->payload['phone'], $s->payload['full_name'], $s->payload['grade'], $s->payload['major']);
         $s->role = 'student';
         $s->mode = 'idle';
-        if ($ctx->userId > 0) {
-            $s->telegramUserId = $ctx->userId;
-        }
         $s->payload['name'] = (string) ($link['name'] ?? '');
         $s->payload['account_id'] = (int) ($link['account_id'] ?? 0);
 
-        $this->tg->setReplyKeyboard(
-            $s->chatId,
-            KeyboardKit::replyKeyboardStudentMenu(),
-            Lang::t('link.success', ['name' => $s->payload['name']])
-        );
-
-        $this->student->home($s, $ctx, true);
+        if ($isFirstLink) {
+            $messageId = $this->tg->setReplyKeyboard(
+                $s->chatId,
+                KeyboardKit::replyKeyboardStudentMenu(),
+                Lang::t('link.success', ['name' => $s->payload['name']])
+            );
+            $s->activeScreenMessageId = $messageId;
+            $this->student->home($s, $ctx, false);
+        } else {
+            $this->student->home($s, $ctx, true);
+        }
     }
 
     private function signupCallback(ChatState $s, string $data, UpdateContext $ctx): void
@@ -329,12 +317,10 @@ private static function isValidNationalId(string $id): bool
             if ($grade <= 9) {
                 $s->payload['major'] = 'راهنمایی';
                 $this->submitRegistration($s, $ctx);
-
                 return;
             }
             $s->mode = 'signup_major';
             $this->screens->show($s, new Screen(Lang::t('signup.ask_major'), KeyboardKit::signupMajors()), true);
-
             return;
         }
 
@@ -352,17 +338,16 @@ private static function isValidNationalId(string $id): bool
     {
         $s->mode = 'signup_submitting';
         $result = $this->api->registerStudent(
-        $s->chatId,
-        (string) ($s->payload['phone'] ?? ''),
-        (string) ($s->payload['full_name'] ?? ''),
-        (string) ($s->payload['national_id'] ?? ''),
-        (int) ($s->payload['grade'] ?? 0),
-        (string) ($s->payload['major'] ?? '')
+            $s->chatId,
+            (string) ($s->payload['phone'] ?? ''),
+            (string) ($s->payload['full_name'] ?? ''),
+            (string) ($s->payload['national_id'] ?? ''),
+            (int) ($s->payload['grade'] ?? 0),
+            (string) ($s->payload['major'] ?? '')
         );
 
         if (!$result->ok()) {
             $this->handleSignupError($s, $result, 'register', $ctx);
-
             return;
         }
 
@@ -370,7 +355,6 @@ private static function isValidNationalId(string $id): bool
         if (!isset($links[0]) || !is_array($links[0])) {
             $this->tg->sendMessage($s->chatId, Lang::t('error.generic'));
             $s->mode = 'signup_grade';
-
             return;
         }
 
@@ -399,7 +383,6 @@ private static function isValidNationalId(string $id): bool
             if ($step === 'contact') {
                 $this->tg->sendMessage($s->chatId, Lang::t('error.validation'));
             }
-
             return;
         }
 
@@ -453,7 +436,6 @@ private static function isValidNationalId(string $id): bool
                 $keyboard = $s->mode === 'signup_major' ? KeyboardKit::signupMajors() : KeyboardKit::signupGrades();
                 $this->screens->show($s, new Screen(ErrorMap::toPersian($code, $result->status, $result->transportError), $keyboard), true);
             }
-
             return;
         }
 
@@ -476,5 +458,4 @@ private static function isValidNationalId(string $id): bool
         $s->payload = [];
         $this->resolve($s, $ctx);
     }
-
 }

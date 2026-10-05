@@ -133,7 +133,7 @@ final class BroadcastHandler
     {
         $result = $this->api->broadcastPreview(
             $s->chatId,
-            (int) $s->telegramUserId,
+            $s->accountId(),
             (string) $s->role,
             $this->scopeInput($s)
         );
@@ -160,7 +160,7 @@ final class BroadcastHandler
 
         $result = $this->api->broadcastConfirm(
             $s->chatId,
-            (int) $s->telegramUserId,
+            $s->accountId(),
             (string) $s->role,
             $this->messageInput($s)
         );
@@ -194,7 +194,7 @@ final class BroadcastHandler
 
     private function list(ChatState $s, bool $edit): void
     {
-        $result = $this->api->broadcastList($s->chatId, (int) $s->telegramUserId, (string) $s->role);
+        $result = $this->api->broadcastList($s->chatId, $s->accountId(), (string) $s->role);
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -234,7 +234,7 @@ final class BroadcastHandler
             return;
         }
 
-        $result = $this->api->broadcastGet($s->chatId, (int) $s->telegramUserId, (string) $s->role, $id);
+        $result = $this->api->broadcastGet($s->chatId, $s->accountId(), (string) $s->role, $id);
         if (!$result->ok()) {
             $this->fail($s, $result);
 

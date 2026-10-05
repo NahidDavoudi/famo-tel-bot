@@ -264,7 +264,7 @@ final class FamoApi
 
         if ($identity !== null) {
             $headers[] = 'X-Bot-Role: ' . $identity['role'];
-            $headers[] = 'X-Telegram-User-Id: ' . $identity['userId'];
+            $headers[] = 'X-Bot-Account-Id: ' . $identity['accountId'];
             $headers[] = 'X-Telegram-Chat-Id: ' . $identity['chatId'];
         }
 
@@ -355,8 +355,8 @@ final class FamoApi
     }
 
     /**  array{role:string,userId:int,chatId:int} */
-    private static function identity(string $role, int $telegramUserId, int $chatId): array
-    {
-        return ['role' => $role, 'userId' => $telegramUserId, 'chatId' => $chatId];
-    }
+    private static function identity(string $role, int $accountId, int $chatId): array
+{
+    return ['role' => $role, 'accountId' => $accountId, 'chatId' => $chatId];
+}
 }

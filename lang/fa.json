@@ -118,5 +118,6 @@
     "error.daily_limit": "به سقف ارسال مجاز امروز رسیدی. فردا دوباره تلاش کن.",
     "error.not_supported": "این نوع پیام پشتیبانی نمی‌شه.",
     "error.message_failed": "این پیام ثبت نشد. دوباره تلاش کن.",
-    "error.callback_expired": "این منو منقضی شده."
+    "error.callback_expired": "این منو منقضی شده.",
+    "error.not_linked": "اتصال حساب‌ت کامل نشده. لطفاً یه‌بار دیگه از سایت وارد شو."
 }
