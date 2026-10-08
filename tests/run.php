@@ -2,18 +2,29 @@
 declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once __DIR__ . '/fakes.php';
 
+use App\Config;
 use App\Famo\ApiResult;
 use App\Famo\ErrorMap;
 use App\Famo\FamoApi;
+use App\Handlers\AccountHandler;
+use App\Handlers\BroadcastHandler;
+use App\Handlers\LinkHandler;
+use App\Handlers\StudentHandler;
+use App\Handlers\SupporterHandler;
 use App\Lang;
 use App\RawHtml;
 use App\Router;
+use App\Screens\DayScreen;
 use App\Screens\HomeScreen;
 use App\Screens\WeekScreen;
+use App\State\ChatState;
 use App\State\StateStore;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
+use App\Telegram\ScreenManager;
+use App\Telegram\TelegramApi;
 use Telegram\Bot\Objects\Update;
 
 $passed = 0;
@@ -174,6 +185,117 @@ try {
     $routerThrew = true;
 }
 check('router ignores update without a message without fatal', $routerThrew === false);
+
+$fakeA = new FakeTelegramApi();
+$storeAPath = sys_get_temp_dir() . '/famo-test-' . uniqid() . '.sqlite';
+$storeA = new StateStore($storeAPath);
+$smA = new ScreenManager(new TelegramApi($fakeA), $storeA);
+
+$sA = $storeA->load(9101);
+$sA->activeScreenMessageId = 500;
+$smA->show($sA, new Screen('callback screen'), true);
+check('callback show edits the active message', count($fakeA->edits) === 1
+    && (int) $fakeA->edits[0]['message_id'] === 500);
+
+$sB = $storeA->load(9102);
+$sB->activeScreenMessageId = 500;
+$sB->forceNewScreen = true;
+$sentBefore = count($fakeA->sends);
+$smA->show($sB, new Screen('message reply screen'), true);
+check('forceNewScreen sends a new message instead of editing', count($fakeA->sends) === $sentBefore + 1
+    && count($fakeA->edits) === 1);
+check('forceNewScreen is consumed by show', $sB->forceNewScreen === false);
+
+$smA->show($sB, new Screen('next callback screen'), true);
+check('callback edits again after the flag was consumed', count($fakeA->edits) === 2
+    && count($fakeA->sends) === $sentBefore + 1);
+
+$fakeR = new FakeTelegramApi();
+$storeRPath = sys_get_temp_dir() . '/famo-test-' . uniqid() . '.sqlite';
+$storeR = new StateStore($storeRPath);
+$tgR = new TelegramApi($fakeR);
+$smR = new ScreenManager($tgR, $storeR);
+$apiR = new FamoApi('test-key', 'http://127.0.0.1:1');
+$cfgR = Config::fromEnv();
+$studentR = new StudentHandler($apiR, $tgR, $smR);
+$supporterR = new SupporterHandler($apiR, $tgR, $smR, $studentR);
+$linkR = new LinkHandler($apiR, $tgR, $smR, $studentR, $supporterR, $cfgR);
+$accountR = new AccountHandler($apiR, $tgR, $smR, $studentR, $linkR, $cfgR);
+$broadcastR = new BroadcastHandler($apiR, $tgR, $smR, $studentR, $supporterR);
+$routerR = new Router($storeR, $tgR, $linkR, $studentR, $accountR, $supporterR, $broadcastR);
+
+$sR = $storeR->load(9200);
+$sR->mode = 'signup_name';
+$sR->activeScreenMessageId = 600;
+$storeR->save($sR);
+
+$routerR->route(new Update([
+    'update_id' => 987001,
+    'message' => [
+        'message_id' => 5,
+        'date' => 1,
+        'text' => 'علی رضایی',
+        'chat' => ['id' => 9200, 'type' => 'private'],
+        'from' => ['id' => 5, 'is_bot' => false, 'first_name' => 'Ali'],
+    ],
+]));
+check('router answers a user message with a new screen message', $fakeR->edits === []
+    && str_contains($fakeR->sends[0]['text'] ?? '', 'کدملی'));
+
+$dayScreen = DayScreen::make([
+    'day' => '2026-10-08',
+    'weekday' => 'سه‌شنبه',
+    'date_label' => '۱۴۰۴/۰۷/۱۷',
+    'messages' => [
+        ['who' => 'شما', 'time' => '۱۴:۳۰', 'body' => '<script>alert(1)</script>', 'files' => '📎 عکس (۲)'],
+        ['who' => 'پشتیبان', 'time' => '۱۴:۳۵', 'body' => 'متن پیام', 'files' => ''],
+    ],
+    'page' => 1,
+    'pages' => 2,
+]);
+check('day screen wraps every message in blockquote', substr_count($dayScreen->text, '<blockquote>') === 2
+    && substr_count($dayScreen->text, '</blockquote>') === 2);
+check('day screen escapes message bodies', ! str_contains($dayScreen->text, '<script>')
+    && str_contains($dayScreen->text, '&lt;script&gt;'));
+check('day screen puts the date in code', str_contains($dayScreen->text, '<code>۱۴۰۴/۰۷/۱۷</code>'));
+check('day screen puts page numbers in code', str_contains($dayScreen->text, '<code>۱</code> از <code>۲</code>'));
+
+$homeStyling = HomeScreen::make([
+    'name' => 'علی', 'has_supporter' => true, 'today_date' => '۱۰ مهر',
+    'today_sent' => false, 'unread' => 2,
+]);
+check('home screen bolds the greeting', str_contains($homeStyling->text, '<b>سلام علی</b>'));
+check('home screen puts today date in code', str_contains($homeStyling->text, '<code>۱۰ مهر</code>'));
+
+$weekStyling = WeekScreen::make([
+    'title' => '۱۰ تا ۱۶ مهر', 'done' => 3, 'total' => 7,
+    'days' => [], 'prev' => null, 'next' => null,
+]);
+check('week screen puts the range in code', str_contains($weekStyling->text, '<code>۱۰ تا ۱۶ مهر</code>'));
+check('week screen puts the counts in code', str_contains($weekStyling->text, '<code>۳</code> از <code>۷</code>'));
+
+check('chat state declares telegramUserId', (new ReflectionClass(ChatState::class))->hasProperty('telegramUserId'));
+
+$fakeG = new FakeTelegramApi();
+$fakeG->failNextSendWithParseError = true;
+$tgG = new TelegramApi($fakeG);
+$guardCaught = null;
+$guardId = 0;
+try {
+    $guardId = $tgG->sendMessage(4242, '<b>سلام</b> & دنیا');
+} catch (Throwable $e) {
+    $guardCaught = $e;
+}
+check('parse error does not break sending', $guardCaught === null && $guardId > 0);
+check('parse error falls back to tag-free text', count($fakeG->sends) === 1
+    && ! str_contains($fakeG->sends[0]['text'], '<b>')
+    && str_contains($fakeG->sends[0]['text'], 'سلام'));
+
+foreach ([$storeAPath, $storeRPath] as $tempStorePath) {
+    @unlink($tempStorePath);
+    @unlink($tempStorePath . '-wal');
+    @unlink($tempStorePath . '-shm');
+}
 
 echo "\n{$passed} passed, {$failed} failed\n";
 exit($failed === 0 ? 0 : 1);

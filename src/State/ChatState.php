@@ -7,6 +7,8 @@ final class ChatState
 {
     public int $chatId;
 
+    public ?int $telegramUserId = null;
+
     public ?string $role = null;
 
     public string $mode = 'idle';
@@ -15,6 +17,8 @@ final class ChatState
     public array $payload = [];
 
     public ?int $activeScreenMessageId = null;
+
+    public bool $forceNewScreen = false;
 
     public int $updatedAt = 0;
 

@@ -5,6 +5,7 @@ namespace App\Screens;
 
 use App\Lang;
 use App\Num;
+use App\RawHtml;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
 
@@ -37,22 +38,20 @@ final class DayScreen
         $messages = (array) ($d['messages'] ?? []);
 
         if ($messages === []) {
-            $text = $title . "\n\n" . $emptyText;
+            $text = $title . "\n━━━━━━━━━━━━━━━━\n\n" . $emptyText;
         } else {
             $blocks = [];
             foreach ($messages as $message) {
+                $files = $message['files'] ?? null;
                 $line = Lang::t('day.line', [
                     'who' => (string) ($message['who'] ?? ''),
                     'time' => (string) ($message['time'] ?? ''),
                     'text' => (string) ($message['body'] ?? ''),
+                    'files' => (is_string($files) && $files !== '') ? new RawHtml("\n" . $files) : '',
                 ]);
-                $files = $message['files'] ?? null;
-                if (is_string($files) && $files !== '') {
-                    $line .= "\n" . $files;
-                }
                 $blocks[] = $line;
             }
-            $text = $title . "\n\n" . implode("\n\n", $blocks);
+            $text = $title . "\n━━━━━━━━━━━━━━━━\n\n" . implode("\n\n", $blocks);
         }
 
         if ($pages > 1) {

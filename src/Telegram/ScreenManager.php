@@ -17,9 +17,11 @@ final class ScreenManager
     public function show(ChatState $state, Screen $screen, bool $edit = false): int
     {
         $previous = $state->activeScreenMessageId;
+        $forceNew = $state->forceNewScreen;
+        $state->forceNewScreen = false;
         $messageId = 0;
 
-        if ($edit && $previous !== null) {
+        if ($edit && !$forceNew && $previous !== null) {
             try {
                 $this->tg->editMessageText($state->chatId, $previous, $screen->text, $screen->keyboard);
                 $messageId = $previous;

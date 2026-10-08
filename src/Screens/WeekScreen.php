@@ -17,6 +17,7 @@ final class WeekScreen
     public static function make(array $d): Screen
     {
         $text = Lang::t('week.title', ['range' => (string) ($d['title'] ?? '')]);
+        $text .= "\n━━━━━━━━━━━━━━━━";
         $text .= "\n" . Lang::t('week.summary', [
             'done' => Num::fa((int) ($d['done'] ?? 0)),
             'total' => Num::fa((int) ($d['total'] ?? 0)),

@@ -33,9 +33,23 @@ final class TelegramApi
             $params['reply_markup'] = self::inlineMarkup($keyboard);
         }
 
-        $message = $this->api->sendMessage($params);
+        try {
+            $message = $this->api->sendMessage($params);
+        } catch (\Telegram\Bot\Exceptions\TelegramSDKException $e) {
+            if (! self::isParseError($e)) {
+                throw $e;
+            }
+
+            $params['text'] = htmlspecialchars(strip_tags($text), ENT_QUOTES, 'UTF-8');
+            $message = $this->api->sendMessage($params);
+        }
 
         return (int) $message->get('message_id');
+    }
+
+    private static function isParseError(\Telegram\Bot\Exceptions\TelegramSDKException $e): bool
+    {
+        return str_contains(strtolower($e->getMessage()), 'parse');
     }
 
     public function editMessageText(int $chatId, int $messageId, string $text, ?array $keyboard = null): void

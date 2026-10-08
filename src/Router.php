@@ -117,6 +117,7 @@ final class Router
         }
 
         $s = $this->state->load($ctx->chatId);
+        $s->forceNewScreen = true;
         $text = $ctx->text();
 
         $contact = $message->get('contact');
