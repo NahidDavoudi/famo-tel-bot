@@ -275,7 +275,7 @@ $routerR->route(new Update([
     ],
 ]));
 check('router answers a user message with a new screen message', $fakeR->edits === []
-    && str_contains($fakeR->sends[0]['text'] ?? '', 'کدملی'));
+    && str_contains($fakeR->sends[0]['text'] ?? '', 'کد ملی'));
 
 $routerR->route(new Update([
     'update_id' => 987002,
@@ -291,7 +291,24 @@ $routerR->route(new Update([
         ],
     ],
 ]));
-check('router callback sends a typing chat action', ($fakeR->chatActions[0]['action'] ?? null) === 'typing'
+$chatActionsAfterFast = $fakeR->chatActions;
+
+$routerR->route(new Update([
+    'update_id' => 987003,
+    'callback_query' => [
+        'id' => 'cb-typing-2',
+        'chat_instance' => 'ci-1',
+        'data' => 'zz:unknown',
+        'from' => ['id' => 5, 'is_bot' => false, 'first_name' => 'Ali'],
+        'message' => [
+            'message_id' => 8,
+            'date' => 1,
+            'chat' => ['id' => 9200, 'type' => 'private'],
+        ],
+    ],
+]));
+check('router sends a typing chat action only for non-fast callbacks', $chatActionsAfterFast === []
+    && ($fakeR->chatActions[0]['action'] ?? null) === 'typing'
     && ($fakeR->chatActions[0]['chat_id'] ?? null) === 9200);
 
 $dayScreen = DayScreen::make([
@@ -309,22 +326,22 @@ check('day screen wraps every message in blockquote', substr_count($dayScreen->t
     && substr_count($dayScreen->text, '</blockquote>') === 2);
 check('day screen escapes message bodies', ! str_contains($dayScreen->text, '<script>')
     && str_contains($dayScreen->text, '&lt;script&gt;'));
-check('day screen puts the date in code', str_contains($dayScreen->text, '<code>۱۴۰۴/۰۷/۱۷</code>'));
-check('day screen puts page numbers in code', str_contains($dayScreen->text, '<code>۱</code> از <code>۲</code>'));
+check('day screen puts the date in the title', str_contains($dayScreen->text, '<b>سه‌شنبه · ۱۴۰۴/۰۷/۱۷</b>'));
+check('day screen puts page numbers in code', str_contains($dayScreen->text, '<code>1</code> از <code>2</code>'));
 
 $homeStyling = HomeScreen::make([
     'name' => 'علی', 'has_supporter' => true, 'today_date' => '۱۰ مهر',
     'today_sent' => false, 'unread' => 2,
 ]);
-check('home screen bolds the greeting', str_contains($homeStyling->text, '<b>سلام علی</b>'));
+check('home screen bolds the greeting', str_contains($homeStyling->text, '<b>علی عزیز</b>'));
 check('home screen puts today date in code', str_contains($homeStyling->text, '<code>۱۰ مهر</code>'));
 
 $weekStyling = WeekScreen::make([
     'title' => '۱۰ تا ۱۶ مهر', 'done' => 3, 'total' => 7,
     'days' => [], 'prev' => null, 'next' => null,
 ]);
-check('week screen puts the range in code', str_contains($weekStyling->text, '<code>۱۰ تا ۱۶ مهر</code>'));
-check('week screen puts the counts in code', str_contains($weekStyling->text, '<code>۳</code> از <code>۷</code>'));
+check('week screen puts the range in the title', str_contains($weekStyling->text, '<b>هفته ۱۰ تا ۱۶ مهر</b>'));
+check('week screen puts the counts in code', str_contains($weekStyling->text, '<code>3</code> از <code>7</code>'));
 
 check('chat state declares telegramUserId', (new ReflectionClass(ChatState::class))->hasProperty('telegramUserId'));
 
