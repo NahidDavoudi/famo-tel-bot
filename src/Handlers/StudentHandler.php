@@ -197,7 +197,7 @@ final class StudentHandler
     private function day(ChatState $s, string $day, int $page, bool $edit): void
     {
         $page = max(1, $page);
-        $result = $this->api->day($s->chatId, $s->accountId(), $s->role, $day, null, $page, self::PER_PAGE);
+        $result = $this->api->day($s->chatId, $s->accountId(), $s->role, $day, $s->accountId(), $page, self::PER_PAGE);
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -222,8 +222,8 @@ final class StudentHandler
             'is_today' => $dayValue === $this->today(),
         ]), $edit);
 
-        $this->api->markRead($s->chatId, $s->accountId(), $s->role, null, $dayValue);
-    }
+        $this->api->markRead($s->chatId, $s->accountId(), $s->role, $s->accountId(), $dayValue);
+        }
 
     private function week(ChatState $s, ?string $weekStart, bool $edit): void
     {
@@ -320,7 +320,7 @@ final class StudentHandler
     private function files(ChatState $s, string $day, int $page): void
     {
         $page = max(1, $page);
-        $result = $this->api->day($s->chatId, $s->accountId(), $s->role, $day, null, $page, self::PER_PAGE);
+        $result = $this->api->day($s->chatId, $s->accountId(), $s->role, $day, $s->accountId(), $page, self::PER_PAGE);
         if (!$result->ok()) {
             $this->fail($s, $result);
 
