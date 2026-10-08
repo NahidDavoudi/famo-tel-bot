@@ -17,7 +17,7 @@ final class HomeScreen
         $hasSupporter = (bool) ($d['has_supporter'] ?? false);
         $unread = (int) ($d['unread'] ?? 0);
 
-        $text = Lang::t('home.greeting', ['name' => $name]) . "\n━━━━━━━━━━━━━━━━";
+        $text = Lang::t('home.greeting', ['name' => $name]) . "\n. . . . . . . . .";
 
         if (!$hasSupporter) {
             $text .= "\n\n" . Lang::t('home.no_supporter');

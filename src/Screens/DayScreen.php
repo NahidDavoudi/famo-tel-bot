@@ -38,20 +38,13 @@ final class DayScreen
         $messages = (array) ($d['messages'] ?? []);
 
         if ($messages === []) {
-            $text = $title . "\n━━━━━━━━━━━━━━━━\n\n" . $emptyText;
+            $text = $title . "\. . . . . . . . .\n\n" . $emptyText;
         } else {
             $blocks = [];
             foreach ($messages as $message) {
-                $files = $message['files'] ?? null;
-                $line = Lang::t('day.line', [
-                    'who' => (string) ($message['who'] ?? ''),
-                    'time' => (string) ($message['time'] ?? ''),
-                    'text' => (string) ($message['body'] ?? ''),
-                    'files' => (is_string($files) && $files !== '') ? new RawHtml("\n" . $files) : '',
-                ]);
-                $blocks[] = $line;
+                $blocks[] = self::renderMessage($message);
             }
-            $text = $title . "\n━━━━━━━━━━━━━━━━\n\n" . implode("\n\n", $blocks);
+            $text = $title . "\. . . . . . . . .\n\n" . implode("\n\n", $blocks);
         }
 
         if ($pages > 1) {
@@ -102,5 +95,49 @@ final class DayScreen
         }
 
         return new Screen($text, $keyboard);
+    }
+
+    /**
+     * Render a single message:
+     *   👤 <b>who</b> · <code>time</code>
+     *   <blockquote>body</blockquote>
+     *   📎 files
+     *
+     * @param array<string,mixed> $message
+     */
+    private static function renderMessage(array $message): string
+    {
+        $who = htmlspecialchars((string) ($message['who'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $time = htmlspecialchars((string) ($message['time'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $body = (string) ($message['body'] ?? '');
+        $files = $message['files'] ?? null;
+
+        $parts = [];
+
+        // 1) Header: who · time (outside the quote)
+        $header = [];
+        if ($who !== '') {
+            $header[] = '👤 <b>' . $who . '</b>';
+        }
+        if ($time !== '') {
+            $header[] = '<code>' . $time . '</code>';
+        }
+        if ($header !== []) {
+            $parts[] = implode(' · ', $header);
+        }
+
+        // 2) Body: only this part goes inside the quote
+        if ($body !== '') {
+            $safeBody = htmlspecialchars($body, ENT_QUOTES, 'UTF-8');
+            $tag = mb_strlen($body) > 250 ? '<blockquote expandable>' : '<blockquote>';
+            $parts[] = $tag . $safeBody . '</blockquote>';
+        }
+
+        // 3) Files: outside the quote
+        if (is_string($files) && $files !== '') {
+            $parts[] = $files;
+        }
+
+        return implode("\n", $parts);
     }
 }
