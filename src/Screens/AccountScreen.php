@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Screens;
 
+use App\Html;
 use App\Lang;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
@@ -19,26 +20,30 @@ final class AccountScreen
             ]]);
         }
 
-        $text = Lang::t('account.title');
-        $text .= "\n" . Lang::t('account.name', ['name' => (string) ($d['name'] ?? '')]);
-        $text .= "\n" . Lang::t('account.role', ['role' => (string) ($d['role'] ?? '')]);
+        $lines = [];
+        $lines[] = '<b>' . Lang::t('account.title') . '</b>';
+        $lines[] = Html::SEP;
+        $lines[] = Lang::t('account.name', ['name' => (string) ($d['name'] ?? '')]);
+        $lines[] = Lang::t('account.role', ['role' => (string) ($d['role'] ?? '')]);
 
         $supporter = (string) ($d['supporter'] ?? '');
         if ($supporter !== '') {
-            $text .= "\n" . Lang::t('account.supporter', ['name' => $supporter]);
+            $lines[] = Lang::t('account.supporter', ['name' => $supporter]);
         }
 
         $keyboard = [];
         if (!empty($d['can_switch'])) {
             $keyboard[] = [KeyboardKit::btn(Lang::t('btn.switch'), KeyboardKit::CB_SWITCH)];
         }
+
         $loginUrl = (string) ($d['login_url'] ?? '');
         if ($loginUrl !== '') {
             $keyboard[] = [KeyboardKit::urlBtn(Lang::t('btn.link_other'), $loginUrl)];
         }
+
         $keyboard[] = [KeyboardKit::btn(Lang::t('btn.unlink'), KeyboardKit::CB_UNLINK)];
         $keyboard[] = [KeyboardKit::btn(Lang::t('btn.back'), KeyboardKit::CB_HOME)];
 
-        return new Screen($text, $keyboard);
+        return new Screen(implode("\n", $lines), $keyboard);
     }
 }

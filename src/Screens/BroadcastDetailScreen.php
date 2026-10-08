@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Screens;
 
+use App\Html;
 use App\Lang;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
@@ -15,25 +16,32 @@ final class BroadcastDetailScreen
      */
     public static function make(array $d): Screen
     {
-        $text = Lang::t('bc.detail_title', ['id' => (string) ($d['id'] ?? '')]);
-        $text .= "\n" . Lang::t('bc.preview_audience', ['audience' => (string) ($d['audience_label'] ?? '')]);
+        $summary = (array) ($d['summary'] ?? []);
+
+        $lines = [];
+        $lines[] = '<b>' . Lang::t('bc.detail_title', ['id' => (string) ($d['id'] ?? '')]) . '</b>';
+        $lines[] = Html::SEP;
+        $lines[] = Lang::t('bc.preview_audience', ['audience' => (string) ($d['audience_label'] ?? '')]);
+
         if (!empty($d['day_label'])) {
-            $text .= "\n" . Lang::t('bc.detail_day', ['date' => (string) $d['day_label']]);
+            $lines[] = Lang::t('bc.detail_day', ['date' => (string) $d['day_label']]);
         }
 
-        /** @var array<string,mixed> $summary */
-        $summary = (array) ($d['summary'] ?? []);
-        $text .= "\n" . Lang::t('bc.sent_summary', [
-            'sent' => (string) ($summary['sent'] ?? 0),
-            'blocked' => (string) ($summary['blocked'] ?? 0),
-            'failed' => (string) ($summary['failed'] ?? 0),
-            'pending' => (string) ($summary['pending'] ?? 0),
-        ]);
+        $lines[] = '';
+        $lines[] = '<b>' . Lang::t('bc.summary_title') . '</b>';
+        $lines[] = Lang::t('bc.summary_sent',    ['k' => (int) ($summary['sent'] ?? 0)]);
+        $lines[] = Lang::t('bc.summary_failed',  ['k' => (int) ($summary['failed'] ?? 0)]);
+        $lines[] = Lang::t('bc.summary_blocked', ['k' => (int) ($summary['blocked'] ?? 0)]);
+        $lines[] = Lang::t('bc.summary_pending', ['k' => (int) ($summary['pending'] ?? 0)]);
 
         /** @var list<string> $recipients */
         $recipients = (array) ($d['recipients'] ?? []);
         if ($recipients !== []) {
-            $text .= "\n\n" . implode("\n", $recipients);
+            $lines[] = '';
+            $lines[] = '<b>' . Lang::t('bc.recipients_title') . '</b>';
+            foreach ($recipients as $recipient) {
+                $lines[] = '· ' . Html::escape((string) $recipient);
+            }
         }
 
         $keyboard = [
@@ -41,6 +49,6 @@ final class BroadcastDetailScreen
             [KeyboardKit::btn(Lang::t('btn.home'), KeyboardKit::CB_SUPPORTER_HOME)],
         ];
 
-        return new Screen($text, $keyboard);
+        return new Screen(implode("\n", $lines), $keyboard);
     }
 }

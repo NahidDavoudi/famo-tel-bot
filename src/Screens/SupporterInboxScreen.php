@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Screens;
 
+use App\Html;
 use App\Lang;
-use App\Num;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
 
@@ -22,15 +22,19 @@ final class SupporterInboxScreen
         $page = (int) ($d['page'] ?? 1);
         $pages = (int) ($d['pages'] ?? 1);
 
-        $text = Lang::t('sup.inbox_title');
+        $lines = [];
+        $lines[] = '<b>' . Lang::t('sup.inbox_title') . '</b>';
+        $lines[] = Html::SEP;
+
         if ($students === []) {
-            $text .= "\n\n" . Lang::t('sup.inbox_empty');
+            $lines[] = Lang::t('sup.inbox_empty');
         } else {
-            $text .= "\n" . Lang::t('sup.inbox_count', ['k' => Num::fa($total)]);
+            $lines[] = Lang::t('sup.inbox_count', ['k' => $total]);
         }
 
         if ($pages > 1) {
-            $text .= "\n\n" . Lang::t('day.page', ['page' => Num::fa($page), 'pages' => Num::fa($pages)]);
+            $lines[] = '';
+            $lines[] = Lang::t('day.page', ['page' => $page, 'pages' => $pages]);
         }
 
         $keyboard = [];
@@ -38,7 +42,7 @@ final class SupporterInboxScreen
             $name = (string) ($student['name'] ?? '');
             $unread = (int) ($student['unread'] ?? 0);
             $label = $unread > 0
-                ? Lang::t('sup.student_unread', ['name' => $name, 'k' => Num::fa($unread)])
+                ? Lang::t('sup.student_unread', ['name' => $name, 'k' => $unread])
                 : $name;
             $keyboard[] = [KeyboardKit::btn($label, (string) ($student['callback'] ?? KeyboardKit::CB_NOP))];
         }
@@ -58,7 +62,7 @@ final class SupporterInboxScreen
             $keyboard[] = $row;
         }
 
-        return new Screen($text, $keyboard);
+        return new Screen(implode("\n", $lines), $keyboard);
     }
 
     /** @return list<list<array<string,string>>> */

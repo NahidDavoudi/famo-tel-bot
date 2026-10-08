@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace App\Screens;
 
+use App\Html;
 use App\Lang;
-use App\Num;
-use App\RawHtml;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
 
@@ -37,18 +36,25 @@ final class DayScreen
         /** @var list<array<string,mixed>> $messages */
         $messages = (array) ($d['messages'] ?? []);
 
+        $lines = [];
+        $lines[] = '<b>' . $title . '</b>';
+        $lines[] = Html::SEP;
+
         if ($messages === []) {
-            $text = $title . "\. . . . . . . . .\n\n" . $emptyText;
+            $lines[] = '';
+            $lines[] = $emptyText;
         } else {
             $blocks = [];
             foreach ($messages as $message) {
                 $blocks[] = self::renderMessage($message);
             }
-            $text = $title . "\. . . . . . . . .\n\n" . implode("\n\n", $blocks);
+            $lines[] = '';
+            $lines[] = implode("\n\n", $blocks);
         }
 
         if ($pages > 1) {
-            $text .= "\n\n" . Lang::t('day.page', ['page' => Num::fa($page), 'pages' => Num::fa($pages)]);
+            $lines[] = '';
+            $lines[] = Lang::t('day.page', ['page' => $page, 'pages' => $pages]);
         }
 
         $navPrefix = (string) ($d['nav_prefix'] ?? KeyboardKit::CB_DAY);
@@ -94,21 +100,21 @@ final class DayScreen
             $keyboard[] = $footerRow;
         }
 
-        return new Screen($text, $keyboard);
+        return new Screen(implode("\n", $lines), $keyboard);
     }
 
     /**
      * Render a single message:
-     *   👤 <b>who</b> · <code>time</code>
+     *   <b>who</b> · <code>time</code>
      *   <blockquote>body</blockquote>
-     *   📎 files
+     *   files
      *
      * @param array<string,mixed> $message
      */
     private static function renderMessage(array $message): string
     {
-        $who = htmlspecialchars((string) ($message['who'] ?? ''), ENT_QUOTES, 'UTF-8');
-        $time = htmlspecialchars((string) ($message['time'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $who  = (string) ($message['who'] ?? '');
+        $time = (string) ($message['time'] ?? '');
         $body = (string) ($message['body'] ?? '');
         $files = $message['files'] ?? null;
 
@@ -117,10 +123,10 @@ final class DayScreen
         // 1) Header: who · time (outside the quote)
         $header = [];
         if ($who !== '') {
-            $header[] = '👤 <b>' . $who . '</b>';
+            $header[] = Html::bold($who);
         }
         if ($time !== '') {
-            $header[] = '<code>' . $time . '</code>';
+            $header[] = Html::code($time);
         }
         if ($header !== []) {
             $parts[] = implode(' · ', $header);
@@ -128,9 +134,7 @@ final class DayScreen
 
         // 2) Body: only this part goes inside the quote
         if ($body !== '') {
-            $safeBody = htmlspecialchars($body, ENT_QUOTES, 'UTF-8');
-            $tag = mb_strlen($body) > 250 ? '<blockquote expandable>' : '<blockquote>';
-            $parts[] = $tag . $safeBody . '</blockquote>';
+            $parts[] = Html::quote($body);
         }
 
         // 3) Files: outside the quote

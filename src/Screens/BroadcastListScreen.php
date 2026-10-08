@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Screens;
 
+use App\Html;
 use App\Lang;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
@@ -18,9 +19,12 @@ final class BroadcastListScreen
         /** @var list<array<string,mixed>> $items */
         $items = (array) ($d['items'] ?? []);
 
-        $text = Lang::t('bc.list_title');
+        $lines = [];
+        $lines[] = '<b>' . Lang::t('bc.list_title') . '</b>';
+        $lines[] = Html::SEP;
+
         if ($items === []) {
-            $text .= "\n\n" . Lang::t('bc.list_empty');
+            $lines[] = Lang::t('bc.list_empty');
         }
 
         $keyboard = [];
@@ -33,6 +37,6 @@ final class BroadcastListScreen
 
         $keyboard[] = [KeyboardKit::btn(Lang::t('btn.home'), KeyboardKit::CB_SUPPORTER_HOME)];
 
-        return new Screen($text, $keyboard);
+        return new Screen(implode("\n", $lines), $keyboard);
     }
 }

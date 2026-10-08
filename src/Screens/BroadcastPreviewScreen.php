@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Screens;
 
+use App\Html;
 use App\Lang;
-use App\Num;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
 
@@ -16,26 +16,29 @@ final class BroadcastPreviewScreen
      */
     public static function make(array $d): Screen
     {
-        $text = Lang::t('bc.preview_title');
-        $text .= "\n" . Lang::t('bc.preview_audience', ['audience' => (string) ($d['audience_label'] ?? '')]);
-        $text .= "\n" . Lang::t('bc.preview_count', ['k' => Num::fa((int) ($d['count'] ?? 0))]);
+        $lines = [];
+        $lines[] = '<b>' . Lang::t('bc.preview_title') . '</b>';
+        $lines[] = Html::SEP;
+        $lines[] = Lang::t('bc.preview_audience', ['audience' => (string) ($d['audience_label'] ?? '')]);
+        $lines[] = Lang::t('bc.preview_count', ['k' => (int) ($d['count'] ?? 0)]);
 
         $remaining = $d['remaining'] ?? null;
         $limit = $d['limit'] ?? null;
         if ($remaining !== null && $limit !== null) {
-            $text .= "\n" . Lang::t('bc.preview_remaining', [
-                'remaining' => Num::fa((int) $remaining),
-                'limit' => Num::fa((int) $limit),
+            $lines[] = Lang::t('bc.preview_remaining', [
+                'remaining' => (int) $remaining,
+                'limit' => (int) $limit,
             ]);
         }
 
-        $text .= "\n\n" . Lang::t('bc.preview_hint');
+        $lines[] = '';
+        $lines[] = Lang::t('bc.preview_hint');
 
         $keyboard = [[
             KeyboardKit::btn(Lang::t('bc.send'), KeyboardKit::CB_BC_SEND),
             KeyboardKit::btn(Lang::t('bc.cancel'), KeyboardKit::CB_BC_CANCEL),
         ]];
 
-        return new Screen($text, $keyboard);
+        return new Screen(implode("\n", $lines), $keyboard);
     }
 }

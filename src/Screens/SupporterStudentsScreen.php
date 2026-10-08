@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Screens;
 
+use App\Html;
 use App\Lang;
-use App\Num;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
 
@@ -21,14 +21,18 @@ final class SupporterStudentsScreen
         $total = (int) ($d['total'] ?? count($students));
         $dayLabel = (string) ($d['day_label'] ?? '');
 
-        $text = Lang::t('sup.students_title');
-        $text .= "\n" . Lang::t('sup.students_count', ['total' => Num::fa($total)]);
+        $lines = [];
+        $lines[] = '<b>' . Lang::t('sup.students_title') . '</b>';
+        $lines[] = Html::SEP;
+        $lines[] = Lang::t('sup.students_count', ['total' => $total]);
+
         if ($dayLabel !== '') {
-            $text .= "\n" . Lang::t('sup.students_day', ['date' => $dayLabel]);
+            $lines[] = Lang::t('sup.students_day', ['date' => $dayLabel]);
         }
 
         if ($students === []) {
-            $text .= "\n\n" . Lang::t('sup.no_students');
+            $lines[] = '';
+            $lines[] = Lang::t('sup.no_students');
         }
 
         $keyboard = [];
@@ -43,6 +47,6 @@ final class SupporterStudentsScreen
             $keyboard[] = $row;
         }
 
-        return new Screen($text, $keyboard);
+        return new Screen(implode("\n", $lines), $keyboard);
     }
 }

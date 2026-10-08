@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Screens;
 
+use App\Html;
 use App\Lang;
-use App\Num;
 use App\Telegram\KeyboardKit;
 use App\Telegram\Screen;
 
@@ -12,17 +12,22 @@ final class WeekScreen
 {
     /**
      * @param array<string,mixed> $d
-     *  title, summary, days (label, callback, markers), prev, next
+     *  title, done, total, days (label, callback, markers), prev, next
      */
     public static function make(array $d): Screen
     {
-        $text = Lang::t('week.title', ['range' => (string) ($d['title'] ?? '')]);
-        $text .= "\n━━━━━━━━━━━━━━━━";
-        $text .= "\n" . Lang::t('week.summary', [
-            'done' => Num::fa((int) ($d['done'] ?? 0)),
-            'total' => Num::fa((int) ($d['total'] ?? 0)),
+        $done = (int) ($d['done'] ?? 0);
+        $total = (int) ($d['total'] ?? 0);
+
+        $lines = [];
+        $lines[] = '<b>' . Lang::t('week.title', ['range' => (string) ($d['title'] ?? '')]) . '</b>';
+        $lines[] = Html::SEP;
+        $lines[] = Lang::t('week.summary', [
+            'done' => $done,
+            'total' => $total,
         ]);
-        $text .= "\n\n" . Lang::t('week.legend');
+        $lines[] = '';
+        $lines[] = Lang::t('week.legend');
 
         /** @var list<array<string,mixed>> $days */
         $days = (array) ($d['days'] ?? []);
@@ -56,6 +61,6 @@ final class WeekScreen
 
         $keyboard[] = [KeyboardKit::btn(Lang::t('btn.home'), KeyboardKit::CB_HOME)];
 
-        return new Screen($text, $keyboard);
+        return new Screen(implode("\n", $lines), $keyboard);
     }
 }
