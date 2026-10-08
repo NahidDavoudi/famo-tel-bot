@@ -83,6 +83,22 @@ final class Router
             return;
         }
 
+        // Show a transient loading state and drop the keyboard so the user
+        // cannot spam the same button while the request is in flight.
+        $loadingId = $s->activeScreenMessageId;
+        if ($loadingId !== null) {
+            try {
+                $this->tg->editMessageText(
+                    $s->chatId,
+                    $loadingId,
+                    Lang::t('common.loading'),
+                    []
+                );
+            } catch (\Throwable) {
+                $loadingId = null;
+            }
+        }
+
         if ($data === KeyboardKit::CB_HOME) {
             $this->homeForRole($s, $ctx, false);
         } elseif (str_starts_with($data, 'ac:role:')) {
@@ -102,6 +118,15 @@ final class Router
         }
 
         $this->state->save($s);
+
+        // If the handler replaced the screen, drop the orphan loading message.
+        if ($loadingId !== null && $s->activeScreenMessageId !== $loadingId) {
+            try {
+                $this->tg->deleteMessage($s->chatId, $loadingId);
+            } catch (\Throwable) {
+                // ignore
+            }
+        }
     }
 
     private function routeMessage(Message $message): void
@@ -118,6 +143,7 @@ final class Router
 
         $s = $this->state->load($ctx->chatId);
         $s->forceNewScreen = true;
+
         $text = $ctx->text();
 
         $contact = $message->get('contact');

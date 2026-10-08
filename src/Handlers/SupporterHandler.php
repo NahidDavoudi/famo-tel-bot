@@ -149,7 +149,6 @@ final class SupporterHandler
 
         $name = $this->studentName($s, $studentId);
         $this->tg->sendMessage($s->chatId, Lang::t('sup.reply_sent', ['name' => $name]));
-
         $this->day($s, $studentId, $day !== '' ? $day : $this->student->today(), 1, true);
     }
 

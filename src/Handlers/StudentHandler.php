@@ -7,12 +7,10 @@ use App\Famo\ApiResult;
 use App\Famo\ErrorMap;
 use App\Famo\FamoApi;
 use App\Lang;
-use App\Num;
 use App\Screens\DayScreen;
 use App\Screens\HelpScreen;
 use App\Screens\HomeScreen;
 use App\Screens\WeekScreen;
-use App\Screens\WelcomeScreen;
 use App\State\ChatState;
 use App\Telegram\KeyboardKit;
 use App\Telegram\ScreenManager;
@@ -34,7 +32,7 @@ final class StudentHandler
 
     public function home(ChatState $s, UpdateContext $ctx, bool $new = false): void
     {
-        if ($s->role === null) {
+        if ($s->role !== 'student') {
             return;
         }
 
@@ -84,6 +82,10 @@ final class StudentHandler
 
     public function onLabel(ChatState $s, string $route, UpdateContext $ctx): void
     {
+        if ($s->role !== 'student') {
+            return;
+        }
+
         $messageId = $ctx->messageId();
         if ($messageId !== null) {
             $this->tg->deleteMessage($s->chatId, $messageId);
@@ -99,6 +101,10 @@ final class StudentHandler
 
     public function onCallback(ChatState $s, string $data, UpdateContext $ctx): void
     {
+        if ($s->role !== 'student') {
+            return;
+        }
+
         if ($data === KeyboardKit::CB_TODAY) {
             $this->day($s, $this->today(), 1, true);
 
@@ -197,7 +203,15 @@ final class StudentHandler
     private function day(ChatState $s, string $day, int $page, bool $edit): void
     {
         $page = max(1, $page);
-        $result = $this->api->day($s->chatId, $s->accountId(), $s->role, $day, null, $page, self::PER_PAGE);
+        $result = $this->api->day(
+            $s->chatId,
+            $s->accountId(),
+            (string) $s->role,
+            $day,
+            $s->accountId(),
+            $page,
+            self::PER_PAGE
+        );
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -222,12 +236,12 @@ final class StudentHandler
             'is_today' => $dayValue === $this->today(),
         ]), $edit);
 
-        $this->api->markRead($s->chatId, $s->accountId(), $s->role, null, $dayValue);
+        $this->api->markRead($s->chatId, $s->accountId(), (string) $s->role, $s->accountId(), $dayValue);
     }
 
     private function week(ChatState $s, ?string $weekStart, bool $edit): void
     {
-        $result = $this->api->weekly($s->chatId, $s->accountId(), $s->role, $weekStart);
+        $result = $this->api->weekly($s->chatId, $s->accountId(), (string) $s->role, $weekStart, $s->accountId());
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -292,7 +306,7 @@ final class StudentHandler
 
     private function newReplies(ChatState $s, UpdateContext $ctx): void
     {
-        $result = $this->api->weekly($s->chatId, $s->accountId(), $s->role);
+        $result = $this->api->weekly($s->chatId, $s->accountId(), (string) $s->role, null, $s->accountId());
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -320,7 +334,15 @@ final class StudentHandler
     private function files(ChatState $s, string $day, int $page): void
     {
         $page = max(1, $page);
-        $result = $this->api->day($s->chatId, $s->accountId(), $s->role, $day, null, $page, self::PER_PAGE);
+        $result = $this->api->day(
+            $s->chatId,
+            $s->accountId(),
+            (string) $s->role,
+            $day,
+            $s->accountId(),
+            $page,
+            self::PER_PAGE
+        );
         if (!$result->ok()) {
             $this->fail($s, $result);
 
@@ -436,7 +458,7 @@ final class StudentHandler
         }
 
         if ($photos > 0) {
-            array_unshift($parts, Lang::t('day.file_photo', ['n' => Num::fa($photos)]));
+            array_unshift($parts, Lang::t('day.file_photo', ['n' => $photos]));
         }
 
         return $parts === [] ? '' : '📎 ' . implode('، ', $parts);
@@ -544,6 +566,9 @@ final class StudentHandler
         return (new \DateTimeImmutable('now', new \DateTimeZone(self::TIMEZONE)))->format('Y-m-d');
     }
 
+    /**
+     * Return time as HH:MM (English digits). The screen wraps it in <code>.
+     */
     public function tehranTime(mixed $iso): string
     {
         if (!is_string($iso) || $iso === '') {
@@ -551,11 +576,9 @@ final class StudentHandler
         }
 
         try {
-            return Num::fa(
-                (new \DateTimeImmutable($iso))
-                    ->setTimezone(new \DateTimeZone(self::TIMEZONE))
-                    ->format('H:i')
-            );
+            return (new \DateTimeImmutable($iso))
+                ->setTimezone(new \DateTimeZone(self::TIMEZONE))
+                ->format('H:i');
         } catch (\Throwable) {
             return '';
         }

@@ -174,13 +174,17 @@ final class BroadcastHandler
         $summary = (array) ($data['summary'] ?? []);
 
         $this->clear($s);
+
         $this->tg->sendMessage($s->chatId, Lang::t('bc.sent'));
-        $this->tg->sendMessage($s->chatId, Lang::t('bc.sent_summary', [
-            'sent' => Num::fa((int) ($summary['sent'] ?? 0)),
-            'blocked' => Num::fa((int) ($summary['blocked'] ?? 0)),
-            'failed' => Num::fa((int) ($summary['failed'] ?? 0)),
-            'pending' => Num::fa((int) ($summary['pending'] ?? 0)),
-        ]));
+
+        // Show final summary as a dedicated screen (with <code> formatting).
+        $this->screens->show($s, \App\Screens\BroadcastDetailScreen::make([
+            'id' => (string) ($data['id'] ?? $data['broadcast_id'] ?? ''),
+            'audience_label' => $this->audienceLabel((string) ($s->payload['audience'] ?? '')),
+            'day_label' => '',
+            'summary' => $summary,
+            'recipients' => [],
+        ]), false);
 
         $this->supporter->home($s, false);
     }

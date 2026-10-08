@@ -7,8 +7,6 @@ final class ChatState
 {
     public int $chatId;
 
-    public ?int $telegramUserId = null;
-
     public ?string $role = null;
 
     public string $mode = 'idle';
@@ -18,9 +16,13 @@ final class ChatState
 
     public ?int $activeScreenMessageId = null;
 
-    public bool $forceNewScreen = false;
-
     public int $updatedAt = 0;
+
+    /**
+     * When true, ScreenManager must NOT edit the previous screen and must
+     * always send a brand new message. Set for every inbound user message.
+     */
+    public bool $forceNewScreen = false;
 
     public function __construct(int $chatId)
     {
@@ -31,9 +33,9 @@ final class ChatState
     {
         return new self($chatId);
     }
+
     public function accountId(): int
     {
         return (int) ($this->payload['account_id'] ?? 0);
     }
 }
-
