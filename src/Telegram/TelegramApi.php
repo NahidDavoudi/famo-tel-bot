@@ -87,6 +87,18 @@ final class TelegramApi
         }
     }
 
+    public function sendChatAction(int $chatId, string $action = 'typing'): void
+    {
+        try {
+            $this->api->sendChatAction([
+                'chat_id' => $chatId,
+                'action'  => $action,
+            ]);
+        } catch (\Throwable) {
+            // silent
+        }
+    }
+
     public function deleteMessage(int $chatId, int $messageId): void
     {
         try {

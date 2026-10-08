@@ -19,6 +19,17 @@ use Telegram\Bot\Objects\Update;
 
 final class Router
 {
+    /**
+     * Callbacks for which the bot typically replies instantly,
+     * so the typing indicator only adds latency without any UX benefit.
+     */
+    private const FAST_CALLBACKS = [
+        KeyboardKit::CB_NOP,
+        KeyboardKit::CB_HOME,
+        KeyboardKit::CB_ACCOUNT,
+        KeyboardKit::CB_AC_HOME,
+    ];
+
     public function __construct(
         private readonly StateStore $state,
         private readonly TelegramApi $tg,
@@ -70,6 +81,10 @@ final class Router
             || str_starts_with($data, 'bc');
 
         $this->tg->answerCallbackQuery($ctx->callbackId, $known ? '' : Lang::t('error.callback_expired'));
+
+        if (!in_array($data, self::FAST_CALLBACKS, true)) {
+            $this->tg->sendChatAction($ctx->chatId, 'typing');
+        }
 
         if (!$known) {
             return;

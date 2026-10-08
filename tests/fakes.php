@@ -16,6 +16,9 @@ final class FakeTelegramApi extends Api
     /** @var list<array<string,mixed>> */
     public array $markupEdits = [];
 
+    /** @var list<array<string,mixed>> */
+    public array $chatActions = [];
+
     public int $nextMessageId = 1000;
 
     public bool $failNextSendWithParseError = false;
@@ -59,6 +62,13 @@ final class FakeTelegramApi extends Api
 
     public function answerCallbackQuery(array $params): bool
     {
+        return true;
+    }
+
+    public function sendChatAction(array $params): bool
+    {
+        $this->chatActions[] = $params;
+
         return true;
     }
 }

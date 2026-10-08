@@ -7,6 +7,8 @@ final class ChatState
 {
     public int $chatId;
 
+    public ?int $telegramUserId = null;
+
     public ?string $role = null;
 
     public string $mode = 'idle';

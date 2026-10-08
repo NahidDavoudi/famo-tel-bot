@@ -114,6 +114,41 @@ check('signup state persists in existing SQLite payload', $reloadedSignup->mode 
     && ($reloadedSignup->payload['phone'] ?? null) === '+989121234567'
     && ($reloadedSignup->payload['full_name'] ?? null) === 'مریم');
 
+$freshPath = sys_get_temp_dir() . '/famo-test-' . uniqid() . '.sqlite';
+$freshStore = new StateStore($freshPath);
+$freshState = $freshStore->load(31337);
+$freshPdo = new PDO('sqlite:' . $freshPath);
+$freshRow = $freshPdo->query('SELECT mode, payload, updated_at FROM chat_state WHERE chat_id = 31337')->fetch(PDO::FETCH_ASSOC);
+$freshPdo = null;
+check('load inserts a row for a missing chat', $freshRow !== false
+    && $freshRow['mode'] === 'idle'
+    && $freshRow['payload'] === '[]'
+    && (int) $freshRow['updated_at'] > 0
+    && $freshState->updatedAt === (int) $freshRow['updated_at']);
+
+$stalePath = sys_get_temp_dir() . '/famo-test-' . uniqid() . '.sqlite';
+$staleStore = new StateStore($stalePath);
+$staleState = $staleStore->load(424242);
+$staleState->mode = 'signup_name';
+$staleState->role = 'student';
+$staleState->payload = ['phone' => '+989121000000'];
+$staleStore->save($staleState);
+$stalePdo = new PDO('sqlite:' . $stalePath);
+$stalePdo->exec('UPDATE chat_state SET updated_at = ' . (time() - 3600) . ' WHERE chat_id = 424242');
+$stalePdo = null;
+$expiredState = $staleStore->load(424242);
+check('idle expiry resets mode and payload in memory', $expiredState->mode === 'idle'
+    && $expiredState->payload === []
+    && $expiredState->role === 'student'
+    && (time() - $expiredState->updatedAt) < 60);
+$expiredPdo = new PDO('sqlite:' . $stalePath);
+$expiredRow = $expiredPdo->query('SELECT mode, payload, updated_at FROM chat_state WHERE chat_id = 424242')->fetch(PDO::FETCH_ASSOC);
+$expiredPdo = null;
+check('idle expiry persists the reset to the database', $expiredRow !== false
+    && $expiredRow['mode'] === 'idle'
+    && $expiredRow['payload'] === '[]'
+    && (time() - (int) $expiredRow['updated_at']) < 60);
+
 $api = (new ReflectionClass(FamoApi::class))->newInstanceWithoutConstructor();
 $normalize = new ReflectionMethod(FamoApi::class, 'normalizeUserResult');
 $normalize->setAccessible(true);
@@ -242,6 +277,23 @@ $routerR->route(new Update([
 check('router answers a user message with a new screen message', $fakeR->edits === []
     && str_contains($fakeR->sends[0]['text'] ?? '', 'کدملی'));
 
+$routerR->route(new Update([
+    'update_id' => 987002,
+    'callback_query' => [
+        'id' => 'cb-typing-1',
+        'chat_instance' => 'ci-1',
+        'data' => KeyboardKit::CB_NOP,
+        'from' => ['id' => 5, 'is_bot' => false, 'first_name' => 'Ali'],
+        'message' => [
+            'message_id' => 7,
+            'date' => 1,
+            'chat' => ['id' => 9200, 'type' => 'private'],
+        ],
+    ],
+]));
+check('router callback sends a typing chat action', ($fakeR->chatActions[0]['action'] ?? null) === 'typing'
+    && ($fakeR->chatActions[0]['chat_id'] ?? null) === 9200);
+
 $dayScreen = DayScreen::make([
     'day' => '2026-10-08',
     'weekday' => 'سه‌شنبه',
@@ -291,7 +343,16 @@ check('parse error falls back to tag-free text', count($fakeG->sends) === 1
     && ! str_contains($fakeG->sends[0]['text'], '<b>')
     && str_contains($fakeG->sends[0]['text'], 'سلام'));
 
-foreach ([$storeAPath, $storeRPath] as $tempStorePath) {
+$fakeC = new FakeTelegramApi();
+$tgC = new TelegramApi($fakeC);
+$tgC->sendChatAction(4242);
+$tgC->sendChatAction(4242, 'upload_photo');
+check('sendChatAction records chat actions on the api', count($fakeC->chatActions) === 2
+    && ($fakeC->chatActions[0]['chat_id'] ?? null) === 4242
+    && ($fakeC->chatActions[0]['action'] ?? null) === 'typing'
+    && ($fakeC->chatActions[1]['action'] ?? null) === 'upload_photo');
+
+foreach ([$storeAPath, $storeRPath, $freshPath, $stalePath] as $tempStorePath) {
     @unlink($tempStorePath);
     @unlink($tempStorePath . '-wal');
     @unlink($tempStorePath . '-shm');

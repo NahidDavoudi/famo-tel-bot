@@ -53,16 +53,17 @@ final class StateStore
     {
         $state = ChatState::create($chatId);
 
-        $this->begin();
-        try {
-            $stmt = $this->pdo->prepare('SELECT * FROM chat_state WHERE chat_id = :chat_id');
-            $stmt->execute([':chat_id' => $chatId]);
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $this->pdo->prepare('SELECT * FROM chat_state WHERE chat_id = :chat_id');
+        $stmt->execute([':chat_id' => $chatId]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($row === false) {
-                $now = time();
+        if ($row === false) {
+            $now = time();
+
+            $this->begin();
+            try {
                 $insert = $this->pdo->prepare(
-                    'INSERT INTO chat_state (chat_id, mode, payload, updated_at) VALUES (:chat_id, :mode, :payload, :updated_at)'
+                    'INSERT OR IGNORE INTO chat_state (chat_id, mode, payload, updated_at) VALUES (:chat_id, :mode, :payload, :updated_at)'
                 );
                 $insert->execute([
                     ':chat_id' => $chatId,
@@ -70,37 +71,61 @@ final class StateStore
                     ':payload' => self::encodePayload([]),
                     ':updated_at' => $now,
                 ]);
-                $state->updatedAt = $now;
-            } else {
-                $state->telegramUserId = $row['telegram_user_id'] !== null ? (int) $row['telegram_user_id'] : null;
-                $state->role = $row['role'] !== null ? (string) $row['role'] : null;
-                $state->mode = (string) $row['mode'];
-                $state->payload = self::decodePayload($row['payload'] ?? null);
-                $state->activeScreenMessageId = $row['active_screen_message_id'] !== null
-                    ? (int) $row['active_screen_message_id']
-                    : null;
-                $state->updatedAt = (int) $row['updated_at'];
-
-                if ($state->updatedAt > 0 && (time() - $state->updatedAt) > self::IDLE_EXPIRY_SECONDS) {
-                    $state->mode = 'idle';
-                    $state->payload = [];
-                    $state->updatedAt = time();
-                    $reset = $this->pdo->prepare(
-                        'UPDATE chat_state SET mode = :mode, payload = :payload, updated_at = :updated_at WHERE chat_id = :chat_id'
-                    );
-                    $reset->execute([
-                        ':mode' => $state->mode,
-                        ':payload' => self::encodePayload([]),
-                        ':updated_at' => $state->updatedAt,
-                        ':chat_id' => $chatId,
-                    ]);
-                }
+                $this->pdo->commit();
+            } catch (PDOException $e) {
+                $this->pdo->rollBack();
+                throw $e;
             }
 
-            $this->pdo->commit();
-        } catch (PDOException $e) {
-            $this->pdo->rollBack();
-            throw $e;
+            if ($insert->rowCount() !== 0) {
+                $state->updatedAt = $now;
+
+                return $state;
+            }
+
+            // Lost the insert race: another concurrent request created the
+            // row first. Re-read it and hydrate below instead of failing.
+            $stmt = $this->pdo->prepare('SELECT * FROM chat_state WHERE chat_id = :chat_id');
+            $stmt->execute([':chat_id' => $chatId]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($row === false) {
+                $state->updatedAt = $now;
+
+                return $state;
+            }
+        }
+
+        $state->telegramUserId = $row['telegram_user_id'] !== null ? (int) $row['telegram_user_id'] : null;
+        $state->role = $row['role'] !== null ? (string) $row['role'] : null;
+        $state->mode = (string) $row['mode'];
+        $state->payload = self::decodePayload($row['payload'] ?? null);
+        $state->activeScreenMessageId = $row['active_screen_message_id'] !== null
+            ? (int) $row['active_screen_message_id']
+            : null;
+        $state->updatedAt = (int) $row['updated_at'];
+
+        if ($state->updatedAt > 0 && (time() - $state->updatedAt) > self::IDLE_EXPIRY_SECONDS) {
+            $state->mode = 'idle';
+            $state->payload = [];
+            $state->updatedAt = time();
+
+            $this->begin();
+            try {
+                $reset = $this->pdo->prepare(
+                    'UPDATE chat_state SET mode = :mode, payload = :payload, updated_at = :updated_at WHERE chat_id = :chat_id'
+                );
+                $reset->execute([
+                    ':mode' => $state->mode,
+                    ':payload' => self::encodePayload([]),
+                    ':updated_at' => $state->updatedAt,
+                    ':chat_id' => $chatId,
+                ]);
+                $this->pdo->commit();
+            } catch (PDOException $e) {
+                $this->pdo->rollBack();
+                throw $e;
+            }
         }
 
         return $state;

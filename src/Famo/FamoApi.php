@@ -7,11 +7,21 @@ use App\Logger;
 
 final class FamoApi
 {
+    private ?\CurlHandle $ch = null;
+
     public function __construct(
         private readonly string $serviceKey,
         private readonly string $baseUrl,
         private readonly int $timeout = 15,
     ) {}
+
+    public function __destruct()
+    {
+        if ($this->ch !== null) {
+            curl_close($this->ch);
+            $this->ch = null;
+        }
+    }
 
     public function ping(): ApiResult
     {
@@ -272,14 +282,29 @@ final class FamoApi
             $headers[] = 'Content-Type: application/json';
         }
 
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
+        $ch = $this->ch ??= curl_init();
+        curl_reset($ch);
+
+        $options = [
+            CURLOPT_URL => $url,
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => $this->timeout,
             CURLOPT_CONNECTTIMEOUT => 5,
             CURLOPT_HTTPHEADER => $headers,
-        ]);
+        ];
+
+        if (defined('CURLOPT_TCP_KEEPALIVE')) {
+            $options[CURLOPT_TCP_KEEPALIVE] = 1;
+        }
+        if (defined('CURLOPT_FORBID_REUSE')) {
+            $options[CURLOPT_FORBID_REUSE] = 0;
+        }
+        if (defined('CURLOPT_FRESH_CONNECT')) {
+            $options[CURLOPT_FRESH_CONNECT] = 0;
+        }
+
+        curl_setopt_array($ch, $options);
 
         if ($json !== null) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -288,7 +313,6 @@ final class FamoApi
         $raw = curl_exec($ch);
         $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         $transportError = curl_error($ch);
-        curl_close($ch);
 
         if ($raw === false || $transportError !== '') {
             Logger::warning('Famo API transport error', [
